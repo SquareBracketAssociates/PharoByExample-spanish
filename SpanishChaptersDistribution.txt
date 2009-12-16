@@ -1,5 +1,5 @@
 
-Gabi - Chapter 1: A Quick Tour
+Gabriela - Chapter 1: A Quick Tour
 Rafael Luque - Chapter 3: Syntax in a Nutshell or Chapter 12: Seaside by Example
 Mariano Peck - Chapter 5: The Smalltalk object model
 Veronica Uquillas - Chapter 9: Collections 
