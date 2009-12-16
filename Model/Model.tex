@@ -38,62 +38,64 @@
 	\sloppy
 \fi
 %=================================================================
-\chapter{The \st object model}
+\chapter{El modelo de objetos de \st}
 \chalabel{model}
 
-\st's programming model is simple and uniform: everything is an object, and objects communicate only by sending each other messages.
-However, this simplicity and uniformity can be a source of difficulty for programmers used to other languages. In this chapter we present the core concepts of the \st object model; in particular we discuss the consequences of representing classes as objects.
+El modelo de programaci\'on de \st es simple y uniforme: todo es un objeto, y los objetos se comunican entre si \'unicamente mediante el env\'io de mensajes. 
+
+Sin embargo, esta simplicidad y uniformidad puede ser una fuente de dificultad para aquellos programadores que est\'an acostumbrados a otros lengujes. En este cap\'itulo, presentamos los conceptos claves del modelo de objetos de \st; en particular discutimos las concequencias de representar clases como objetos.
 
 %=========================================================
-\section{The rules of the model}
+\section{Las reglas del modelo}
 \seclabel{rules}
 
-The \st object model is based on a set of simple 
-rules that are applied \emph{uniformly}. The rules are as follows:
+El modelo de objetos de \st est\'a basado en un conjunto de reglas simples  que son aplicadas  \emph{de manera uniforme}. Las reglas son las siguientes:
 
 \begin{enumerate}[label={\textbf{Rule \arabic{*}}.}, ref={Rule \arabic{*}}, leftmargin=*]
 \item{} \rulelabel{everything}
-	Everything is an object.
+	Todo es un objeto.
 
 \item{} \rulelabel{instance}
-	Every object is an instance of a class.
+	Todo objeto es instancia de una clase.
 
 \item{}  \rulelabel{inheritance}
-	Every class has a superclass.
+	Toda clase tiene una superclase.
 
 \item{}  \rulelabel{message}
-	Everything happens by sending messages.
+	Todo ocurre mediante el env\'io de mensajes.
 
 \item{}  \rulelabel{lookup}
-	Method lookup follows the inheritance chain.
+	El Method lookup sigue la cadena de herencia.
 
 \end{enumerate}
 
 \noindent
-Let us look at each of these rules in some detail.
+Veamos cada una de estas reglas en detalle.
 
 
 %=========================================================
-\section{Everything is an Object}
+\section{Todo es un Objeto}
 
 %\ruleref{everything}
 
-The mantra ``everything is an object'' is highly contagious.
-After only a short while working with \st, you will start to be surprised at how this rule simplifes everything you do.
-Integers, for example, are truly objects, so you can send messages to them, just as you do to any other object.
+La frase ``todo es un objeto'' es altamente contagiosa.
+Despu\'es de un corto tiempo trabajando con \st, te vas a sorprender de c\'omo esta regla simplifica todo lo que haces.  
+Integers, for ejemplo, son objetos verdaderos, por lo tanto le pod\'es enviar mensajes, tal como lo haces con cualquier otro objeto. 
 
 \begin{code}{@TEST}
 3 + 4            --> 7    "send '+ 4' to 3, yielding 7"
 20 factorial  --> 2432902008176640000   "send factorial, yielding a big number"
 \end{code}
 
-The representation of \ct{20 factorial} is certainly different from the representation of \ct{7}, but because they are both objects, none of the code\,---\,not even the implementation of \ct{factorial}\,---\,needs to now about this.
+La representaci\'on de \ct{20 factorial} es ciertamente diferente de la representaci\'on de \ct{7}, pero dado que ambos dos son objetos, ninguno de los dos c\'odigos\,---\,ni siquiera la implementaci\'on de \ct{factorial}\,---\,necesita saber acerca de esto.  
 
 \needlines{3}
-Perhaps the most fundamental consequence of this rule is the following:
-\important{Classes are objects too.}
-Furthermore, classes are not second-class objects: they are really first-class objects that you can send messages to, inspect, and so on.
-This means that \pharo is a truly reflective system, which gives a great deal of expressive power to developers.
+Quiz\'as, la consecuencia fundamental de esta regla es lo siguiente:
+\important{Las clases son objetos tambi\'en.}
+
+Adem\'as, las clases no son objetos de segunda clase: son realmente objetos de primera clase a los cuales les puedes enviar mensajes, inspeccionar, etc.
+Esto significa que \pharo es un sistema verdaderamente reflectivo, lo que da un gran poder de expresi—n a los desarrolladores.
+
 
 Deep in the implementation of \st, there are three different kinds of objects.  There are (1) ordinary objects with instance variables that are passed by references, there are (2) \emph{small integers} that are passed by value, and there are (3) indexable objects like arrays that hold a contiguous portion of memory.  The beauty of \st is that you normally don't need to care about the differences between these three kinds of object.
 
