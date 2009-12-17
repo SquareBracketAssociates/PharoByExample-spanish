@@ -1,6 +1,6 @@
 
 Gabriela Arevalo - Chapter 1: A Quick Tour
-Rafael Luque - Chapter 3: Syntax in a Nutshell or Chapter 12: Seaside by Example
+Rafael Luque - Chapter 3: Syntax in a Nutshell y Chapter 12: Seaside by Example
 Mariano Peck - Chapter 5: The Smalltalk object model
 Veronica Uquillas - Chapter 9: Collections 
 Ani Angelini - Chapter 9: Collections
