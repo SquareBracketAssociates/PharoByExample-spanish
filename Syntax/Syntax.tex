@@ -32,134 +32,135 @@
 % --------------------------------------------
     \graphicspath{{figures/} {../figures/}}
 	\begin{document}
-	\renewcommand{\nnbb}[2]{} % Disable editorial comments
+%	\renewcommand{\nnbb}[2]{} % Disable editorial comments
 	\sloppy
 \fi
 %=================================================================
-\chapter{Syntax in a nutshell}
+\chapter{Sintaxis en pocas palabras}
+\luq{¿Qué tal 'Sintaxis en resumen' o 'Sintaxis en dos palabras'?}
 \chalabel{syntax}
 
-\sd{We should add pragmas.}
-\on{Please do so.}
-
-% \sd{It would be good to add link to the chapter where the reader can learn about conditional, exceptions and loops.}
-% \on{There are links already.}
-
-\pharo, like most modern \st dialects, adopts a syntax very close to that of \st-80.
-The \ind{syntax} is designed so that program text can be read aloud as though it were a kind of pidgin English:
+\pharo, como la mayoría de los dialectos \st modernos, adopta una sintaxis muy similar a la de \st-80.
+La \ind{sintaxis} está diseñada para que el texto del programa pueda leerse como una lengua franca del inglés: \luq{cómo traducimos pidgin English?}
 
 \begin{code}{}
 (Smalltalk includes: Class) ifTrue: [ Transcript show: Class superclass ]
 \end{code}
 
 \noindent
-\pharo's syntax is minimal.
-Essentially there is syntax only for \emph{sending messages} (\ie expressions) \damien{I don't think there is a syntax for declaring methods; in my opinion, this is just a feature of our browsers. That's why I'm commenting: and \emph{declaring methods}}.
-Expressions are built up from a very small number of  primitive elements.
-There are only 6 keywords, and there is no syntax for control structures or declaring new classes.
-Instead, nearly everything is achieved by sending messages to objects.
-For instance, instead of an if-then-else control structure, \st sends messages like \ct{ifTrue:} to \clsind{Boolean} objects.
-New \mbox{(sub-)classes} are created by sending a message to their superclass.
+La sintaxis de \pharo es mínima.
+Esencialmente, sólo existe sintaxis para el \emph{envío de mensajes} (es decir, expresiones).
+Las expresiones se construyen a partir de un número muy pequeño de elementos primitivos.
+Hay sólo 6 palabras clave y no existe sintaxis para las estructuras de control o la declaración de nuevas clases.
+En su lugar, casi todo se consigue enviando mensajes a objetos.
+Por ejemplo, en lugar de una estructura de control if-then-else, \st envia mensajes como \ct{ifTrue:} a objetos \clsind{Boolean}.
+Las nuevas (sub)clases se crean enviando un mensaje a sus superclases.
 
 %=================================================================
-\section{Syntactic elements}
+\section{Elementos sintácticos}
 
-Expressions are composed of the following building blocks:
-(i) six reserved keywords, or \emph{pseudo-variables}:
-\pvind{self}, \pvind{super}, \pvind{nil}, \pvind{true}, \pvind{false}, and \pvind{thisContext},
-(ii) constant expressions for \emphind{literal objects} including numbers, characters, strings, symbols and arrays,
-(iii) variable declarations,
-(iv) assignments,
-(v) \ind{block} closures, and
-(vi) messages.
+Las expresiones se componen a partir de los siguientes bloques constructivos:
+(i) seis palabras reservas o \emph{pseudo-variables}: 
+\pvind{self}, \pvind{super}, \pvind{nil}, \pvind{true}, \pvind{false} y \pvind{thisContext}; (ii) expresiones constantes para \emphind{objetos literales}
+incluyendo números, caracteres, cadenas de texto, símbolos y \emph{arrays};
+(iii) declaraciones de variables; 
+(iv) asignaciones; 
+(v) \ind{bloques} closures y
+(vi) mensajes.
+
 \seeindex{pseudo-variable}{variable, pseudo}
 
 \begin{table}\centering
 	\begin{tabular}{ll}
 		\toprule
-		Syntax & What it represents \\
+		Sintaxis & Lo que representa \\
 		\midrule
-		\lct{startPoint}			&	a variable name\\
-		\lct{Transcript}			&	a global variable name\\
-		\lct{self}				&	pseudo-variable \\
+		\lct{puntoInicial}			&	un nombre de variable\\
+		\lct{Transcript}			&	un nombre de variable global\\
+		\lct{self}				&	una pseudo-variable \\
 		\midrule
-		\lct{1}				 	&	decimal integer \\
-		\lct{2r101}				&	binary integer \\
-		\lct{1.5}					&	floating point number \\
-		\lct{2.4e7}				&	exponential notation \\
-		\lct{\$a}					&	the character `a' \\
-		\lct{'Hello'}				&	the string ``Hello'' \\
-		\lct{\#Hello}				&	the symbol \lct{\#Hello} \\
-		\lct{\#(1 2 3)}			&	a literal array \\
-		\lct{\{1. 2. 1+2\}}		&	a dynamic array \\
+		\lct{1}				 	&	entero decimal \\
+		\lct{2r101}				&	entero binario \\
+		\lct{1.5}					&	número en coma flotante \\
+        \luq{Usamos coma flotante o punto flotante?} \\
+		\lct{2.4e7}				&	notación exponencial \\
+		\lct{\$a}					&	el carácter `a' \\
+		\lct{'Hola'}				&	la cadena de texto ``Hola'' \\
+		\lct{\#Hola}				&	el símbolo \lct{\#Hola} \\
+		\lct{\#(1 2 3)}			&	a array literal \\
+		\lct{\{1. 2. 1+2\}}		&	a array dinámico \\
 		\midrule
-		\lct{"a comment"} 		&	a comment \\
+		\lct{"un comentario"} 		&	un comentario \\
 		\midrule
-		\lct{| x y |}				&	declaration of variables \lct{x} and \lct{y}	\\
-		\lct{x := 1}				&	assign 1 to \lct{x} \\
-		\lct{[ x + y ]}			&	a block that evaluates to \lct{x+y} \\
-		\lct{<primitive: 1>}		&	virtual machine primitive or annotation\\
+		\lct{| x y |}				&	declaración de variables \lct{x} e \lct{y}	\\
+		\lct{x := 1}				&	asigna 1 a \lct{x} \\
+		\lct{[ x + y ]}			&	un bloque que se evalúa como \lct{x+y} \\
+		\lct{<primitive: 1>}		&	primitiva para la máquina virtual o anotación\\
 		\midrule
-		\lct{3 factorial}			&	unary message \\
-		\lct{3+4}					&	binary messages \\
-		\lct{2 raisedTo: 6 modulo: 10}		&	keyword message \\
+		\lct{3 factorial}			&	mensaje unario \\
+		\lct{3+4}					&	mensaje binario \\
+		\lct{2 raisedTo: 6 modulo: 10}		&	mensaje con palabras clave \\
 		\midrule
-		\lct{$\uparrow$ true} 			&	return the value true	\\
-		\lct{Transcript show: 'hello'. Transcript cr }		&	expression separator (\lct{.})	\\
-		\lct{Transcript show: 'hello'; cr}					&	message cascade (\lct{;}) \\
+		\lct{$\uparrow$ true} 			&	devuelve el valor true	\\
+		\lct{Transcript show: 'hola'. Transcript cr }		&	separator de expresiones (\lct{.})	\\
+		\lct{Transcript show: 'hola'; cr}					&	mensaje en cascada (\lct{;}) \\
 		\bottomrule
 	\end{tabular}
-	\caption{\pharo Syntax in a Nutshell\tablabel{syntax}}
+	\caption{La sintaxis de \pharo en pocas palabras\tablabel{syntax}}
 \end{table}
 
-We can see examples of the various syntactic elements in \tabref{syntax}.
+Podemos ver ejemplos de los diversos elementos sintácticos en la \tabref{syntax}.
 \begin{description}
-\item[Local variables]	\ct{startPoint} is a variable name, or identifier.
-		By convention, identifiers are composed of words in ``\ind{camelCase}'' (\ie each word except the first starting with an upper case letter).
-		The first letter of an instance variable, method or block argument, or temporary variable must be lower case.
-		This indicates to the reader that the variable has a private scope.
+\item[Variables locales.]	\ct{puntoInicial} es un nombre de variable, o identificador.
+  Por convenio, los identificadores están formados por palabras en ``\ind{camelCase}'' (es decir, cada palabra excepto la primera comienza con una letra mayúscula).
+  La primera letra de una variable de instancia, método, argumento de bloque o variable temporal debe ser minúscula.
+  Esto indica al lector que la variable tiene un alcance privado.
 
-\item[Shared variables]	Identifiers that start with upper case letters are \subind{variable}{global} variables, class \subind{class}{variable}{}s, \subind{variable}{pool} dictionaries or class names.
-		\ct{Transcript} is a global variable, an instance of the class \ct{TranscriptStream}.
-		\seeindex{global variable}{variable, global}
-		\seeindex{pool dictionary}{variable, pool}
-		\seeindex{variable!class}{class, variable}
+\item[Variables compartidas.]	Los identificadores que comienzan con letras mayúsculas son variables \subind{variable}{globales}, variables \subind{variable}{de clase}, variables \subind{variable}{pool} o nombres de clase.
+\luq{pool dictionaries?}
 
-\item[The receiver.]	\pvind{self} is a keyword that refers to the object inside which the current method is executing. We call it ``the receiver'' because this object will normally have received the message that caused the method to execute.
-		\self is called a ``\subind{variable}{pseudo}-variable'' since we cannot assign to it.
+%Identifiers that start with upper case letters are \subind{variable}{global} variables, class \subind{class}{variable}{}s, \subind{variable}{pool} dictionaries or class names.
 
-\item[Integers.] In addition to ordinary decimal integers like \ct{42}, \pharo also provides a \ind{radix notation}.
-	\ct{2r101} is \ct{101} in radix 2 (\ie binary), which is equal to decimal 5.
+		\ct{Transcript} es una variable global, una instancia de la clase \ct{TranscriptStream}.
+		\seeindex{variable global}{variable, global}
+		\seeindex{diccionario pool}{variable, pool}
+		\seeindex{variable!de clase}{clase, variable}
+
+\item[El receptor.]	\pvind{self} es una palabra clave que se refiere al objeto en el que el método actual se está ejecutando. Lo llamamos ``el receptor'' porque normalmente este objeto habrá recibido el mensaje que causó que el método se ejecutara.
+		Decimos que \self es una ``\subind{variable}{pseudo}-variable'' ya que no podemos asignarla.
+
+\item[Enteros.] Además de los enteros decimales normales como \ct{42}, \pharo también proporciona una \ind{notación científica}.
+	\ct{2r101} es \ct{101} en base 2 (es decir, binario), que es igual al número decimal 5.
 	\index{literal}
-	\index{literal!number}
+	\index{literal!número}
 
-\item[Floating point numbers] can be specified with their base-ten \ind{exponent}: \mbox{\ct{2.4e7}} is $2.4\times 10^7$.
-	\index{floating point number}
+\item[Números en coma flotante.] Pueden especificarse en potencias de base diez: \mbox{\ct{2.4e7}} es $2.4\times 10^7$.
+	\index{número en coma flotante}
 
-\item[Characters.] A dollar sign introduces a literal \subind{literal}{character}: \ct{$a}\ignoredollar$ is the literal for `a'.
-		Instances of non-printing characters can be obtained by sending appropriately named messages to the \clsind{Character} class, such as \ct{Character space} \cmindex{Character class}{space} and \ct{Character tab}\cmindex{Character class}{tab}.
+\item[Caracteres.] Un signo dólar introduce \subind{literal}{carácter} literal: \ct{$a}\ignoredollar$ es el literal para `a'.
+  Pueden obtenerse instancias de caracteres no imprimibles enviando mensajes adecuados a la clase \clsind{Character}, como \ct{Character space}\cmindex{clase Character}{space} y \ct{Character tab}\cmindex{Character tab}{tab}.
 		
-\item[Strings.] Single quotes are used to define a literal \subind{literal}{string}.
-		If you want a string with a quote inside, just double the quote, as in \ct{'G''day'}.
+\item[Cadenas.] Las comillas simples se utilizan para definiri una \subind{literal}cadena literal.
+  Si quieres una cadena con una comilla simple, simplemente se usan dos comillas, como en \ct{'entre ''comillas'' simples'}.
+\luq{ejemplo en lugar de 'G''day' ?}
 
-\item[Symbols] are like Strings, in that they contain a sequence of characters.  
-	However, unlike a string, a literal \subind{literal}{symbol} is guaranteed to be globally unique.
-		There is only one Symbol object \ct{#Hello} but there may be multiple String objects with the value \ct{'Hello'}.
-		\seeindex{\#@{\textsf{\#}}}{literal symbol}
+\item[Los símbolos] se parecen a las cadenas en que contienen una secuencia de caracteres.
+	Sin embargo, al contrario que en una cadena, se garantiza que un símbolo \subind{símbolo}{literal} es único globalmente.
+	Sólo existe un objeto símbolo \ct{#Hola}, pero puede haber varios objetos String con el valor \ct{'Hola'}.
+		\seeindex{\#@{\textsf{\#}}}{símbolo literal}
 
-\item[Compile-time arrays] are defined by \ct{#( )}, surrounding space-separated literals.
-		Everything within the parentheses must be a compile-time constant.
-		For example,  \ct{#(27 (true false) abc)} is a \subind{Array}{literal} \subind{literal}{array} of three elements: the integer \ct{27}, the compile-time array containing the two booleans, and the symbol \ct{#abc}. (Note that this is the same as \ct{#(27 #(true false) #abc)}.)
+\item[Arrays en tiempo de compilación.] Se definen mediante \ct{#( )} rodeando literales separados por espacios.
+  Dentro de los paréntesis todo debe ser constante en tiempo de compilación.
+  Por ejemplo, \ct{#(27 (true false) abc)} es un \subind{literal}{array} \subind{array}{literal} de tres elementos: el entero \ct{27}, el array en tiempo de compilación conteniendo los dos booleanos y el símbolo \ct{#abc}. (Observa que esto es lo mismo que \ct{#(27 #(true false) #abc)}.)
 
-\item[Run-time arrays.] Curly braces \ct|{ }| define a (\subind{Array}{dynamic}) array at run-time.
-		Elements are expressions separated by periods.
-		So \ct|{ 1. 2. 1+2 }| defines an array with elements 1, 2, and the result of evaluating 1+2.
-		(The curly-brace notation is peculiar to the \pharo and \squeak dialects of \st!
-		In other \st{}s you must build up dynamic arrays explicitly.)
+\item[Arrays en tiempo de ejecución.] Las llaves \ct|{ }| definen un array (\subind{Array}{dinámico}) en tiempo de ejecución.
+  Sus elementos son expresiones separadas por puntos.
+  Por lo tanto, \ct|{ 1. 2. 1+2 }| define un array con los elementos 1, 2 y el resultado de evaluar 1+2.
+  (La notación de llaves es específica de \pharo y los dialectos \squeak de \st. En otros \st{}s tienes que construir dinámicamente los arrays dinámicos.)
 
-\item[Comments] are enclosed in double quotes.
-		\ct{"hello"} is a \ind{comment}, not a string, and is ignored by the \pharo compiler.
-		Comments may span multiple lines.
+\item[Comentarios.] Se encierran entre comillas dobles.
+		\ct{"hola"} es un \ind{comentario}, no una cadena, y es ignorado por el compilador de \pharo.
+		Los comentarios pueden extenderse varias líneas.
 		
 \item[Local variable definitions.]	Vertical bars \ct{| |} enclose the \subind{variable}{declaration} of one or more local variables in a method (and also in a block).
 		% \seeindex{\|@{\textsf{\|\|}}}{assignment}
@@ -636,5 +637,5 @@ In \pharo, the angle bracket syntax is also used for method annotations called p
 %%% mode: latex
 %%% TeX-master: t
 %%% TeX-PDF-mode: t
-%%% ispell-local-dictionary: "english"
+%%% ispell-local-dictionary: "spanish"
 %%% End:
