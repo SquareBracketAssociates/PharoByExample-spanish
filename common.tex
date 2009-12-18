@@ -19,7 +19,8 @@
 \usepackage{microtype}
 \usepackage{graphicx}
 \usepackage{theorem}
-\usepackage[english]{babel}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
 % ON: pdfsync breaks the use of p{width} for tabular columns!
 \ifdefined\usepdfsync\usepackage{pdfsync}\fi % Requires texlive 2007
 %=============================================================
@@ -70,6 +71,10 @@
 	urlcolor=black,
 	citecolor=black
 ]{hyperref}   % should come last
+
+%=============================================================
+% Babel spanish definitions
+\addto{\captionsspanish}{\def\tablename{Tabla}}%
 %=============================================================
 %:PDF version
 \pdfminorversion=3 % Set PDF to 1.3 for Lulu
@@ -141,6 +146,10 @@
 \newcommand{\ew}[1]{\nnbb{Erwann}{#1}} % Wernli
 \newcommand{\mb}[1]{\nnbb{Martial}{#1}} % Boniou
 \newcommand{\hw}[1]{\nnbb{Hernan}{#1}} % Wilkinson
+
+% Editor macros for Spanish translators
+\newcommand{\luq}[1]{\nnbb{Rafa}{#1}} % Luque
+
 %=============================================================
 %:Abbreviation macros
 \newcommand{\ie}{\emph{i.e.},\xspace}
@@ -153,7 +162,7 @@
 \newcommand{\figref}[1]{Figure~\ref{fig:#1}\xspace}
 \newcommand{\Figref}[1]{Figure~\ref{fig:#1}\xspace}
 \newcommand{\appref}[1]{Appendix~\ref{app:#1}\xspace}
-\newcommand{\tabref}[1]{Table~\ref{tab:#1}\xspace}
+\newcommand{\tabref}[1]{Tabla~\ref{tab:#1}\xspace}
 \newcommand{\faqref}[1]{FAQ~\ref{faq:#1}, p.~\pageref{faq:#1}\xspace}
 % APB: I removed trailing \xspace commands from these macros because
 % \xspace mostly doesn't work.  If you want a space after your
