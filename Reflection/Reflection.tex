@@ -43,30 +43,46 @@
 \fi
 
 %=================================================================
-\chapter{Reflection}\chalabel{reflection}
-
-%\alex{I addressed lukas comments using editorial macros. Please, if you read this, remove this comment and remove the editorial macros, else their purpose is diminished}
+\chapter{Reflexión}\chalabel{reflection}
 
 \indexmain{reflection}
-\st is a reflective programming language.
-In a nutshell, this means that programs are able to ``reflect'' on their own execution and structure.
+\st es un lenguaje de programación con reflexión computacional.
+En pocas palabras, quiere decir que los programas son capaces de
+«reflexionar» sobre su propia ejecución y estructura.
 % \lr{not only on execution, also on the static model}
-More technically, this means that the \emphind{metaobjects} of the runtime system can be \emph{reified} as ordinary objects, which can be queried and inspected.
-The metaobjects in \st are classes, metaclasses, method dictionaries, compiled methods, the run-time stack, and so on.
-This form of reflection is also called \emphind{introspection}, and is supported by many modern programming languages.
+% pp 301 cesar
+En un sentido más técnico, esto significa que
+los \emphind{metaobjetos} del sistema en tiempo de ejecución
+pueden \emph{reificarse} como objetos ordinarios, a los cuales se
+puede consultar e inspeccionar.  Los metaobjetos en \st son las
+clases, metaclases, diccionarios de métodos, métodos compilados, la
+pila al momento de ejecución, y otros.  Esta forma de reflexión
+también se denomina \emphind{introspección}, y muchos lenguajes
+modernos de programación la permiten.
 
 \begin{figure}[ht]\centering
 	\includegraphics[width=\linewidth]{reflect}
-	\caption{Reification and reflection.\figlabel{reflect}} % \lr{not referenced, not sure if I understand it}
+	\caption{Reificación y reflexión.\figlabel{reflect}} % \lr{not referenced, not sure if I understand it}
 \end{figure}
 
-Conversely, it is possible in \st to modify reified metaobjects and \emph{reflect} these changes back to the runtime system (see \figref{reflect}).
-This is also called \emph{intercession}, and is supported mainly by dynamic programming languages, and only to a very limited degree by static languages.
+En el sentido contrario, en \st resulta posible modificar los
+metaobjetos reificados y \emph{reflejar} esos cambios de vuelta al
+sistema en ejecución (puedes verlo en la \figref{reflect}).  Esta
+actividad también se denomina \emph{intercesión}. La intercesión está
+presente principalmente en los lenguajes de programación dinámicos
+mientras que los lenguajes estáticos sólo la admiten en un grado muy
+limitado.
 
-A program that manipulates other programs (or even itself) is a \emphind{metaprogram}.
-For a programming language to be reflective, it should support both \ind{introspection} and \ind{intercession}.
-Introspection is the ability to \emph{examine} the data structures that define the language, such as objects, classes, methods and the execution stack.
-Intercession is the ability to \emph{modify} these structures, in other words to change the language semantics and the behavior of a program from within the program itself.
+% FIXME seguir desde aca ------------------------------------------
+
+A program that manipulates other programs (or even itself) is
+a \emphind{metaprogram}.  For a programming language to be reflective,
+it should support both \ind{introspection} and \ind{intercession}.
+Introspection is the ability to \emph{examine} the data structures
+that define the language, such as objects, classes, methods and the
+execution stack.  Intercession is the ability to \emph{modify} these
+structures, in other words to change the language semantics and the
+behavior of a program from within the program itself.
 \emph{Structural reflection} is about examining and modifying the structures of the run-time system, and \emphind{behavioural reflection} is about modifying the interpretation of these structures.
 
 In this chapter we will focus mainly on \ind{structural reflection}.
@@ -973,3 +989,12 @@ Reflection refers to the ability to query, examine and even modify the metaobjec
 %((w select: [:each | each executed not ])
 %	collect: [:each | each wrappedClass name, '>>', each selector name ]) explore.
 %\end{code}
+
+
+%%% Local Variables:
+%%% coding: utf-8
+%%% mode: latex
+%%% TeX-master: t
+%%% TeX-PDF-mode: t
+%%% ispell-local-dictionary: "castellano8"
+%%% End:
