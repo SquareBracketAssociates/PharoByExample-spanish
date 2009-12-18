@@ -1,9 +1,8 @@
-
-Gabriela Arevalo - Chapter 1: A Quick Tour
-Rafael Luque - Chapter 3: Syntax in a Nutshell y Chapter 12: Seaside by Example
-Mariano Peck - Chapter 5: The Smalltalk object model
+Gabriela Arevalo  - Chapter 1: A Quick Tour
+Rafael Luque      - Chapter 3: Syntax in a Nutshell y Chapter 12: Seaside by Example
+Mariano Peck      - Chapter 5: The Smalltalk object model
 Veronica Uquillas - Chapter 9: Collections 
-Ani Angelini - Chapter 9: Collections
-Jordi Delgado: Chapter 13: Classes and Metaclasses
-
-
+Ani Angelini      - Chapter 9: Collections
+Rafael Luque      - Chapter 12: Seaside by Example
+Jordi Delgado     - Chapter 13: Classes and Metaclasses
+César Ballardini  - Chapter 14: Reflection
