@@ -144,19 +144,28 @@ instancia utiliza \ct!instVarAt:put:! y \ct!instVarNamed:put:!.
 \mthindex{Object}{instVarAt:} \mthindex{Object}{instVarNamed:}
 \mthindex{Object}{instVarAt:put:} \mthindex{Object}{instVarNamed:put:}
 
-% FIXME seguir desde aca ------------------------------------------
-
-For instance, you can change the value of the \ct!w! binding of the first workspace by evaluating:
+Por ejemplo, puedes cambiar el valor asociado a \ct!w! en el primer
+espacio de trabajo mediante la evaluación de:
 \begin{code}{}
 w instVarNamed: 'contents' put: 'howdy!'; contentsChanged
 \end{code}
 
-\important{\emph{Caveat:} Although these methods are useful for building development tools, using them to develop conventional applications is a bad idea: these reflective methods break the encapsulation boundary of your objects and can therefore make your code much harder to understand and maintain.}
-% \lr{Why? The access does not show up when looking for all readers/writers in the code browser.}
+\important{\emph{Precaución:} Aunque estos métodos resultan útiles
+  para construir herramientas de desarrollo, es una mala idea usarlos
+  para desarrollar aplicaciones convencionales: estos métodos de
+  reflexión computacional violan los límites de la encapsulación de
+  los objetos y por lo tanto pueden hacer que tu código sea mucho más
+  difícil de comprender y mantener.}
+  % \lr{Why? The access does not show up when looking for all
+  %   readers/writers in the code browser.}
 
-Both \ct!instVarAt:! and \ct!instVarAt:put:! are \ind{primitive methods}, meaning that they are implemented as primitive operations of the \pharo virtual machine.
-If you consult the code of these methods, you will see the special \ind{pragma} syntax \ct!<primitive: N>! where \ct!N! is an integer.
-% \lr{actually this is the syntax of pragmas (method annotations), \ct!primitive:! is just a special kind of pragma}
+Tanto \ct!instVarAt:! como \ct!instVarAt:put:! son \ind{métodos
+  primitivos}, lo que significa que están implementados como
+operaciones primitivas de la máquina virtual de \pharo.  Si revisas el
+código de esos métodos verás la sintaxis especial \ind{pragma}
+\ct!<primitive: N>! donde \ct!N! es un entero.
+% \lr{actually this is the syntax of pragmas (method annotations),
+%   \ct!primitive:! is just a special kind of pragma}
 
 \needlines{5}
 \begin{code}{}
@@ -167,21 +176,32 @@ Object>>>instVarAt: index
         ^self basicAt: index - self class instSize
 \end{code}
 
-Typically, the code after the primitive invocation is not executed.
-It is executed only if the primitive fails. In this specific case, if we try to access a variable that does not exist, then the code following the primitive will be tried.
-This also allows the debugger to be started on primitive methods.
-Although it is possible to modify the code of primitive methods, beware that this can be risky business for the stability of your \pharo system.
+En el caso más usual no se ejecuta el código que sigue a la invocación
+de la primitiva.  Sólo se ejecuta si la primitiva falla.  En este caso
+específico, si tratamos de acceder una variable que no existe entonces
+se ejecuta el código que sigue a la primitiva.  De este modo se
+permite también que el debugger se inicie sobre métodos primitivos.
+Aunque es posible modificar el código de los métodos primitivos, debes
+entender que es una actividad de alto riesgo para la estabilidad de tu
+sistema \pharo.
 
 \begin{figure}[ht]\centering
         \includegraphics[width=\linewidth]{allInstanceVariables}
-        \caption{Displaying all instance variables of a \ct!Workspace!.\figlabel{allInstanceVariables}}
+        \caption{Vista de todas las variables de instancia de un \ct!Workspace!.\figlabel{allInstanceVariables}}
 \end{figure}
 
-\figref{allInstanceVariables} shows how to display the values of the instance variables of an arbitrary instance (\ct!w!) of class \ct!Workspace!.
-The method \ct!allInstVarNames! returns all the names of the instance variables of a given class.
+La \figref{allInstanceVariables} muestra cómo pueden verse los valores
+de las variables de instancia de una instancia arbitraria (\ct!w!) de
+la clase \ct!Workspace!.  El método \ct!allInstVarNames! retorna todos
+los nombres de las variables de instancia de una dada clase.
 
-In the same spirit, it is possible to gather instances that have specific properties.
-For instance, to get all instances of class \ct!SketchMorph! whose instance variable \ct!owner! is set to the world morph (\ie images currently displayed), try this expression:
+% FIXME seguir desde aca ------------------------------------------
+
+De manera similar, es posible conseguir las instancias que tienen
+ciertas propiedades específicas.  Por ejemplo, para obtener todas las
+instancias de la clase \ct!SketchMorph! cuya variable de instancia
+\ct!owner! está asociada al morph mundo (o sea, las imágenes que se
+muestran en este momento), prueba la siguiente expresión:
 \begin{code}{}
 SketchMorph allInstances select: [:c | (c instVarNamed: 'owner') isWorldMorph]
 \end{code}
@@ -190,8 +210,10 @@ SketchMorph allInstances select: [:c | (c instVarNamed: 'owner') isWorldMorph]
 \subsection{Iterating over instance variables}
 
 \mthindex{Object}{instanceVariableValues}
-Let us consider the message \ct!instanceVariableValues!, which returns a collection of all values of instance variables defined by this class, excluding the inherited instance variables.
-For instance:
+Consideremos el mensaje \ct!instanceVariableValues!, que devuelve una
+colección de todos los valores de variables de instancia definidos en
+dicha clase, sin tener en cuenta las variables de instancia
+heredadas.  Por ejemplo:
 \begin{code}{@TEST}
 (1@2) instanceVariableValues --> an OrderedCollection(1 2)
 \end{code}
