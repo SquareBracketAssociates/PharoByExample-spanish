@@ -195,8 +195,6 @@ de las variables de instancia de una instancia arbitraria (\ct!w!) de
 la clase \ct!Workspace!.  El método \ct!allInstVarNames! retorna todos
 los nombres de las variables de instancia de una dada clase.
 
-% FIXME seguir desde aca ------------------------------------------
-
 De manera similar, es posible conseguir las instancias que tienen
 ciertas propiedades específicas.  Por ejemplo, para obtener todas las
 instancias de la clase \ct!SketchMorph! cuya variable de instancia
@@ -207,7 +205,7 @@ SketchMorph allInstances select: [:c | (c instVarNamed: 'owner') isWorldMorph]
 \end{code}
 
 %-----------------------------------------------------------------
-\subsection{Iterating over instance variables}
+\subsection{Cómo recorrer las variables de instancia}
 
 \mthindex{Object}{instanceVariableValues}
 Consideremos el mensaje \ct!instanceVariableValues!, que devuelve una
@@ -218,7 +216,8 @@ heredadas.  Por ejemplo:
 (1@2) instanceVariableValues --> an OrderedCollection(1 2)
 \end{code}
 
-The method is implemented in \ct{Object} as follows:
+El método está implementado en \ct{Object} como se muestra a
+continuación: 
 \needlines{9}
 \begin{code}{}
 Object>>>instanceVariableValues
@@ -231,18 +230,24 @@ Object>>>instanceVariableValues
         ^ c
 \end{code}
 
-This method iterates over the indices of instance variables that the class defines, starting just after the last index used by the superclasses.
-(The method \ct!instSize! returns the number of all named instance variables that a class defines.)
+Este método itera sobre los índices de las variables de instancia que
+están definidas en la clase; el primer valor corresponde al primer
+índice no usado por la superclase.  (El método \ct!instSize! retorna
+la cantidad de variables de instancia nominadas que define una clase.)
 
 %-----------------------------------------------------------------
-\subsection{Querying classes and interfaces}
+\subsection{Cómo consultar clases e interfaces}
 
-The development tools in \pharo (code browser, debugger, inspector...) all use the reflective features we have seen so far.
+Tods las herramientas de desarrollo de \pharo (code browser,
+debugger, inspector\ldots) utilizan las características de reflexión
+computacional que hemos visto hasta ahora.
 
-Here are a few other messages that might be useful to build development tools:
+Se muestran a continuación otros mensajes que pueden resultar útiles
+para construir herramientas de desarrollo:
 
-\lct{isKindOf: \emph{aClass}} returns true if the receiver is instance of \lct{\emph{aClass}} or of one of its superclasses.
-For instance:
+\lct{isKindOf: \emph{aClass}} returna true si el receptor es una
+instancia de \lct{\emph{aClass}} o una de sus superclases.  Por
+ejemplo:
 \begin{code}{@TEST}
 1.5 class                     --> Float
 1.5 isKindOf: Number --> true
@@ -251,29 +256,49 @@ For instance:
 \mthindex{Object}{class}
 \mthindex{Object}{isKindOf:}
 
-\lct{respondsTo: \emph{aSymbol}} returns true if the receiver has a method whose selector is \lct{\emph{aSymbol}}.
-For instance:
+\lct{respondsTo: \emph{aSymbol}} returna true si el receptor tiene un
+método cuyo selector es \lct{\emph{aSymbol}}.
+Por ejemplo:
 \needlines{3}
 \begin{code}{@TEST}
-1.5 respondsTo: #floor      --> true    "since Number implements floor"
+1.5 respondsTo: #floor      --> true    "pues Number implementa floor"
 1.5 floor                            --> 1
-Exception respondsTo: #, --> true    "exception classes can be grouped"
+Exception respondsTo: #, --> true    "las clases de exception se pueden agrupar"
 \end{code}
 \mthindex{Object}{respondsTo:}
 
-\important{\emph{Caveat:} Although these features are especially useful for defining development tools, they are normally not appropriate for typical applications.
-Asking an object for its class, or querying it to discover which messages it understands, are typical signs of design problems, since they violate the principle of encapsulation.
-Development tools, however, are not normal applications, since their domain is that of software itself. As such these tools have a right to dig deep into the internal details of code.}
+\important{\emph{Precaución:} Aunque estas características resultan
+  especialmente útiles para escribir herramientas de desarrollo,
+  normalmente no son apropiadas para escribir aplicaciones típicas.
+  Cuando uno consulta a un objeto para saber su clase o para saber
+  a cuáles mensajes responde, estamos en presencia de señales típicas
+  que apuntan a problemas de diseño, pues estas consultas violan el
+  principio de encapsulación.  Las herramientas de desarrollo, sin
+  embargo, no son aplicaciones normales, pues su dominio es el del
+  software en sí mismo.  Por ello, estas herramientas tienen derecho a
+  indagar profundamente en los detalles internos del código.}
 
-%There also exist mechanisms for introspecting on various parts of the run-time system, such as  the process scheduler, the memory manager and so on. For now we will focus on navigating through objects, classes and methods, and we will look more closely at rest of the runtime system in an other chapter.
-%\on{let's not mention this if we don't actually write such a chapter!}
+% There also exist mechanisms for introspecting on various parts of
+% the run-time system, such as the process scheduler, the memory
+% manager and so on. For now we will focus on navigating through
+% objects, classes and methods, and we will look more closely at rest
+% of the runtime system in an other chapter.  \on{let's not mention
+%   this if we don't actually write such a chapter!}
 
 %-----------------------------------------------------------------
-\subsection{Code metrics}
+\subsection{Métricas de código}
 
-Let's see how we can use \st's introspection features to quickly extract some code metrics.
-Code \ind{metrics} measure such aspects as the depth of the inheritance hierarchy, the number of direct or indirect subclasses, the number of methods or of instance variables in each class, or the number of locally defined methods or instance variables.
-Here are a few metrics for the class \ct!Morph!, which is the superclass of all graphical objects in \pharo, revealing that it is a huge class, and that it is at the root of a huge hierarchy. Maybe it needs some refactoring!
+Veamos cómo podemos usar las características de introspección de \st
+para extraer rápidamente algunas métricas de código.  Las
+\ind{métricas} de código miden aspectos tales como la profundidad de
+la jerarquía de herencia, la cantidad directa e indirecta de
+subclases, la cantidad de métodos o de variables de instancia en cada
+clase, o la cantidad de métodos o variables de instancia definidos
+localmente.  A continuación se muestran unas métricas para la clase
+\ct!Morph!, que es la superclase de todos los objetos gráficos en
+\pharo, y que revelan que se trata de una clase enorme, y que es la
+raíz de una enorme jerarquía. ¡Tal vez está necesitada de un poco de
+refactoring! 
 
 \mthindex{Behavior}{allSuperclasses}
 \mthindex{Behavior}{allSelectors}
@@ -284,35 +309,43 @@ Here are a few metrics for the class \ct!Morph!, which is the superclass of all 
 \mthindex{Behavior}{allSubclasses}
 \mthindex{ClassDescription}{linesOfCode}
 \begin{code}{}
-Morph allSuperclasses size.  -->       2 "inheritance depth"
-Morph allSelectors size.        --> 1378 "number of methods"
-Morph allInstVarNames size. -->      6 "number of instance variables"
-Morph selectors size.             -->  998 "number of new methods"
-Morph instVarNames size.     -->      6 "number of new variables"
-Morph subclasses size.          -->    45 "direct subclasses"
-Morph allSubclasses size.      -->  326 "total subclasses"
-Morph linesOfCode.               --> 5968 "total lines of codeBANG"
+Morph allSuperclasses size.  -->       2 "profundidad de la herencia"
+Morph allSelectors size.        --> 1378 "cantidad de metodos"
+Morph allInstVarNames size. -->      6 "cantidad de variables de instancia"
+Morph selectors size.             -->  998 "cantidad de nuevos metodos"
+Morph instVarNames size.     -->      6 "cantidad de nuevas variables"
+Morph subclasses size.          -->    45 "cantidad de subclases directas"
+Morph allSubclasses size.      -->  326 "total de subclases"
+Morph linesOfCode.               --> 5968 "cantidad total de lineas de codigo"
 \end{code}
 
-One of the most interesting metrics in the domain of object-oriented languages is the number of methods that extend methods inherited from the superclass.
-This informs us about the relation between the class and its superclasses.
-In the next sections we will see how to exploit our knowledge of the runtime structure to answer such questions.
+Una de las métricas más interesantes en el dominio de los lenguajes
+orientados a objetos es la cantidad de métodos que extienden métodos
+heredados desde la superclase.  Ella nos informa de la relación entre
+la clase y sus superclases.  En las siguientes secciones veremos cómo
+aprovechar nuestro conocimiento de la estructura de tiempo de
+ejecución para responder estas cuestiones.
 
 %======================================
-\section{Browsing code}
+\section{Cómo navegar por el código}
 
-In \st, everything is an object. In particular, classes are objects that provide useful features for navigating through their instances.
-Most of the messages we will look at now are implemented in \ct{Behavior}, so they are understood by all classes.
+En \st, todo es un objeto.  En particular, las clases son objetos que
+nos proporcionan mecanismos útiles para navegar entre sus instancias.
+La mayoría de los mensajes que vamos a estudiar están implementados en
+\ct{Behavior} y por lo tanto todas las clases responden a ellos.
 
-As we saw previously, you can obtain an instance of a given class by sending it the message \ct!#someInstance!.
+Como ya vimos antes, puedes obtener una instancia de una clase dada si
+le envías el mensaje \ct!#someInstance!.
 \mthindex{Behavior}{someInstance}
 \begin{code}{@TEST} % Possibly fragile!
 Point someInstance --> 0@0
 \end{code}
 
-You can also gather all the instances with \ct!#allInstances!, or the number of alive instances in memory with \ct!#instanceCount!.
+Además, puedes obtener todas las instancias con \ct!#allInstances!, y
+la cantidad de instancias activas en memoria con \ct!#instanceCount!.
 
-\alex{In a Pharo0.1-10342dev09.96.3, I have "ByteString instanceCount --> 63607"}
+\alex{In a Pharo0.1-10342dev09.96.3, I have "ByteString instanceCount
+  --> 63607"}
 \mthindex{Behavior}{allInstances}
 \mthindex{Behavior}{instanceCount}
 \mthindex{Behavior}{allSubInstances}
@@ -322,12 +355,20 @@ ByteString instanceCount    --> 104565
 String allSubInstances size -->  101675
 \end{code}
 
-These features can be very useful when debugging an application, because you can ask a class to enumerate those of its methods exhibiting specific properties.
+Estas características pueden resultar muy útiles al depurar una
+aplicación, porque puedes solicitar a una clase que enumere aquellos
+de sus métodos que exhiben ciertas propiedades.
 \begin{itemize}
-\item \mthind{Behavior}{whichSelectorsAccess:} returns the list of all selectors of methods that read or write the instance variable named by the argument
-\item \mthind{Behavior}{whichSelectorsStoreInto:} returns the selectors of methods that modify the value of an instance variable
-\item \mthind{Behavior}{whichSelectorsReferTo:} returns the selectors of methods that send a given message
-\item \mthind{Behavior}{crossReference} associates each message with the set of methods that send it.
+\item \mthind{Behavior}{whichSelectorsAccess:} returna la lista de
+  todos los selectores de métodos que leen o escriben la variable de
+  instancia nombrada por el argumento
+\item \mthind{Behavior}{whichSelectorsStoreInto:} returna los
+  selectores de métodos que modifican el valor de una variable de
+  instancia dada
+\item \mthind{Behavior}{whichSelectorsReferTo:} returna los selectores
+  de métodos que envían un dado mensaje
+\item \mthind{Behavior}{crossReference} asocia cada mensaje con el
+  conjunto de métodos que lo envían.
 \end{itemize}
 
 \begin{code}{} % TOO FRAGILE TO TEST
@@ -340,10 +381,14 @@ Point crossReference --> an Array(
                 ...)
 \end{code}
 
-The following messages take inheritance into account:
+Los siguientes mensajes tienen en cuenta a la herencia:
+
 \begin{itemize}
-\item \mthind{Behavior}{whichClassIncludesSelector:} returns the superclass that implements the given message
-\item \mthind{Behavior}{unreferencedInstanceVariables} returns the list of instance variables that are neither used in the receiver class nor any of its subclasses
+\item \mthind{Behavior}{whichClassIncludesSelector:} returna la
+  superclase que implementa el mensaje dado
+\item \mthind{Behavior}{unreferencedInstanceVariables} returna la
+  lista de variables de instancia que no se usan en la clase del
+  receptor ni en sus subclases.
 \end{itemize}
 
 \begin{code}{@TEST}
@@ -351,16 +396,18 @@ Rectangle whichClassIncludesSelector: #inspect --> Object
 Rectangle unreferencedInstanceVariables            --> #()
 \end{code}
 
-\clsind{SystemNavigation} is a facade that supports various useful methods for querying and browsing the source code of the system.
-\ct{SystemNavigation} \mthind{SystemNavigation class}{default} returns an instance you can use to navigate the system.
-For example:
+\clsind{SystemNavigation} es un ***facade*** que incluye varios
+métodos útiles para consultar y navegar a través del código fuente del
+sistema.  \ct{SystemNavigation} \mthind{SystemNavigation
+  class}{default} returna una instancia que puedes usar para navegar
+por el sistema.  Por ejemplo:
 
 \mthindex{SystemNavigation}{allClassesImplementing:}
 \begin{code}{@TEST}
 SystemNavigation default allClassesImplementing: #yourself --> {Object}
 \end{code}
 
-The following messages should also be self-explanatory:
+Los siguientes mensajes se explican solos:
 
 \mthindex{SystemNavigation}{allSentMessages}
 \mthindex{SystemNavigation}{allUnsentMessages}
@@ -371,17 +418,28 @@ SystemNavigation default allUnsentMessages size      --> 6431
 SystemNavigation default allUnimplementedCalls size --> 270
 \end{code}
 
-Note that messages implemented but not sent are not necessarily useless, since they may be sent implicitly (\eg using \ct{perform:}).
-Messages sent but not implemented, however, are more problematic, because the methods sending these messages will fail at runtime.
-They may be a sign of unfinished implementation, obsolete APIs, or missing libraries.
+Que un mensaje esté implementado y que nadie lo envíe no es
+necesariamwnte una señal de un mensaje inútil, pues puede ser que se
+lo envíe implícitamente (por ejemplo, mediante \ct{perform:}).  Los
+mensajes que se envían pero no están implementados son más
+problemáticos, porque los métodos que envían esos mensajes van a
+fallar en tiempo de ejecución.  Son la señal de una implementación sin
+terminar, APIs obsoletas o bibliotecas faltantes.
 
 \mthindex{SystemNavigation}{allCallsOn:}
-\ct!SystemNavigation default allCallsOn: #Point! returns all messages sent explicitly to \ct!Point! as a receiver.
+\ct!SystemNavigation default allCallsOn: #Point! returna todos los
+mensajes enviados explícitamente a \ct!Point! como receptor.
 
-All these features are integrated in the programming environment of \pharo, in particular in the code browsers.
-As you are surely already aware, there are convenient keyboard shortcuts for browsing all i\underline{m}plementors (\short{m}) and se\underline{n}ders (\short{n}) of a given message.
-What is perhaps not so well known is that there are many such pre-packaged queries implemented as methods of the \ct{SystemNavigation} class in the \prot{browsing} protocol.
-For example, you can programmatically browse all implementors of the message \ct{ifTrue:} by evaluating:
+Todas estas características están integradas en el entorno de
+programación de \pharo, en particular en los navegadores de código.
+Como ya conocerás, hay atajos de teclado convenientes para navegar por
+todos los i\underline{m}plementors (\short{m}) y se\underline{n}ders
+(\short{n}) de un mensaje dado.  Lo que tal vez no resulte tan
+conocido es que hay muchas consultas preparadas que están
+implementadas como métodos de la clase \ct{SystemNavigation} en el
+protocolo \prot{browsing}.  Por ejemplo, puedes encontrar
+programáticamente todos los implementadores del mensaje \ct{ifTrue:}
+mediante la evaluación de:
 \mthindex{SystemNavigation}{browseAllImplementorsOf:}
 \begin{code}{}
 SystemNavigation default browseAllImplementorsOf: #ifTrue:
@@ -389,10 +447,15 @@ SystemNavigation default browseAllImplementorsOf: #ifTrue:
 
 \begin{figure}[ht]\centering
         \includegraphics[width=\linewidth]{implementors}
-        \caption{Browse all implementations of \ct!\#ifTrue:!.\figlabel{implementors}}
+        \caption{Implementadores de \ct!\#ifTrue:!.\figlabel{implementors}}
 \end{figure}
 
-Particularly useful are the methods \ct{browseAllSelect:} and \lct{browseMethodsWithSourceString:}.  Here are two different ways to browse all methods in the system that perform super sends (the first way is rather brute force; the second way is better and eliminates some false positives):
+Los métodos \ct{browseAllSelect:} y
+\lct{browseMethodsWithSourceString:} son particularmente útiles.  A
+continuación se muestran dos manera diferentes de revisar todos los
+métodos en el sistema que envían mensajes a super (la primera es más
+bien por fuerza bruta; la segunda es mejor y elimina algunos falsos
+positivos): 
 \mthindex{SystemNavigation}{browseMethodsWithSourceString:}
 \mthindex{SystemNavigation}{browseAllSelect:}
 \begin{code}{}
@@ -401,35 +464,44 @@ SystemNavigation default browseAllSelect: [:method | method sendsToSuper ].
 \end{code}
 
 %======================================
-\section{Classes, method dictionaries and methods}
+\section{Clases, dicionarios de métodos y métodos}
 
-Since classes are objects, we can inspect or explore them just like any other object.
+Como las clases son objetos, podemos inspeccionarlas o explorarlas
+como a cualquier otro objeto.
 
 \mthindex{Object}{explore}
-\dothis{Evaluate \ct{Point explore}.}
+\dothis{Evalúa \ct{Point explore}.}
 
-In \figref{CompiledMethod}, the \ind{explorer} shows the structure of class \clsind{Point}.
-You can see that the class stores its methods in a dictionary, indexing them by their selector.
-The selector \ct{#*} points to the decompiled \ind{bytecode} of \ct!Point>>>*!.
+En \figref{CompiledMethod}, el \ind{explorer} muestra la estructura de
+la clase \clsind{Point}.  Puedes ver que la clase almacena sus métodos
+en un diccionario, indexados por su selector.  El selector \ct{#*}
+apunta al \ind{bytecode} descompilado de \ct!Point>>>*!.
 
 \begin{figure}[ht]\centering
         \includegraphics[width=.5\linewidth]{CompiledMethod}
-        \caption{Explorer class \ct!Point! and the bytecode of its \ct!\#*! method.\figlabel{CompiledMethod}}
+        \caption{Explorer:la clase \ct!Point! y el bytecode de su método \ct!\#*!.\figlabel{CompiledMethod}}
 \end{figure}
 
-Let us consider the relationship between classes and methods.
-In \figref{MethodsAsObjects} we see that classes and metaclasses have the common superclass \ct{Behavior}. This is where \mthind{Behavior}{new} is defined, amongst other key methods for classes.
-Every class has a method dictionary, which maps method selectors to \ind{compiled methods}.
-Each compiled method knows the class in which it is installed.
-In \figref{CompiledMethod} we can even see that this is stored in an association in \ct{literal5}.
+Vamos a considerar la relación entre clases y métodos.  En
+\figref{MethodsAsObjects} vemos que las clases y metaclases tienen en
+común a la superclase \ct{Behavior}.  Aquí es donde se define a
+\mthind{Behavior}{new}, entre otros métodos para las clases.  Cada
+clase tiene un diccionario de métodos, el cual mapea selectores de
+métodos en \ind{métodos compilados}.  Cada método compilado conoce la
+clase en la cual está instalado.  En \figref{CompiledMethod} podemos
+ver incluso que esto se almacena en una asociacion en \ct{literal5}.
 
 \begin{figure}[ht]\centering
         \includegraphics[width=\linewidth]{MethodsAsObjects}
-        \caption{Classes, method dictionaries and compiled methods\figlabel{MethodsAsObjects}}
+        \caption{Clases, diccionarios de métodos y métodos compilados\figlabel{MethodsAsObjects}}
 \end{figure}
 
-We can exploit the relationships between classes and methods to pose queries about the system.
-For example, to discover which methods are newly introduced in a given class, \ie do not override superclass methods, we can navigate from the class to the \ind{method dictionary} as follows:
+Podemos aprovechar las relaciones entre clases y métodos para realizar
+consultas sobre el sistema.  Por ejemplo, para descubrir cuáles
+métodos han sido recientemente incorporados por una dada clase (o sea,
+métodos que no sobrecargan métodos de las superclases) podemos navegar
+desde la clase al dicionario de métodos como se muestra a
+continuación:
 \mthindex{Behavior}{methodDict}
 \begin{code}{}
 [:aClass| aClass methodDict keys select: [:aMethod |
@@ -437,21 +509,25 @@ For example, to discover which methods are newly introduced in a given class, \i
   --> an IdentitySet(#threeDigitName #printStringBase:nDigits: ...)
 \end{code}
 
-A compiled method does not simply store the bytecode of a method.
-It is also an object the provides numerous useful methods for querying the system.
-One such method is \ct{isAbstract} (which tells if the method sends \ct{subclassResponsibility}).
-We can use it to identify all the abstract methods of an abstract class
+EL método compilado no almacena solamente los bytecodes del método.
+Es un objeto que proporciona muchos métodos útiles para co0nsultar el
+sistema.  Uno de tales métodos es \ct{isAbstract} (que nos indica si
+el método envía \ct{subclassResponsibility}).  Podemos usarlo para
+ideentificar todos los métodos abstractos de una clase abstracta.
 \needlines{4}
 \begin{code}{}
 [:aClass| aClass methodDict keys select: [:aMethod |
   (aClass>>aMethod) isAbstract ]] value: Number
   --> an IdentitySet(#storeOn:base: #printOn:base: #+ #- #* #/ ...)
 \end{code}
-Note that this code sends the \ct{>>} message to a class to obtain the compiled method for a given selector.
+Advierte como este código envía el mensaje \ct{>>} a una clase para
+obtener el método compilado de un selector dado.
 
 % As a slightly more complex example, we can browse
 
-To browse the super-sends within a given hierarchy, for example within the Collections hierarchy, we can pose a more sophisticated query:
+Para pasear por los sends a super dentro de una dada jerarquía, por
+ejemplo dentro de la jerarquía de Collection, podemos realizar una
+consulta más sofisticada:
 \begin{code}{}
 class := Collection.
 SystemNavigation default
@@ -461,12 +537,20 @@ SystemNavigation default
       thenCollect: [:assoc | MethodReference class: each selector: assoc key]])
   name: 'Supersends of ' , class name , ' and its subclasses'
 \end{code}
-Note how we navigate from classes to method dictionaries to compiled methods to identify the methods we are interested in.
-A \ct{MethodReference} is a lightweight proxy for a compiled method that is used by many tools.
-There is a convenience method \clsmthind{CompiledMethod}{methodReference} to return the method reference for a compiled method.
+Nota como navegamos desde las clases a los diccionarios de métodos,
+hasta los métodos compilados para identificar los métodos en los
+cuales estamos interesados.  El \ct{MethodReference} es un proxy
+liviano para un método compilado; muchas herramientas utilizan estos
+proxys.  Hay un método de facilitación llamado
+\clsmthind{CompiledMethod}{methodReference} que retorna la referencia
+de método de un método compilado.
 \begin{code}{@TEST}
 (Object>>#=) methodReference methodSymbol --> #=
 \end{code}
+
+% FIXME seguir desde aca ------------------------------------------
+
+
 
 %======================================
 \section{Browsing environments}
@@ -1035,7 +1119,7 @@ Reflection refers to the ability to query, examine and even modify the metaobjec
 %%% Local Variables:
 %%% coding: utf-8
 %%% mode: latex
-%%% TeX-master: t
+%%% TeX-master: "../PBE1.tex"
 %%% TeX-PDF-mode: t
 %%% ispell-local-dictionary: "castellano8"
 %%% End:
