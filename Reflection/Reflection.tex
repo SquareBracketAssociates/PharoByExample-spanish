@@ -118,11 +118,13 @@ derecha va a mostrar una cadena vacía.
 \end{figure}
 
 \dothis{Ahora escribe \ct!'hello'! en lugar de esa cadena vacía, y
-  luego \emph{accept}ala.}  El valor de la variable \ct!contents! va a
-cambiar, pero la ventana del espacio de trabajo no se percata de ello,
-así que no se vuelve a regenerar lo que muestra.  Para que se
-refresque el contenido en la ventana, evalúa \ct!self contentsChanged!
-en la parte inferior del inspector.
+  luego \emph{accept}ala.}
+
+El valor de la variable \ct!contents! va a cambiar, pero la ventana
+del espacio de trabajo no se percata de ello, así que no se vuelve a
+regenerar lo que muestra.  Para que se refresque el contenido en la
+ventana, evalúa \ct!self contentsChanged!  en la parte inferior del
+inspector.
 
 %-----------------------------------------------------------------
 \subsection{Cómo se accede a las variables de instancia}
@@ -571,28 +573,21 @@ El navegador de refactoreo [refactoring browser] nos proporciona una
 manera elegante de restringir la consulta sólo a las clases y métodos
 en los cuales estamos interesados.
 
-% FIXME seguir desde aca ------------------------------------------
 
-
-
-\dothis{Open a browser on the class \ct{Collection}.  \actclick on the
-  class name and select \menu{refactoring scope>subclasses with}.
-  This will open a new Browser Environment on just the \ct{Collection}
-  hierarchy.  Within this restricted scope select \menu{refactoring
-    scope>super-sends} to open a new environment with all methods that
-  perform super-sends within the \ct{Collectuon} hierarchy.  Now
-  \click on any method and select \menu{refactor>code critics}.
-  Navigate to \menu{Lint checks>Possible bugs>Sends different super
-    message} and \actclick to select \menu{browse}.}
-
-In \figref{sendDifferentSuper} we can see that 19 such methods have been found within the \ct{Collection} hierarchy, including \ct{Collection>>>printNameOn:}, which sends \ct{super printOn:}.
+En \figref{sendDifferentSuper} podemos ver que hay 19 métodos con esas
+caracerísticas dentro de la jerarquía \ct{Collection}, entre los
+cuales está \ct{Collection>>>printNameOn:}, que envía el mensaje
+\ct{super printOn:}.
 \begin{figure}[ht]\centering
         \includegraphics[width=\linewidth]{sendDifferentSuper}
-        \caption{Finding methods that send a different super message.\figlabel{sendDifferentSuper}}
+        \caption{Cómo encontrar métodos que envían un mensaje a \super diferente.\figlabel{sendDifferentSuper}}
 \end{figure}
 
-Browser environments can also be created programmatically.
-Here, for example, we create a new \clsind{BrowserEnvironment} for \clsind{Collection} and its subclasses, select the super-sending methods, and open the resulting environment.
+Los entornos de navegación también se pueden crear programáticamente.
+A continuación, por ejemplo, vamos a crear un nuevo
+\clsind{BrowserEnvironment} para \clsind{Collection} y sus subclases,
+seleccionaremos los métodos que envían mensajes a \super y abriremos
+el entorno resultante.
 \needlines{4}
 \begin{code}{}
 ((BrowserEnvironment new forClasses: (Collection withAllSubclasses))
@@ -601,9 +596,11 @@ Here, for example, we create a new \clsind{BrowserEnvironment} for \clsind{Colle
         open.
 \end{code}{}
 
-Note how this is considerably more compact than the earlier, equivalent example using \ct{SystemNavigation}.
+Puedes notar cómo esta forma es considerablemente más compacta que la
+anterior, cuando usamos \ct{SystemNavigation}.
 
-Finally, we can find just those methods that send a different super message programmatically as follows:
+Por último, podemos buscar aquellos métodos que envían un \super
+diferente en forma programática como se muestra a continuación:
 \needlines{6}
 \begin{code}{}
 ((BrowserEnvironment new forClasses: (Collection withAllSubclasses))
@@ -613,28 +610,41 @@ Finally, we can find just those methods that send a different super message prog
         label: 'Collection methods sending different super';
         open
 \end{code}
-Here we ask each compiled method for its (Refactoring Browser) parse tree, in order to find out whether the super messages differ from the method's selector.
-Have a look at the \prot{querying} protocol of the class \ct{RBProgramNode} to see some the things we can ask of parse trees.
+
+En este caso solicitamos a cada método compilado su árbol sintáctico
+(del Refactoring Browser) para ver cuáles de los mensajes a \super
+difieren del selector del método.  Para ver qué se puede hacer con los
+árboles sintácticos, echa una mirada al protocolo \prot{querying} de
+la clase \ct{RBProgramNode}.
 
 %======================================
-\section{Accessing the run-time context}
+\section{Cómo acceder al contexto de tiempo de ejecución}
 
-We have seen how \st's reflective capabilities let us query and explore objects, classes and methods.  But what about the run-time environment?
+Ya hemos visto como las capacidades de reflexión de \st nos permiten
+consultar y explorar objetos, clases y métodos.  ¿Y qué podemos hacer
+con el entorno de ejecución?
 
 %-----------------------------------------------------------------
-\subsection{Method contexts}
+\subsection{Contexto de los métodos}
 
-In fact, the run-time context of an executing method is in the virtual machine --- it is not in the image at all!
-On the other hand, the \ind{debugger} obviously has access to this information, and we can happily explore the run-time context, just like any other object.
-How is this possible?
+De hecho, el contexto de tiempo de ejecución de un método que está
+corriendo reside en la máquina virtual --- ¡ni siquiera está en la
+imagen!  Por otro lado, el \ind{debugger} obviamente tiene acceso a
+esta información, y podemos explorar con facilidad el contexto de
+tiempo de ejecución, al igual que hacemos con cualquier otro objeto.
+¿Cómo puede ser esto posible?
 
-Actually, there is nothing magical about the debugger.
-The secret is the pseudo-variable \pvind{thisContext}, which we have encountered only in passing before.
-Whenever \ct{thisContext} is referred to in a running method, the entire run-time context of that method is reified and made available to the image as a series of chained \clsind{MethodContext} objects.
+En realidad, no hay nada de magia en el depurador.  El secreto es la
+seudovariable \pvind{thisContext}, que ya hemos visto antes, aunque
+sólo de pasada.  Cuando se referencia a \ct{thisContext} dentro de un
+método en ejecución, se reifica el contexto completo de ejecución de
+dicho método y a ese objeto se lo deja accesible a la imagen en la
+forma de una serie de objetos \clsind{MethodContext} encadenados.
 
-We can easily experiment with this mechanism ourselves.
+Podemos hacer unos experimentos on este mecanismo.
 
-\dothis{Change the definition of \ct{Integer>>>factorial} by inserting the underlined expression as shown below:}
+\dothis{Cambia la definición de \ct{Integer>>>factorial}, para ello
+  inserta la expresión subrayada que se muestra más abajo:}
 
 \mthindex{Object}{halt}
 \begin{code}{}
@@ -645,26 +655,42 @@ Integer>>>factorial
         self error: 'Not valid for negative integers'
 \end{code}
 
-\dothis{Now evaluate \ct{3 factorial} in a workspace. You should obtain both a debugger window and an explorer, as shown in \figref{exploringThisContext}.}
+\dothis{Ahora evalúa \ct{3 factorial} en un espacio de trabajo.
+  Deberías ver tanto una ventana de depurador como un explorador, tal
+  como se muestra en \figref{exploringThisContext}.}
 
 \begin{figure}[ht]\centering
         \includegraphics[width=\linewidth]{exploringThisContext}
-        \caption{Exploring \lct{thisContext}.\figlabel{exploringThisContext}}
+        \caption{ Cómo explorar
+          \lct{thisContext}.\figlabel{exploringThisContext}}
 \end{figure}
 
-Welcome to the poor-man's debugger!
-If you now browse the class of the explored object (\ie by evaluating \ct{self browse} in the bottom pane of the explorer) you will discover that it is an instance of the class \lct{MethodContext}, as is each \ct{sender} in the chain.
-% All of these objects have been created dynamically in the image by the \st virtual machine at the point where \ct{thisContext} was referred to in the \ct{factorial} method. \lr{Not actually. In all the currently available VMs the context objects are created with every method activation, no matter if they are accessed using \ct{thisContext} or not.}
+¡Bienvenido al depurador del pobre!
+Si navegas ahora por la clase del objeto explorado (evalúa \ct{self
+  browse} en el panel inferior del explorador) vas a descubrir que es
+una instancia de la clase \lct{MethodContext}, tal como cada uno de
+los \ct{sender} en la cadena.
 
-\ct{thisContext} is not intended to be used for day-to-day programming, but it is essential for implementing tools like debuggers, and for accessing information about the call stack.
-You can evaluate the following expression to discover which methods make use of \ct{thisContext}:
+% All of these objects have been created dynamically in the image by
+% the \st virtual machine at the point where \ct{thisContext} was
+% referred to in the \ct{factorial} method. \lr{Not actually. In all
+%   the currently available VMs the context objects are created with
+%   every method activation, no matter if they are accessed using
+%   \ct{thisContext} or not.}
+
+\ct{thisContext} no está pensado para usarse en la programación
+cotidiana, pero es esencial en la implementación de herramientas tales
+como los depuradores, y para acceder a la información de la pila de
+llamadas.  Puedes evaluar la siguiente expresión para descubrir cuáles
+métodos utilizan a \ct{thisContext}:
 
 \begin{code}{}
 SystemNavigation default browseMethodsWithSourceString: 'thisContext'
 \end{code}
 
-As it turns out, one of the most common applications is to discover the sender of a message.
-Here is a typical application:
+Como pudes ver, una de las aplicaciones más comunes es para descubrir
+el enviador de un mensaje.  A continuación se muestra una aplicación
+típica:
 \begin{code}{}
 Object>>>subclassResponsibility
         "This message sets up a framework for the behavior of the class' subclasses.
@@ -673,24 +699,41 @@ Object>>>subclassResponsibility
         self error: 'My subclass should have overridden ', thisContext sender selector printString
 \end{code}
 
-By convention, methods in \st that send \ct{self subclassResponsibility} are considered to be abstract.  But how does \clsmthind{Object}{subclassResponsibility} provide a useful error message indicating which abstract method has been invoked?  Very simply, by asking \ct{thisContext} for the sender.
+Por convención, los métodos en \st que envían \ct{self
+  subclassResponsibility} se consideran abstractos.  Ahora bien, ¿cómo
+hace \clsmthind{Object}{subclassResponsibility} para proporcionar un
+mensaje de error útil que indique cuál de los métodos abstractos ha
+sido invocado?  Muy simple, preguntando cuál es el \ct{thisContext}
+del enviador.
 
-\lr{I think co-routines and continuations should at least mentioned here. Another very practical application that is simple and could be shown here is the ``escaper''. Store the current context into a temp or inst-var \ct{target := thisContext} and jump back to that stack frame at a later point in time using \ct{target return: 123}.}
-\sd{lukas maybe we should have another chapter showing such kind of beasts. I would love to read it.
-Showing how to use block to build exception and such a kind of point. I think that this chapter should be an introduction may be
-we should have a Reflection applied chapter}
-\lr{I would love to help writing such a chapter}
+\lr{I think co-routines and continuations should at least mentioned
+  here. Another very practical application that is simple and could be
+  shown here is the ``escaper''. Store the current context into a temp
+  or inst-var \ct{target := thisContext} and jump back to that stack
+  frame at a later point in time using \ct{target return: 123}.}
+\sd{lukas maybe we should have another chapter showing such kind of
+  beasts. I would love to read it.  Showing how to use block to build
+  exception and such a kind of point. I think that this chapter should
+  be an introduction may be we should have a Reflection applied
+  chapter} \lr{I would love to help writing such a chapter}
 %-----------------------------------------------------------------
-\subsection{Intelligent breakpoints}
+\subsection{Puntos de interrupción inteligentes}
 
 \mthindex{Object}{halt}
-The \st way to set a breakpoint is to evaluate \ct{self halt} at an interesting point in a method.  This will cause \ct{thisContext} to be reified, and a \ind{debugger} window will open at the breakpoint.
-Unfortunately this poses problems for methods that are intensively used in the system.
 
-Suppose, for instance, that we want to explore the execution of \ct{OrderedCollection>>>add:}.
-Setting a breakpoint in this method is problematic.
+La manela a la \st de crear un punto de interrupción [breakpoint]
+consiste en evaluar \ct{self halt} en una posición interesante de un
+método.  Esto hace que \ct{thisContext} se reifique y que se abra una
+ventana de \ind{debugger} sobre el punto de interrupción.
+Desafortunadamente, esto plantea problemas para los métodos
+intensamente usados en el sistema.
 
-\dothis{Take a \emph{fresh} image and set the following breakpoint:}
+Supongamos, por ejemplo, que deseamos explorar la ejecución de
+\ct{OrderedCollection>>>add:}.  Resulta problemático configurar un
+punto de interrupción en este método.
+
+\dothis{Toma una imagen \emph{fresca} y configura los siguientes
+  puntos de interrupción:}
 \needlines{3}
 \begin{code}{}
 OrderedCollection>>>add: newObject
@@ -698,10 +741,18 @@ OrderedCollection>>>add: newObject
         ^self addLast: newObject
 \end{code}
 
-Notice how your image immediately freezes!  We do not even get a debugger window.
-The problem is clear once we understand that (i) \ct{OrderedCollection>>>add:} is used by many parts of the system, so the breakpoint is triggered very soon after we accept the change, but (ii) \emph{the debugger itself} sends \ct{add:} to an instance of \ct{OrderedCollection}, preventing the debugger from opening!
-What we need is a way to \emph{conditionally halt} only if we are in a context of interest.
-This is exactly what \clsmthind{Object}{haltIf:} offers.
+% -------- FIXME: seguir desde aca -------------------------------
+
+
+
+Notice how your image immediately freezes!  We do not even get a
+debugger window.  The problem is clear once we understand that (i)
+\ct{OrderedCollection>>>add:} is used by many parts of the system, so
+the breakpoint is triggered very soon after we accept the change, but
+(ii) \emph{the debugger itself} sends \ct{add:} to an instance of
+\ct{OrderedCollection}, preventing the debugger from opening!  What we
+need is a way to \emph{conditionally halt} only if we are in a context
+of interest.  This is exactly what \clsmthind{Object}{haltIf:} offers.
 
 Suppose now that we only want to halt if \ct{add:} is sent from, say, the context of \ct{OrderedCollectionTest>>>testAdd}.
 
