@@ -217,7 +217,7 @@ heredadas.  Por ejemplo:
 \end{code}
 
 El método está implementado en \ct{Object} como se muestra a
-continuación: 
+continuación:
 \needlines{9}
 \begin{code}{}
 Object>>>instanceVariableValues
@@ -298,7 +298,7 @@ localmente.  A continuación se muestran unas métricas para la clase
 \ct!Morph!, que es la superclase de todos los objetos gráficos en
 \pharo, y que revelan que se trata de una clase enorme, y que es la
 raíz de una enorme jerarquía. ¡Tal vez está necesitada de un poco de
-refactoring! 
+refactoring!
 
 \mthindex{Behavior}{allSuperclasses}
 \mthindex{Behavior}{allSelectors}
@@ -455,7 +455,7 @@ Los métodos \ct{browseAllSelect:} y
 continuación se muestran dos manera diferentes de revisar todos los
 métodos en el sistema que envían mensajes a super (la primera es más
 bien por fuerza bruta; la segunda es mejor y elimina algunos falsos
-positivos): 
+positivos):
 \mthindex{SystemNavigation}{browseMethodsWithSourceString:}
 \mthindex{SystemNavigation}{browseAllSelect:}
 \begin{code}{}
@@ -548,26 +548,42 @@ de método de un método compilado.
 (Object>>#=) methodReference methodSymbol --> #=
 \end{code}
 
+%======================================
+\section{Entornos de navegación}
+
+Aún cuando \clsind{SystemNavigation} ofrece algunas maneras
+programáticas que resultan útiles a la hora de consultar y navegar por
+el código del sistema mediante, hay otro método mejor.  El
+\ind{Refactoring Browser}, que está integrado en \pharo, proporciona
+tanto una vía interactiva como una programática para realizar
+consultas complejas.
+
+Supongamos que queremos averiguar cuáles de los métodos dentro de la
+jerarquía \lct{Collection}envían un mensaje a \super que sea diferente
+del selector del método.  Esto se considera un mal \ind{olor de
+  código} [code smell], porque el send a \super normalmente debería
+poder reemplazarse por un send a \self. (Piénsalo por un momento: la
+\emph{necesidad} de \super se debe a que lo utilizamos para extender
+el método que estamos sobrecargando; ¡todos los otros métodos
+heredados se pueden acceder mediante mensajes a \self!
+
+El navegador de refactoreo [refactoring browser] nos proporciona una
+manera elegante de restringir la consulta sólo a las clases y métodos
+en los cuales estamos interesados.
+
 % FIXME seguir desde aca ------------------------------------------
 
 
 
-%======================================
-\section{Browsing environments}
-
-Although \clsind{SystemNavigation} offers some useful ways to programmatically query and browse system code, there is a better way.  The \ind{Refactoring Browser}, which is integrated into \pharo, provides both interactive and programmatic ways to pose complex queries.
-
-Suppose we are interested to discover which methods in the \lct{Collection} hierarchy send a message to \super which is different from the method's selector.
-This is normally considered to be a bad \ind{code smell}, since such a \super-send should normally be replaced by a \self-send. (Think about it --- you only \emph{need} \super to extend a method you are overriding; all other inherited methods can be accessed by sending to \self!)
-
-The refactoring browser provides us with an elegant way to restrict our query to just the classes and methods we are interested in.
-
-\dothis{Open a browser on the class \ct{Collection}.
-\actclick on the class name and select \menu{refactoring scope>subclasses with}.
-This will open a new Browser Environment on just the \ct{Collection} hierarchy.
-Within this restricted scope select \menu{refactoring scope>super-sends} to open a new environment with all methods that perform super-sends within the \ct{Collectuon} hierarchy.
-Now \click on any method and select \menu{refactor>code critics}.
-Navigate to \menu{Lint checks>Possible bugs>Sends different super message} and \actclick to select \menu{browse}.}
+\dothis{Open a browser on the class \ct{Collection}.  \actclick on the
+  class name and select \menu{refactoring scope>subclasses with}.
+  This will open a new Browser Environment on just the \ct{Collection}
+  hierarchy.  Within this restricted scope select \menu{refactoring
+    scope>super-sends} to open a new environment with all methods that
+  perform super-sends within the \ct{Collectuon} hierarchy.  Now
+  \click on any method and select \menu{refactor>code critics}.
+  Navigate to \menu{Lint checks>Possible bugs>Sends different super
+    message} and \actclick to select \menu{browse}.}
 
 In \figref{sendDifferentSuper} we can see that 19 such methods have been found within the \ct{Collection} hierarchy, including \ct{Collection>>>printNameOn:}, which sends \ct{super printOn:}.
 \begin{figure}[ht]\centering
