@@ -7,6 +7,7 @@
 % 2007-08-21 - Oscar edit
 % 2007-09-06 - Lukas corrections
 % 2007-09-11 - Orla corrections
+% 2009-12-18 - Pablo started spanish translation
 
 %=================================================================
 \ifx\wholebook\relax\else
@@ -34,36 +35,36 @@
 	\sloppy
 \fi
 %=================================================================
-\chapter{Understanding message syntax}
+\chapter{Comprendiendo la sintaxis de los mensajes}
 \chalabel{understanding}
 
-Although \st's message syntax is extremely simple, it is unconventional and can take some time getting used to.
-This chapter offers some guidance to help you get acclimatized to this special syntax for sending messages.
-If you already feel comfortable with the syntax, you may choose to skip this chapter, or come back to it later.
+Aunque la sintaxis de los mensajes de \st es extremadamente simple, no es convencional y puede llevar alg\'un tiempo sentirse familiarizado con ella.
+Este cap\'itulo ofrece alguna gu\'ia para ayudarte a estar aclimatado a esta sintaxis especial de env\'io de mensajes.
+Si ya te sientes c\'omodo con la sintaxis, puedes elegir saltear este cap\'itulo, o volver al mismo mas tarde.
 
 %=============================================================
-\section{Identifying messages}
+\section{Identificando mensajes}
 
-In \st, except for the syntactic elements listed in \charef{syntax} (\ct+:= ^ . ; # () {} [ : | ]+), everything is a message send. 
-As in \ind{C++}, you can define operators like \ct{+} for your own classes, but all operators have the same precedence.
-Moreover, you cannot change the arity of a method. ``\ct{-}'' is always a binary message; there is no way to have a unary ``\ct{-}'' with a different overloading.
+En \st, excepto para los elementos sint\'acticos listados en \charef{syntax} (\ct+:= ^ . ; # () {} [ : | ]+), todo es un env\'io de mensaje.
+Como en \ind{C++}, puedes definir operadores como \ct{+} para tus propias clases, pero todos los operadores tienen la misma precedencia.
+Adem\'as, no puedes cambiar la aridad de un m\'etodo. ``\ct{-}'' es siempre un mensaje binario; no hay ninguna manera de tener un `` \ct{-}'' unario con una sobrecarga diferente.
 
-In \st the order in which messages are sent is determined by the kind of message. There are just three kinds of messages: \emphsubind{message}{unary}, \emphsubind{message}{binary}, and \emphsubind{message}{keyword} messages. Unary messages are always sent first, then binary messages and finally keyword ones. As in most languages, \ind{parentheses} can be used to change the order of evaluation. These rules make \st code as easy to read as possible. And most of the time you do not have to think about the rules.
+En \st el orden en el cual los mensajes se env\'ian es determinado por el tipo de mensaje. Hay solo tres tipos de mensajes: mensajes \emphsubind{mensaje}{unarios}, mensajes \emphsubind{mensaje}{binarios}, y mensajes \emphsubind{mensaje}{keyword}. Los mensajes unarios siempre se env\'ian primero, luego los mensajes binarios y finalmente los mensajes keyword. Como en la mayor\'ia de los lenguajes, los \ind{par\'entesis} pueden ser utilizados para cambiar el orden de evaluaci\'on. Estas reglas hacen el c\'odigo \st lo mas f\'acil de leer posible. Y en la mayor parte del tiempo no tienes que estar pensando en las reglas.
 
-As most computation in \st is done by message passing, correctly identifying messages is crucial. The following terminology will help us:
+Como la mayor parte del c\'omputo en \st se realiza a trav\'es del pasaje de mensajes, identificar correctamente los mismos es crucial. La siguiente terminolog\'ia va a ayudarnos:
 
 \begin{itemize}
-  \item A message is composed of the message \emphsubind{message}{selector} and the optional message arguments.
-  \item A message is sent to a \emphsubind{message}{receiver}.
-  \item The combination of a message and its receiver is called a \emph{message} \emphsubind{message}{send} as shown in \figref{firstScriptMessage}.
-%  \item We call expression a message send, a variable, an assignment, a literal or a block. 
+  \item Un mensaje se compone con un \emphsubind{mensaje}{selector} de mensaje y opcionalmente con argumentos de mensaje.
+  \item Un mensaje es enviado a un \emphsubind{mensaje}{receptor}.
+  \item La combinaci\'on de un mensaje y su receptor es denominada \emphsubind{mensaje}{env\'io} \emph{de mensaje} como se muestra en \figref{firstScriptMessage}.
+%  \item We call expression a message send, a variable, an assignment, a literal or a block.
 \end{itemize}
 
 \begin{figure}[htb]
 \begin{minipage}{0.53\textwidth}
 	\begin{center}
 	\includegraphics[width=0.95\textwidth]{message}
-	\caption{Two messages composed of a receiver, a method selector, and a set of arguments.\figlabel{firstScriptMessage}}\end{center}
+	\caption{Dos mensajes compuestos por un receptor, un selector de m\'etodo, y un conjunto de argumentos.\figlabel{firstScriptMessage}}\end{center}
 \end{minipage}
 \hfill
 \begin{minipage}{0.43\textwidth}
@@ -71,7 +72,7 @@ As most computation in \st is done by message passing, correctly identifying mes
 	\ifluluelse
 		{\includegraphics[width=0.9\textwidth]{uKeyUnOne}}
 		{\includegraphics[width=6cm]{uKeyUnOne}}
-	\caption{\ct{aMorph color: Color yellow} is composed of two message sends: \ct{Color yellow} and \ct{aMorph color: Color yellow}.\figlabel{ellipse}}
+    \caption{\ct{aMorph color: Color yellow} est\'a compuesto por dos env\'ios de mensaje: \ct{Color yellow} y \ct{aMorph color: Color yellow}.\figlabel{ellipse}}
 	\end{center}
 \end{minipage}
 \end{figure}
@@ -82,11 +83,11 @@ As most computation in \st is done by message passing, correctly identifying mes
 %\caption{Two messages composed of a receiver, a method selector, and a set of arguments.\figlabel{firstScriptMessage}}\end{center}
 %\end{figure}
 
-\important{A message is always sent to a receiver, which can be a single literal, a block or a variable or the result of evaluating another message.}
+\important{Un mensaje siempre es enviado a un receptor, el cual puede ser un simple literal, un bloque, una variable o el resultado de evaluar otro mensaje.}
 %sd-this is not totally right because we do not cover assignment but ok for now
 
-To help you identify the receiver of a message, we will underline it for you.
-We will also surround each message send with an ellipse and number message sends starting from the first one that will be sent to help you see the order in which messages are sent.
+Para ayudarte a identificar el receptor de un mensaje, te lo subrayaremos.
+Tambi\'en vamos a rodear cada env\'io de mensaje con una elipse con el n\'umero de env\'io de mensaje, comenzando por el primero que ser\'a enviado, para ayudarte a ver el orden en el cual los mensajes son enviados. 
 
 %\begin{figure}[!ht]
 %\begin{center}
@@ -95,52 +96,52 @@ We will also surround each message send with an ellipse and number message sends
 %\caption{\ct{aMorph color: Color yellow} is composed of two expressions: \ct{Color yellow} and \ct{aMorph color: Color yellow}.\figlabel{ellipse}}
 %\end{figure}
 
-\figref{ellipse} represents two message sends, \ct{Color yellow} and \ct{aMorph color: Color yellow}, hence there are two ellipses. The message send \ct{Color yellow} is executed first so its ellipse is numbered \ct{1}.  There are two receivers: \ct{aMorph} which receives the message \ct{color: ...} and \ct{Color} which receives the message \ct{yellow}. Both receivers are underlined.
+La \figref{ellipse} representa dos env\'ios de mensajes, \ct{Color yellow} y \ct{aMorph color: Color yellow}, por lo tanto hay dos elipses. El env\'io de mensaje \ct{Color yellow} es ejecutado primero y en consecuencia su elipse es numerada con \ct{1}.  Hay dos receptores: \ct{aMorph} el cual recibe el mensaje \ct{color: ...} y \ct{Color} el cual recibe el mensaje \ct{yellow}. Ambos receptores est\'an subrayados.
 
-A receiver can be the first element of a message, such as \ct{100} in the message send \ct{100 + 200} or \ct{Color} in the message send \ct{Color yellow}. However, a receiver can also be the result of other messages. For example in the message \ct{Pen new go: 100}, the receiver of the message \ct{go: 100} is the object returned by the message send \ct{Pen new}. In all the cases, a message is sent to an object called the \emph{receiver} which may be the result of another message send.
+Un receptor puede ser el primer elemento de un mensaje, como \ct{100} en el env\'io de mensaje \ct{100 + 200} o \ct{Color} en el env\'io de mensaje \ct{Color yellow}. De cualquier manera, un receptor puede ser tamb\'ien el resultado de otro env\'io de mensaje. Por ejemplo, en el mensaje \ct{Pen new go: 100}, el receptor del mensaje \ct{go: 100} es el objeto devuelto por el env\'io del mensaje \ct{Pen new}. En todos los casos, un mensaje es enviado a un objeto llamado \emph{receptor} el cual puede ser el resultado de otro env\'io de mensaje.
 
 \begin{table}\centering
 	\begin{tabularx}{\linewidth}{llX}
 		\toprule
-		Message send & Message type & Result \\
+		Env\'io de mensaje & Tipo de mensaje & Resultado \\
 		\midrule
 		\lct{Color yellow}
-			& unary
-			& Creates a color.
+			& unario
+			& Crea un color.
 		\\
 		\lct{aPen  go: 100.}
 			& keyword
-			& The receiving pen moves forward 100 pixels.
+			& El l\'apiz receptor se mueve 100 p\'ixeles adelante.
 		\\
 		\lct{100 + 20}
-			& binary
-			& The number 100 receives the message + with the number 20.
+			& binario
+			& El n\'umero 100 recibe el mensaje + con el n\'umero 20.
 		\\
 		\lct{Browser open}
-			& unary
-			& Opens a new browser.
+			& unario
+			& Abre un nuevo navegador.
 		\\
 		\lct{Pen new  go: 100}
-			& unary and keyword
-			& A pen is created and moved 100 pixels.
+			& unario y keyword
+			& Se crea un l\'apiz y se lo mueve 100 p\'ixeles.
 		\\
 		\lct{aPen go: 100 + 20}
-			& keyword and binary
-			& The receiving pen moves forward 120 pixels.
+			& keyword y binario
+			& El l\'apiz receptor se mueve 120 p\'ixeles adelante.
 		\\
 		\bottomrule
 	\end{tabularx}
-	\caption{Examples of Message Sends and their Types}\tablabel{messageExamples}
+	\caption{Ejemplos de Env\'ios de Mensajes y sus Tipos}\tablabel{messageExamples}
 \end{table}
 
-\tabref{messageExamples} shows several examples of message sends.
-You should note that not all message sends have arguments. Unary messages like \ct{open} do not have arguments. Single keyword and binary messages like \ct{go: 100} and \ct{+ 20} each have one argument. 
-There are also simple messages and composed ones. \ct{Color yellow} and \ct{100 + 20} are  simple:  a message is sent to an object, while the message send \ct{aPen go: 100 + 20} is composed of two messages: \ct{+ 20} is sent to \ct{100} and \ct{go:} is sent to \ct{aPen} with the argument being the result of the first message.
-A receiver can be an expression (such as an assignment, a message send or a literal) which returns an object. In \ct{Pen new go: 100}, the message \ct{go: 100} is sent to the object that results from the execution of the message send \ct{Pen new}.
+\tabref{messageExamples} muestra varios ejemplos de env\'ios de mensajes.
+Deber\'ias notar que no todos los env\'ios de mensaje tienen argumentos. Los mensajes unarios como \ct{open} no tienen argumentos. Los mensajes keyword simples y los mensajes binarios como \ct{go: 100} y \ct{+ 20} tienen un argumento. 
+Tambi\'en hay mensajes simples y compuestos. \ct{Color yellow} y \ct{100 + 20} son simples:  un mensaje es enviado a un objeto, mientras que el env\'io de mensaje \ct{aPen go: 100 + 20} est\'a compuesto por dos mensajes: \ct{+ 20} es enviado a \ct{100} y \ct{go:} es enviado a \ct{aPen} con el argumento que haya resultado del primer mensaje.
+Un receptor puede ser una expresi\'on (como una asignaci\'on, un env\'io de mensaje o un literal) que devuelva un objeto. En \ct{Pen new go: 100}, el mensaje \ct{go: 100} es enviado al objeto que resulta de la ejecuci\'on del env\'io del mensaje \ct{Pen new}.
 
 
 %=============================================================
-\section{Three kinds of messages}
+\section{Tres tipos de mensajes}
 
 \st defines a few simple rules to determine the order in which the messages are sent. These rules are based on the distinction between 3 different kinds of messages: 
 \begin{itemize}
