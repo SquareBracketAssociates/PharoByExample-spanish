@@ -1,4 +1,4 @@
-% $Author$
+ $Author$
 % $Date$
 % $Revision$
 
@@ -666,8 +666,8 @@ Integer>>>factorial
 \end{figure}
 
 ¡Bienvenido al depurador del pobre!
-Si navegas ahora por la clase del objeto explorado (evalúa \ct{self
-  browse} en el panel inferior del explorador) vas a descubrir que es
+Si navegas ahora por la clase del objeto explorado (evalúa \ct{self browse}
+en el panel inferior del explorador) vas a descubrir que es
 una instancia de la clase \lct{MethodContext}, tal como cada uno de
 los \ct{sender} en la cadena.
 
@@ -699,8 +699,8 @@ Object>>>subclassResponsibility
         self error: 'My subclass should have overridden ', thisContext sender selector printString
 \end{code}
 
-Por convención, los métodos en \st que envían \ct{self
-  subclassResponsibility} se consideran abstractos.  Ahora bien, ¿cómo
+Por convención, los métodos en \st que envían \ct{self subclassResponsibility}
+se consideran abstractos.  Ahora bien, ¿cómo
 hace \clsmthind{Object}{subclassResponsibility} para proporcionar un
 mensaje de error útil que indique cuál de los métodos abstractos ha
 sido invocado?  Muy simple, preguntando cuál es el \ct{thisContext}
