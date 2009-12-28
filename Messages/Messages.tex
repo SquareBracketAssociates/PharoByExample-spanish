@@ -96,7 +96,7 @@ Tambi\'en vamos a rodear cada env\'io de mensaje con una elipse con el n\'umero 
 %\caption{\ct{aMorph color: Color yellow} is composed of two expressions: \ct{Color yellow} and \ct{aMorph color: Color yellow}.\figlabel{ellipse}}
 %\end{figure}
 
-La \figref{ellipse} representa dos env\'ios de mensajes, \ct{Color yellow} y \ct{aMorph color: Color yellow}, por lo tanto hay dos elipses. El env\'io de mensaje \ct{Color yellow} es ejecutado primero y en consecuencia su elipse es numerada con \ct{1}.  Hay dos receptores: \ct{aMorph} el cual recibe el mensaje \ct{color: ...} y \ct{Color} el cual recibe el mensaje \ct{yellow}. Ambos receptores est\'an subrayados.
+La \figref{ellipse} presenta dos env\'ios de mensajes, \ct{Color yellow} y \ct{aMorph color: Color yellow}, por lo tanto hay dos elipses. El env\'io de mensaje \ct{Color yellow} es ejecutado primero y en consecuencia su elipse es numerada con \ct{1}.  Hay dos receptores: \ct{aMorph} el cual recibe el mensaje \ct{color: ...} y \ct{Color} el cual recibe el mensaje \ct{yellow}. Ambos receptores est\'an subrayados.
 
 Un receptor puede ser el primer elemento de un mensaje, como \ct{100} en el env\'io de mensaje \ct{100 + 200} o \ct{Color} en el env\'io de mensaje \ct{Color yellow}. De cualquier manera, un receptor puede ser tamb\'ien el resultado de otro env\'io de mensaje. Por ejemplo, en el mensaje \ct{Pen new go: 100}, el receptor del mensaje \ct{go: 100} es el objeto devuelto por el env\'io del mensaje \ct{Pen new}. En todos los casos, un mensaje es enviado a un objeto llamado \emph{receptor} el cual puede ser el resultado de otro env\'io de mensaje.
 
@@ -134,7 +134,7 @@ Un receptor puede ser el primer elemento de un mensaje, como \ct{100} en el env\
 	\caption{Ejemplos de Env\'ios de Mensajes y sus Tipos}\tablabel{messageExamples}
 \end{table}
 
-\tabref{messageExamples} muestra varios ejemplos de env\'ios de mensajes.
+La \tabref{messageExamples} muestra varios ejemplos de env\'ios de mensajes.
 Deber\'ias notar que no todos los env\'ios de mensaje tienen argumentos. Los mensajes unarios como \ct{open} no tienen argumentos. Los mensajes keyword simples y los mensajes binarios como \ct{go: 100} y \ct{+ 20} tienen un argumento. 
 Tambi\'en hay mensajes simples y compuestos. \ct{Color yellow} y \ct{100 + 20} son simples:  un mensaje es enviado a un objeto, mientras que el env\'io de mensaje \ct{aPen go: 100 + 20} est\'a compuesto por dos mensajes: \ct{+ 20} es enviado a \ct{100} y \ct{go:} es enviado a \ct{aPen} con el argumento que haya resultado del primer mensaje.
 Un receptor puede ser una expresi\'on (como una asignaci\'on, un env\'io de mensaje o un literal) que devuelva un objeto. En \ct{Pen new go: 100}, el mensaje \ct{go: 100} es enviado al objeto que resulta de la ejecuci\'on del env\'io del mensaje \ct{Pen new}.
@@ -143,17 +143,16 @@ Un receptor puede ser una expresi\'on (como una asignaci\'on, un env\'io de mens
 %=============================================================
 \section{Tres tipos de mensajes}
 
-\st defines a few simple rules to determine the order in which the messages are sent. These rules are based on the distinction between 3 different kinds of messages: 
+\st define unas pocas reglas simples para determinar el orden en el cual los mensajes son enviados. Estas reglas est\'an basadas en la distinci\'on entre 3 tipos diferentes de mensajes: 
 \begin{itemize}
-\item \emph{Unary messages} are messages that are sent to an object without any other information. For example in \ct{3 factorial}, \ct{factorial} is a unary message. 
-\item  \emph{Binary messages} are messages consisting of operators (often arithmetic). They are binary because they always involve only two objects: the receiver and the argument object. For example in \ct{10 + 20}, \ct{+} is a binary message sent to the receiver \ct{10} with argument \ct{20}. 
-\item  \emph{Keyword messages} are messages consisting of one or more keywords, each ending with a colon (\ct{:}) and taking an argument.
-For example in \ct{anArray at: 1 put: 10}, the keyword \ct{at:} takes the argument \ct{1} and the keyword \ct{put:} takes the argument \ct{10}.
+\item Los \emph{Mensajes Unarios} son mensajes que se env\'ian a un objeto sin mas informaci\'on. Por ejemplo en \ct{3 factorial}, \ct{factorial} es un mensaje unario. 
+\item Los \emph{Mensajes Binarios} son mensajes que consisten de operadores (frecuentemente aritm\'eticos). Son binarios porque siempre involucran s\'olo dos objetos: el receptor y el objeto argumento. Por ejemplo en \ct{10 + 20}, \ct{+} es un mensaje binario enviado al receptor \ct{10} con el argumento \ct{20}. 
+\item Los \emph{Mensajes Keyword} son mensajes que consisten de una o mas palabras clave, cada una terminada por dos puntos (\ct{:}) y tomando un argumento. Por ejemplo en \ct{anArray at: 1 put: 10}, la palabra clave \ct{at:} toma el argumento \ct{1} y la palabra clave \ct{put:} toma el argumento \ct{10}.
 \end{itemize}
 
 %-------------------------------------------------------------
-\subsection{Unary messages}
-Unary messages are messages that do not require any argument. They follow the syntactic template: \ct{receiver messageName}. The selector is simply made up of a succession of characters not containing \ct{:} (\eg \ct{factorial}, \ct{open}, \ct{class}).
+\subsection{Mensajes Unarios}
+Los mensajes unarios son mensajes que no requieren ning\'un argumento. Ellos siguen el modelo sint\'actico: \ct{receptor nombreDeMensaje}. El selector se construye simplemente con una sucesi\'on de caracteres que no contengan dos puntos (\ct{:}) (\eg \ct{factorial}, \ct{open}, \ct{class}).
 \needlines{4}
 \begin{code}{@TEST}
 89 sin           --> 0.860069405812453
@@ -165,39 +164,38 @@ Object class --> Object class  "The class of Object is Object class (BANG)"
 \end{code}
 % ON: I changed the examples to things we can test
 
-\important{Unary messages are messages that do not require any argument.\\
-They follow the syntactic template: \lct{receiver \textbf{selector}}}
+\important{Los mensajes unarios son mensajes que no requieren argumentos. Siguen el modelo sint\'actico:\\
+\lct{receptor \textbf{selector}}}
 
 %-------------------------------------------------------------
-\subsection{Binary messages} 
-Binary messages are messages that require exactly one argument \emph{and} whose selector consists of a sequence of one or more characters from the set: \ct{+}, \ct{-}, \ct{*}, \ct{/}, \ct{&}, \ct{=}, \ct{>}, \ct{|}, \ct{<}, \ct{~}, and \ct{@}. Note that \ct{--} is not allowed for parsing reasons.
+\subsection{Mensajes Binarios} 
+Los mensajes binarios son mensajes que requieren exactamente un argumento \emph{y} cuyo selector consiste en una sequencia de uno o mas caracteres del conjunto: \ct{+}, \ct{-}, \ct{*}, \ct{/}, \ct{&}, \ct{=}, \ct{>}, \ct{|}, \ct{<}, \ct{~}, y \ct{@}. Nota que \ct{--} no est\'a permitido por razones de an\'alisis sint\'actico.
 
 \begin{code}{@TEST}
-100@100      --> 100@100  "creates a Point object"
+100@100      --> 100@100  "crea un objeto Point"
 3 + 4              --> 7
 10 - 1            --> 9
 4 <= 3            --> false
-(4/3) * 3 = 4   --> true  "equality is just a binary message, and Fractions are exact"
-(3/4) == (3/4) --> false  "two equal Fractions are not the same object"
+(4/3) * 3 = 4   --> true  "la igualdad es un simple mensaje binario, las fracciones son exactas"
+(3/4) == (3/4) --> false  "dos fracciones iguales no son el mismo objeto"
 \end{code}
 
-\important{Binary messages are messages that require exactly one argument \emph{and} whose selector is composed of a sequence of characters from: \ct{+}, \ct{-}, \ct{*}, \ct{/}, \ct{\&}, \ct{=}, \ct{>}, \ct{|}, \ct{<}, \ct{\~}, and \ct{@}. \ct{--} is not possible.\\
-They follow the syntactic template: \lct{receiver \textbf{selector} argument}}
+\important{Los mensajes binarios son mensajes que requieren exactamente un argumento \emph{y} cuyo selector est\'a compuesto por una secuencia de los caracteres \ct{+}, \ct{-}, \ct{*}, \ct{/}, \ct{\&}, \ct{=}, \ct{\>}, \ct{|}, \ct{\<}, \ct{\~}, y \ct{@}. \ct{--} no est\'a permitido. Siguen el modelo sint\'actico:\\
+\lct{receptor \textbf{selector} argumento}}
 
 %-------------------------------------------------------------
-\subsection{Keyword messages} 
+\subsection{Mensajes Keyword} 
 
-Keyword messages are messages that require one or more arguments and whose selector consists of one or more keywords each ending in \ct{:}.  Keyword messages follow the syntactic template: 
-\lct{receiver \textbf{selectorWordOne:} argument\-One \textbf{wordTwo:} argumentTwo}
+Los mensajes keyword son mensajes que requieren uno o m\'as argumentos y cuyo selector consiste en una o mas palabras clave cada una terminada en dos puntos (\ct{:}). Los mensajes keyword siguen el modelo sint\'actico:  \lct{receptor \textbf{selectorPalabraUno:} argUno \textbf{palabraDos:} argDos}.
 
-Each keyword takes an argument. Hence \ct{r:g:b:} is a method with three arguments, \ct{playFileNamed:} and \ct{at:} are methods with one argument, and \ct{at:put:} is a method with two arguments. To create an instance of the class \ct{Color} one can use the method \ct{r:g:b:} as in \ct{Color r: 1 g: 0 b: 0}, which creates the color red. Note that the colons are part of the selector.
+Cada palabra clave toma un argumento. Entonces \ct{r:g:b:} es un m\'etodo con tres argumentos, \ct{playFileNamed:} y \ct{at:} son m\'etodos con un argumento, y \ct{at:put:} es un m\'etodo con dos argumentos. Para crear una instancia de la clase \ct{Color} se puede utilizar el m\'etodo \ct{r:g:b:} como en \ct{Color r: 1 g: 0 b: 0}, que crea el color rojo. Nota que los dos puntos son parte del selector.
 
-\important{In \ind{Java} or \ind{C++}, the \st method invocation \ct{Color r: 1 g: 0 b: 0}
- would be written \ct{Color.rgb(1,0,0)}.}
+\important{En \ind{Java} o \ind{C++}, la invocaci\'on al m\'etodo de \st \ct{Color r: 1 g: 0 b: 0}
+ ser\'ia escrita \ct{Color.rgb(1, 0, 0)}.}
 
 \begin{code}{@TEST | nums |}
-1 to: 10                        --> (1 to: 10)  "creates an interval"
-Color r: 1 g: 0 b: 0       --> Color red  "creates a new color"
+1 to: 10                        --> (1 to: 10)  "crea un intervalo"
+Color r: 1 g: 0 b: 0       --> Color red  "crea un nuevo color"
 12 between: 8 and: 15 --> true
 
 nums := Array newFrom: (1 to: 5).
@@ -206,8 +204,8 @@ nums --> #(6 2 3 4 5)
 \end{code}
 % ON: Changed to real examples that we can test
 
-\important{Keyword based  messages are messages that require one or more arguments. Their selector consists of one or more keywords each ending in a colon (\lct{:}). They follow the syntactic template: \\
-\lct{receiver \textbf{selectorWordOne:} argumentOne \textbf{wordTwo:} argumentTwo}}
+\important{Los mensajes keyword son mensajes que requieren uno o m\'as argumentos. Su selector consiste en una o m\'as palabras clave cada una terminada con dos puntos (\lct{:}). Siguen el modelo sint\'actico:\\
+\lct{receptor \textbf{selectorPalabraUno:} argUno \textbf{palabraDos:} argDos}}
 
 %=============================================================
 \section{Message composition}
