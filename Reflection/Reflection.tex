@@ -741,32 +741,35 @@ OrderedCollection>>>add: newObject
         ^self addLast: newObject
 \end{code}
 
-% -------- FIXME: seguir desde aca -------------------------------
+¡La imagen se congela de inmediato!  Ni siquiera aparece una ventana
+del navegador.  El problema se aclara cuando comprendemos que
+(\textsc{I}) el sistema usa a \ct{OrderedCollection>>>add:} en muchas
+partes, y por lo tanto el punto de interrupción se dispara un momento
+después de aceptar el cambio, y además (\textsc{II}) \emph{el propio
+  depurador} envía \ct{add:} a una instancia de
+\ct{OrderedCollection}, lo cual impide que se abra la ventana del
+depurador.  Lo que necesitamos es una forma de \emph{hacer un halt
+  condicional} sólo si nos encontramos en un contexto que sea de
+nuestro interés.  Esto es exactamente lo que ofrece
+\clsmthind{Object}{haltIf:}.
 
+Supongamos que sólo queremos un halt si \ct{add:} es enviado desde,
+digamos, el contexto de \ct{OrderedCollectionTest>>>testAdd}.
 
-
-Notice how your image immediately freezes!  We do not even get a
-debugger window.  The problem is clear once we understand that (i)
-\ct{OrderedCollection>>>add:} is used by many parts of the system, so
-the breakpoint is triggered very soon after we accept the change, but
-(ii) \emph{the debugger itself} sends \ct{add:} to an instance of
-\ct{OrderedCollection}, preventing the debugger from opening!  What we
-need is a way to \emph{conditionally halt} only if we are in a context
-of interest.  This is exactly what \clsmthind{Object}{haltIf:} offers.
-
-Suppose now that we only want to halt if \ct{add:} is sent from, say, the context of \ct{OrderedCollectionTest>>>testAdd}.
-
-\dothis{Fire up a fresh image again, and set the following breakpoint:}
+\dothis{Levanta una imagen fresca de nuevo, y configura el siguiente
+  punto de interrupción:}
 \begin{code}{}
 OrderedCollection>>>add: newObject
         !\underline{self haltIf: \#testAdd.}!
         ^self addLast: newObject
 \end{code}
 
-This time the image does not freeze. Try running the \ct{OrderedCollectionTest}.
-(You can find it in the \scat{CollectionsTests-Sequenceable} category.)
+Esta vez la imagen no se congela.  Prueba de correr el
+\ct{OrderedCollectionTest}.  (Lo puedes encontrar en la categoría
+\scat{CollectionsTests-Sequenceable}.) 
 
-How does this work?  Let's have a look at \clsmthind{Object}{haltIf:}:
+¿Cómo funciona esto?  Echemos una mirada a
+\clsmthind{Object}{haltIf:}: 
 \begin{code}{}
 Object>>>haltIf: condition
         | cntxt |
@@ -781,35 +784,64 @@ Object>>>haltIf: condition
         ...
 \end{code}
 
-Starting from \ct!thisContext!, \ct!haltIf:! goes up through the execution stack, checking if the name of the calling method is the same as the one passed as parameter.
-If this is the case, then it raises an exception which, by default, summons the debugger.
+Para cada contexto, desde \ct!thisContext!, \ct!haltIf:! hacia arriba
+en la pila de ejecución, se comprueba si el nombre del método que hace
+la llamada es el mismo símbolo que el recibido como parámetro.  Si se
+da el caso, se levanta una excepción, que de manera predeterminada
+***summons*** el depurador.
 
-It is also possible to supply a boolean or a boolean block as an argument to \ct{haltIf:}, but these cases are straightforward and do not make use of \ct{thisContext}.
+También se puede proporcionar un valor booleano o un bloque booleano
+como argumento de \ct{haltIf:}, pero esos casos son sencillos y no
+utilizan a \ct{thisContext}.
 
 %======================================
-\section{Intercepting messages not understood}
+\section{Cómo interceptar los mensajes no definidos}
 \seclabel{msgnotunderstood}
 
-So far we have used the reflective features of \st mainly to query and explore objects, classes, methods and the run-time stack. Now we will look at how to use our knowledge of the \st system structure to intercept messages and modify behaviour at run-time.
+Hasta ahora utilizamos las capacidades de reflexión computacional de
+\st principalmente para consultar y explorar objetos, clases, métodos
+y la pila de tiempo de ejecución.  Ahora veremos cómo usar nuestro
+conocimiento de la estructua del sistema \st para interceptar mensajes
+y modificar comportamiento al momento de ejecución.
 
-When an object receives a message, it first looks in the method dictionary of its class for a corresponding method to respond to the message.
-If no such method exists, it will continue looking up the class hierarchy, until it reaches \ct{Object}. If still no method is found for that message, the object will \emph{send itself} the message \ct{doesNotUnderstand:} with the message selector as its argument.
-The process then starts all over again, until \clsmthind{Object}{doesNotUnderstand:} is found, and the debugger is launched.
+Cuando un objeto recibe un mensaje, revisa primero en el diccionario
+de métodos de su clase para encontrar el método correspondiente que
+responda al mensaje.  Si no existe un método tal, continúa revisando
+hacia arriba en la jeraquía de clases, hasta que llega a \ct{Object}.
+Si no se encuentra ningún método para ese mensaje, el objeto \emph{se
+  envía a sí mismo} el mensaje \ct{doesNotUnderstand:} con el selector
+del mensaje como su argumento.  El proceso se inicia de nuevo, hasta
+que se encuentra a \clsmthind{Object}{doesNotUnderstand:} y se lanza
+el depurador.
 
-But what if \ct{doesNotUnderstand:} is overridden by one of the subclasses of \ct{Object} in the lookup path?
-As it turns out, this is a convenient way of realizing certain kinds of very dynamic behaviour. An object that does not understand a message can, by overriding \ct{doesNotUnderstand:}, fall back to an alternative strategy for responding to that message.
+¿Pero qué sucede si \ct{doesNotUnderstand:} está sobrecargado en una
+de las subclases de \ct{Object} en la ruta que se revisa?  Como
+veremos, ésta es una manera conveniente de realizar ciertas clases de
+comportamiento muy dinámico.  Un objeto que no responde [does not
+understand] a un mensaje puede sobrecargar \ct{doesNotUnderstand:}
+para proporcionar una estrategia alternativa para responder al mensaje
+de marras.
 
-Two very common applications of this technique are (1) to implement \ind{lightweight proxies} for objects, and (2) to dynamically compile or load missing code.
+Hay dos aplicaciones muy comunes de esta técnica: (1) para implementar
+\ind{proxies livianos} [\ind{lightweight proxies}] para los objetos, y
+(2) para compilar o cargar código faltante.
 
 %-----------------------------------------------------------------
-\subsection{Lightweight proxies}
+\subsection{Proxies livianos}
 
-In the first case, we introduce a ``\ind{minimal object}'' to act as a proxy for an existing object.
-Since the proxy will implement virtually no methods of its own, any message sent to it will be trapped by \ct{doesNotUnderstand:}. By implementing this message, the proxy can then take special action before delegating the message to the real subject it is the proxy for.
+En el primer caso, vamos a a introducir un «\ind{objeto mínimo}»
+[\ind{minimal object}] para que actúe como proxy a favor de un objeto
+existente.  Como el proxy prácticamente no implementa métodos propios,
+cualquier mensaje que se le envíe será interceptado por
+\ct{doesNotUnderstand:}.  Al implementar este mensaje, el proxy puede
+realizar una acción especial antes de delegar el mensaje al objeto
+real del cual es un proxy.
 
-Let us have a look at how this may be implemented\footnote{You can also load \pkg{PBE-Reflection} from \url{http://www.squeaksource.com/PharoByExample/}}.
+Veamos ahora cómo puede implementarse esta idea\footnote{También
+  puedes cargar \pkg{PBE-Reflection} desde
+  \url{http://www.squeaksource.com/PharoByExample/}}.
 
-We define a \ct{LoggingProxy} as follows:
+Definimos el \ct{LoggingProxy} como se muestra a continuación:
 \begin{code}{}
 ProtoObject subclass: #LoggingProxy
         instanceVariableNames: 'subject invocationCount'
@@ -817,15 +849,19 @@ ProtoObject subclass: #LoggingProxy
         poolDictionaries: ''
         category: 'PBE-Reflection'
 \end{code}
-Note that we subclass \ct{ProtoObject} rather than \ct{Object} because we do not want our proxy to inherit over 400 methods (!) from \ct{Object}.
+Creamos la subclase de \ct{ProtoObject}, en lugar de hacerlo desde
+\ct{Object} porque no queremos que nuestro proxy herede ¡más de 400
+métodos! de \ct{Object}.
 
 \begin{code}{}
 Object methodDict size --> 408
 \end{code}
 
-Our proxy has two instance variables: the \ct{subject} it is a proxy for, and a \ct{count} of the number of messages it has intercepted.
-We initialize the two instance variables and we provide an accessor for the message count.
-Initially the \ct{subject} variable points to the proxy object itself.
+Nuestro proxy tiene dos variables de instancia: \ct{subject} es el
+sujeto de quien es proxy, y \ct{count} con la cantidad de mensajes que
+ha interceptado.  Inicializamos las dos variables de instancia y
+proporcionamos un accesor para la cuenta de mensajes.  Inicialmente la
+variable \ct{subject} apunta al proxy mismo.
 \begin{code}{}
 LoggingProxy>>>initialize
         invocationCount := 0.
@@ -837,7 +873,9 @@ LoggingProxy>>>invocationCount
         ^ invocationCount
 \end{code}
 
-We simply intercept all messages not understood, print them to the Transcript, update the message count, and forward the message to the real subject.
+Ahora interceptamos todos los mensajes no definidos, los escribimos en
+el Transcript, actualizamos la cuenta de mensajes, y reenviamos el
+mensaje al sujeto real.
 \begin{code}{}
 LoggingProxy>>>doesNotUnderstand: aMessage
         Transcript show: 'performing ', aMessage printString; cr.
@@ -845,15 +883,19 @@ LoggingProxy>>>doesNotUnderstand: aMessage
         ^ aMessage sendTo: subject
 \end{code}
 
-Here comes a bit of magic.
-We create a new \ct{Point} object and a new \ct{LoggingProxy} object, and then we tell the proxy to \mthind{ProtoObject}{become:} the point object:
+Aquí va un poquito de magia.  Creamos un nuevo objeto \ct{Point} y un
+nuevo \ct{LoggingProxy}, y luego hacemos que el proxy se transforme
+(\mthind{ProtoObject}{become:}) en el objeto punto:
 \seeindex{\ct{become:}}{\ct{ProtoObject>>>become:}}
 \begin{code}{}
 point := 1@2.
 LoggingProxy new !\underline{become:}! point.
 \end{code}
 
-This has the effect of swapping all references in the image to the point to now refer to the proxy, and vice versa. Most importantly, the proxy's \ct{subject} instance variable will now refer to the point!
+Esto tiene el efecto de intercambiar todas las referencias en la
+imagen que apuntaban al punto y ahora apuntan al proxy, y viceversa.
+Lo más importante: ¡ahora la variable de instancia \ct{subject} va a
+referirse al punto!
 
 \begin{code}{}
 point invocationCount --> 0
@@ -861,29 +903,42 @@ point + (3@4)             --> 4@6
 point invocationCount --> 1
 \end{code}
 
-This works nicely in most cases, but there are some shortcomings:
+Esto funciona muy bien en la mayoría de los casos, pero hay algunas
+desventajas: 
 \begin{code}{}
 point class --> LoggingProxy
 \end{code}
-Curiously, the method \ct{class} is not even implemented in \ct{ProtoObject} but in \ct{Object}, which \ct{LoggingProxy} does not inherit from!
-The answer to this riddle is that \ct{class} is never sent as a message but is directly answered by the virtual machine.\footnote{\ct{yourself} is also never truly sent.
-Other messages that may be directly interpreted by the VM, depending on the receiver, include:
+
+Resulta curioso que el método \ct{class} no está implementado ni
+siquiera en \ct{ProtoObject} sino en \ct{Object}, ¡del cual no hereda
+\ct{LoggingProxy}!  La respuesta a este ***riddle*** es que \ct{class}
+nunca se envía como mensaje, sino que la respuesta la da directamente
+la máquina virtual.\footnote{\ct{yourself} tampoco se envía,
+  verdaderamente.  Hay otros mensajes que pueden ser interpretados
+  directamente por la máquina virtual, que dependen del receptor,
+  entre ellos están:
 \ct{+- < > <= >= = ~= * / \ ==}
 \ct{@ bitShift: // bitAnd: bitOr:}
 \ct{at: at:put: size}
 \ct{next nextPut: atEnd}
 \ct{blockCopy: value value: do: new new: x y}.
-Selectors that are never sent, because they are inlined by the compiler and transformed to comparison and jump bytecodes:
+Hay selectores que nunca se envían, porque el compilador los compila
+***inline*** y los transforma a bytecodes de comparación y salto:
 \ct{ifTrue: ifFalse: ifTrue:ifFalse: ifFalse:ifTrue:}
 \ct{and: or:}
 \ct{whileFalse: whileTrue: whileFalse whileTrue}
 \ct{to:do: to:by:do:}
 \ct{caseOf: caseOf:otherwise:}
 \ct{ifNil: ifNotNil:  ifNil:ifNotNil: ifNotNil:ifNil:}
-Attempts to send these messages to non-boolean objects can be intercepted and execution can be resumed with a valid boolean value by overriding \ct{mustBeBoolean} in the receiver or by catching the \ct{NonBooleanReceiver} exception.
-}% NB: Notes by Lukas Renggli
+Si sobrecargamos \ct{mustBeBoolean} en el receptor se pueden
+interceptar los intentos de enviar esos mensajes a objetos que no son
+booleanos y continuar la ejecución sobre un valor booleano válido.
+Otra forma de hacerlo es capturar la excepción
+\ct{NonBooleanReceiver}}% NB: Notes by Lukas Renggli 
 
-Even if we can ignore such special message sends, there is another fundamental problem which cannot be overcome by this approach: \self-sends cannot be intercepted:
+Aún si podemos ignorar tales envíos especiales de mensajes, exite otro
+problema fundamental que no se puede ***overcome*** mediante este
+enfoque:  los envíos a \self no pueden interceptarse:
 \begin{code}{}
 point := 1@2.
 LoggingProxy new become: point.
@@ -892,24 +947,50 @@ point rect: (3@4)        --> 1@2 corner: 3@4
 point invocationCount --> 1
 \end{code}
 
-Our proxy has been cheated out of two \self-sends in the \ct{rect:} method:
+Nuestro proxy ***has been cheated out*** de dos envíos a \self en el
+método \ct{rect:}
 \begin{code}{}
 Point>>>rect: aPoint
         ^ Rectangle  origin: (self min: aPoint) corner: (self max: aPoint)
 \end{code}
 
-Although messages can be intercepted by proxies using this technique, one should be aware of the inherent limitations of using a proxy.  In \secref{wrapper} we will see another, more general approach for intercepting messages.
+Aún cuando los proxies pueden interceptar mensajes mediante el uso de
+esta técnica, uno debe ser conciente de las limitaciones inherentes al
+utilizar un proxy.  En \secref{wrapper} veremos otro enfoque, más
+general, para interceptar mensajes.
 
 %-----------------------------------------------------------------
-\subsection{Generating missing methods}
+\subsection{Cómo generar los métodos faltantes}
 
-The other most common application of intercepting not understood messages is to dynamically load or generate the missing methods.
-Consider a very large library of classes with many methods.  Instead of loading the entire library, we could load a stub for each class in the library. The stubs know where to find the source code of all their methods.  The stubs simply trap all messages not understood, and dynamically load the missing methods on-demand.  At some point, this behaviour can be deactivated, and the loaded code can be saved as the minimal necessary subset for the client application.
+La otra aplicación más popular de la intercepción de mensajes no
+definidos es la carga o generación dinámica de los métodos faltantes.
+Considere una biblioteca muy extensa de clases que tiene muchos
+métodos.  En lugar de cargar la biblioteca completa, podemos cargar un
+***stub*** para cada clase de la biblioteca.  Los ***stubs*** saben
+dónde encontrar el código fuente de todos sus métodos.  Los
+***stubs*** simplemente interceptan todos los mensajes ***does not
+understand*** y cargan dinámicamente los métodos faltantes a medida
+que son necesarios.  En algún momento posterior se puede desactivar
+este comportamiento, y grabar el código cargado como el mínimo
+subconjunto necesario para la aplicación cliente.
 
-%\on{Stef sez: check ObjectOut -- I looked, but this seems to be very old. Depends on SqueakPage.}
+% \on{Stef sez: check ObjectOut -- I looked, but this seems to be very
+%   old. Depends on SqueakPage.}
 
-Let us look at a simple variant of this technique where we have a class that automatically adds accessors for its instance variables on-demand:
-% \lr{the last statement should return the result of the message, otherwise you cannot proceed with the debugger} \alex{all redefinition of doesNotUnderstand: includes a return statement. However, I do not see your comment lukas, I tried to insert a 'self halt' in the method, I was able to proceed. I added the return in the function} \lr{Of course it depends on the exact circumstances. If you perform a message on self that returns self it does not matter, but in any other case a forgotten return can introduce strange side effects. There was no return in the listing below, but now there is and the problem is solved.}
+Vamos a estudiar una variante simple de esta técnica donde tenemos una
+clase que agrega automáticamente los accesores para sus variables de
+instancia cuando sean necesarios:
+% \lr{the last statement should return the result of the message,
+%   otherwise you cannot proceed with the debugger}
+% \alex{all redefinition of doesNotUnderstand: includes a return
+%   statement. However, I do not see your comment lukas, I tried to
+%   insert a 'self halt' in the method, I was able to proceed. I added
+%   the return in the function}
+% \lr{Of course it depends on the exact circumstances. If you perform
+%   a message on self that returns self it does not matter, but in any
+%   other case a forgotten return can introduce strange side
+%   effects. There was no return in the listing below, but now there
+%   is and the problem is solved.}
 
 \begin{code}{}
 DynamicAcccessors>>>doesNotUnderstand: aMessage
@@ -921,7 +1002,12 @@ DynamicAcccessors>>>doesNotUnderstand: aMessage
                         ^ aMessage sendTo: self ].
         ^ super doesNotUnderstand: aMessage
 \end{code}
-Any message not understood is trapped here. If an instance variable with the same name as the message sent exists, then we ask our class to compile an accessor for that instance variables and we re-send the message.
+Cuanlquier mensaje no definido se intercepta aquí.  Si existe una
+variable de instancia con el mismo nombre del mensaje, etonces
+solicitamos a nuestra clase que compile un accesor para esa variable
+de instancia y reenviamos el mensaje.
+
+% -------- FIXME: seguir desde aca -------------------------------
 
 Suppose the class \ct{DynamicAcccessors} has an (uninitialized) instance variable \ct{x} but no pre-defined accessor. Then the following will generate the accessor dynamically and retrieve the value:
 \needlines{2}
