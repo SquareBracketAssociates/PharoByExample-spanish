@@ -174,8 +174,8 @@
 %
 \newcommand{\ruleref}[1]{\ref{rule:#1}\xspace}
 %
-\newcommand{\egref}[1]{example~\ref{eg:#1}\xspace}
-\newcommand{\Egref}[1]{Example~\ref{eg:#1}\xspace}
+\newcommand{\egref}[1]{ejemplo~\ref{eg:#1}\xspace}
+\newcommand{\Egref}[1]{Ejemplo~\ref{eg:#1}\xspace}
 %
 \newcommand{\scrref}[1]{script~\ref{scr:#1}\xspace}
 \newcommand{\Scrref}[1]{Script~\ref{scr:#1}\xspace}
@@ -447,7 +447,7 @@ Damien Pollet},
 % NB: the third arg is for tests
 % Only code and example environments may be tests
 \lstnewenvironment{example}[3][defaultlabel]{%
-	\renewcommand{\lstlistingname}{Example}%
+	\renewcommand{\lstlistingname}{Ejemplo}%
 	\lstset{
 		% frame=lines,
 		frame=single,
@@ -470,7 +470,7 @@ Damien Pollet},
 	}
 }{}
 \lstnewenvironment{method}[2][defaultlabel]{%
-	\renewcommand{\lstlistingname}{Method}%
+	\renewcommand{\lstlistingname}{M\'etodo}%
 	\lstset{
 		% frame=lines,
 		frame=single,
@@ -482,7 +482,7 @@ Damien Pollet},
 	}
 }{}
 \lstnewenvironment{methods}[2][defaultlabel]{% just for multiple methods at once
-	\renewcommand{\lstlistingname}{Methods}%
+	\renewcommand{\lstlistingname}{M\'etodos}%
 	\lstset{
 		% frame=lines,
 		frame=single,
@@ -494,7 +494,7 @@ Damien Pollet},
 	}
 }{}
 \lstnewenvironment{numMethod}[2][defaultlabel]{%
-	\renewcommand{\lstlistingname}{Method}%
+	\renewcommand{\lstlistingname}{M\'etodo}%
 	\lstset{
 		numbers=left,
 		numberstyle={\tiny\sffamily},
@@ -508,7 +508,7 @@ Damien Pollet},
 	}
 }{}
 \lstnewenvironment{classdef}[2][defaultlabel]{%
-	\renewcommand{\lstlistingname}{Class}%
+	\renewcommand{\lstlistingname}{Clase}%
 	\lstset{
 		% frame=lines,
 		frame=single,
