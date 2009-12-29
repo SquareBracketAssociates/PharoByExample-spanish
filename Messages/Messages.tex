@@ -283,7 +283,7 @@ La \figref{uKeyUn} muestra graficamente c\'omo son enviados los mensajes.
 (2)   aPen color: aColor                 "mensaje keyword enviado luego"
 \end{example}
 
-\paragraph{Ejemplo.} En el mensaje \ct{aPen go: 100 + 20}, encontramos el mensaje \emph{binary} \ct{+ 20} y el mensaje \emph{keyword} \ct{go:}. Los mensajes binarios se env\'ian antes que los mensajes keyword as\'i que \ct{100 + 20} es enviado primero (1): el mensaje \ct{+ 20} es enviado al objeto \ct{100} retornando el número \ct{120}. Entonces el mensaje \ct{aPen go: 120} es enviado con \ct{120} como argumento (2).
+\paragraph{Ejemplo.} En el mensaje \ct{aPen go: 100 + 20}, encontramos el mensaje \emph{binary} \ct{+ 20} y el mensaje \emph{keyword} \ct{go:}. Los mensajes binarios se env\'ian antes que los mensajes keyword as\'i que \ct{100 + 20} es enviado primero (1): el mensaje \ct{+ 20} es enviado al objeto \ct{100} retornando el nÃºmero \ct{120}. Entonces el mensaje \ct{aPen go: 120} es enviado con \ct{120} como argumento (2).
 El \egref{decGo} muestra como es ejecutado el todo el env\'io de mensajes.
 
 \begin{example}[decGo]{Descomponiendo \ct{aPen go: 100 + 20}}{}
