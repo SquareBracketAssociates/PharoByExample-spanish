@@ -213,12 +213,12 @@ Los tres tipos de mensajes tienen diferente precedencia, lo cual permite que sea
 
 \begin{enumerate}
 \item Los mensajes unarios son siempre enviados primero, luego los mensajes binarios y finalmente los mensajes keyword. 
-\item Los mensajes en \ind{par\'entesis} son enviados antes que cualquier otro tipo de mensaje.
+\item Los mensajes entre \ind{par\'entesis} son enviados antes que cualquier otro tipo de mensaje.
 \item Los mensajes del mismo tipo son evaluados de izquierda a derecha. 
 \end{enumerate}
 \index{mensaje!orden de evaluaci\'on}
 
-Estas reglas llevan a un orden de lectura muy natural. Ahora bien, si deseas asegurarte que tus mensajes sean enviados en el orden que deseas puedes agregar par\'entesis como se muestra en la \figref{uKeyUn}. En esta figura, el mensaje \ct{yellow} es un mensaje unario y el mensaje \ct{color:} un mensaje keyword, por lo tanto el env\'io de \ct{Color yellow} se realiza primero. De todos modos, dado que los env\'ios de mensajes en par\'entesis se realizan primero, colocando par\'entesis (innecesarios) alrededor de \ct{Color yellow} simplemente enfatiza la precedencia de dicho mensaje. El resto de la secci\'on ilustrar\'a cada uno de estos puntos.
+Estas reglas llevan a un orden de lectura muy natural. Ahora bien, si deseas asegurarte que tus mensajes sean enviados en el orden que deseas puedes agregar par\'entesis como se muestra en la \figref{uKeyUn}. En esta figura, el mensaje \ct{yellow} es un mensaje unario y el mensaje \ct{color:} un mensaje keyword, por lo tanto el env\'io de \ct{Color yellow} se realiza primero. De todos modos, dado que los env\'ios de mensajes entre par\'entesis se realizan primero, colocando par\'entesis (innecesarios) alrededor de \ct{Color yellow} simplemente enfatiza la precedencia de dicho mensaje. El resto de la secci\'on ilustrar\'a cada uno de estos puntos.
 
 \begin{figure}[ht]
 \ifluluelse
@@ -344,23 +344,23 @@ El \egref{decGo} muestra como es ejecutado el todo el env\'io de mensajes.
 %\end{figure}
 
 %-------------------------------------------------------------
-\subsection{Parentheses first}
+\subsection{Los par\'entesis primero}
 
-\important{\textbf{Rule Two.} Parenthesised messages are sent prior to other messages.\\
-\centerline{\ct{(Msg) > Unary > Binary > Keyword}}}
+\important{\textbf{Regla Dos.} Los mensajes entre par\'entesis se env\'ian antes que los otros mensajes.\\
+\centerline{\ct{(Mensaje) > Unarios > Binarios > Keyword}}}
 
 \begin{code}{@TEST}
-1.5 tan rounded asString = (((1.5 tan) rounded) asString) --> true    "parentheses not needed here"
-3 + 4 factorial   --> 27    "(not 5040)"
+1.5 tan rounded asString = (((1.5 tan) rounded) asString) --> true    "no se necesitan par\'entesis"
+3 + 4 factorial   --> 27    "(no es 5040)"
 (3 + 4) factorial --> 5040
 \end{code}
 
-Here we need the \ind{parentheses} to force sending \ct{lowMajorScaleOn:} before \ct{play}.
+Aquí necesitamos los \ind{paréntesis} para forzar el envío de \ct{lowMajorScaleOn:} antes del envío de \ct{play}.
 \begin{code}{}
 (FMSound lowMajorScaleOn: FMSound clarinet) play 
-"(1) send the message clarinet to the FMSound class to create a clarinet sound.
- (2) send this sound to FMSound as argument to the lowMajorScaleOn: keyword message.
- (3) play the resulting sound."
+"(1) enviar el mensaje clarinet a la clase FMSound para crear un sonido de clarinete.
+ (2) enviar este sonido a FMSound como argumento del mensaje keyword lowMajorScaleOn:.
+ (3) reproducir el sonido resultante."
 \end{code}
 
 % ON: This has nothing to do with parentheses!
@@ -371,34 +371,34 @@ Here we need the \ind{parentheses} to force sending \ct{lowMajorScaleOn:} before
 %(HTTPSocket httpShowGif:
 %   'www.altavista.digital.com/av/pix/default/av-adv.gif') display
 
-\paragraph{Example.}
-The message \ct{(65@325 extent: 134 @ 100) center} returns the center of a rectangle whose top left point is $(65, 325)$ and whose size is $134{\times}100$. \Egref{decExtent} shows how the message is decomposed and sent. First the message between parentheses is sent: it contains two binary messages \ct{65@325} and \ct{134@100} that are sent first and return points, and a keyword message \ct{extent:} which is then sent and returns a rectangle. Finally the unary message \ct{center} is sent to the rectangle and a point is returned. 
-Evaluating the message without parentheses would lead to an error because the object \ct{100} does not understand the message \ct{center}.
+\paragraph{Ejemplo.}
+El mensaje \ct{(65@325 extent: 134 @ 100) center} retorna el centro de un rectángulo cuya esquina superior izquierda es $(65, 325)$ y cuyo tamaño es $134{\times}100$. El \egref{decExtent} muestra cómo el mensaje es descompuesto y enviado. Primero es enviado el mensaje entre paréntesis: contiene los mensajes binarios \ct{65@325} y \ct{134@100} que son enviados primero y retornan objetos punto, y el mensaje keyword \ct{extent:} que es enviado a continuación y retorna un rectángulo. Finalmente es enviado al rectángulo el mensaje unario \ct{center} y entonces un nuevo punto es retornado por este. 
+Evaluar el mensaje sin paréntesis llevaría a un error porque el objeto \ct{100} no comprende el mensaje \ct{center}.
 
 \needlines{9}
-\begin{example}[decExtent]{Example of Parentheses.}{}
+\begin{example}[decExtent]{Ejemplo de Paréntesis.}{}
       (65 @ 325 extent: 134 @ 100) center
-(1)   65@325                                                    "binary"
-    --> aPoint
-(2)                                134@100                     "binary"
-                                 --> anotherPoint
-(3)   aPoint extent: anotherPoint                       "keyword"
+(1)   65@325                                  "binario"
+      --> aPoint
+(2)   134@100                                 "binario"
+      --> anotherPoint
+(3)   aPoint extent: anotherPoint      "keyword"
       --> aRectangle
-(4)   aRectangle center                                     "unary"
+(4)   aRectangle center                    "unario"
       --> 132@375
 \end{example}
 
-\subsection{From left to right}
-Now we know how messages of different kinds or priorities are handled. The final question to be addressed is how messages with the same priority are sent. They are sent from the left to the right. Note that you already saw this behaviour in \egref{decExtent} where the two point creation messages (\ct{@}) were sent first.
+\subsection{De izquierda a derecha}
+Ahora sabemos cómo son manejados los mensajes de distintos tipos o prioridades. La pregunta final que resta por ser respondida es cómo son enviados los mensajes con la misma prioridad. Son enviados de izquierda a derecha. Debes notar que ya viste este comportamiento en \egref{decExtent} donde los dos mensajes (\ct{@}) de creación de puntos fueron enviados primero.
 
-\important{{\textbf{Rule Three.} When the messages are of the same kind, the order of evaluation is from left to right.}}
+\important{{\textbf{Regla Tres.} Cuando los mensajes son del mismo tipo, el orden de evaluación es de izquierda a derecha.}}
 
 %\begin{figure}
 %\centerline{\includegraphics[width=8cm]{ucompoUn}} 
 %\caption{The message \ct{Pen new east} is composed of two unary messages. Therefore the leftmost one, \ct{new},  is sent and it returns a new robot to which the second message \ct{east} is sent. \figlabel{compoUn}}
 %\end{figure}
 
-\paragraph{Example.} In the message sends \ct{Pen new down} all messages are unary messages, so the leftmost one, \ct{Pen new}, is sent first. This returns a newly created pen to which the second message \ct{down} is sent, as shown in \figref{unaryMessages}.
+\paragraph{Ejemplo.} En los envíos de los mensajes \ct{Pen new down} todos los mensajes son unarios, así que el primero de la izquierda, \ct{Pen new}, se envía primero. Este mensaje retorna un nuevo objeto lápiz al cual se le envía el segundo mensaje \ct{down}, como se muestra en \figref{unaryMessages}.
 
 \begin{figure}
 	\centering
