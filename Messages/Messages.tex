@@ -407,24 +407,24 @@ Ahora sabemos cómo son manejados los mensajes de distintos tipos o prioridades.
 \end{figure}
 
 %-------------------------------------------------------------
-\subsection{Arithmetic inconsistencies}
-The message composition rules are simple but they result in inconsistency for the execution of arithmetic message sends expressed in terms of binary messages. Here we see the common situations where extra parentheses are needed. 
+\subsection{Inconsistencias aritméticas}
+Las reglas de composición de mensajes son simples pero producen inconsistencias en la ejecución de envíos de mensajes aritméticos expresados en mensajes binarios. Aquí veremos algunas situaciones comunes en las cuales el agregado de paréntesis es necesario para subsanar dichas inconsistencias.
 
 \needlines{6}
 \begin{code}{@TEST}
-3 + 4 * 5      --> 35    "(not 23)  Binary messages sent from left to right"
+3 + 4 * 5      --> 35    "(no resulta 23)  Los mensajes binarios se envían de izquierda a derecha"
 3 + (4 * 5)    --> 23
-1 + 1/3         --> (2/3)    "and not 4/3"
+1 + 1/3         --> (2/3)    "no resulta 4/3"
 1 + (1/3)       --> (4/3)
-1/3 + 2/3       --> (7/9)    "and not 1"
+1/3 + 2/3       --> (7/9)    "no resulta 1"
 (1/3) + (2/3)  --> 1
 \end{code}
 
-\paragraph{Example.} 
-In the message sends \ct{20 + 2 * 5}, there are only binary messages \ct{+} and \ct{*}. However in \st there is no specific priority for the operations \ct{+} and \ct{*}. They are just binary messages, hence \ct{*} does not have priority over \ct{+}. Here the leftmost message \ct{+} is sent first (1) and then the \ct{*} is sent to the result as shown in \egref{binaryMessages1}.  
+\paragraph{Ejemplo.} 
+En los envíos de mensajes \ct{20 + 2 * 5}, están presenta solamente los mensajes binarios \ct{+} y \ct{*}. En \st no hay prioridades específicas para las operaciones \ct{+} y \ct{*}. Son sólo mensajes binarios, entonces \ct{*} no tiene prioridad por sobre \ct{+}. Aquí el mesaje mas a la izquierda \ct{+} es enviado primero (1) y luego se envía al resultado el mensaje \ct{*} como se muestra en \egref{binaryMessages1}.
 
-\begin{example}[binaryMessages1]{Decomposing \ct{20 + 2 * 5}}{}
-"As there is no priority among binary messages, the leftmost message + is evaluated first even if by the rules of arithmetic the * should be sent first."
+\begin{example}[binaryMessages1]{Descomponiendo \ct{20 + 2 * 5}}{}
+"Debido a que no hay prioridades entre los mensajes binarios, el mensaje de la izquierda + es evaluado primero, aún cuando para las reglas de la aritmética el * debería ser enviado antes."
 
       20 + 2 * 5 
 (1)  20 + 2 --> 22
@@ -435,11 +435,11 @@ In the message sends \ct{20 + 2 * 5}, there are only binary messages \ct{+} and 
 \begin{center}\includegraphics[width=8cm]{ucompoNoBracketPar}\end{center}
 \end{figure}
 \noindent
-As shown in \egref{binaryMessages1} the result of this message send is not \ct{30} but \ct{110}. This result is perhaps unexpected but follows directly from the rules used to send messages. This is somehow the price to pay for the simplicity of the \st model. To get the correct result, we should use parentheses. When messages are enclosed in parentheses, they are evaluated first. Hence the message send \ct{20 + (2 * 5)} returns the result as shown in \egref{mathcorrect}.
+Como se muestra en \egref{binaryMessages1} el resultado de este envío de mensajes no es \ct{30} sino \ct{110}. Este resultado es quizás inesperado pero es directamente consistente con las reglas utilizadas para enviar mensajes. De alguna manera este es un precio a pagar por la simplicidad de modelo de \st. Para obtener el resultado correcto, deberíamos utilizar paréntesis. Los mensajes se evalúan primero cuando son rodeados con paréntesis. Entonces el envío de los mensajes \ct{20 + (2 * 5)} retornará el resultado correcto como se muestra en \egref{mathcorrect}.
 
 \needlines{4}
-\begin{example}[mathcorrect]{Decomposing \ct{20 + (2 * 5)}}{}
-"The messages surrounded by parentheses are evaluated first therefore * is sent prior to + which produces the correct behaviour."
+\begin{example}[mathcorrect]{Descomponiendo \ct{20 + (2 * 5)}}{}
+"Los mensajes rodeados con paréntesis son evaluados primero, en consecuencia * se envía antes que + lo cual produce el comportamiento correcto."
 
     20 + (2 * 5) 
 (1)        (2 * 5) --> 10
@@ -452,7 +452,7 @@ As shown in \egref{binaryMessages1} the result of this message send is not \ct{3
 \end{center}
 \end{figure}
 
-\important{In \st, arithmetic operators such as + and * do not have different priority. \ct{+} and \ct{*} are just binary messages, therefore \ct{*} does not have priority over \ct{+}. Use parentheses to obtain the desired result.}
+\important{En \st, los operadores aritméticos como + y * no poseen diferente prioridad. \ct{+} y \ct{*} son simples mensajes binarios, de lo cual se sigue que \ct{*} no posee prioridad por sobre \ct{+}. Se deben utilizar los paréntesis para obtener los resultados deseados.}
 
 %  At the beginning put parenthesis when you have multiple binary messages.}  HUH?  At the beginning of what?!
 
@@ -465,15 +465,15 @@ As shown in \egref{binaryMessages1} the result of this message send is not \ct{3
 	{\includegraphics[width=\textwidth]{uunKeyBinPar}}
 	{\includegraphics[width=10cm]{uunKeyBinPar}}
 \end{center}
-\caption{Equivalent messages using parentheses. \figlabel{uKeyUnBinPar}}
+\caption{Mensajes equivalentes utilizando paréntesis. \figlabel{uKeyUnBinPar}}
 \end{figure}
 
-Note that the first rule stating that unary messages are sent prior to binary and keyword messages avoids the need to put explicit parentheses around them. \tabref{expressions} shows message sends written following the rules and equivalent message sends if the rules would not exist. Both message sends result in the same effect or return the same value. 
+Se debe notar que la primera regla que determina que los mensajes unarios sean enviados antes que los binarios y que los keyword evita la necesidad de utilizar paréntesis explícitos a su alrededor. La \tabref{expressions} muestra envíos de mensajes escritos siguiendo estas reglas y a su lado los envíos de mensajes equivalentes si las reglas no existieran. Ambos envíos de mensajes resultan en el mismo efecto o retornan el mismo valor.
 
 \begin{figure}\centering
 	\begin{tabular}{l@{\qquad}l}
 	\toprule
-	Implicit precedence & Explicitly parenthesized equivalent \\
+	Precedencias implícita y su equivalentes con paréntesis explícitos\\
 	\midrule
 	\lct{aPen color: Color yellow}
 		& \lct{aPen color: (Color yellow)}
@@ -489,7 +489,7 @@ Note that the first rule stating that unary messages are sent prior to binary an
 		\\
 	\bottomrule
 	\end{tabular}
-	\caption{Message sends and their fully parenthesized equivalents\tablabel{expressions}}
+	\caption{Envíos de mensajes y sus equivalentes con paréntesis explícitos.\tablabel{expressions}}
 \end{figure}
 
 %=============================================================
