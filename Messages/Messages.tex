@@ -497,12 +497,11 @@ Se debe notar que la primera regla que determina que los mensajes unarios sean e
 Frecuentemente los principiantes tienen problemas para comprender cuándo es necesario utilizar paréntesis. Veamos cómo son reconocidos los mensajes keyword por el compilador.
 
 %-------------------------------------------------------------
-\subsection{Parentheses or not?}
-The characters \ct{[}, \ct{]}, \ct{(} and \ct{)} 
-delimit distinct areas. Within such an area, a keyword message is the longest sequence of words terminated  by \ct{:} that is not cut by the characters \ct{.},  or \ct{;}. 
-When the characters \ct{[}, \ct{]}, \ct{(} and \ct{)} surround some words with colons, these words participate in the keyword message \emph{local} to the area defined.
+\subsection{Paréntesis o no?}
+Los caracteres \ct{[}, \ct{]}, \ct{(} y \ct{)} delimitan diferentes áreas. En de cada una de dichas áreas, un mensaje keyword es la secuencia más larga de palabras terminadas por \ct{:} que no sea cortada por los caracteres \ct{.} o \ct{;}. 
+Cuando los caracteres \ct{[}, \ct{]}, \ct{(} y \ct{)} rodean un conjunto de palabras terminadas con dos puntos, estas palabras participan en el mensaje keyword \emph{local} al área definida.
 
-In this example, there are two distinct keyword messages:  \ct{rotatedBy:magnify:smoothing:} and \ct{at:put:}.
+En este ejemplo, hay dos mensajes keyword diferentes: \ct{rotatedBy:magnify:smoothing:} y \ct{at:put:}.
 
 \begin{code}{}
 aDict
@@ -514,52 +513,50 @@ aDict
 \end{code}
 
 \important{
-The characters \lct{[}, \lct{]}, \lct{(} and \lct{)} delimit distinct areas. Within such an area, 
-a keyword message is the longest sequence  of words terminated by \lct{:} that is not cut by the characters \lct{.},  or \lct{;}. 
-When the characters \lct{[}, \lct{]}, \lct{(} and \lct{)} surround some words with colons, these words participate in the keyword message local to the area defined.}
+Los caracteres \lct{[}, \lct{]}, \lct{(} y \lct{)} delimitan diferentes áreas. Dentro de cada una de dichas áreas, un mensaje keyword está compuesto por la secuencia más larga de palabras terminadas por \lct{:} que no sea cortada por los caracteres \lct{.},  o \lct{;}. 
+Cuando los caracteres \lct{[}, \lct{]}, \lct{(} y \lct{)} rodean algunas palabras terminadas por dos puntos, estas palabras participan en el mensaje keyword local al área definida.}
 
-\on{Sounds terribly complicated.}
+\on{Suena terriblemente complicado.}
 
-\paragraph{Hints.} If you have problems with these precedence rules, you may start simply by putting parentheses whenever you want to distinguish two messages having the same precedence.
+\paragraph{Consejos.} Si tienes problemas con estas reglas de precedencia, puedes comenzar simplemente poniendo paréntesis cada vez que quieras distinguir dos mensajes que tengan la misma precedencia.
 
-The following piece of code does not require parentheses because the message send  \ct{x isNil} is unary hence is sent prior to the keyword message \ct{ifTrue:}.
+El siguiente trozo de código no requiere paréntesis porque el envío de mensaje \ct{x isNil} es unario, por lo tanto es enviado antes que el mensaje keyword \ct{ifTrue:}.
 \begin{code}{}
 (x isNil)
    ifTrue:[...]
 \end{code}
 
-The following piece of code requires parentheses because the messages \ct{includes:} and \ct{ifTrue:} are both keyword messages. 
+El siguiente trozo de código requiere paréntesis porque los mensajes \ct{includes:} y \ct{ifTrue:} son ambos mensajes keyword. 
 \begin{code}{}
 ord := OrderedCollection new.
 (ord includes: $a)
    ifTrue:[...]
 \end{code}
 \noindent
-Without parentheses the unknown message \ct{includes:ifTrue:} would be sent to the collection!
+Sin los paréntesis el mensaje desconocido \ct{includes:ifTrue:} sería enviado a la colección!
 
 %-------------------------------------------------------------
-\subsection{When to use \lct{[ ]} or \lct{( )}}
-You may also have problems understanding when to use square brackets rather than parentheses.
-The basic principle is that you should use \ct{[ ]} when you do not know how many times, potentially zero, an expression should be evaluated.
-\lct{[\emph{expression}]} will create a \ind{block} closure (\ie an object) from \lct{\emph{expression}}, which may be evaluated any number of times (possibly zero), depending on the context. Here note that an expression can either be a message send, a variable, a literal, an assignment or a block.
+\subsection{Cuándo usar \lct{[ ]} o \lct{( )}}
+Puedes tener problemas para comprender cuándo utilizar corchetes en lugar de paréntesis.
+El principio básico es el que indica que debes utilizar \ct{[ ]} cuando no sepas cuántas veces, potencialmente cero, una expresión deberá ser evaluada.
+La notación \lct{[\emph{expresión}]} creará un cierre de \ind{bloque} (\ie un objeto) de \lct{\emph{expresión}}, el cual podrá ser evaluado cualquier número de veces (posiblemente cero), dependiendo del contexto. Aquí se debe notar que dicha expresión puede ser tanto un envío de mensaje, como una variable, una asignación o un bloque.
 
-Hence the conditional branches of \ct{ifTrue:} or \ct{ifTrue:ifFalse:} require blocks. Following the same principle both the receiver and the argument of a \ct{whileTrue:} message require the use of square brackets since we do not know how many times either the receiver or the argument should be evaluated.
+Por lo tanto las ramas condicionales de \ct{ifTrue:} o \ct{ifTrue:ifFalse:} requieren bloques. Siguiendo el mismo principio tanto el receptor como el argumento de un mensaje \ct{whileTrue:} requieren el uso de corchetes puesto que no sabemos cuántas veces deberán ser evaluados ni uno ni el otro.
 
-Parentheses, on the other hand, only affect the order of sending messages.
-So in \lct{(\emph{expression})}, the \lct{\emph{expression}} will \emph{always} be evaluated exactly once.
+Los paréntesis, por otro lado, solo afectan el orden del envío de mensajes.
+Entonces en \lct{(\emph{expresión})}, la \lct{\emph{expresión}} será \emph{siempre} evaluada exactamente una vez.
 
 \begin{code}{}
-[ x isReady ] whileTrue: [ y doSomething ]   "both the receiver and the argument must be blocks"
-4 timesRepeat: [ Beeper beep ]                   "the argument is evaluated more than once, so must be a block"
-(x isReady) ifTrue: [ y doSomething ]           "receiver is evaluated once, so is not a block"
+[ x isReady ] whileTrue: [ y doSomething ]   "tanto el receptor como el argumento deben ser bloques"
+4 timesRepeat: [ Beeper beep ]                   "el argumento es evaluado mas de una vez, entonces debe ser un bloque"
+(x isReady) ifTrue: [ y doSomething ]           "el receptor es evaluado una vez, entonces no es un bloque"
 \end{code}
 
 %=============================================================
-\section{Expression sequences}
-Expressions (\ie messages sends, assignments\dots) separated by periods are evaluated in sequence.
-Note that there is no period between a variable definition and the following expression.
-The value of a sequence is the value of the last expression. The values returned by all the 
-expressions except the last one are ignored. Note that the period is a \subind{statement}{separator} and not a terminator. Therefore a final period is optional.
+\section{Secuencias de expresiones}
+Las expresiones (\ie envíos de mensajes, asignaciones\dots) separadas por puntos son evaluadas secuencialmente.
+Nota que no hay un punto entre una definición de variable y la siguiente expresión.
+El valor de una secuencia es el valor de la última expresión. Los valores retornados por todas las expresiones exceptuando la última son ignorados. Debes notar también que el punto es un \subind{sentencia}{separador} y no un terminador. En consecuencia un punto final es solo opcional.
 
 \begin{code}{@TEST}
 | box |
@@ -568,8 +565,8 @@ box containsPoint: 40@50 --> true
 \end{code}
 
 %=============================================================
-\section{Cascaded messages}
-\st offers a way to send multiple messages to the same receiver using a semicolon (\ct{;}). This is called the \emphind{cascade} in \st jargon.
+\section{Mensajes en cascada}
+\st ofrece una manera de enviar múltiples mensajes al mismo receptor utilizando un punto y coma (\ct{;}). Esto es llamado \emphind{cascada} en la jerga de \st.
 
 \important{Expression Msg1 ; Msg2}
 
@@ -580,7 +577,7 @@ Transcript show: 'fun '.
 Transcript cr.
 \end{code}
 \end{minipage}
-\emph{is equivalent to:}
+\emph{es equivalente a:}
 \begin{minipage}{0.35\textwidth}
 \begin{code}{}
 Transcript        
@@ -590,8 +587,8 @@ Transcript
 \end{code}
 \end{minipage}
 
-Note that the object receiving the cascaded messages can itself be the result of a message send. 
-In fact the receiver of all the cascaded messages is the receiver of the first message involved in a cascade. In the following example, the first cascaded message is \ct{setX:setY} since it is followed by a cascade. The receiver of the cascaded message \ct{setX:setY:} is the newly created point resulting from the evaluation of \ct{Point new}, and \emph{not} \ct{Point}. The subsequent message \ct{isZero} is sent to that same receiver. 
+Debes notar que el objeto que recibe la cascada puede también ser el resultado de un envío de mensaje en sí mismo.
+De hecho el receptor de todos los mensajes de una cascada es el receptor del primer mensaje de la misma. En el siguiente ejemplo, el primer mensaje de la cascada es \ct{setX:setY:} dado que está seguido por una cascada. El receptor del mensaje en cascada \ct{setX:setY:} es el objeto punto que acaba de ser creado como resultado de la evaluación de \ct{Point new}, y \emph{no} \ct{Point}. El mensaje subsiguiente \ct{isZero} es enviado al mismo receptor.
 
 \begin{code}{}
 Point new setX: 25 setY: 35; isZero --> false
