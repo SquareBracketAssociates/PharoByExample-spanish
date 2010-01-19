@@ -5,7 +5,6 @@
 % HISTORY:
 % 2006-10-31 - Oscar code macros
 % ...
-
 %=============================================================
 % NB: documentclass must be set in main document.
 % Allows book to be generated in multiple formats.
@@ -20,6 +19,15 @@
 \usepackage{graphicx}
 \usepackage{theorem}
 \usepackage[spanish]{babel}
+%%
+% El contenido de label en enumitem no admite ordenes frágiles. 
+% Está corregido en la versión 5.0, pero una solución para la 4 
+% es la siguiente:
+% iref: http://www.tex-tipografia.com/spanish.html 
+\makeatletter
+\let\savees@listquot\es@listquot
+\def\es@listquot{\protect\savees@listquot}
+\makeatletter
 \usepackage[utf8]{inputenc}
 % ON: pdfsync breaks the use of p{width} for tabular columns!
 \ifdefined\usepdfsync\usepackage{pdfsync}\fi % Requires texlive 2007
