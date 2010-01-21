@@ -9,6 +9,7 @@
 % 2006-12-02 - Andrew edit
 % 2007-05-04 - Oscar first draft
 % 2007-07-04 - Stef review
+% 2009-12-18 - Rafa starts spanish translation
 
 %=================================================================
 \ifx\wholebook\relax\else
@@ -36,12 +37,12 @@
 	\sloppy
 \fi
 %=================================================================
-\chapter{Sintaxis en pocas palabras}
-\luq{¿Qué tal 'Sintaxis en resumen' o 'Sintaxis en dos palabras'?}
+\chapter{Sintaxis en dos palabras}
+\luq{¿Qué tal 'Sintaxis en resumen' o 'Sintaxis en pocas palabras'?}
 \chalabel{syntax}
 
-\pharo, como la mayoría de los dialectos \st modernos, adopta una sintaxis muy similar a la de \st-80.
-La \ind{sintaxis} está diseñada para que el texto del programa pueda leerse como una lengua franca del inglés: \luq{cómo traducimos pidgin English?}
+\pharo, como la mayoría de los dialectos de \st modernos, adopta una sintaxis muy similar a la de \st-80.
+La \ind{sintaxis} está diseñada para que el texto del programa pueda leerse como una especie de inglés macarrónico: \luq{¿o mejor lengua franca del inglés?}
 
 \begin{code}{}
 (Smalltalk includes: Class) ifTrue: [ Transcript show: Class superclass ]
@@ -49,23 +50,24 @@ La \ind{sintaxis} está diseñada para que el texto del programa pueda leerse co
 
 \noindent
 La sintaxis de \pharo es mínima.
-Esencialmente, sólo existe sintaxis para el \emph{envío de mensajes} (es decir, expresiones).
+Esencialmente, sólo hay sintaxis para el \emph{envío de mensajes} (es decir, expresiones).
 Las expresiones se construyen a partir de un número muy pequeño de elementos primitivos.
 Hay sólo 6 palabras clave y no existe sintaxis para las estructuras de control o la declaración de nuevas clases.
 En su lugar, casi todo se consigue enviando mensajes a objetos.
-Por ejemplo, en lugar de una estructura de control if-then-else, \st envia mensajes como \ct{ifTrue:} a objetos \clsind{Boolean}.
+Por ejemplo, en lugar de una estructura de control if-then-else, \st envía mensajes como \ct{ifTrue:} a objetos \clsind{Boolean}.
 Las nuevas (sub)clases se crean enviando un mensaje a sus superclases.
 
 %=================================================================
 \section{Elementos sintácticos}
 
-Las expresiones se componen a partir de los siguientes bloques constructivos:
+Las expresiones se componen de las siguientes piezas:
 (i) seis palabras reservas o \emph{pseudo-variables}: 
-\pvind{self}, \pvind{super}, \pvind{nil}, \pvind{true}, \pvind{false} y \pvind{thisContext}; (ii) expresiones constantes para \emphind{objetos literales}
-incluyendo números, caracteres, cadenas de texto, símbolos y \emph{arrays};
+\pvind{self}, \pvind{super}, \pvind{nil}, \pvind{true}, \pvind{false} y \pvind{thisContext}; 
+(ii) expresiones constantes para \emphind{objetos literales}
+incluyendo números, caracteres, cadenas de caracteres, símbolos y \emph{arrays}\luq{¿traduccimos array?};
 (iii) declaraciones de variables; 
 (iv) asignaciones; 
-(v) \ind{bloques} closures y
+(v) \ind{bloques} closures \luq{¿traducción?} y
 (vi) mensajes.
 
 \seeindex{pseudo-variable}{variable, pseudo}
@@ -85,177 +87,170 @@ incluyendo números, caracteres, cadenas de texto, símbolos y \emph{arrays};
         \luq{Usamos coma flotante o punto flotante?} \\
 		\lct{2.4e7}				&	notación exponencial \\
 		\lct{\$a}					&	el carácter `a' \\
-		\lct{'Hola'}				&	la cadena de texto ``Hola'' \\
+		\lct{'Hola'}				&	la cadena de caracteres ``Hola'' \\
 		\lct{\#Hola}				&	el símbolo \lct{\#Hola} \\
-		\lct{\#(1 2 3)}			&	a array literal \\
-		\lct{\{1. 2. 1+2\}}		&	a array dinámico \\
+		\lct{\#(1 2 3)}			& un array literal \\
+		\lct{\{1. 2. 1+2\}}		& un array dinámico \\
 		\midrule
 		\lct{"un comentario"} 		&	un comentario \\
 		\midrule
-		\lct{| x y |}				&	declaración de variables \lct{x} e \lct{y}	\\
-		\lct{x := 1}				&	asigna 1 a \lct{x} \\
+		\lct{| x y |}				&	declaración de las variables \lct{x} e \lct{y}	\\
+		\lct{x := 1}				&	asignar 1 a \lct{x} \\
 		\lct{[ x + y ]}			&	un bloque que se evalúa como \lct{x+y} \\
-		\lct{<primitive: 1>}		&	primitiva para la máquina virtual o anotación\\
+		\lct{<primitive: 1>}		&	primitiva o anotación de la máquina virtual\\
 		\midrule
 		\lct{3 factorial}			&	mensaje unario \\
 		\lct{3+4}					&	mensaje binario \\
-		\lct{2 raisedTo: 6 modulo: 10}		&	mensaje con palabras clave \\
+		\lct{2 raisedTo: 6 modulo: 10}		&	mensaje de palabra clave \\
 		\midrule
 		\lct{$\uparrow$ true} 			&	devuelve el valor true	\\
 		\lct{Transcript show: 'hola'. Transcript cr }		&	separator de expresiones (\lct{.})	\\
 		\lct{Transcript show: 'hola'; cr}					&	mensaje en cascada (\lct{;}) \\
 		\bottomrule
 	\end{tabular}
-	\caption{La sintaxis de \pharo en pocas palabras\tablabel{syntax}}
+	\caption{Sintaxis de \pharo en dos palabras\tablabel{syntax}}
 \end{table}
 
-Podemos ver ejemplos de los diversos elementos sintácticos en la \tabref{syntax}.
+Podemos ver ejemplos de los distintos elementos sintácticos en la \tabref{syntax}.
 \begin{description}
-\item[Variables locales.]	\ct{puntoInicial} es un nombre de variable, o identificador.
+\item[Variables locales] \ct{puntoInicial} es un nombre de variable, o identificador.
   Por convenio, los identificadores están formados por palabras en ``\ind{camelCase}'' (es decir, cada palabra excepto la primera comienza con una letra mayúscula).
-  La primera letra de una variable de instancia, método, argumento de bloque o variable temporal debe ser minúscula.
+  La primera letra de una variable de instancia, método, argumento de un bloque o variable temporal debe ser minúscula.
   Esto indica al lector que la variable tiene un alcance privado.
 
-\item[Variables compartidas.]	Los identificadores que comienzan con letras mayúsculas son variables \subind{variable}{globales}, variables \subind{variable}{de clase}, variables \subind{variable}{pool} o nombres de clase.
+\item[Variables compartidas] Los identificadores que comienzan con letras mayúsculas son variables \subind{variable}{globales}, variables \subind{variable}{de clase}, diccionarios comunes (\subind{variable}{pool} dictionaries) o nombres de clase.
 \luq{pool dictionaries?}
-
-%Identifiers that start with upper case letters are \subind{variable}{global} variables, class \subind{class}{variable}{}s, \subind{variable}{pool} dictionaries or class names.
-
 		\ct{Transcript} es una variable global, una instancia de la clase \ct{TranscriptStream}.
 		\seeindex{variable global}{variable, global}
-		\seeindex{diccionario pool}{variable, pool}
+		\seeindex{diccionario común}{variable, pool}
 		\seeindex{variable!de clase}{clase, variable}
 
-\item[El receptor.]	\pvind{self} es una palabra clave que se refiere al objeto en el que el método actual se está ejecutando. Lo llamamos ``el receptor'' porque normalmente este objeto habrá recibido el mensaje que causó que el método se ejecutara.
+\item[El receptor] \pvind{self} es una palabra clave que se refiere al objeto en el que el método actual se está ejecutando. Lo llamamos ``el receptor'' porque normalmente este objeto habrá recibido el mensaje que causó que el método se ejecutara.
 		Decimos que \self es una ``\subind{variable}{pseudo}-variable'' ya que no podemos asignarla.
 
-\item[Enteros.] Además de los enteros decimales normales como \ct{42}, \pharo también proporciona una \ind{notación científica}.
+\item[Enteros] Además de los enteros decimales normales como \ct{42}, \pharo también proporciona una \ind{notación científica}.
 	\ct{2r101} es \ct{101} en base 2 (es decir, binario), que es igual al número decimal 5.
 	\index{literal}
 	\index{literal!número}
 
-\item[Números en coma flotante.] Pueden especificarse en potencias de base diez: \mbox{\ct{2.4e7}} es $2.4\times 10^7$.
+\item[Números en coma flotante] Pueden especificarse en potencias de base diez: \mbox{\ct{2.4e7}} es $2.4\times 10^7$.
 	\index{número en coma flotante}
 
-\item[Caracteres.] Un signo dólar introduce \subind{literal}{carácter} literal: \ct{$a}\ignoredollar$ es el literal para `a'.
-  Pueden obtenerse instancias de caracteres no imprimibles enviando mensajes adecuados a la clase \clsind{Character}, como \ct{Character space}\cmindex{clase Character}{space} y \ct{Character tab}\cmindex{Character tab}{tab}.
+\item[Caracteres] Un signo dólar introduce un \subind{literal}{carácter} literal: \ct{$a}\ignoredollar$ es el literal para `a'.
+  Pueden obtenerse instancias de caracteres no imprimibles enviando los mensajes adecuados a la clase \clsind{Character}, como \ct{Character space}\cmindex{clase Character}{space} y \ct{Character tab}\cmindex{clase Character}{tab}.
 		
-\item[Cadenas.] Las comillas simples se utilizan para definiri una \subind{literal}cadena literal.
-  Si quieres una cadena con una comilla simple, simplemente se usan dos comillas, como en \ct{'entre ''comillas'' simples'}.
+\item[Cadenas de caracteres] Las comillas simples se utilizan para definir una \subind{literal}cadena literal.
+  Si quieres una cadena que contenga una comilla, simplemente se usan dos comillas, como en \ct{'entre ''comillas'' simples'}.
 \luq{ejemplo en lugar de 'G''day' ?}
 
-\item[Los símbolos] se parecen a las cadenas en que contienen una secuencia de caracteres.
+\item[Símbolos] se parecen a las cadenas en que contienen una secuencia de caracteres.
 	Sin embargo, al contrario que en una cadena, se garantiza que un símbolo \subind{símbolo}{literal} es único globalmente.
 	Sólo existe un objeto símbolo \ct{#Hola}, pero puede haber varios objetos String con el valor \ct{'Hola'}.
 		\seeindex{\#@{\textsf{\#}}}{símbolo literal}
 
-\item[Arrays en tiempo de compilación.] Se definen mediante \ct{#( )} rodeando literales separados por espacios.
+\item[Arrays en tiempo de compilación] Se definen mediante \ct{#( )} rodeando literales separados por espacios.
   Dentro de los paréntesis todo debe ser constante en tiempo de compilación.
-  Por ejemplo, \ct{#(27 (true false) abc)} es un \subind{literal}{array} \subind{array}{literal} de tres elementos: el entero \ct{27}, el array en tiempo de compilación conteniendo los dos booleanos y el símbolo \ct{#abc}. (Observa que esto es lo mismo que \ct{#(27 #(true false) #abc)}.)
+  Por ejemplo, \ct{#(27 (true false) abc)} es un \subind{literal}{array} \subind{array}{literal} de tres elementos: el entero \ct{27}, el array en tiempo de compilación conteniendo los dos booleanos y el símbolo \ct{#abc} (observa que esto es lo mismo que \ct{#(27 #(true false) #abc)}).
 
-\item[Arrays en tiempo de ejecución.] Las llaves \ct|{ }| definen un array (\subind{Array}{dinámico}) en tiempo de ejecución.
+\item[Arrays en tiempo de ejecución] Las llaves \ct|{ }| definen un array (\subind{Array}{dinámico}) en tiempo de ejecución.
   Sus elementos son expresiones separadas por puntos.
-  Por lo tanto, \ct|{ 1. 2. 1+2 }| define un array con los elementos 1, 2 y el resultado de evaluar 1+2.
-  (La notación de llaves es específica de \pharo y los dialectos \squeak de \st. En otros \st{}s tienes que construir dinámicamente los arrays dinámicos.)
+  Por lo tanto, \ct|{ 1. 2. 1+2 }| define un array con los elementos 1, 2 y el resultado de evaluar 1+2
+  (la notación de llaves es específica de los dialectos de \st \pharo y \squeak. En otros \st{}s tienes que construir explícitamente los arrays dinámicos).
 
-\item[Comentarios.] Se encierran entre comillas dobles.
-		\ct{"hola"} es un \ind{comentario}, no una cadena, y es ignorado por el compilador de \pharo.
-		Los comentarios pueden extenderse varias líneas.
-		
-\item[Local variable definitions.]	Vertical bars \ct{| |} enclose the \subind{variable}{declaration} of one or more local variables in a method (and also in a block).
-		% \seeindex{\|@{\textsf{\|\|}}}{assignment}
-		% Can't seem to index or-bars! (special char for index macro)
-		\seeindex{declaration}{variable declaration}
+\item[Comentarios] Se encierran entre comillas dobles.
+		\ct{"Hola"} es un \ind{comentario}, no una cadena de caracteres, y es ignorado por el compilador de \pharo.
+		Los comentarios pueden ocupar varias líneas.
 
-\item[Assignment.]	\ct{:=} assigns an object to a variable.
+\item[Definiciones de variables locales] Las barras verticales \ct{| |} encierran la \subind{variable}{declaración} de una o más variables locales en un método (y también en un bloque).
+		\seeindex{declaración}{declaración de variable}
+
+\item[Asignación] \ct{:=} asigna un objeto a una variable.
 %		Sometimes you will see $\leftarrow$ used instead.
 %		Unfortunately, since this is not an \textsc{ascii} character, it will appear as an underscore unless
 %		you are using a special font.
 %		So, \ct{x := 1} is the same as \ct{x _ 1} or \ct{x UNDERSCORE 1}. You should use \ct{:=} since the other representations have been deprecated.
-		\index{assignment}
-		\seeindex{:=@{\textsf{:=}}}{assignment}
-		\seeindex{\_@{\textsf{\_}}}{assignment}
-		\seeindex{<-@{$\leftarrow$}}{assignment}
+		\index{asignación}
+		\seeindex{:=@{\textsf{:=}}}{asignación}
+		\seeindex{\_@{\textsf{\_}}}{asignación}
+		\seeindex{<-@{$\leftarrow$}}{asignación}
 
-\item[Blocks.] Square brackets \ct{[ ]} define a \ind{block}, also known as a block closure or a lexical closure, which is a first-class object representing a function.
-		As we shall see, blocks may take arguments and can have local variables.
-	\seeindex{[ ]@{\textsf{[ ]}}}{block}
-	\seeindex{closure}{block}
-	\seeindex{lexical closure}{block}
+\item[Bloques] Los corchetes \ct{[ ]} definen un \ind{bloque}, conocido también como clausura de bloque o clausura léxica, que es un objeto de primer orden representando una función. Como veremos, los bloques pueden tener argumentos y variables locales.
+	\seeindex{[ ]@{\textsf{[ ]}}}{bloque}
+	\seeindex{clausura}{bloque}
+	\seeindex{clausura léxica}{bloque}
 
-\item[Primitives.]	\ct{<primitive: ...>} denotes an invocation of a \ind{virtual machine} \ind{primitive.}
-	(\ct{<primitive: 1>} is the VM primitive for \ct{SmallInteger>>>+}.)
-	Any code following the primitive is executed only if the primitive fails.
-	The same syntax is also used for method annotations.
+\item[Primitivas] \ct{<primitive: ...>} indica la invocación de una \ind{primitiva} de \ind{máquina virtual.}
+	(\ct{<primitive: 1>} es la primitiva de máquina virtual para \ct{SmallInteger>>>+}).
+	Cualquier código que siga a la primitiva es ejecutado sólo si la primitiva falla.
+	La misma sintaxis se utiliza también para las anotaciones de los métodos.
 
-\item[Unary messages] consist of a single word (like \ct{factorial}) sent to a receiver (like \ct{3}).
-	\index{message!unary}
-	\seeindex{unary message}{message, unary}
+\item[Mensajes unarios] consisten en una sola palabra (como \ct{factorial}) enviada a un receptor (como \ct{3}).
+	\index{mensaje!unario}
+	\seeindex{mensaje unario}{mensaje, unario}
 
-\item[Binary messages] are operators (like \ct{+}) sent to a receiver and taking a single argument. In \ct{3+4}, the receiver is \ct{3} and the argument is \ct{4}.
-	\index{message!binary}
-	\seeindex{binary message}{message, binary}
+\item[Mensajes binarios] son operadores (como \ct{+}) enviados a un receptor y que tienen un único argumento. En \ct{3+4}, el receptor es \ct{3} y el argumento es \ct{4}.
+	\index{mensaje!binario}
+	\seeindex{mensaje binario}{mensaje, binario}
 
-\item[Keyword messages] consist of multiple keywords (like \ct{raisedTo:modulo:}), each ending with a colon and taking a single argument. 
-In the expression \ct{2 raisedTo: 6 modulo: 10}, the \emphind{message selector} \ct{raisedTo:modulo:} takes the two arguments \ct{6} and \ct{10}, one following each colon.  We send the message to the receiver \ct{2}.
-	\index{message!keyword}
-	\seeindex{keyword message}{message, keyword}
+\item[Mensajes de palabra clave] consisten en varias palabras clave (como \ct{raisedTo:modulo:}), acabando cada una con dos puntos y recibiendo un único argumento.
+En la expresión \ct{2 raisedTo: 6 modulo: 10}, el \emphind{selector del mensaje} \ct{raisedTo:modulo:} recibe los dos argumentos \ct{6} y \ct{10}, cada uno siguiente los dos puntos. Enviamos el mensaje al receptor \ct{2}.
+	\index{mensaje!palabra clave}
+	\seeindex{mensaje de palabra clave}{mensaje, palabra clave}
 
-\item[Method return.] \ct{^} is used to \emphind{return} a value from a method.  (You must type \verb|^| to obtain the \ct{^} character.)
-\md{\ct{^} always returns from the method, even if used in a block, it returns from the enclosing method.}
+\item[Retorno de método] \ct{^} se usa para \emphind{retornar} un valor desde un método (debes escribir \verb|^| para obtener el caracter \ct{^}).
 
-\item[Sequences of statements.]	A period or full-stop (\ct{.}) is the \emph{statement} \emphsubind{statement}{separator}. Putting a period between two expressions turns them into independent statements.	
-	\seeindex{full stop}{statement separator}
-	\seeindex{period}{statement separator}
-	\seeindex{\ct{.}}{statement separator}
+\item[Secuencias de sentencias]	Un punto (\ct{.}) es el \emphsubind{sentencia}{separador} de \emph{sentencias}. Poner un punto entre dos expresiones las convierte en sentencias independientes.
+	\seeindex{punto}{separador de sentencia}
+	\seeindex{\ct{.}}{separador de sentencia}
 
-\item[Cascades.] Semicolons can be used to send a \emphind{cascade} of messages to a single receiver.  In \ct{Transcript show: 'hello'; cr} we first send the keyword message \ct{show: 'hello'} to the receiver \ct{Transcript}, and then we send the unary message \ct{cr} to the same receiver.
-	\seeindex{;}{cascade}
+\item[Cascadas] Los puntos y coma pueden usarse para enviar una \emphind{cascada} de mensajes a un único receptor.  En \ct{Transcript show: 'hola'; cr} primero enviamos el mensaje de palabra clave \ct{show: 'hola'} al receptor \ct{Transcript} y entonces enviamos el mensaje unario \ct{cr} al mismo receptor.
+	\seeindex{;}{cascada}
 
 \end{description}
 
-The classes \ct{Number}, \ct{Character}, \ct{String} and \ct{Boolean} are described in more detail in \charef{basic}.
-
-% \charef{blocks} esta en PBE2, y no en PBE1
-%\on{Blocks are described in \charef{blocks}. (Control flow and Iterators).}
+Las clases \ct{Number}, \ct{Character}, \ct{String} y \ct{Boolean} se describen con más detalle en \charef{basic}.
 
 %=================================================================
 \section{Pseudo-variables}
 
-In \st, there are 6 reserved keywords, or \emph{pseudo-variables}:
-\pvind{nil}, \pvind{true},  \pvind{false},  \pvind{self}, \pvind{super}, and \pvind{thisContext}.
-They are called \subind{variable}{pseudo}-variables because they are predefined and cannot be assigned to.
-\ct{true}, \ct{false}, and \ct{nil} are constants while the values of \ct{self}, \ct{super}, and \ct{thisContext} vary dynamically as code is executed.
+En \st existen 6 palabras reservadas or \emph{pseudo-variables}:
+\pvind{nil}, \pvind{true},  \pvind{false},  \pvind{self}, \pvind{super} y \pvind{thisContext}.
+Se llaman  \subind{variable}{pseudo}-variables porque están predefinidas y no pueden ser asignadas.
+\ct{true}, \ct{false} y \ct{nil} son constantes, mientras que los valores de \ct{self}, \ct{super} y \ct{thisContext} varían dinámicamente cuando el código es ejecutado.
 
-\ct{true} and \ct{false} are the unique instances of the \clsind{Boolean} classes \clsind{True} and \clsind{False}.
-See \charef{basic} for more details.
+\ct{true} y \ct{false} son las únicas instancias de las clases \clsind{Boolean} \clsind{True} y \clsind{False}.
+Véase \charef{basic} para más detalles.
 
-\pvind{self} always refers to the receiver of the currently executing method.
+\pvind{self} siempre se refiere al receptor del método ejecutándose actualmente.
 
-\ct{super} also refers to the receiver of the current method, but when you send a message to \super, the method-lookup changes so that it starts from the superclass of the class containing the method that uses \ct{super}.
-For further details see \charef{model}.
+\ct{super} también se refiere al receptor del mensaje actual, pero cuando envías un mensaje a \super, la búsqueda del método cambia de modo que comienza desde la superclase de la clase que contiene el método que usa \ct{super}.
+Para más detalles véase \charef{model}.
 
-\ct{nil} is the undefined object.
-It is the unique instance of the class \clsind{UndefinedObject}. 
-Instance variables, class variables and local variables are initialized to \ct{nil}.
+\ct{nil} es el objeto indefinido.
+Es la única instancia de la clase \clsind{UndefinedObject}. 
+Las variables de instancia, variables de clase y variables locales se inicializan a \ct{nil}.
 
-\ct{thisContext} is a pseudo-variable that represents the top frame of the run-time stack.
-In other words, it represents the currently executing \clsind{MethodContext} or \clsind{BlockClosure}.
-\ct{thisContext} is normally not of interest to most programmers, but it is essential for implementing development tools like the debugger and it is also used to implement exception handling and continuations.
+\ct{thisContext} es una pseudo-variable que representa el marco superior de la pila de ejecución.
+En otras palabras, representa el \clsind{MethodContext} o \clsind{BlockClosure} actualmente ejecutando.
+Normalmente \ct{thisContext} no es de interés para la mayoría de programadores, pero es imprescindible para implementar herramientas de desarrollo como el depurador y también se utiliza para implementar el manejo de excepciones y las continuaciones.
 
 %=================================================================
-\section{Message sends}
+\section{Envíos de mensajes}
 
-There are three kinds of messages in \pharo.
+Existen tres tipos de mensajes en \pharo.
 \begin{enumerate}
-  \item \emph{Unary} messages take no argument.
-  \ct{1 factorial} sends the message \ct{factorial} to the object \ct{1}.
-  \item \emph{Binary} messages take exactly one argument.
-  	\ct{1 + 2} sends the message \ct{+} with argument \ct{2} to the object \ct{1}.
-  \item \emph{Keyword} messages take an arbitrary number of arguments.
-  	\ct{2 raisedTo: 6 modulo: 10} sends the message consisting of the message selector
-	\ct{raisedTo:modulo:} and the arguments \ct{6} and \ct{10} to the object \ct{2}.
+  \item \emph{Unarios} mensajes que no reciben ningún argumento.
+  \ct{1 factorial} envía el mensaje \ct{factorial} al objeto \ct{1}.
+  \item \emph{Binarios} mensajes que reciben exactamente un argumento.
+  	\ct{1 + 2} envía el mensaje \ct{+} con el argumento \ct{2} al objeto \ct{1}.
+  \item \emph{De palabra clave} mensajes que reciben un número arbitrario de argumentos.
+  	\ct{2 raisedTo: 6 modulo: 10} envía el mensaje que consiste en el selector del mensaje
+	\ct{raisedTo:modulo:} y los argumentos \ct{6} y \ct{10} al objeto \ct{2}.
 \end{enumerate}
+
+
+
+
 
 Unary message selectors consist of alphanumeric characters, and start with a lower case letter.
 \index{message!unary}
