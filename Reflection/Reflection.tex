@@ -1002,21 +1002,22 @@ DynamicAcccessors>>>doesNotUnderstand: aMessage
                         ^ aMessage sendTo: self ].
         ^ super doesNotUnderstand: aMessage
 \end{code}
-Cuanlquier mensaje no definido se intercepta aquí.  Si existe una
+Cualquier mensaje no definido se intercepta aquí.  Si existe una
 variable de instancia con el mismo nombre del mensaje, etonces
 solicitamos a nuestra clase que compile un accesor para esa variable
 de instancia y reenviamos el mensaje.
 
-% -------- FIXME: seguir desde aca -------------------------------
-
-Suppose the class \ct{DynamicAcccessors} has an (uninitialized) instance variable \ct{x} but no pre-defined accessor. Then the following will generate the accessor dynamically and retrieve the value:
-\needlines{2}
+Supongamos que la clase \ct{DynamicAcccessors} tiene una variable de
+instancia (sin inicializar) llamada \ct{x} pero la misma no tiene un
+accesor predefinido.  Entonces el código siguiente va a generar el
+accesor dinámicamente y a recuperar su valor:\needlines{2}
 \begin{code}{}
 myDA := DynamicAccessors new.
 myDA x --> nil
 \end{code}
 
-Let us step through what happens the first time the message \ct{x} is sent to our object (see \figref{DynamicAccessors}).
+Vayamos paso a paso para ver lo que sucede la primera vez que se envía
+el mensaje \ct{x} a nuestro objeto (mira \figref{DynamicAccessors}).
 
 \begin{figure}[ht]\centering
         \includegraphics[width=\linewidth]{DynamicAccessors}
@@ -1025,11 +1026,25 @@ Let us step through what happens the first time the message \ct{x} is sent to ou
         % \on{trust me, it is useful to see all the steps.}
 \end{figure}
 
-(1) We send \ct{x} to \ct{myDA}, (2) the message is looked up in the class, and (3) not found in the class hierarchy. (4) This causes \ct{self doesNotUnderstand: #x} to be sent back to the object, (5) triggering a new lookup. This time \ct{doesNotUnderstand:} is found immediately in \ct{DynamicAccessors}, (6) which asks its class to compile the string \ct{'x ^ x'}. The \ct{compile} method is looked up (7), and (8) finally found in \ct{Behavior}, which (9-10) adds the new compiled method to the method dictionary of \ct{DynamicAccessors}. Finally, (11-13) the message is resent, and this time it is found.
+(1) Enviamos \ct{x} a \ct{myDA}, (2) el mensaje se busca desde la
+clase hacia arriba en la jerarquía, y (3) no se lo encuentra allí.
+(4) Esto genera un \ct{self doesNotUnderstand: #x} que se envía de
+vuelta al objeto, (5) lo que dispara una nueva búsqueda.  Esta vez, se
+encuentra a \ct{doesNotUnderstand:} inmediatamente en
+\ct{DynamicAccessors}, (6) el cual pide a su clase que compile la
+cadena \ct{'x ^ x'}.  El método \ct{compile} se busca hacia arriba
+(7), y (8) finalmante se encuantra en \ct{Behavior}, el cual (9--10)
+agrega el nuevo método compilado al diccionario de métodos de
+\ct{DynamicAccessors}.  Por último, (11--13) el mensaje se reenvía, y
+esta vez se lo encuentra.
 
-The same technique can be used to generate setters for instance variables, or other kinds of boilerplate code, such as visiting methods for a Visitor.
+La misma técnica se puede usar para generar setters para las variables
+de instancia, u otros tipos de código basado en plantillas, como los
+métodos de visita de un Visitor.
 
-Note the use of \clsmthind{Object}{perform:} in step (13) which can be used to send messages that are composed at run-time:
+Se puede advertir el uso de \clsmthind{Object}{perform:} en el paso
+(13), que se puede utilizar para enviar mensajes compuestos al momento
+de ejecución:
 \begin{code}{@TEST}
 5 perform: #factorial                                             --> 120
 6 perform: ('fac', 'torial') asSymbol                       --> 720
@@ -1037,20 +1052,34 @@ Note the use of \clsmthind{Object}{perform:} in step (13) which can be used to s
 \end{code}
 
 %======================================
-\section{Objects as method wrappers}
+\section{Los objetos disfrazados de métodos}
 \seclabel{wrapper}
 
-We have already seen that compiled methods are ordinary objects in \st, and they support a number of methods that allow the programmer to query the run-time system.
-What is perhaps a bit more surprising, is that \emph{any object} can play the role of a compiled method. All it has to do is respond to the method \ct{run:with:in:} and a few other important messages.
+Ya hemos visto que los métodos compilados son objetos ordinarios en
+\st, y que admiten ciertos métodos para permitir que el programador
+consulte el sistema de tiempo de ejecución.  Lo que tal vez cause un
+poco de sorpresa es que \emph{cualquier objeto}  puede jugar el rol de
+un método compilado.  Todo lo que debe hacer es responder al mensaje
+\ct{run:with:in:} y otros pocos más mensajes importantes.
 
-\dothis{Define an empty class \ct{Demo}. Evaluate \ct{Demo new answer42} and notice how the usual ``Message Not Understood'' error is raised.}
+\dothis{Define una clase vacía \ct{Demo}.  Evalúa \ct{Demo new
+    answer42} y nota cómo se dispara el error usual ``Message Not
+  Understood''.}
 
-Now we will install a plain \st object in the method dictionary of our \ct{Demo} class.
 
-\dothis{Evaluate \lct{Demo methodDict at: \#answer42 put: ObjectsAsMethodsExample new.}
-Now try again to print the result of \ct{Demo new answer42}. This time we get the answer \ct{42}.}
+Ahora vamos a instalar un objeto llano de \st en el diccionario de
+métodos de nuestra clase \ct{Demo}.
 
-If we take look at the class \clsind{ObjectsAsMethodsExample} we will find the following methods:
+
+\dothis{Evalúa \lct{Demo methodDict at: \#answer42 put:
+    ObjectsAsMethodsExample new.}
+
+Ahora intenta obtener de nuevo el resultado de \ct{Demo new
+  answer42}.  Esta vez obtenemos la respuesta \ct{42}.
+
+Si echamos una mirada a la clase \clsind{ObjectsAsMethodsExample}
+vamos a encontrar los siguientes métodos:
+
 %\alex{I would prefer having return 42 in the run:with:in: method, and not having answer42 defined in ObjectsAsMethodsExample, this could be confusing I imagine}
 %\on{ObjectsAsMethodsExample is part of the standard pharo image -- it is not in PBE-Reflection}
 \needlines{5}
@@ -1062,19 +1091,39 @@ run: oldSelector with: arguments in: aReceiver
         ^self perform: oldSelector withArguments: arguments
 \end{code}
 
-When our \ct{Demo} instance receives the message \ct{answer42}, method lookup proceeds as usual, however the virtual machine will detect that in place of a compiled method, an ordinary \st object is trying to play this role.
-The VM will then send this object a new message \ct{run:with:in:} with the original method selector, arguments and receiver as arguments.
-Since \ct{ObjectsAsMethodsExample} implements this method, it intercepts the message and delegates it to itself.
+Cuando nuestra instancia de \ct{Demo} recibe el mensaje \ct{answer42},
+la búsqueda del método procede como es usual, sin embargo, ka máquina
+virtual detecta que en lugar de un método compilado hay un objeto
+ordinario tratando de ocupar su lugar.
 
-We can now remove the fake method as follows:
+La VM enviará a este objeto un nuevo mensaje \ct{run:with:in:} con el
+selector del método original, los argumentos y el receptor como sus
+argumentos.
+Como  \ct{ObjectsAsMethodsExample} implementa este método, intercepta
+el mensaje y lo delega a sí mismo.
+
+
+Ahora podemos eliminar el método extraño con:
 \begin{code}{}
 Demo methodDict removeKey: #answer42 ifAbsent: []
 \end{code}
 
-If we take a closer look at \ct{ObjectsAsMethodsExample}, we will see that its superclass also implements the methods \ct{flushcache}, \ct{methodClass:} and \lct{selector:}, but they are all empty.  These messages may be sent to a compiled methods, so they need to be implemented by an object pretending to be a compiled method.  (\ct{flushcache} is the most important method to be implemented; others may be required depending on whether the method is installed using \clsmthind{Behavior}{addSelector:withMethod:} or directly using \clsmthind{MethodDictionary}{at:put:}.)
+Si miramos con atención en \ct{ObjectsAsMethodsExample}, veremos que
+su superclase también implementa los métodos \ct{flushcache},
+\ct{methodClass:} y \lct{selector:}, pero que están todos vacíos.
+Estos mensajes se pueden enviar a los métodos compilados, y por lo
+tanto deben ser implementados por cualquier objeto que pretenda
+hacerse pasar por un método compilado.  (\ct{flushcache} es el método
+más importante que se debe implementar; los otros pueden llegar a ser
+necesarios pero eso depende de si el método se instala mediante
+\clsmthind{Behavior}{addSelector:withMethod:} o directamente mediante
+la utilización de \clsmthind{MethodDictionary}{at:put:}.)
+
 
 %-------------------------------------------------------------------------
-\subsection{Using methods wrappers to perform test coverage}
+\subsection{Cómo usar los objetos disfrazados para hacer  test coverage}
+
+% -------- FIXME: seguir desde aca -------------------------------
 
 Method wrappers are a well-known technique for intercepting messages \cite{Bran98a}.
 In the original implementation\footnote{http://www.squeaksource.com/MethodWrappers.html}, a method wrapper is an instance of a subclass of \ct{CompiledMethod}. When installed, a method wrapper can perform special actions before or after invoking the original method.
