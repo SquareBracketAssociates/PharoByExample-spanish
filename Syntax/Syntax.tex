@@ -67,7 +67,7 @@ Las expresiones se componen de las siguientes piezas:
 incluyendo números, caracteres, cadenas de caracteres, símbolos y \emph{arrays}\luq{¿traduccimos array?};
 (iii) declaraciones de variables; 
 (iv) asignaciones; 
-(v) \ind{bloques} closures \luq{¿traducción?} y
+(v) \ind{bloques} de cierre \luq{¿traducción?} y
 (vi) mensajes.
 
 \seeindex{pseudo-variable}{variable, pseudo}
@@ -213,7 +213,7 @@ Las clases \ct{Number}, \ct{Character}, \ct{String} y \ct{Boolean} se describen 
 %=================================================================
 \section{Pseudo-variables}
 
-En \st existen 6 palabras reservadas or \emph{pseudo-variables}:
+En \st existen 6 palabras reservadas o \emph{pseudo-variables}:
 \pvind{nil}, \pvind{true},  \pvind{false},  \pvind{self}, \pvind{super} y \pvind{thisContext}.
 Se llaman  \subind{variable}{pseudo}-variables porque están predefinidas y no pueden ser asignadas.
 \ct{true}, \ct{false} y \ct{nil} son constantes, mientras que los valores de \ct{self}, \ct{super} y \ct{thisContext} varían dinámicamente cuando el código es ejecutado.
@@ -223,7 +223,7 @@ Véase \charef{basic} para más detalles.
 
 \pvind{self} siempre se refiere al receptor del método ejecutándose actualmente.
 
-\ct{super} también se refiere al receptor del mensaje actual, pero cuando envías un mensaje a \super, la búsqueda del método cambia de modo que comienza desde la superclase de la clase que contiene el método que usa \ct{super}.
+\ct{super} también se refiere al receptor del mensaje actual, pero cuando envías un mensaje a \super, la búsqueda del método cambia, de modo que comienza desde la superclase de la clase que contiene el método que usa \ct{super}.
 Para más detalles véase \charef{model}.
 
 \ct{nil} es el objeto indefinido.
@@ -231,92 +231,83 @@ Es la única instancia de la clase \clsind{UndefinedObject}.
 Las variables de instancia, variables de clase y variables locales se inicializan a \ct{nil}.
 
 \ct{thisContext} es una pseudo-variable que representa el marco superior de la pila de ejecución.
-En otras palabras, representa el \clsind{MethodContext} o \clsind{BlockClosure} actualmente ejecutando.
-Normalmente \ct{thisContext} no es de interés para la mayoría de programadores, pero es imprescindible para implementar herramientas de desarrollo como el depurador y también se utiliza para implementar el manejo de excepciones y las continuaciones.
+En otras palabras, representa el \clsind{MethodContext} o \clsind{BlockClosure} ejecutándose actualmente.
+Normalmente, \ct{thisContext} no es de interés para la mayoría de los programadores, pero es imprescindible para implementar herramientas de desarrollo como el depurador y también se utiliza para implementar el manejo de excepciones y las continuaciones.
 
 %=================================================================
 \section{Envíos de mensajes}
 
 Existen tres tipos de mensajes en \pharo.
 \begin{enumerate}
-  \item \emph{Unarios} mensajes que no reciben ningún argumento.
+  \item Los mensajes \emph{unarios} no reciben ningún argumento.
   \ct{1 factorial} envía el mensaje \ct{factorial} al objeto \ct{1}.
-  \item \emph{Binarios} mensajes que reciben exactamente un argumento.
+  \item Los mensajes \emph{binarios} reciben exactamente un argumento.
   	\ct{1 + 2} envía el mensaje \ct{+} con el argumento \ct{2} al objeto \ct{1}.
-  \item \emph{De palabra clave} mensajes que reciben un número arbitrario de argumentos.
+  \item Los mensajes \emph{de palabra clave} reciben un número arbitrario de argumentos.
   	\ct{2 raisedTo: 6 modulo: 10} envía el mensaje que consiste en el selector del mensaje
 	\ct{raisedTo:modulo:} y los argumentos \ct{6} y \ct{10} al objeto \ct{2}.
 \end{enumerate}
 
+Los selectores de los mensajes unarios consisten en caracteres alfanuméricos y comienzan con una letra minúscula.
+\index{mensaje!unario}
 
-
-
-
-Unary message selectors consist of alphanumeric characters, and start with a lower case letter.
-\index{message!unary}
-
-Binary message selectors consist of one or more characters from the following set:
-\index{message!binary}
+Los selectores de los mensajes binarios consisten en uno o más de los siguientes caracteres:
+\index{mensaje!binario}
 \begin{code}{}
 + - / \ * ~ < > = @ % | & ! ? ,
 \end{code}
-\noindent
-% [\~\!\@\%\&\*\-\+\=\\\|\?\/\>\<\,]
-\on{It seems that 3 or more chars work fine, but it is not possible to have more than one ``-'' in a binary selector. Perhaps due to a conflict with parsing negative numbers?}
-\ab{That's right; $-$ is weird.}
-Keyword message selectors consist of a series of alphanumeric keywords, where each keyword starts with a lower-case letter and ends with a colon.
-\index{message!keyword}
 
-Unary messages have the highest precedence, then binary messages, and finally keyword messages, so:
+Los selectores de mensajes de palabra clave consisten en una serie de palabras clave alfanuméricas que comiezan con una letra minúscula y acaban con dos puntos.
+\index{mensaje!de palabra clave}
+
+Los mensajes unarios tienen la mayor precedencia, después los mensajes binarios y por último, los mensajes de palabra clave, por lo tanto:
 \begin{code}{@TEST}
 2 raisedTo: 1 + 3 factorial --> 128
 \end{code}
-(First we send \ct{factorial} to \ct{3}, then we send \ct{+ 6} to \ct{1}, and finally we send \ct{raisedTo: 7} to \ct{2}.)  
-Recall that we use the notation \lct{\emph{expression}}\ct{-->}\lct{\emph{result}} to show the result of evaluating an expression.
+(Primero enviamos \ct{factorial} a \ct{3}, después enviamos \ct{+ 6} a \ct{1} y por último, enviamos \ct{raisedTo: 7} a \ct{2}.)  
+Recuerda que usamos la notación \lct{\emph{expresión}}\ct{-->}\lct{\emph{resultado}} para mostrar el resultado de la evaluación de una expresión.
 
-Precedence aside, evaluation is strictly from left to right, so
+Aparte de la precedencia, la evaluación se estrictamente de izquierda a derecha, con lo que:
 \begin{code}{@TEST}
 1 + 2 * 3 --> 9
 \end{code}
-not \ct{7}.
-Parentheses must be used to alter the order of evaluation:
+no \ct{7}.
+Se deben usar paréntesis para cambiar el orden de la evaluación:
 \begin{code}{@TEST}
 1 + (2 * 3) --> 7
 \end{code}
 
-Message sends may be composed with periods and semi-colons. A period-separated sequence of expressions causes each expression in the series to be evaluated as a \emphind{statement}, one after the other.
-\index{statement!separator}
+Los envíos de mensajes pueden componerse por puntos y puntos y coma. Una secuencia de expresiones separadas por puntos causa que cada expresión sea evaluada como una \emphind{sentencia} detrás de otra.
+\index{sentencia!separador}
 
 \begin{code}{}
 Transcript cr.
-Transcript show: 'hello world'.
+Transcript show: 'hola mundo'.
 Transcript cr
 \end{code}
 
 \noindent
-This will send \ct{cr} to the \glbind{Transcript} object, then send it \ct{show: 'hello world'}, and finally send it another \ct{cr}.
+Esto enviará \ct{cr} al objeto \glbind{Transcript}, después le enviará \ct{show: 'hello world'} y por último, otro \ct{cr}.
 
-When a series of messages is being sent to the \emph{same} receiver, then this can be expressed more succinctly as a \emphind{cascade}.
-The receiver is specified just once, and the sequence of messages is separated by semi-colons:
+Cuando una serie de mensajes se envía al \emph{mismo} receptor, puede expreserse más brevemente como una \emphind{cascada}.
+El receptor se especifica sólo una vez y la secuencia de mensajes se separa por puntos y coma:
 
 \begin{code}{}
 Transcript cr;
-    show: 'hello world';
+    show: 'hola mundo';
     cr
 \end{code}
-This has precisely the same effect as the previous example.
+Esto tiene exactamente el mismo efecto que el ejemplo anterior.
 
 %=================================================================
-\section{Method syntax}
+\section{Sintaxis de los métodos}
 
-Whereas expressions may be evaluated anywhere in \pharo (for example, in a workspace, in a debugger, or in a browser), methods are normally defined in a browser window, or in the debugger.
-(Methods can also be filed in from an external medium, but this is not the usual way to program in \pharo.)
+Mientras que las expresiones se pueden evaluar en cualquier sitio en \pharo (por ejemplo, en un espacio de trabajo, en un depurador o en un navegador), los métodos se definen normalmente en una ventana de navegador o en el depurador
+(los métodos también pueden ser introducidos desde un medio externo, pero esta no es la forma habitual de programar en \pharo).
 
-Programs are developed one method at a time, in the context of a given class.
-(A class is defined by sending a message to an existing class, asking it to create a subclass, so there is no special syntax required for defining classes.)
+Los programas se desarrollan escribiendo método a método en el contexto de una clase dada (una clase se define enviando un mensaje a una clase existente, pidiéndole crear una clase, por lo que no es necesaria una sintaxis especial para la definición de clases).
 
-Here is the method \mthind{String}{lineCount} in the class \clsind{String}.
-(The usual convention is to refer to methods as \ct{ClassName>>>methodName}, so we call this method \ct{String>>>lineCount}.)
+Este es el método \mthind{String}{lineCount} en la clase \clsind{String} (el convenio habitual es referirse a los métodos como \ct{NombreDeClase>>>nombreDeMetodo}, por lo que llamamos a este método \ct{String>>>lineCount}).
 
 \needlines{9}
 \begin{method}[lineCount]{Line count}
@@ -331,57 +322,53 @@ String>>>lineCount
    ^ count
 \end{method}
 
-Syntactically, a method consists of:
+Sintácticamente un método consiste en:
 \begin{enumerate}
-  \item the method pattern, containing the name (\ie \ct{lineCount}) and any arguments (none in this example);
-  \item comments (these may occur anywhere, but the convention is to put one at the top that explains what the method does);
-  \item declarations of local variables (\ie \ct{cr} and \ct{count}); and
-  \item any number of expressions separated by dots; here there are four.
+  \item El patrón del metódo, que contiene el nombre (es decir, \ct{lineCount}) y los argumentos (ninguno en este ejemplo);
+  \item comentarios (pueden aparecer en cualquier sitio, pero el convenio es colocar uno al comienzo que explique lo que hace el método);
+  \item de claraciones de las variables locales (es decir, \ct{cr} y \ct{count}); y
+  \item cualquier número de expresiones separadas por puntos; aquí hay cuatro.
 \end{enumerate}
 
-The evaluation of any expression preceded by a \ct{^} (typed as \verb|^|) will cause the method to exit at that point, returning the value of that expression.
-A method that terminates without explicitly returning some expression will implicitly \ind{return} \pvind{self}.
+La evaluación de cualquier expresión precedida por un \ct{^} (escrito como \verb|^|) causará que el método salga en ese punto, devolviendo el valor de la expresión.
+Un método que termina sin devolver explícitamente ninguna expresión, devolverá implícitamente \pvind{self}.
 \index{return!implicit}
 
-Arguments and local variables should always start with lower case letters.
-Names starting with upper-case letters are assumed to be global variables.
-Class names, like \ct{Character}, for example, are simply global variables referring to the object representing that class.
+Los argumentos y variables locales deberían comenzar siempre con letras minúsculas.
+Los nombres que comienzan con letras mayúsculas se supone que son variables globales.
+Los nombres de clases, como \ct{Character}, por ejemplo, son simplemente variables globales que se refieren al objeto que representa esa clase.
+
 
 %=================================================================
-\section{Block syntax}
+\section{Sintaxis de los bloques}
 
-Blocks provide a mechanism to defer the evaluation of expressions.
-A \ind{block} is essentially an anonymous function. A block is evaluated by sending it the message \mthind{BlockClosure}{value}.
-The block answers the value of the last expression in its body, unless there is an explicit return (with \ct{^}), in which case it does not answer any value.
+Los bloques proporcionan un mecanismo para diferir la evaluación de expresiones.
+Un \ind{bloque} es básicamente una función anónima. Un bloque se evalúa enviándole el mensaje \mthind{BlockClosure}{value}.
+El bloque responde con el valor de la última expresión de su cuerpo, si no existe un valor de retorno explícito (con \ct{^}), en cuyo caso no responde ningún valor.
 \seeindex{value}{BlockClosure}
 
 \begin{code}{@TEST}
 [ 1 + 2 ] value --> 3
 \end{code}
 
-Blocks may take parameters, each of which is declared with a leading colon.
-A  vertical bar separates the parameter declaration(s) from the body of the block.
-To evaluate a block with one parameter, you must send it the message \mthind{BlockClosure}{value:} with one argument.
-A two-parameter block must be sent \mthind{BlockClosure}{value:value:}, and so on, up to 4 arguments.
+Los bloques pueden recibir parámetros, cada uno de los cuales se declara con dos puntos precediéndole. Una barra vertical separa la declaración de parámetros del cuerpo del bloque. Para evaluar un cuerpo con un parámetro, debes enviar el mensaje \mthind{BlockClosure}{value:} con un argumento. A un bloque de dos parámetros se le debe enviar \mthind{BlockClosure}{value:value:}, y así, hasta los 4 argumentos.
 
 \begin{code}{@TEST}
 [ :x | 1 + x ] value: 2 --> 3
 [ :x :y | x + y ] value: 1 value: 2 --> 3
 \end{code}
 
-If you have a block with more than four parameters, you must use \mthind{BlockClosure}{valueWithArguments:} and pass the arguments in an array.
-(A block with a large number of parameters is often a sign of a design problem.)
+Si tienes un bloque con más de cuatro parámetros, debes usar \mthind{BlockClosure}{valueWithArguments:} y pasar los argumentos en un array (un bloque con un número grande de parámetros es con frecuencia señal de un problema de diseño).
 
-Blocks may also declare local variables, which are surrounded by vertical bars, just like local variable declarations in a method.
-Locals are declared after any arguments:
-\index{variable!declaration}
+Los bloques pueden también declarar variables locales, que son repodeadas por barras verticales, tal como las declaraciones de variables locales en un método.
+Las variables locales son declaradas después de los argumentos:
+\index{variable!declaración}
 
 \begin{code}{@TEST}
 [ :x :y | | z | z := x+ y. z ] value: 1 value: 2 --> 3
 \end{code}
 
-Blocks are actually lexical \emph{closures}, since they can refer to variables of the surrounding environment.
-The following block refers to the variable \ct{x} of its enclosing environment:
+Los bloques son en realidad \emph{cierres} léxicos, ya que pueden referirse a las variables del entorno circundante. El siguiente bloque se refiere a la varaible \ct{x} del entorno que lo contiene:
 
 \begin{code}{@TEST}
 | x |
@@ -389,8 +376,9 @@ x := 1.
 [ :y | x + y ] value: 2 --> 3
 \end{code}
 
-Blocks are instances of the class \clsind{BlockClosure}.
-This means that they are objects, so they can be assigned to variables and passed as arguments just like any other object.
+Los bloques son instancias de la clase \clsind{BlockClosure}.
+Esto significa que son objetos, por lo que pueden ser asignados a variables y pasados como argumentos como cualquier otro objeto.
+
 % For both understandability and performance, it is better for blocks to refer only to their parameters and local variables; blocks that do not refer external variables are optimized by the compiler.
 % MARCUS sez: I would just delete the sentence. There is nothing optimized, accessign outer temps is as fast as inner, so the only reason to avoid accessing outer temps would be that the code is easier to understand. But that's a relatively weak argument, I think.
 % However, the ability to refer (``capture'') non-local variables can be very powerful when it is needed. 
@@ -412,29 +400,28 @@ This means that they are objects, so they can be assigned to variables and passe
 
 
 %=================================================================
-\section{Conditionals and loops in a nutshell}
+\section{Condicionales y bucles en dos palabras}
 
-\st offers no special syntax for control constructs.
-Instead, these are typically expressed by sending messages to booleans, numbers and collections, with blocks as arguments.
+\st no ofrece una sintaxis especial para construcciones de control. En su lugar, típicamente se expresan mediante el envío de mensajes a booleanos, números y colecciones, con bloques como argumentos.
 
-Conditionals are expressed by sending one of the messages \mthind{Boolean}{ifTrue:}, \mthind{Boolean}{ifFalse:} or \mthind{Boolean}{ifTrue:ifFalse:} to the result of a boolean expression. See \charef{basic} for more about booleans.
+Los condicionales se expresan enviando uno de los mensajes \mthind{Boolean}{ifTrue:}, \mthind{Boolean}{ifFalse:} o \mthind{Boolean}{ifTrue:ifFalse:} al resultado de una expresión booleana. Véase \charef{basic} para más sobre booleanos.
 
 \begin{code}{}
 (17 * 13 > 220)
-   ifTrue: [ 'bigger' ]
-   ifFalse: [ 'smaller' ] --> 'bigger'
+   ifTrue: [ 'mayor' ]
+   ifFalse: [ 'menor' ] --> 'mayor'
 \end{code}
 % ON: Not a test.
 % My regex approach cannot handle multi-line expressions :-(
 
-Loops are typically expressed by sending messages to blocks, integers or collections.
-Since the exit condition for a loop may be repeatedly evaluated, it should be a block rather than a boolean value.
-Here is an example of a very procedural loop:
-\index{iteration}
-\index{iteration|seealso{Collection, iteration}}
-\seeindex{loops}{iteration}
-\seeindex{enumeration}{iteration}
-\seeindex{control constructs}{iteration}
+Los bucles son típicamente expresados mediante el envío de mensajes a bloques, enteros o colecciones.
+Puesto que la condición de salida para un bucle puede ser evaluada repetidamente, debería ser un bloque en lugar de un valor booleano.
+Este es un ejemplo de un bucle muy procedimental:
+\index{iteración}
+\index{iteración|seealso{Colección, iteración}}
+\seeindex{bublces}{iteración}
+\seeindex{enumeración}{iteración}
+\seeindex{construcciones de control}{iteración}
 
 \begin{code}{@TEST | n |}
 n := 1.
@@ -444,7 +431,7 @@ n --> 1024
 \cmindex{BlockClosure}{whileTrue:}
 
 \noindent
-\mthind{BlockClosure}{whileFalse:} reverses the exit condition.
+\mthind{BlockClosure}{whileFalse:} invierte la condición de salida.
 \begin{code}{@TEST | n |}
 n := 1.
 [ n > 1000 ] whileFalse: [ n := n*2 ].
@@ -452,7 +439,7 @@ n --> 1024
 \end{code}
 
 \noindent
-\mthind{Integer}{timesRepeat:} offers a simple way to implement a fixed iteration:
+\mthind{Integer}{timesRepeat:} ofrece una forma sencilla de implementar un iteración fija:
 
 \begin{code}{@TEST | n |}
 n := 1.
@@ -460,8 +447,8 @@ n := 1.
 n --> 1024
 \end{code}
 
-We can also send the message \mthind{Number}{to:do:} to a number which then acts as the initial value of a loop counter.
-The two arguments are the upper bound, and a block that takes the current value of the loop counter as its argument:
+También podemos enviar el mensaje \mthind{Number}{to:do:} a un número que entonces actúa como el valor inicial del contador de un bucle.
+Los dos argumentos son el límite superior y un bloque que toma el valor actual del contador del bucle como su argumento: 
 
 \needlines{4}
 \begin{code}{@TEST | result |}
@@ -477,16 +464,15 @@ result --> '1 2 3 4 5 6 7 8 9 10 '
 % n --> 55
 % \end{code}
 
-\paragraph{High-Order Iterators.}
-Collections comprise a large number of different classes, many of which support the same protocol.
-The most important messages for iterating over collections include
+\paragraph{Iteradores de orden superior.}
+Las colecciones comprenden un gran número de clases diferentes, muchas de las cuales soportan el mismo protocolo.
+Los mensajes más importantes para iterar sobre las colecciones incluyen 
 \mthind{Collection}{do:}, \mthind{Collection}{collect:}, \mthind{Collection}{select:}, \mthind{Collection}{reject:}, \mthind{Collection}{detect:} and \mthind{Collection}{inject:into:}.
-These messages define high-level iterators that allow one to write very compact code.
+Estos mensajes definen iteradors de orden superior que nos permiten escribir código muy compacto.
 
-An \clsind{Interval} is a collection that lets one iterate over a sequence of numbers from the starting point to the end.
-\ct{1 to: 10} represents the interval from 1 to 10.
-Since it is a collection, we can send the message \ct{do:} to it.
-The argument is a block that is evaluated for each element of the collection.
+Un \clsind{Interval} es una colección que nos permite iterar sobre una secuencia de números desde el punto de inicio hasta le final. \ct{1 to: 10} representa el intervalo desde 1 hasta 10.
+Ya que es una colección, podemos enviarle el mensaje \ct{do:}.
+El argumento es un bloque que es evaluado por cada elemento de la colección.
 
 \begin{code}{@TEST | result |}
 result := String new.
@@ -501,14 +487,14 @@ result --> '1 2 3 4 5 6 7 8 9 10 '
 % n --> 55
 % \end{code}
 
-\ct{collect:} builds a new collection of the same size, transforming each element.
+\ct{collect:} construye una nueva colección del mismo tamaño, transformando cada elemento.
 \begin{code}{@TEST}
 (1 to: 10) collect: [ :each | each * each ] --> #(1 4 9 16 25 36 49 64 81 100)
 \end{code}
 
-\ct{select:} and \ct{reject:} build new collections, each containing a subset of the elements satisfying (or not) the boolean block condition.
-\ct{detect:} returns the first element satisfying the condition.
-Don't forget that strings are also collections, so you can iterate over all the characters.
+\ct{select:} y \ct{reject:} construyen nuevas colecciones, cada consistiendo en un subconjunto de los elementos que satisfacen (o no) la condición del bloque booleano.
+\ct{detect:} devuelve el primer elemento que satisface la condición.
+No olvides que las cadenas son también colecciones, por lo que puedes iterar sobre todos los caracteres.
 
 \begin{code}{@TEST}
 'hello there' select: [ :char | char isVowel ] --> 'eoee'
@@ -516,9 +502,9 @@ Don't forget that strings are also collections, so you can iterate over all the 
 'hello there' detect: [ :char | char isVowel ] --> $e
 \end{code}
 
-Finally, you should be aware that collections also support a functional-style \emph{fold} operator in the \ct{inject:into:} method.
-This lets you generate a cumulative result using an expression that starts with a seed value and injects each element of the collection.
-Sums and products are typical examples.
+Finlalmente, deberías tener presente que las colecciones también soportan un operador como el \emph{fold} del estilo funcional en el método \ct{inject:into:} method.
+Este te permite generar un resultado acumulado usando una expresión que comienza con un valor semilla y que inyecta cada elemento de la colección.
+Sumas y productos son ejemplo típicos.
 \seeindex{fold}{\ct{Collection>>>inject:into}}
 
 \begin{code}{@TEST}
@@ -526,32 +512,32 @@ Sums and products are typical examples.
 \end{code}
 
 \noindent
-This is equivalent to \ct{0+1+2+3+4+5+6+7+8+9+10}.
+Esto es equivalente a \ct{0+1+2+3+4+5+6+7+8+9+10}.
 
-More about collections can be found in  \charef{collections}.
+Puedes encontrar más sobre colecciones en  \charef{collections}.
 
 %=================================================================
-\section{Primitives and pragmas}
+\section{Primitivas y pragmas}
 
-In \st everything is an object, and everything happens by sending messages.
-Nevertheless, at certain points we hit rock bottom.
-Certain objects can only get work done by invoking \ind{virtual machine} \ind{primitive}{}s.
+En \st todo es un objeto y todo ocurre mediante el envío de mensajes.
+No obstante, en ciertos puntos tocamos el fondo.
+Algunos objetos sólo pueden funcionar invocando las \ind{primitiva}{}s de la \ind{máquina virtual}.
 
-For example, the following are all implemented as primitives:
-memory allocation (\mthind{Behavior}{new}, \mthind{Behavior}{new:}),
-bit manipulation (\mthind{Integer}{bitAnd:}, \mthind{Integer}{bitOr:}, \mthind{Integer}{bitShift:}),
-pointer and integer arithmetic (\ct{+}, \ct{-},  \ct{<},  \ct{>}, \ct{*}, \ct{/ }, \ct{=}, \ct{==}...),
-and array access (\mthind{Object}{at:}, \mthind{Object}{at:put:}).
+Por ejemplo, todo lo siguiente es implementado como primitivas:
+reserva de memoria (\mthind{Behavior}{new}, \mthind{Behavior}{new:}),
+manipulación de bits (\mthind{Integer}{bitAnd:}, \mthind{Integer}{bitOr:}, \mthind{Integer}{bitShift:}),
+aritmética entera y decimal (\ct{+}, \ct{-},  \ct{<},  \ct{>}, \ct{*}, \ct{/ }, \ct{=}, \ct{==}...),
+y el acceso a los arrays (\mthind{Object}{at:}, \mthind{Object}{at:put:}).
 \seeindex{new@{\ct{new}}}{\ct{Behavior>>>new}}
 
-Primitives are invoked with the syntax \ct{<primitive: aNumber>}.
-A method that invokes such a primitive may also include \st code, which will be evaluated \emph{only} if the primitive fails.
+Las primitivas se invocan con la sintaxis \ct{<primitive: unNumero>}.
+Un método que invoque tal primitiva también puede incluir código \st, que será evaluado \emph{sólo} si la primitiva falla.
 
-Here we see the code for \cmind{SmallInteger}{+}.
-If the primitive fails, the expression \ct{super + aNumber} will be evaluated and returned.
+A continuación vemos le código para \cmind{SmallInteger}{+}.
+Si la primitiva falla, la expresión \ct{super + unNumero} será evaluada y devuelta.
 
 \needlines{6}
-\begin{method}[primitive]{A primitive method}
+\begin{method}[primitive]{Un método primitivo}
 + aNumber 
   "Primitive. Add the receiver to the argument and answer with the result
   if it is a SmallInteger. Fail if the argument or the result is not a
@@ -575,51 +561,51 @@ If the primitive fails, the expression \ct{super + aNumber} will be evaluated an
 %\end{method}
 
 
-In \pharo, the angle bracket syntax is also used for method annotations called pragmas.
+En \pharo, la sintaxis del corchete angular también se utiliza para las anotaciones a los métodos, llamadas pragmas.
 \sd{we should give an example}\ab{Please do!  Is don't know about these.}\damien{it's the third time we talk about pragmas without saying what they are and how to use them.}
 
 %=================================================================
-\section{Chapter summary}
+\section{Resumen del capítulo}
 
 \begin{itemize}
 
-\item	\pharo has (only) six reserved identifiers also called \textit{pseudo-variables}: \ct{true}, \ct{false}, \ct{nil}, \ct{self}, \ct{super},  and  \ct{thisContext}.
+\item	\pharo (sólo) tiene) seis identificadores reservados también llamados \textit{pseudo-variables}: \ct{true}, \ct{false}, \ct{nil}, \ct{self}, \ct{super} y \ct{thisContext}.
 
-\item	There are five kinds of literal objects: numbers (\ct{5}, \ct{2.5}, \ct{1.9e15}, \ct{2r111}), characters (\ct{$a}), strings (\ct{'hello'}), symbols (\ct{#hello}), and arrays (\ct{#('hello' #hi)})
+\item	Hay cinco tipos de objetos literales: números (\ct{5}, \ct{2.5}, \ct{1.9e15}, \ct{2r111}), caracteres (\ct{$a}), cadenas (\ct{'hola'}), símbolos (\ct{#hola}) y arrays (\ct{#('hola' #hola)})
 
-\item	Strings are delimited by single quotes, comments by double quotes.
-		To get a quote inside a string, double it.
+\item	Las cadenas están delimitadas por comillas simples, los comentarios por comillas dobles.
+		Para tener una cita dentro de una cadena, usa doble comilla.
 
-\item	Unlike strings, symbols are guaranteed to be globally unique.
+\item	A diferencia de las cadenas, se garantiza que los símbolos son únicos globalmente.
 
-\item	Use \ct{#( ... )} to define a literal array.
-		Use \ct|{ ... }| to define a dynamic array.
-		Note that 
-		\ct{#( 1 + 2 ) size --> 3}, but 
+\item	Usa \ct{#( ... )} para definir un array literal.
+		Usa \ct|{ ... }| para definir un array dinámico.
+		Observa que
+		\ct{#( 1 + 2 ) size --> 3}, pero que
 		\ct|{ 1 + 2 } size --> 1|
 
-\item	There are three kinds of messages:
-		\emph{unary} (\eg \ct{1 asString}, \ct{Array new}),
-		\emph{binary} (\eg \ct{3 + 4}, \ct{'hi' , ' there'}), and
-		\emph{keyword} (\eg \ct{'hi' at: 2 put: $o})
+\item	Hay tres tipos de mensajes:
+		\emph{unarios} (\eg \ct{1 asString}, \ct{Array new}),
+		\emph{binarios} (\eg \ct{3 + 4}, \ct{'hola' , 'mundo'}) y
+		\emph{de palabra clave} (\eg \ct{'hola' at: 2 put: $o})
 
-\item	A \emph{cascaded} message send is a sequence of messages sent to the same target, separated by semi-colons:
+\item	Un mensaje \emph{en cascada} envía una secuencia de mensajes al mismo destino, separados por puntos y coma:
 \ct{OrderedCollection new add: #calvin; add: #hobbes; size --> 2}
 
-\item	Local variables are declared with vertical bars.
-		Use \ct{:=} for assignment.
+\item	Las variables locales se declara con barras verticales.
+		Usa \ct{:=} para la asignación.
 		\ct{|x| x:=1}
 
-\item	Expressions consist of message sends, cascades and assignments, possibly grouped with parentheses.
-		\emph{Statements} are expressions separated by periods.
+\item	Las expresiones consisten en envíos de mensajes, cascadas y asignaciones, posiblemente agrupados con paréntesis.
+		Las \emph{sentencias} son expresiones separadas por puntos.
 
-\item	Block closures are expressions enclosed in square brackets.
-		Blocks may take arguments and can contain temporary variables.
-		The expressions in the block are not evaluated until you send the block a 
-		\ct{value...} message with the correct number of arguments.\\
+\item	Los bloques de cierre son expresiones encerradas en corchetes.
+		Los bloques pueden tener argumentos y pueden contener variables temporales.
+		Las expresiones en el bloque no se evalúan hasta que envías al bloque un mensaje
+		\ct{value...} con el número de argumentos correcto.\\
 		\ct{[:x | x + 2] value: 4 --> 6}.
 
-\item	There is no dedicated syntax for control constructs, just messages that conditionally evaluate blocks.\\
+\item	No hay una sintaxis dedicada para las construcciones de control, sólo mensajes que condicionalmente evalúan bloques.\\
 		\ct{(\st includes: Class) ifTrue: [ Transcript show: Class superclass ]}
 
 \end{itemize}
