@@ -1,4 +1,5 @@
 Gabriela Arevalo  - Chapter 1: A Quick Tour
+Hugo Ruscitti     - Chapter 2: A first application
 Rafael Luque      - Chapter 3: Syntax in a Nutshell
 Pablo Lalloni	  - Chapter 4: Understanding Message Syntax
 Mariano Peck      - Chapter 5: The Smalltalk object model
