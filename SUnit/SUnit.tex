@@ -43,98 +43,90 @@
 
 \on{Would be nice to have an example of test-driven development with SUnit from beginning to end. Perhaps this is for another chapter?}
 
-\indmain{SUnit} is a minimal yet powerful framework that supports the
-creation and deployment of tests.
-As might be guessed from its name, the design of \sunit focussed on \emph{Unit Tests}, 
-but in fact it can be used for integration tests and functional tests as well.
-\sunit was
-originally developed by Kent Beck and subsequently extended by Joseph
-Pelrine and others to incorporate the
-notion of a resource, which we will describe in \secref{resource}.
+\indmain{SUnit} es un pequeño pero poderoso framework que cuenta con soporte para la
+creación y despliegue de pruebas.
+Como puede intuirse por su nombre, el diseño de \sunit se enfoca en las \emph{Unit Tests} (pruebas unitarias), 
+pero también puede ser utilizado para pruebas de integración y pruebas funcionales.
+\sunit fue originalmente desarrollado por Kent Beck y posteriormente ampliado por Joseph
+Pelrine entre otros, para integrar la noción de un recurso,
+el cual describiremos en \secref{resource}.
 \index{Beck, Kent}
 \index{Pelrine, Joseph}
 \seeindex{resource}{test, resource}
 
-The interest in testing and \ind{Test Driven Development}
-is not limited to \pharo or \st.  
-Automated testing has become a hallmark of the \ind{Agile software development} movement, and any
-software developer concerned with improving software quality would do well to adopt it.
-Indeed, developers in many languages have come to appreciate
-the power of unit testing, and versions of
-\xUnit{}  now exist for many languages, including \ind{Java}, \ind{Python}, \ind{Perl}, .Net and \ind{Oracle}.
+El interés en las pruebas y en el \ind{Test Driven Development}
+no está limitado a \pharo o a \st.  
+Las pruebas automatizadas se han convertido en un sello del movimiento del \ind{desarrollo de software Ágil (Agile software development)},
+y cualquier desarrollador que se ocupe de la mejora de la calidad de software hará bien en adoptarlo.
+Es más, muchos programadores en diferentes lenguajes han llegado a apreciar el poder
+de las pruebas unitarias, y ahora existen versiones de 
+\xUnit{}  para muchos lenguajes, tales como \ind{Java}, \ind{Python}, \ind{Perl}, .Net y \ind{Oracle}.
 \seeindex{Matrix!free will}{Oracle} % sorry, couldn't resist
 %  OSCAR: There was a broken citation here for the xprogramming web site
 % I could not figure out what it was supposed to refer to.
-This chapter describes \SUnit~3.3 (the current version as of this writing); the official web site of \sunit is
-\url{sunit.sourceforge.net}, where updates can be found.
+Este capítulo describe \SUnit~3.3 (la versión más reciente al momento de este escrito); el sitio web oficial de \sunit es
+\url{sunit.sourceforge.net}, donde pueden encontrarse las actualizaciones.
 \index{xUnit}
 \index{Net@.Net}
 
-Neither testing, nor the building of test suites, is new:  everybody knows that
-tests are a good way to catch errors.
-\mbox{\ind{eXtreme Programming},} by making testing a
-core practice and by emphasizing \emph{automated} tests, 
-has helped to make testing productive and fun, rather than a 
-chore that programmers dislike.
-The \st community has a long tradition of
-testing because of the incremental style of development supported by its
-programming environment.  
-In traditional \st development, the programmer would write tests in a workspace 
-as soon as a method was finished.
-Sometimes a test would be incorporated as a comment at the head of the method that it exercised, or tests that needed some set up would be included as example methods in the class.
-The problem with these practices is that tests in a workspace are not available to other programmers who modify the code; comments and example methods are better in this respect, 
-but there is still no easy way to keep track of them and
-to run them automatically.
-Tests that are not run do not help you to find bugs!
-Moreover, an example method does not
-inform the reader of the expected result:
-you can run the example and see the\,---\,perhaps surprising\,---\,result, 
-but you will not know if the observed behaviour is correct.
+Ni las pruebas, ni la construcción de conjuntos de pruebas, es nuevo:  todos saben que  las pruebas son una buena forma 
+de capturar errores.
+La \mbox{\ind{Programación eXtrema (eXtreme Programming)},} al hacer de las pruebas una práctica central
+y al enfatizar las pruebas automatizadas (\emph{automated} tests), 
+ha ayudado a convertir al testeo en algo productivo y entretenido, y no en una tarea más que a los programadores les disguste.
+La comunidad \st tiene una larga tradición en el testeo
+porque el estilo de desarrollo incremental está respaldado por su ambiente de desarrollo.  
+En el desarrollo en \st tradicional, el programador escribiría pruebas en un workspace 
+tan pronto como un método es terminado de escribir.
+A veces una prueba puede ser incorporada como un comentario en la cabecera
+del método sobre el cual se está trabajando,
+o las pruebas que necesiten alguna configuración pueden ser incluídas como métodos de ejemplo en la clase.
+El problema con estas prácticas es que estas pruebas no están
+disponibles para otros programadores que modificaron el código; los comentarios y los métodos de ejemplo son mejores 
+en ese sentido, pero aún no existe una manera fácil de hacer un seguimiento de ellos y de hacer que corran automáticamente.
+¡Las pruebas que no se ejecutan no ayudan a encontrar bugs!
+Más aún, un método de ejemplo no informa al lector sobre el resultado esperado:
+puedes correr un ejemplo y ver \,---\,quizás con gran sorpresa\,---\,el resultado, 
+pero no sabrás si el comportamiento observado es el correcto.
 
-\sunit is valuable because it allows us to write tests that are self-checking:
-the test itself defines what the correct result should be.
-It also helps us to
-organize tests into groups, to describe the context in which the tests must run, and to
-run a group of tests
-automatically.  In less than two minutes you can write tests using
-\sunit, so instead of writing small code snippets in a workspace, we encourage you
-to use \sunit and get all the
-advantages of stored and automatically executable tests.
+\sunit es valioso porque nos permite escribir pruebas que son chequeadas por si mismas (self-checking):
+la prueba misma define cuál debería ser el resultado correcto.
+También nos ayuda a organizar pruebas en grupo, para describir el contexto en el cual las pruebas deben correrse,
+ y a correrlas en conjunto automaticamente.
+En menos de dos minutos puedes escribir pruebas usando \sunit, así que en lugar de escribir pequeños fragmentos de código en un workspace,
+te animamos a usar \sunit y obtener todas las ventajas de las pruebas acumulables y automaticamente ejecutables.
 
-In this chapter we start by discussing why we test, and what makes a good test. We then present a series of small 
-examples showing how to use \sunit.
-Finally, we look at the implementation of \sunit, so that you can understand how
-\st uses the power of \ind{reflection} in supporting its tools. 
+En este capítulo comenzaremos debatiendo por qué hacemos pruebas y qué es lo que hace a un buen testeo. Luego presentamos una serie de 
+pequeños ejemplos mostrando cómo usar \sunit.
+Por último, miraremos la implementación de \sunit, y de esa forma entender cómo \st usa el poder de la \ind{reflexión} en el soporte 
+de sus herramientas.
 
 %=================================================================
-\section{Why testing is important}
+\section{Por qué el testeo es importante}
 \seclabel{why}
 
-Unfortunately, many developers believe that tests are a waste of their time.  
-After all, \emph{they} do not write bugs\,---\,only \emph{other} programmers do that.
-Most of us have said, at some time or other:
-``I would write tests if I had more time.''
-If you never write a bug, and if your code will never be changed in the future,
-then indeed tests are a waste of your time.
-However, this most likely
-also means that your application is trivial, or that it is not used by you or anyone else.  
-Think of tests as an investment for the future: having a
-suite of tests will be quite useful now, but it will be \emph{extremely} useful when
-your application, or the environment in which it executes, changes in the future.
+Desafortunadamente, muchos desarrolladores creen que el testeo es una pérdida de tiempo.
+Después de todo, \emph{ellos} no escriben bugs\,---\,sólo los \emph{otros} programadores lo hacen.
+La mayoría de nosotros ha dicho, en algún momento:
+``Yo escribiría pruebas si tuviera más tiempo.''
+Si nunca escribieras bugs, y si tu código nunca fuera a ser cambiado en el futuro,
+entonces las pruebas sí serían una pérdida de tiempo.
+Sin embargo, esto probablemente significa que tu aplicación es trivial, o que ya no es usada ni por ti ni por nadie más.  
+Piensa en las pruebas como una inversión para el futuro: tener un paquete de pruebas será bastante útil ahora,
+ pero será \emph{extremadamente} útil cuando tu aplicación, o el entorno en el cual se ejecuta, cambie en el futuro.
 
-Tests play several roles. First, they provide documentation of the functionality that they cover.  
-Moreover, the documentation is active: watching the tests pass tells you that the documentation is up-to-date.
-Second,
-tests help developers to confirm that some changes that they have just made to a package
-have not broken anything else in the system\,---\,and to find the parts that break when that confidence turns out to be misplaced.
-Finally, writing tests at the same time as\,---\,or even
-before\,---\,programming forces you to think about the functionality
-that you want to design, \emph{and how it should appear to the client}, 
-rather than about how to implement it.
-By writing the tests first\,---\,before the code\,---\,you are compelled to state
-the context in which your functionality will run, the way it will
-interact with the client code, and the expected results.  
-Your code will improve: try it.
+Las pruebas juegan muchos roles. Primero, proveen documentación sobre la funcionalidad que cubren.
+Más aún, la documentación es activa: mirar las pruebas pasar te dice que la documentación está actualizada.
+Segundo,
+las pruebas ayudan a los desarrolladores a confirmar que los cambios que le 
+acaban de hacer a un paquete no ha roto nada más en el sistema\,---\,y a encontrar las partes que se rompen cuando la confianza
+resulta estar fuera de lugar.
+Finalmente, escribir las pruebas al mismo tiempo \,---\,o antes\,---\,de programar te obliga a pensar sobre la funcionalidad
+que quieres diseñar, \emph{y cómo debería mostrarse al cliente}, 
+y no acerca de cómo implementarla.
+Escribiendo las pruebas primero\,---\,antes que el código\,---\,estás obligado a indicar el contexto en el que 
+la funcionalidad se ejecutará, la forma en la que interactuará con el código cliente, y los resultados esperados.  
+Tu código mejorará: pruébalo.
 
 %The culture of tests has always been present in the \st
 %community because after writing a method, we would write a small
@@ -145,15 +137,13 @@ Your code will improve: try it.
 %the context of the tests is left unspecified so the reader has to
 %interpret the results and assess if they are right or wrong.
 
-We cannot test all aspects of any realistic application.
-Covering a complete application is simply impossible and should not be the
-goal of testing. 
-Even with a good test suite
-some bugs will still creep into the application, where they can lay dormant
-waiting for an opportunity to damage your system.  
-If you find that this has happened, take advantage of it!
-As soon as you uncover the bug, write a test that exposes it, run the test, and watch it fail.
-Now you can start to fix the bug: the test will tell you when you are done.
+No podemos probar todos los aspectos de una aplicación realista.
+Cubrir una aplicación completa es sencillamente imposible y no sería el objetivo del testeo.
+Incluso con un buen conjunto de pruebas
+algunos bugs aún quedarán en la aplicación, donde ellos pueden permanecer latentes, esperando la oportunidad para dañar su sistema.
+Si encuentras que esto ha ocurrido, ¡aprovechálo!
+Tan pronto como descubras un bug, escribe una prueba que lo exponga, ejecuta la prueba, y mírala fallar.
+Ahora puedes comenzar a arreglar el bug: la prueba te dirá cuándo has terminado.
 %=================================================================
 \section{What makes a good test?}
 
