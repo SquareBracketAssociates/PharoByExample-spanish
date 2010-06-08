@@ -40,16 +40,19 @@
 	\sloppy
 \fi
 %=================================================================
-\chapter{A first application}
+\chapter{Una primer aplicación}
 \chalabel{firstApp}
 
-In this chapter, we will develop a simple game: \ind{Lights Out}.\footnote{\url{http://en.wikipedia.org/wiki/Lights_Out_(game)}}
-Along the way we will demonstrate most of the tools that \pharo programmers use to construct and debug their programs, and show how programs are exchanged with other developers. We will see the browser, the object inspector, the debugger and the \ind{Monticello} \ind{package} browser. 
-Development in Smalltalk is efficient: you will find that you spend far more time actually writing code and far less managing the development process. 
-This is partly because the Smalltalk language is very simple, and partly because the tools that make up the programming environment are very well integrated with the language.
+En este capítulo vamos a desarrollar un juego simple: \ind{Lights Out}.\footnote{\url{http://en.wikipedia.org/wiki/Lights_Out_(game)}}
+En el camino mostraremos la mayoría de las herramientas que los programadores
+de \pharo usan para construir y depurar sus programas, y mostraremos como se
+intercambian los programas con otros desarrolladores. Veremos el explorador,
+el inspector de objetos, el depurador y el paquete explorador \ind{Monticello}
+El desarrollo en Smalltalk es eficiente: encontrará que pasa mas tiempo escribiendo código y mucho menos manejando el proceso de desarrollo.
+Esto es en parte porque Smalltalk es muy simple, y en parte porque las herramientas que conforman el entorno de programación están muy bien integradas con el lenguaje.
 
 %=================================================================
-\section{The Lights Out game}
+\section{El juego Lights Out}
 
 % DON'T USE WRAPFIGURE CLOSE TOO A PAGE BREAK!!! (ON)
 %\begin{wrapfigure}[13]{r}{0.35\linewidth}%
@@ -62,32 +65,70 @@ This is partly because the Smalltalk language is very simple, and partly because
 \begin{figure}[ht]
 	\vskip -\baselineskip
 	\centerline{\includegraphics[width=.3\linewidth]{GameBoard}}
-	\caption{The Lights Out game board. The user has just clicked the mouse as shown by the cursor.
+	\caption{El tablero del juego Lights Out. El usuario ha hecho click con el mouse como muestra el cursor.
 	\figlabel{gameBoard}}
 \end{figure}
 
-To show you how to use \pharo's programming tools, we will build a simple game called \emph{Lights Out}.  The game board is shown in \figref{gameBoard}; it consists of rectangular array of light yellow \emph{cells}.  When you click on one of the cells with the mouse, the four surrounding cells turn blue.  \Click again, and they toggle back to light yellow.  The object of the game is to turn blue as many cells as possible.
 
-The Lights Out game shown in \figref{gameBoard} is made up of two kinds of objects: the game board itself, and 100 individual cell objects.  The \pharo code to implement the game will contain two classes: one for the game and one for the cells.
-We will now show you how to define these classes using the \pharo programming tools.
+% To show you how to use \pharo's programming tools, we will build a simple game
+% called \emph{Lights Out}.  The game board is shown in \figref{gameBoard}; it
+% consists of rectangular array of light yellow \emph{cells}.  When you click on
+% one of the cells with the mouse, the four surrounding cells turn blue.  \Click
+% again, and they toggle back to light yellow.  The object of the game is to turn
+% blue as many cells as possible.
 
-%=================================================================
-\section{Creating a new Package}
+Para mostrarle como utilizar las herramientas de \pharo, construiremos un un juego
+sencillo llamado \emph{Lights Out}. El tablero del juego se muesta en \figref{gameBoard};
+consiste en una grilla rectagular de \emph{celdas} amarillas. Cuando haces click
+sobre una celda con el mouse, las cuatro celdas adyacentes se tornan azules. Si
+haces \Click otra vez, se volverán otras vez amarillas. El objetivo del juego
+es poner azules la mayor cantidad de celdas como sea posible.
 
-We have already seen the \ind{browser} in \charef{quick}, where we learned how to navigate to classes and methods, and saw how to define new methods.
-Now we will see how to create packages, categories and classes.
+% The Lights Out game shown in \figref{gameBoard} is made up of two kinds of
+% objects: the game board itself, and 100 individual cell objects.  The \pharo
+% code to implement the game will contain two classes: one for the game and one
+% for the cells.  We will now show you how to define these classes using the
+% \pharo programming tools.
+
+En el Lights Out que se muesta \figref{gameBoard} está compuesto por
+dos objetos: el tablero del juego en sí, y 100 objetos celda individuales. El
+código de \pharo para implementar el juego tendrá dos clases: una para el
+juego y otra para las celdas. Ahora veremos cómo definir estas clases usando
+las herramientas de programación de \pharo.
+
+\section{Creando un paquete nuevo}
+
+% We have already seen the \ind{browser} in \charef{quick}, where we learned how
+% to navigate to classes and methods, and saw how to define new methods.  Now we
+% will see how to create packages, categories and classes.
+
+Ya hemos visto el \ind{Browser} en \charef{quick}, donde aprendimos como
+navegar clases y métodos, y vimos como definir nuevos métodos. Ahora veremos
+como crear paquetes, categorías y clases.
+
 \index{category!creating}
 \index{package!creating}
 
-\dothis{Open a browser and \actclick in the package pane.
-Select \menu{create package}.\footnote{We are assuming that the Package Browser is installed as the default browser, which should normally be the case. If the browser you get does not look like the one shown in \figref{addPackage}, then you may need to change the default browser.  See \faqref{packagebrowser}.}}
+% \dothis{Open a browser and \actclick in the package pane.  
+% Select \menu{create package}.\footnote{We are assuming that the Package Browser is 
+% installed as the default browser, which should normally 
+% be the case. If the browser you get does
+% not look like the one shown in \figref{addPackage}, then you may need to change
+% the default browser.  See \faqref{packagebrowser}.}}
+
+\dothis{Abre el explorador y seleccione la herramienta package.
+Selecciona \menu{create package}.\footnote{Estamos asumiendo que el explorador
+de paquetes está instalado como el explorador por defecto, lo que
+ocurre en casi todos los casos. Si el navagador que obtienes no se
+ve similar al de \figref{addPackage}, entonces tal vez tienes que cambiar
+el explorador por defecto. Mire \faqref{packagebrowser}.}}
 
 \begin{figure}[htb]
 \begin{minipage}[b]{0.48\textwidth}
 \ifluluelse
 	{\centerline {\includegraphics[width=0.9\textwidth]{AddPackage}}}
 	{\centerline {\includegraphics[scale=0.7]{AddPackage}}}
-	\caption{Adding a package.
+	\caption{Agregando un paquete.
 	\figlabel{addPackage}}
 \end{minipage}
 \hfill
@@ -95,44 +136,86 @@ Select \menu{create package}.\footnote{We are assuming that the Package Browser 
 \ifluluelse
 	{\centerline {\includegraphics[width=0.8\textwidth]{ClassTemplate}}}
 	{\centerline {\includegraphics[scale=0.6]{ClassTemplate}}}
-	\caption{The class template.
+	\caption{La plantilla de una clase.
 	\figlabel{classTemplate}}
 \end{minipage}
 \end{figure}
 
-Type the name of the new package (we will use \scat{PBE-LightsOut}) in the dialog box and click \menu{accept} (or just press the return key); the new package is created, and positioned alphabetically in the list of packages.
+% Type the name of the new package (we will use \scat{PBE-LightsOut}) in the
+% dialog box and click \menu{accept} (or just press the return key); the new
+% package is created, and positioned alphabetically in the list of packages.
+
+Escriba el nombre del nuevo paquete (usaremos \scat{PBE-LightsOut}) en
+el cuadro de dialogo y seleccionamos \menu{accept} (o solo pulsamos
+la tecla enter); El nuevo paquete se ha creado, y se posiciona alfabeticamente
+en la lista de paquetes.
 
 %=================================================================
-\section{Defining the class LOCell}
+% \section{Defining the class LOCell}
+\section{Definiendo la clase LOCell}
 
-As yet there are  of course no classes in the new package. However, the main editing pane displays a template to make it easy to create a new class (see \figref{classTemplate}).
+% As yet there are  of course no classes in the new package. However, the main
+% editing pane displays a template to make it easy to create a new class (see
+% \figref{classTemplate}).
 
-This template shows us a \st expression that sends a message to a class called \ct{Object}, asking it to create a subclass called \ct{NameOfSubClass}.  The new class has no variables, and should belong to the category \scat{PBE-LightsOut}.
+Por supuesto, todavía no hay clases en el nuevo paquete. Aún así, el panel
+principal de edición nos muestra una plantilla para hacer mas sencillo crear
+una nueva clase (vea \figref{classTemplate}).
 
-\subsection{On Categories and Packages}
+
+
+% This template shows us a \st expression that sends a message to a class called
+% \ct{Object}, asking it to create a subclass called \ct{NameOfSubClass}.  The
+% new class has no variables, and should belong to the category
+% \scat{PBE-LightsOut}.
+
+Esta plantilla nos nuestra una \st expression que senvía un mensaje a la clases
+que se llama \ct{Object}, solicitandole que genere una subclase llamada
+\ct{NameOfSubClass}. La nueva clase no tendrá variables, y deberá pertenecer
+a la categoría \scat{PBE-LightsOut}.
+
+% \subsection{On Categories and Packages}
+\subsection{Sobre categorías y paquetes}
 \seclabel{categoriesPackages}
 
-Historically, \st only knows about \emph{categories}, not packages.
-You may well ask, what is the difference?
-A category is simply a collection of related classes in a \st image.
-A \emph{package} is a collection of related classes \emph{and extension methods} that may be versioned using the Monticello versioning tool.
-By convention, package names and category names are the same.
-For most purposes we do not care about the difference, but we will be careful to use the correct terminology in this book since there are points where the difference is crucial.
-We will learn more when we start working with Monticello.
+% Historically, \st only knows about \emph{categories}, not packages.
+% You may well ask, what is the difference?
+% A category is simply a collection of related classes in a \st image.
+% A \emph{package} is a collection of related classes \emph{and extension methods} that may be versioned using the Monticello versioning tool.
+% By convention, package names and category names are the same.
+% For most purposes we do not care about the difference, but we will be careful to use the correct terminology in this book since there are points where the difference is crucial.
+% We will learn more when we start working with Monticello.
+% \index{package}
+% \index{category}
+
+Historicamente, se trata sobre \emp{categorias}, no paquetes.
+Entonces podrías preguntarte, ¿cual es la diferencia?
+Una categoría es simplemente una collección de clases relacionanadas en
+una \st imagen.
+Un \emp{paquete} es una colleccion de clases relacionadas junto a
+\emph{metodos de extensión} que podrían estar bajo un control de versiones
+como Monticello.
+Por convención, los nombres de paquetes y categorias son siempre los mismos.
+En la mayoría de los casos no nos preocuparemos por las diferencias, pero
+seremos cuidadosos en la terminología de este libro para utilizar la
+denominación correcta, ya que hay puntos donde de la diferencia es crucial.
+Aprenderemos mas sobre este tema cuando comencemos a trabajar con Monticello.
 \index{package}
 \index{category}
 
+
+% \subsection{Creating a new class}
 \subsection{Creating a new class}
 
-We simply modify the template to create the class that we really want.
+Solamente modificaremos la plantilla para crear la clase que realmente queremos.
 
-\dothis{Modify the class creation template as follows:}
+\dothis{Modifique la plantilla de creación de clase como sigue:}
 \begin{itemize}
-  \item Replace \clsind{Object} by \clsind{SimpleSwitchMorph}.
-  \item Replace \ct{NameOfSubClass} by \clsind{LOCell}.
-  \item Add \ct{mouseAction} to the list of instance variables.
+  \item Reemplace \clsind{Object} por \clsind{SimpleSwitchMorph}.
+  \item Reemplace \ct{NameOfSubClass} por \clsind{LOCell}.
+  \item Añada \ct{mouseAction} a la lista de variables de instancia.
 \end{itemize}
-The result should look like \clsref{firstClassDef}.
+El resultado devería parecerse a \clsref{firstClassDef}.
 
 \needlines{5}
 \begin{classdef}[firstClassDef]{Defining the class \ct| LOCell|}
@@ -146,9 +229,13 @@ SimpleSwitchMorph subclass: #LOCell
 \index{class!creation}
 \index{Morphic}
 
-This new definition consists of a \st expression that sends a message to the existing class \ct{SimpleSwitchMorph}, asking it to create a subclass called \ct{LOCell}.
-(Actually, since \ct{LOCell} does not exist yet, we passed as an argument the \emphind{symbol} \ct{#LOCell} which stands for the name of the class to create.)
-We also tell it that instances of the new class should have a \ct{mouseAction} instance variable, which we will use to define what action the cell should take if the mouse should click over it.
+This new definition consists of a \st expression that sends a message to the
+existing class \ct{SimpleSwitchMorph}, asking it to create a subclass called
+\ct{LOCell}.  (Actually, since \ct{LOCell} does not exist yet, we passed as an
+argument the \emphind{symbol} \ct{#LOCell} which stands for the name of the
+class to create.) We also tell it that instances of the new class should have a
+\ct{mouseAction} instance variable, which we will use to define what action the
+cell should take if the mouse should click over it.
 
 \emph{At this point you still have not created anything.}
 Note that the border of the class template pane has changed to red (\figref{acceptClassDef}).
