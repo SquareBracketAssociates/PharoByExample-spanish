@@ -41,22 +41,22 @@
 %Then we need a cookbook of how to do simple things in Morphic.
 %The observer pattern and its implementation with changed:  and update: messages could go here.  Or in ``Idiomatic design patterns'' later.}
 
-\indmain{Morphic} is the name given to \pharo's graphical interface.
-Morphic is written in \st, so it is fully portable between operating systems; as a consequence, \pharo looks exactly the same on Unix, MacOS and Windows.
-What distinguishes Morphic from most other user interface toolkits is that it does not have separate modes for ``composing'' and ``running'' the interface: all the graphical elements can be assembled and disassembled by the user, at any time.\footnote{We thank Hilaire Fernandes for permission to base this chapter on his original article in French.}
+\indmain{Morphic} es el nombre de la interface gr\'afica de \pharo.
+Morphic est\'a escrito es \st, por lo que es complementamente portable entre distintos sistemas operativos; como consecuencia de ello, \pharo se ve exactamente igual en Unix, MacOS y Windows.
+Lo que distingue a Morphic de la mayoria de los otros toolkits de interface de usuario es que no tiene modos separadas para  ``composici\'on' y ``ejecuci\'on'' de la interface: todos los elementos gr\'aficos pueden ser ensamblados y desensamblados por el usuario en cualquier momento.\footnote{Le agradecemos a Hilaire Fernandes por permitir basar este cap\'itulo en su art\'iculo original en franc\'es.}
 
 \ab{After the first printing, I took an editing pass, correcting some errors and grammatical infelicities.}
 
 \on{I have commented out the LabelstickerMorph and PyramidMorph examples, as they do not really add much over the other examples we have already. The source code is now available in the example subdirectory, in case someone would like to try and use them after all.}
 
 %=================================================================
-\section{The history of Morphic}
+\section{La historia de Morphic}
 
-Morphic was developed by John Maloney and Randy Smith for the \ind{Self} programming language, staring around 1993. 
-Maloney later wrote a new version of Morphic for \squeak, but the basic ideas behind the Self version are still alive and well in \pharo Morphic: \emph{directness} and \emph{liveness}.
-Directness means that the shapes on the screen are objects that can be examined or changed directly, that is, by pointing at them using the mouse.
-Liveness means that the user interface is always able to respond to user actions: information on the screen is continuously updated as the world that it describes changes.
-A simple example of this is that you can detach a menu item and keep it as a button.
+Morphic fue desarrollado por John Maloney and Randy Smith para el lenguaje de programaci\'on \ind{Self} , all\'a por 1993. 
+Posteriormente Maloney escribi\'o una nueva versi\'on de Morphic para \squeak, pero las ideas b\'asicas detras de la versi\'on de Self son a\'un vigentes en el Morphic de \pharo: \emph{directness} and \emph{liveness}.
+Directness significa que las formas en la pantalla son objetos que pueden ser examinados o modificados directamente apuntandolos con el mouse.
+Liveness significa que la interface de usuario siempre es capaz de responder a las acciones del usuario: la informaci\'on en la pantalla es continuamente actualizada a medida que cambia el mundo que esta describe.
+Un simple ejemplo de esto es que uno puede desatachar un item de men\'u item y mantenerlo como un bot\'on.
 
 \dothis{Bring up the world menu. \Metaclick once on the world menu to bring up its morphic halo\footnote{Recall that you should set \button{halosEnabled} in the Preferences browser. Alternatively, you can evaluate \ct{Preferences enable: \#halosEnabled} in a workspace.}, then \metaclick again on the menu item you want to detach to bring up its halo.  Now drag that item elsewhere on the screen by grabbing the black handle \grabHandle, as shown in \figref{detachingMenu}.}
 \index{Morphic!halo}
