@@ -43,7 +43,7 @@
 
 \indmain{Morphic} es el nombre de la interface gr\'afica de \pharo.
 Morphic est\'a escrito es \st, por lo que es complementamente portable entre distintos sistemas operativos; como consecuencia de ello, \pharo se ve exactamente igual en Unix, MacOS y Windows.
-Lo que distingue a Morphic de la mayoria de los otros toolkits de interface de usuario es que no tiene modos separadas para  ``composici\'on' y ``ejecuci\'on'' de la interface: todos los elementos gr\'aficos pueden ser ensamblados y desensamblados por el usuario en cualquier momento.\footnote{Le agradecemos a Hilaire Fernandes por permitir basar este cap\'itulo en su art\'iculo original en franc\'es.}
+Lo que distingue a Morphic de la mayoria de los otros toolkits de interface de usuario es que no tiene modos separados para  ``composici\'on' y ``ejecuci\'on'' de la interface: todos los elementos gr\'aficos pueden ser ensamblados y desensamblados por el usuario en cualquier momento.\footnote{Le agradecemos a Hilaire Fernandes por permitir basar este cap\'itulo en su art\'iculo original en franc\'es.}
 
 \ab{After the first printing, I took an editing pass, correcting some errors and grammatical infelicities.}
 
@@ -58,21 +58,21 @@ Directness significa que las formas en la pantalla son objetos que pueden ser ex
 Liveness significa que la interface de usuario siempre es capaz de responder a las acciones del usuario: la informaci\'on en la pantalla es continuamente actualizada a medida que cambia el mundo que esta describe.
 Un simple ejemplo de esto es que uno puede desatachar un item de men\'u item y mantenerlo como un bot\'on.
 
-\dothis{Bring up the world menu. \Metaclick once on the world menu to bring up its morphic halo\footnote{Recall that you should set \button{halosEnabled} in the Preferences browser. Alternatively, you can evaluate \ct{Preferences enable: \#halosEnabled} in a workspace.}, then \metaclick again on the menu item you want to detach to bring up its halo.  Now drag that item elsewhere on the screen by grabbing the black handle \grabHandle, as shown in \figref{detachingMenu}.}
+\dothis{Abre el men\'u World. \Metaclick para traer su halo morphic\footnote{Recuerdda que debes setear \button{halosEnabled} en el explorador de Preferencias. Alternativamente, puedes evaluar \ct{Preferences enable: \#halosEnabled} en un workspace.}, luego \metaclick otra vez el el \'item de men\'u que deseas desacoplar para traer su halo.  Ahora arrastra el el \'item a alg\'un otro lugar de la pantalla agarr\'andolo del manejador negro \grabHandle, como se muestra en \figref{detachingMenu}.}
 \index{Morphic!halo}
 \index{blue button}
 
 \begin{figure}[ht]
 	\centerline{\includegraphics[width=0.3\textwidth]{detachingMenu}}
-	\caption{Detaching a morph, here the \menu{Workspace} menu item, to make it an independent button.
+	\caption{Desacoplar un morph, aqu\'i el \'item de men\'u \menu{Workspace}, para hacerlo un bot\'on independiente.
 		\figlabel{detachingMenu}}
 \end{figure}
 
-All of the objects that you see on the screen when you run \pharo are \emph{Morphs}, that is, they are instances of subclasses of class \ct{Morph}.
-\mbox{\ct{Morph}} itself is a large class with many methods; this makes it possible for subclasses to implement interesting behaviour with little code.
-You can create a morph to represent any object, although how good a representation you get depends on the object!
+Todos los objetos que ves en la pantalla cuando ejecutas \pharo son \emph{Morphs}, eso es, son instancias de subclases de la clase \ct{Morph}.
+\mbox{\ct{Morph}} en si mismo es una clase grande con mucho m\'etodos; esto hace posible para las subclases implementar comportamiento interesante con poco c\'odigo.
+Tu puedes crear un morph para representar cualquier objeto, aunque cuan buena sea esa representanción depende del objeto!
 
-\dothis{To create a morph to represent a string object, execute the following code in a workspace.} % , one line at a time.}
+\dothis{Para crear un morph que represente a un objeto cadena de caracteres, ejecuta el siguiente c\'odigo en un workspace.} % , una l\'inea a la vez.}
 \begin{code}{}
 'Morph' asMorph openInWorld
 \end{code}
@@ -85,37 +85,43 @@ You can create a morph to represent any object, although how good a representati
 %\cmindex{Morph}{openInWorld}
 % ON: openViewerForArgument is gone in pharo!
 
-This creates a Morph to represent the string \ct{'Morph'}, and then opens it (that is, displays it) in the ``world'', which is the name that \pharo gives to the screen.  
+Esto crea un Morph para representar la cadena de caracteres \ct{'Morph'}, y luego lo abre (esto es, lo muestra) en el ``mundo'', que es el nombre que \pharo le da a la pantalla.
 You should obtain a graphical element\,---\,a Morph\,---\,which you can manipulate by \metaclick{ing}.
 %The second line opens a ``viewer'' that shows you attributes of this Morph, such as its \ct{x} and \ct{y}  coordinates on the screen.  Clicking on one of the yellow exclamation marks sends a message to the Morph, which responds appropriately.
 
-Of course, it is possible to define morphs that are more interesting graphical representations than the one that you have just seen.
-The method \mthind{Object}{asMorph} has a default implementation in class \ct{Object} class that just creates a StringMorph.
-So, for example, \ct{Color tan asMorph} returns a StringMorph labeled with the result of \clsind{Color} \ct{tan printString}.
-Let's change this so that we get a coloured rectangle instead.
+Por supuesto, es posible definir morphs que sean representaciones gr\'aficas  m\'as interesante que la que hemos visto.
+El m\'etodo \mthind{Object}{asMorph} tiene una implementaci\'on por defecto en la clase  \ct{Object} que simplemente crea un StringMorph.
+Entonces, por ejemplo, \ct{Color tan asMorph} devuelve un StringMorph etiquetado con el resultado de \clsind{Color} \ct{tan printString}.
+Cambiemos estoy para obtener un rect\'angulo coloreado en su lugar.
 
-\dothis{Open a browser on the \ct{Color} class and add the following method to it:}
+
+\dothis{Abre un browser en la clase \ct{Color} y agrega el siguiente m\'etodo:}
 \needlines{3}
 \begin{method}{Getting a morph for an instance of \ct{Color}.}
 Color>>>asMorph
 	^ Morph new color: self
 \end{method}
 \noindent
-Now execute \ct{Color orange asMorph} \mthind{Morph}{openInWorld} in a workspace. Instead of the string-like morph, you get an orange rectangle!
+Ahora ejecuta \ct{Color orange asMorph} \mthind{Morph}{openInWorld} en un workspace. En lugar de morph tipo string, obtienes un rect\'angulo naranja!
+
 
 
 %=================================================================
-\section{Manipulating morphs}
+\section{Manipulando morphs}
 
-Morphs are objects, so we can manipulate them like any other object in \st: by sending messages, we can change their properties, create new subclasses of Morph, and so on.
+Los Morphs son objetos, por lo tanto podemos manipularlos como cualquier otro objeto en \st: envi\'andoles mensajes, podemos cambiar sus propiedades, creat nuevas subclases de Morph y demás.
 
-Every morph, even if it is not currently open on the screen, has a position and a size.  
-For convenience, all morphs are considered to occupy a rectangular region of the screen; if they are irregularly shaped, their position and size are those of the smallest rectangular ``box'' that surrounds them, which is known as the morph's bounding box, or just its ``bounds''.
-The \mthind{Morph}{position} method returns a \ct{Point} that describes the location of the morph's upper left corner (or the upper left corner of its bounding box). 
-The origin of the coordinate system is the screen's upper left corner, with $y$ coordinates increasing \emph{down} the screen and $x$ coordinates increasing to the right.
-The \ct{extent} method also returns a point, but this point specifies the width and height of the morph rather than a location.
+Cada morph, incluso si no est\'a actualmente abierto en la pantalla, tiene una posición y un tamaño.
+Para conveniencia, todo morph es considerado ocupando un regi\'on rectangular de la pantalla; si son de forma irregular, su posici\'on y tamanio son aquellos de la ``caja'' rectangular de menor tamaño que los rodea, que es conocida como caja de delimitaci\'on del morph, o simplemente su ``delimitador''.
 
-\dothis{Type the following code into a workspace and \menu{do it}:}
+
+El método \mthind{Morph}{position} devuelve un \ct{Point} que describe la ubicaci\'on de la esquina superior izquierda del morph  (o la esquina superior izquierda de su caja delimitadora).
+El origen del sistema de coordenadas es la esquina superior izquierda de la pantalla, con la coordenada $y$  increment'nadose hacia abajo en la pantlla y con las coordenada $x$ increment\'andose hacia la derecha.
+
+El m\'etodo \ct{extent} tambi\'en devuelve un punto, pero este punto especifica el ancho y alto del morph en vez de su posici\'on.
+
+
+\dothis{Tipea lo siguiente en un workspace y \menu{do it}:}
 \begin{code}{}
 joe := Morph new color: Color blue.
 joe openInWorld.
@@ -123,21 +129,22 @@ bill := Morph new color: Color red .
 bill openInWorld.
 \end{code}
 \noindent
-Then type \ct{joe position} and \menu{print it}.
-To move joe, execute \ct{joe position: (joe position + (10@3))} repeatedly.
+Luego tipea \ct{joe position} y \menu{print it}.
+Para mover joe, ejecuta \ct{joe position: (joe position + (10@3))} repetidamente.
 
-It is possible to do a similar thing with size.
-\ct{joe} \mthind{Morph}{extent} answers joe's size; to have joe grow, execute \ct{joe extent: (joe extent * 1.1)}.
-To change the color of a morph, send it the \mthind{Morph}{color:} message with the desired \ct{Color} object as argument, for instance, \ct{joe color: Color orange}.
-To add transparency, try \ct{joe color: (Color orange alpha: 0.5)}.
+Is posible hacer algo similar con el tamanio.
 
-\dothis{To make bill follow joe, you can repeatedly execute this code:}
+\ct{joe} \mthind{Morph}{extent} devuelve el tamanio de joe; para agrandar a joe, ejecuta \ct{joe extent: (joe extent * 1.1)}.
+Para cambiar el color de un morph, env\'iale el mensaje \mthind{Morph}{color:} con el objecto \ct{Color} deseado como argumento, por ejemplo, \ct{joe color: Color orange}.
+Para agregar transparencia, prueba \ct{joe color: (Color orange alpha: 0.5)}.
+
+\dothis{Para hacer que bill siga a joe, puedes ejecutar repetidamente este c\'odigo:}
 \begin{code}{}
 bill position: (joe position + (100@0))
 \end{code}
 \noindent
-If you move joe using the mouse and then execute this code, bill will move so that it is 100 pixels to the right of joe.
-\ab{It would seem that this would be a good place to introduce the \ct{step} method}.
+Si mueves a joe usando el rat\'on y luego ejecutas este c\'odigo, bill se mover\'a de manera de colocarse a 100 pixels a la derecha de joe.
+\ab{Para ser un buen lugar para presentar el m\'etodo \ct{step}}.
 
 %=================================================================
 \section{Composing morphs}
