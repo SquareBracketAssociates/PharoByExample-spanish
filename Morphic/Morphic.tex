@@ -401,29 +401,29 @@ verticalBar
 
 
 %=================================================================
-\section{Interaction and animation}
+\section{Interacci\'on y animaci\'on }
 
-To build live user-interfaces using morphs, we need to be able to interact with them using the mouse and the keyboard.
-Moreover, the morphs need to be able respond to user input by changing their appearance and position\,---\,that is, by animating themselves.
+Para construir interfaces de usuario vivas usando morphs, necesitamos poder interactuar con ellos usando el rat\'on y el teclado. 
+Más aún, los morphs necesitan ser capaces de responder a la entrada del usuario cambiando su apariencia y posici\'on\,---\,esto es, anim\'andose asimismos.
 
 
-\subsection{Mouse events}
+\subsection{Eventos del rat\'on}
 
-When a mouse button is pressed, Morphic sends each morph under the mouse pointer the message \ct{handlesMouseDown:}. If a morph answers \ct{true}, then Morphic immediately sends it the \mthind{Morph}{mouseDown:} message; it also sends the \mthind{Morph}{mouseUp:} message when the user releases the mouse button.
-If all morphs answer \ct{false}, then Morphic initiates a drag-and-drop operation.
-As we will discuss below, the \ct{mouseDown:} and \ct{mouseUp:} messages are sent with an argument\,---\,a \clsind{MouseEvent} object\,---\,that encodes the details of the mouse action.
+Cuando in bot\'on del rat\'on es presionado, Morphic env\'ia el mensaje \mthind{Morph}{mouseDown:} a cada morph ubicado bajo el puntero del rat\'on y también envia el mensaje \mthind{Morph}{mouseUp:} cuando el suario libera el bot\'on del rat\'on.
+Si todos los morphs contestan \ct{false}, entonces Morphic inicia una operaci\'on drap-and-drop.
+Como discutiremos m\'as abajo, los mensajes \ct{mouseDown:} y \ct{mouseUp:} son enviados con el argumento\,---\,a \clsind{MouseEvent} \,---\,que codifica los detalles de la acci\'on del rat\'on.
 
-Let's extend \ct{CrossMorph} to handle mouse events.  
-We start by ensuring that all crossMorphs answer \ct{true} to the \mthind{Morph}{handlesMouseDown:} message. 
+Extendamos el \ct{CrossMorph} para manejar eventos del rat\'on, 
+Comenzamos por asegurarnos que todos los crossMorphs contestan \ct{true} a el mensaje\mthind{Morph}{handlesMouseDown:}. 
 
-\dothis{Add this method to \ct{CrossMorph}:}
+\dothis{Agrega este método a \ct{CrossMorph}:}
 \begin{method}{Declaring that \ct{CrossMorph} will react to mouse clicks.}
 CrossMorph>>>handlesMouseDown: anEvent
 	^true
 \end{method}
 
-Suppose that when we click on the cross, we want to change the color of the cross to red, and when we \actclick on it, we want to change the color to yellow.
-This can be accomplished by \mthref{mouseDown}.
+Supongamos que cuando hacemos click en la cruz, queremos cambiar el color de la cruz a rojo, y que cuando \actclick en esta, queremos cambiar el color a amarillo.
+Esto se puede hacer con \mthref{mouseDown}.
 
 \needlines{7}
 \begin{method}[mouseDown]{Reacting to mouse clicks by changing the morph's color.}
@@ -436,13 +436,14 @@ CrossMorph>>>mouseDown: anEvent
 \end{method}
 
 \ab{I added this note:}
-Notice that in addition to changing the color of the morph, this method also sends \ct{self changed}.
-This makes sure that morphic sends \ct{drawOn:} in a timely fashion.
-\ab{However, the \ct{self changed} message seems to be entirely unnecessary; the colour changes instantly without it.}
-Note also that once the morph handles \ind{mouse events}, you can no longer grab it with the mouse and move it.
-Instead you have to use the halo: \metaclick on the morph to make the halo appear and grab either the brown move handle \moveHandle{} or the black pickup handle \grabHandle{} at the top of the morph.
+Nota que adicionalmente a cambiar el color de un morph, este m\'etodo tambi\'en envia \ct{self changed}.
+Esto asegura que el morphic env\'ia \ct{drawOn:} de manera oportuna.
 
-The \ct{anEvent} argument of \ct{mouseDown:} is an instance of \mbox{\clsind{MouseEvent},} which is a subclass of \lct{Mor\-phic\-Event}. \ct{MouseEvent} defines the \mthind{MouseEvent}{redButtonPressed} and \mthind{MouseEvent}{yellowButtonPressed} methods. Browse this class to see what other methods it provides to interrogate the mouse event.
+\ab{De todas formas, el mensaje \ct{self changed} parece ser enteramente innecesario; el color cambia instantaneamente sin este.}
+Nota tambi\'en que una vez que el morph maneja el \ind{mouse events}, ya no puedes agarrarlo con el rat\'on y moverlo.
+En lugar de ello tienes que utilizar el halo: \metaclick en el morph para haccer aparecer el halo y agarrar el manejador marr\'on \moveHandle{}  o el manejador negro \grabHandle{} en la parte superior del morph,
+
+El argumento \ct{anEvent} de \ct{mouseDown:} es una instancia de \mbox{\clsind{MouseEvent},} que es una subclase de  \lct{Mor\-phic\-Event}. \ct{MouseEvent} define los m\'etodos \mthind{MouseEvent}{redButtonPressed} y \mthind{MouseEvent}{yellowButtonPressed}. Navega esta clase para ver que otros m\'etodos provee para interrogar los eventos del rat\'on.
 
 \subsection{Keyboard events}
 
