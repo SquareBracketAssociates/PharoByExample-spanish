@@ -779,7 +779,7 @@ DieMorph >>>face9
 
 Estos m\'etodos definen colecciones de coordenadas de puntos para cada cara. Las coordenadas estan en un cuadrado de tamaño $1\times1$; simplemente necesitaremos escalarlas para ubicar los verdaderos puntos.
 
-El m\'etodo \ct{drawOn:} hace dos cosas: dibuja el fondo muerto con la \ct{super}-send, y luego dibuja los puntos.
+El m\'etodo \ct{drawOn:} hace dos cosas: dibuja el fondo del dado con la \ct{super}-send, y luego dibuja los puntos.
 \begin{method}{Drawing the die morph.}
 DieMorph>>>drawOn: aCanvas
 	super drawOn: aCanvas.
@@ -788,7 +788,7 @@ DieMorph>>>drawOn: aCanvas
 \end{method}
 
 La segunda parte de este m\'etodo usa las capacidades refletivas de \st.
-Dibujar los puntos de una cara es una simple cuesti\'on de iterar sobre la colecci\'on de dada por el m\'etodo \ct{faceX} para esa cara, envienado el mensaje \ct{drawDotOn:at:} para cada coordenada. Para llamar el correcto m'etodo \ct{faceX}, usamos el m\'etodo \mthind{Object}{perform:} que envia un mensaje creado desde un string, aqu\'i \lct{('face', dieValue asString) asSymbol}. Encotraras este uso de este \ct{perform:} bastante regularmente.
+Dibujar los puntos de una cara es una simple cuesti\'on de iterar sobre la colecci\'on dada por el m\'etodo \ct{faceX} para esa cara, envienado el mensaje \ct{drawDotOn:at:} para cada coordenada. Para llamar el correcto m'etodo \ct{faceX}, usamos el m\'etodo \mthind{Object}{perform:} que envia un mensaje creado desde un string, aqu\'i \lct{('face', dieValue asString) asSymbol}. Encotraras este uso de este \ct{perform:} bastante regularmente.
 \index{reflection}
 \begin{method}{Drawing a single dot on a face.}
 DieMorph>>>drawDotOn: aCanvas at: aPoint
@@ -800,14 +800,14 @@ DieMorph>>>drawDotOn: aCanvas at: aPoint
 \end{method}
 \ew{I would not use reflection to call faceX on p.234. A statically filled Dictionary would be more appropriate. Get the point set with "MyDict at: X".}
 
-Since the coordinates are normalized to the $[0{:}1]$ interval, we scale them to the dimensions of our die: \ct{self extent * aPoint}.
+Como las coordenadas est\'an normalizadas al inervalo $[0{:}1]$, podemos escalarlas a las dimensiones de nuestro dado: \ct{self extent * aPoint}.
 
-\dothis{We can already create a die instance from a workspace:}
+\dothis{Ya podemos crear una instancia de dado desde un workspace:}
 \begin{code}{}
 (DieMorph faces: 6) openInWorld.
 \end{code}
 
-To change the displayed face, we create an accessor that we can use as \ct{myDie dieValue: 4}:
+Para cambiar la cara mostrada, creamos un accessor que podemos usar como \ct{myDie dieValue: 4}:
 \begin{method}{Setting the current value of the die.}
 DieMorph>>>dieValue: aNumber
 	(aNumber isInteger
@@ -818,7 +818,7 @@ DieMorph>>>dieValue: aNumber
 			self changed]
 \end{method}
 
-Now we will use the animation system to show quickly all the faces:
+Ahora vamos usar el sistema de animaci\'on para mostrar r\'apidamente todas las caras:
 \needlines{3}
 \index{Morphic!animation}
 \begin{methods}{Animating the die.}
@@ -828,10 +828,10 @@ DieMorph>>>stepTime
 DieMorph>>>step
 	isStopped ifFalse: [self dieValue: (1 to: faces) atRandom]
 \end{methods}
-Now the die is rolling!
+¡Ahora el dado est\'a rodando!
 
-To start or stop the animation by clicking, we will use what we learned previously about mouse events.
-First, activate the reception of mouse events:
+Para comenzar o deterner la animaci\'on haciendo click, usaremos lo que hemos aprendido previamente sobre los eventos del  rat\'on.
+Primero, activamos la recepci\'on de los eventos del rat\'on:
 
 \begin{methods}{Handling mouse clicks to start and stop the animation.}
 DieMorph>>>handlesMouseDown: anEvent
@@ -850,19 +850,22 @@ Now the die will roll or stop rolling when we click on it.
 %=================================================================
 \section{More about the canvas}
 
-The \ct{drawOn:} method has an instance of \clsindmain{Canvas} as its sole argument;
-the canvas is the area on which the morph draws itself.
-By using the graphics methods of the canvas you are free to give the appearance you want to a morph.
-If you browse the inheritance hierarchy of the \ct{Canvas} class, you will see that it has several variants.
-The default variant of \ct{Canvas} is \clsind{FormCanvas}; you will find the key graphics methods in \ct{Canvas} and \ct{FormCanvas}.
-These methods can draw points, lines, polygons, rectangles, ellipses, text, and images with rotation and scaling.
+El método \ct{drawOn:} tiene una instancia de \clsindmain{Canvas} como su \'unico argumento;
+el canvas es un \'area en donde el morph se dibuja asimismo.
+Usando los m\'etodos gr\'aficos del canvas, eres libre de dar la apariencia que quieras a un morph.
+Si navegas la jerarqu\'ia de herencia de la clase \ct{Canvas}, ver\'as que tiene varias variantes.
 
-It is also possible to use other kinds of canvas, to obtain transparent morphs, more graphics methods, antialiasing, and so on.
-To use these features you will need an \clsind{AlphaBlendingCanvas} or a \clsind{BalloonCanvas}.
-But how can you obtain such a canvas in a \ct{drawOn:} method, when \ct{drawOn:} receives an instance of \ct{FormCanvas} as its argument?
-Fortunately, you can transform one kind of canvas into another.
+La variante por defecto de \ct{Canvas} es \clsind{FormCanvas}; encontrar\'as los m\'etodos gr\'aficos clave en \ct{Canvas} y \ct{FormCanvas}.
+Estos m\'etodos pueden dibujar puntos, l\'ineas, pol\'igonos, rect\'angulos, elipses, textos e im\'agenes con rotaci\'on y escalamiento.
 
-\dothis{To use a canvas with a 0.5 alpha-transparency in \ct{DieMorph}, redefine \ct{drawOn:} like this:}
+Tambi\'en es posible user otras clases de canvas, para obtener morphs transparentes, m\'as m\'etodos gr\'aficos, antialising, y otros.
+
+Para usar estas funcionalidades necesitar\'as un \clsind{AlphaBlendingCanvas} o un \clsind{BalloonCanvas}.
+
+Pero, ¿como puedes obtener un canvas as\'i en un m\'etodo \ct{drawOn:} cuando \ct{drawOn:} recibe una instancia de \ct{FormCanvas} como argumento?
+Afortunadamente, puedes transformar un tipo de canvas en otro.
+
+\dothis{Para usar un canvas con alpha-transparency 0.5 en \ct{DieMorph}, redefine \ct{drawOn:} de esta forma:}
 \needlines{7}
 \begin{method}{Drawing a translucent die.}
 DieMorph>>>drawOn: aCanvas
@@ -873,7 +876,7 @@ DieMorph>>>drawOn: aCanvas
 		do: [:aPoint | self drawDotOn: theCanvas at: aPoint]
 \end{method}
 \noindent
-That's all you need to do!
+¡Eso es todo lo que necesitas hacer!
 
 \begin{figure}[ht]
 	\centerline{\includegraphics[scale=0.7]{multiMorphs}}
@@ -906,18 +909,18 @@ That's all you need to do!
 %\end{methods}
 
 %=================================================================
-\section{Chapter summary}
+\section{Resumen del cap\'itulo}
 
-Morphic is a graphical framework in which graphical interface elements can be dynamically composed.
+Morphic es un marco de trabajo gr\'afico en que los elementos de la interface gr\'afica pueden ser compuestos din\'amicamente.
 
 \begin{itemize}
-  \item You can convert an object into a morph and display that morph on the screen by sending it the messages \ct{asMorph openInWorld}.
-  \item You can manipulate a morph by \metaclick{ing} on it and using the handles that appear. (Handles have help balloons that explain what they do.)
-  \item You can compose morphs by embedding one onto another, either by drag and drop or by sending the message \ct{addMorph:}.
-  \item You can subclass an existing morph class and redefine key methods, like \ct{initialize} and \ct{drawOn:}.
-  \item You can control how a morph reacts to mouse and keyboard events by redefining the methods \ct{handlesMouseDown:}, \ct{handlesMouseOver:}, \etc
-  \item You can animate a morph by defining the methods \ct{step} (what to do) and \ct{stepTime} (the number of milliseconds between steps).
-  \item Various pre-defined morphs, like \ct{PopUpMenu} and \ct{FillInTheBlank}, are available for interacting with users.
+  \item Puedes convertir un objeto en un morph y mostrarlo en la pantalla envi\'andole los mensajes \ct{asMorph openInWorld}.
+  \item Puedes manipular a un morph  \metaclick{ing} sobre el y usando los manejadores que aparecen. (Los manejadores tiene balones de ayuda que explican lo que hacen.)
+  \item Puedes componer morphs embebi\'endolos uno dentro de otro, o arrastr\'ando y soltando o enviando el mensaje \ct{addMorph:}.
+  \item Puedes subclasear un clase morph existente y redefinir los m\'etodos clave, como \ct{initialize} y \ct{drawOn:}.
+  \item Puedes controlar como un morph reacciona a los eventos de rat\'on y teclado redefiniendo los m\'etodos \ct{handlesMouseDown:}, \ct{handlesMouseOver:}, \etc
+  \item Puedes animar un morph definiendo los m\'etodos \ct{step} (qu\'e hacer) y \ct{stepTime} (el n\'umero de milisegundos entre pasos)
+  \item Varios morphs predefinidos, como \ct{PopUpMenu} y \ct{FillInTheBlank}, est\'an disponibles para interactuar con los usuarios.
 \end{itemize}
 
 %=================================================================
