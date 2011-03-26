@@ -172,7 +172,7 @@ star position: joe position.
 La \'ultima l\'inea posiciona la estrella en las mismas coordenadas que joe.
 Nota que las coorodenadas del morph contenido son a\'un relativas a la pantalla, no al morph contenedor.
 
-Hya muchos m\'etodos disponibles para posicionar un morph, navega el protocolo \protind{geometry} de la clase \ct{Morph} para verlos por ti mismo.
+Hay muchos m\'etodos disponibles para posicionar un morph, navega el protocolo \protind{geometry} de la clase \ct{Morph} para verlos por ti mismo.
 Por ejemplo,
 para centrar la estrella dentro de joe, ejecuta \ct{star} \mthind{Morph}{center:} \ct{joe center}.
 
@@ -445,7 +445,7 @@ En lugar de ello tienes que utilizar el halo: \metaclick en el morph para haccer
 
 El argumento \ct{anEvent} de \ct{mouseDown:} es una instancia de \mbox{\clsind{MouseEvent},} que es una subclase de  \lct{Mor\-phic\-Event}. \ct{MouseEvent} define los m\'etodos \mthind{MouseEvent}{redButtonPressed} y \mthind{MouseEvent}{yellowButtonPressed}. Navega esta clase para ver que otros m\'etodos provee para interrogar los eventos del rat\'on.
 
-\subsection{Keyboard events}
+\subsection{Eventos del teclado}
 
 To catch \ind{keyboard events}, we need to take three steps.
 \begin{enumerate}
@@ -454,9 +454,9 @@ To catch \ind{keyboard events}, we need to take three steps.
 	\item Release the keyboard focus when the mouse is no longer over our morph.
 \end{enumerate}
 
-Let's extend \ct{CrossMorph} so that it reacts to keystrokes.
-First, we need to arrange to be notified when the mouse is over the morph.
-This will happen if our morph answers \ct{true} to the \mthind{Morph}{handlesMouseOver:} message
+Extendamos el \ct{CrossMorph} para que reaccione a las pulsaciones de teclas.
+Primero necesitamos ser notificados cuando el rat\'on est\'a sobre el morph.
+Esto suceder\'a si nuestro morph responde \ct{true} al mensaje \mthind{Morph}{handlesMouseOver:}
 
 \dothis{Declare that \ct{CrossMorph} will react when it is under the mouse pointer.}
 \begin{method}{We want to handle ``mouse over'' events.} 
@@ -465,10 +465,10 @@ CrossMorph>>>handlesMouseOver: anEvent
 \end{method}
 
 \noindent
-This message is the equivalent of \mthind{Morph}{handlesMouseDown:} for the mouse position.
-When the mouse pointer enters or leaves the morph, the \mthind{Morph}{mouseEnter:} and \mthind{Morph}{mouseLeave:} messages are sent to it.
+Este mensaje es el equivalente a \mthind{Morph}{handlesMouseDown:} para la posici\'on del rat\'on.
+Cuando el puntero del rat\'on entra o sale del morph, los mensajes \mthind{Morph}{mouseEnter:} y \mthind{Morph}{mouseLeave:} son enviados a este.
 
-\dothis{Define two methods so that \ct{CrossMorph} catches and releases the keyboard focus, and a third method to actually handle the keystrokes.}
+\dothis{Define dos m\'etodos para que el \ct{CrossMorph} atrape y libere el foco del teclado, y un tercer m\'etodo para manejar las pulsaciones de teclado.}
 \begin{method}{Getting the keyboard focus when the mouse enters the morph.}
 CrossMorph>>>mouseEnter: anEvent
 	anEvent hand newKeyboardFocus: self
@@ -493,14 +493,18 @@ CrossMorph>>>handleKeystroke: anEvent
 		ifTrue: [self position: self position - (1 @ 0)]
 \end{method}
 
-We have written this method so that you can move the morph using the arrow keys.
-Note that when the mouse is no longer over the morph, the \mthind{Morph}{handleKeystroke:} message is not sent, so the morph stops responding to keyboard commands.
-To discover the key values, you can open a Transcript window and add \glbind{Transcript} \ct{show: anEvent keyValue} to \mthref{handleKeystroke}.
-The \ct{anEvent} argument of \ct{handleKeystroke:} is an instance of \clsind{KeyboardEvent}, another subclass of \clsind{MorphicEvent}. Browse this class to learn more about keyboard events.
+Hemos escrito este m\'etodo  para poder mover el morph usando las teclas de flecha.
+Nota que cuando el rat\'on ya no est\'a sobre el morph, el mensaje \mthind{Morph}{handleKeystroke:} no es enviado, por lo que el morph deja de responder a los comandos del teclado.
+Para descubrir los valores de las teclas, pueden abrir un Transcript y agregar \glbind{Transcript} \ct{show: anEvent keyValue} al método \mthref{handleKeystroke} 
 
-\subsection{Morphic animations}
+El argumento \ct{anEvent} de \ct{handleKeystroke:} es una instancia de \clsind{KeyboardEvent}, otra subclase de \clsind{MorphicEvent}. Navega esta clase para aprender m\'as sobre los eventos de teclado. 
 
-Morphic provides a simple animation system with two main methods: \mthind{Morphic}{step} is sent to a morph at regular intervals of time, while \mthind{Morphic}{stepTime} specifies the time in milliseconds between \ct{step}s.\footnote{\ct{stepTime} is actually the \emph{minimum} time between \ct{step}s.   If you ask for a \ct{stepTime} of 1\,ms, don't be surprised if \pharo is too busy to step your morph that often.}
+\subsection{Animaciones Morphic}
+
+Morphic provee un sistema simple de animaci\'on con dos m\'etodos: \mthind{Morphic}{step} es enviado a un morph en intervalos regulares de tiempo, mientras que \mthind{Morphic}{stepTime} especifica el tiempo en milisegundos entre \ct{step}s.\footnote{\ct{stepTime} es en realidad el \emph{m\'inimo} tiempo entre \ct{step}s.}
+
+Si preguntas por un \ct{stepTime} de 1\,ms, no te sorprendas si \pharo est\'a muy ocupado para step tu morph tan seguido.
+
 In addition, 
 \mthind{Morphic}{startStepping} turns on the stepping mechanism, while \mthind{Morphic}{stopStepping} turns it off again;  \mthind{Morphic}{isStepping} can be used to find out whether a morph is currently being stepped.
 \index{Morphic!animation}
@@ -517,10 +521,12 @@ CrossMorph>>>step
 		ifFalse: [self color: self color darker]
 \end{method}
 \noindent
-To start things off, you can open an inspector on a \ct{CrossMorph} (using the debug handle \debugHandle{} in the morphic halo), type \ct{self startStepping} in the small workspace pane at the bottom, and  \menu{do it}.
-Alternatively, you can modify the \ct{handleKeystroke:} method so that you can use the $+$ and $-$ keys to start and stop stepping. 
 
-\dothis{Add the following code to \mthref{handleKeystroke}:}
+Para comenzar, puedes abrir un inspector en un \ct{CrossMorph}  (usando el manejador de debug \debugHandle{} en una halo de morphic), tipea \ct{self startStepping} en el pequeño workspace de abajo, y \menu{do it}.
+Alternativamente, puedes modificar el m\'edtodo \ct{handleKeystroke:}  para que puedas usar las teclas $+$ and $-$  para comenzar y deterner eel paso a paso.
+
+
+\dothis{Agregar el siguiente c\'odigo a \mthref{handleKeystroke}:}
 
 \begin{code}{}
 	keyValue = $+ asciiValue 
@@ -534,8 +540,9 @@ Alternatively, you can modify the \ct{handleKeystroke:} method so that you can u
 %=================================================================
 \section{Interactors}
 
-To prompt the user for input, the \clsind{UIManager} class provides a large number of ready-to-use dialog boxes.
-For instance, the \mthind{UIManager}{request:initialAnswer:} method returns the string entered by the user (\figref{dialogName}).
+Para pedirle al usuario una entrada, la clase \clsind{UIManager} provee una gran n\'umero de  cajas de di\'alogo listas para usar.
+Por ejemplo, el m\'etodo \mthind{UIManager}{request:initialAnswer:} revuelve un cadena ingresada por le usuario (\figref{dialogName}).
+
 \begin{code}{}
 UIManager default request: 'What''s your name?' initialAnswer: 'no name'
 \end{code}
@@ -555,14 +562,14 @@ UIManager default request: 'What''s your name?' initialAnswer: 'no name'
 \end{minipage}
 \end{figure}
 
-To display a popup menu, use one of the various \ct{chooseFrom:} methods (\figref{popup}):
+Para desplegar un men\'e emergente, usa uno de los variso m\'etodos \ct{chooseFrom:} (\figref{popup}):
 \begin{code}{}
 UIManager default
 	chooseFrom: #('circle' 'oval' 'square' 'rectangle' 'triangle')
 	lines: #(2 4) message: 'Choose a shape'
 \end{code}
 
-\dothis{Browse the \clsind{UIManager} class and try out some of the interaction methods offered.}
+\dothis{Nageva la clase \clsind{UIManager} y prueba algunos de los m\'etodos de interacci\'on ofrecidos.}
 
 %\begin{figure}[ht]
 %	\centerline{\includegraphics[width=5cm]{dialog}}
@@ -581,12 +588,11 @@ UIManager default
 %\end{figure}
 
 %=================================================================
-\section{Drag-and-drop}
+\section{Arrastrar y Soltar}
+Morphic tambi\'en soporta drag-and-drop. Examinemos un simple ejemplo con dos morphs, un morph receptor y un morph dropped. 
+El receptor aceptar\'a un morph solo si el morph arrastrado coincide con una condici\on dada: en nuestro ejemplo, el morph debe ser azul. Si es rechazado el  morph arrastrado decide que hacer.
 
-Morphic also supports drag-and-drop. Let's examine a simple example with two morphs, a receiver morph and a dropped morph. 
-The receiver will accept a morph only if the dropped morph matches a given condition: in our example,  the morph should be blue. If it is rejected, the dropped morph decides what to do.
-
-\dothis{Let's first define the receiver morph:}
+\dothis{Primero definamos el morph receptor:}
 \begin{classdef}{Defining a morph on which we can drop other morphs}
 Morph subclass: #ReceiverMorph
 	instanceVariableNames: ''
@@ -595,7 +601,7 @@ Morph subclass: #ReceiverMorph
 	category: 'PBE-Morphic'
 \end{classdef}
 
-\dothis{Now define the initialization method in the usual way:}
+\dothis{Ahora define el m\'etodo de inicializaci\'on de la manera usual:}
 \begin{method}{Initializing \ct{ReceiverMorph}.}
 ReceiverMorph>>>initialize
 	super initialize.
@@ -603,17 +609,19 @@ ReceiverMorph>>>initialize
 	bounds := 0 @ 0 extent: 200 @ 200
 \end{method}
 
-How do we decide if the receiver morph will accept or repel the dropped morph?
-In general, both of the morphs will have to agree to the interaction.
-The receiver does this by responding to \mthind{Morph}{wantsDroppedMorph:event:}; the first argument is the dropped morph, and the second the mouse event, so that the receiver can, for example, see if any modifier keys were held down at the time of the drop. 
-The dropped morph is also given the opportunity to check and see if it likes the morph onto which it is being dropped; it is sent the message \ct{wantsToBeDroppedInto:}.  The default implementation of  this method (in class \ct{Morph}) answers \ct{true}.
+Como dedicir si el receptor aceptar\'a o rechazar\'a el morph arrastrado?
+En general ambos morphs tendr\'an que acordar en la interacci\'on.
+
+El receptor hace esto respondiendo a \mthind{Morph}{wantsDroppedMorph:event:}; al primer argumento es el morph arrastrado, y el segundo es el evento del mouse, de esta forma el receptor puede por ejemplo ver si alguna tecla modificador fue presionada al momento del arrastre.
+El morph arrastrado tambi\'en tiene la oportunidad de chequear y ver si le gusta el morph sobre el que está siendo arrojado; se le env\'ia el mensaje \ct{wantsToBeDroppedInto:}. La implementaci\'on por defecto de este m\'etodo (en la clase \ct{Morph}) responde \ct{true}.
 
 \begin{method}{Accept dropped morphs based on their color.}
 ReceiverMorph>>>wantsDroppedMorph: aMorph event: anEvent
 	^ aMorph color = Color blue
 \end{method}
 
-What happens to the dropped morph if the receiving morph doesn't want it?  The default behaviour is for it to do nothing, that is, to sit on top of the receiving morph, but without interacting with it.  A more intuitive behavior is for the dropped morph to go back to its original position.  This can be achieved by the receiver answering \ct{true} to the message \mthind{Morph}{repelsMorph:event:} when it doesn't want the dropped morph:
+Que ocurre con el morph arrojado si el morph receptor no lo quiere? El comportamiento por defecto es no hacer nada, eso es, sentarse encima del  morph receptor, pero sin interactuar con el. Un comportamiento m\'as intuitivo es que el morph arrojado vuelva a su posici\'on original. Esto puede lograrse en el receptor, contestando \ct{true}  al mensaje \mthind{Morph}{repelsMorph:event:} cuando no quiere al morph arrojado:
+
 
 \needlines{4}
 \begin{method}{Changing the behaviour of the dropped morph when it is rejected.}
@@ -621,19 +629,20 @@ ReceiverMorph>>>repelsMorph: aMorph event: ev
 	^ (self wantsDroppedMorph: aMorph event: ev) not
 \end{method}
 
-That's all we need as far as the receiver is concerned.
+Eso es todo lo que necesitamos en lo que respecta al receptor.
 
-\dothis{Create instances of \clsind{ReceiverMorph} and \clsind{EllipseMorph} in a workspace:}
+\dothis{Crea instancias de \clsind{ReceiverMorph} y \clsind{EllipseMorph} en un workspace:}
 \begin{code}{}
 ReceiverMorph new openInWorld.
 EllipseMorph new openInWorld.
 \end{code}
 \noindent
-Try to drag-and-drop the yellow \ct{EllipseMorph} onto the receiver. It will be rejected and sent back to its initial position.
+Intenta hacer drag-and-drop  el \ct{EllipseMorph}  amarillo sobre el receptor. Este ser\'a rechazado y enviado de vuelta a su posici\'on original.
 
-\dothis{To change this behaviour, change the color of the ellipse morph to \ct{Color blue} using an inspector.  Blue morphs should be accepted by the \ct{ReceiverMorph}.}
+\dothis{Para cambiar este comportamiento, cambia el color de la morph elipse a \ct{Color blue} usando un inspector. Los morphs azules deben ser aceptado por el \ct{ReceiverMorph}.}
 
-Let's create a specific subclass of \ct{Morph}, named \ct{DroppedMorph}, so we can experiment a bit more:
+
+Creemos una subclasse de \ct{Morph}, llamada \ct{DroppedMorph}, para que podamos experimentar un poco m\'as:
 
 \begin{classdef}{Defining a morph we can drag-and-drop onto \ct{ReceiverMorph}}
 Morph subclass: #DroppedMorph
@@ -651,7 +660,8 @@ DroppedMorph>>>initialize
 	self position: 250@100
 \end{method}
 
-Now we can specify what the dropped morph should do when it is rejected by the receiver; here it will stay attached to the mouse pointer:
+Ahora podemos especificar que debe hacer el morph arrastrado cuando es rechazado por el receptor; aqui este permanecer\'a adjunto al puntero del rat\'on.:
+
 \begin{method}{Reacting when the morph was dropped but rejected.}
 DroppedMorph>>>rejectDropMorphEvent: anEvent
 	| h |
@@ -661,10 +671,11 @@ DroppedMorph>>>rejectDropMorphEvent: anEvent
 	anEvent wasHandled: true
 \end{method}
 
-Sending the \mthind{MorphicEvent}{hand} message to an event answers the \emph{hand}, an instance of \ct{HandMorph} that represents the mouse pointer and whatever it holds.
-Here we tell the \ct{World} that the hand should grab \ct{self}, the rejected morph.
+Enviar el mensaje \mthind{MorphicEvent}{hand} a un evento, responde la \emph{hand}, una instancia de \ct{HandMorph} que representa el puntero del rat\'on y lo que sea que sostenga.
 
-\dothis{Create two instances of \ct{DroppedMorph}, and then drag-and-drop them onto the receiver.}
+Aqui le decimos al \ct{World} que la mano debe agarrar \ct{self}, el morph rechazado.
+
+\dothis{Crea dos intancias de \ct{DroppedMorph}, y luego drag-and-drop sobre el receptor.}
 \begin{code}{}
 ReceiverMorph new openInWorld.
 (DroppedMorph new color: Color blue) openInWorld.
@@ -672,11 +683,12 @@ ReceiverMorph new openInWorld.
 \end{code}
 \noindent
 The green morph is rejected and therefore stays attached to the mouse pointer.
+El morph verde is rechazado y por lo tanto permanece adjunto a puntero del rat\'on.
 
 %=================================================================
-\section{A complete example}
+\section{Un ejmeplo completo}
 
-Let's design a morph to roll a die\footnote{NB: One die, two dice.}. Clicking on it will display the values of all sides of the die in a quick loop, and another click will stop the animation.
+Deseñemos un moprh para tirar un dado. Haciendo click en el, mostrar\'a los valores de todas las caras del dado en un ciclo, y otro click detendr\'a la animaci\'on.
 
 \begin{figure}[ht]
 	\centerline{\includegraphics[scale=0.65]{die}}
@@ -684,7 +696,7 @@ Let's design a morph to roll a die\footnote{NB: One die, two dice.}. Clicking on
 		\figlabel{dialogDie}}
 \end{figure}
 
-\dothis{Define the die as a subclass of \clsind{BorderedMorph} instead of \ct{Morph}, because we will make use of the border.}
+\dothis{Define un dado como una subclase de \clsind{BorderedMorph} en lugar de \ct{Morph}, porque haremos uso del borde.}
 
 \needlines{6}
 \begin{classdef}{Defining the die morph}
@@ -695,14 +707,16 @@ BorderedMorph subclass: #DieMorph
 	category: 'PBE-Morphic'
 \end{classdef}
 
-The instance variable \ct{faces} records the number of faces on the die; we allow dice with up to 9 faces! \ct{dieValue} records the value of the face that is currently displayed, and \ct{isStopped} is true if the die animation has stopped running.
-To create a die instance, we define the \ct{faces: n} method on the \emph{class} side of \clsind{DieMorph} to create a new die with \ct{n} faces.
+La variable de instancia \ct{faces} registra el n\'umero de caras del dado; nos permitir\'a dados con hasta 9 caras! \ct{dieValue} registra los valores de la cara que est\'a actualmente mostrada, y \ct{isStopped} is verdadero si la animaci\'on est\'a detenida.
+
+Para crear una instancia de dado, definimos el m\'etodo caras en el lado \emph{class}  de \clsind{DieMorph} para crear un nuevo dado con \ct{n} caras.
+
 \begin{method}{Creating a new die with the number of faces we like.}
 DieMorph class>>>faces: aNumber
 	^ self new faces: aNumber
 \end{method}
 
-The \ct{initialize} method is defined on the instance side in the usual way; remember that \ct{new} sends \ct{initialize} to the newly-created instance.
+El m\'etodo \ct{initialize} est\'a es definido en la instancia como de costumbre; recuerda que \ct{new} env\'ia \ct{initialize} a la nueva instancia creada.
 \begin{method}{Initializing instances of \ct{DieMorph}.}
 DieMorph>>>initialize
 	super initialize.
@@ -716,8 +730,10 @@ DieMorph>>>initialize
 	isStopped := false
 \end{method}
 
-We use a few methods of \ct{BorderedMorph} to give a nice appearance to the die: a thick border with a raised effect, rounded corners, and a color gradient on the visible face.
-We define the instance method \ct{faces:} to check for a valid parameter as follows:
+Usamos unos pocos m\'etodos de \ct{BorderedMorph}  para dar una apariencia agradable al dado: un borde grueso con una efecto raised, esquinas redondeadas, y un color gradiente en la cara visible.
+
+Definimos el m\'etodo de instancia \ct{faces:} to chequear par\'ametros v\'alidos como sigue:
+
 \begin{method}{Setting the number of faces of the die.}
 DieMorph>>>faces: aNumber
 	"Set the number of faces"
@@ -728,8 +744,8 @@ DieMorph>>>faces: aNumber
 \end{method}
 \on{Why not make this a pre-condition, \ie an assertion?}
 
-It may be good to review the order in which the messages are sent when a die is created. For instance, if we start by
-evaluating \ct{DieMorph faces: 9}:
+Podr\'ia ser bueno reveer el orden en que se envian los mensajes cuando un dado es creado. Por ejemplo, si comenzamos por
+evaluar \ct{DieMorph faces: 9}:
 \begin{enumerate}
 	\item The class method \ct{DieMorph class>>>faces:} sends \ct{new} to \ct{DieMorph class}.
 	\item The method for \ct{new} (inherited by \ct{DieMorph class} from \ct{Behavior}) creates the new instance and sends it the \ct{initialize} message.
@@ -738,7 +754,7 @@ evaluating \ct{DieMorph faces: 9}:
 	\item The instance method \ct{DieMorph>>>faces:} now executes, setting the \ct{faces} instance variable to 9.
 \end{enumerate}
 
-Before defining \ct{drawOn:}, we need a few methods to place the dots on the displayed face:
+Antes de definir \ct{drawOn:}, necesitamos unos pocos m\'etodos para poner los puntos en la cara mostrada:
 \begin{methods}{Nine methods for placing points on the faces of the die.}
 DieMorph>>>face1
 	^{0.5@0.5}
@@ -761,9 +777,9 @@ DieMorph >>>face9
 \end{methods}
 \on{kind of ugly boilerplate code -- should be a nice way to map these more elegantly to coordinates.}
 
-These methods define collections of the coordinates of dots for each face. The coordinates are in a square of size $1\times1$; we will simply need to scale them to place the actual dots.
+Estos m\'etodos definen colecciones de coordenadas de puntos para cada cara. Las coordenadas estan en un cuadrado de tamaño $1\times1$; simplemente necesitaremos escalarlas para ubicar los verdaderos puntos.
 
-The \ct{drawOn:} method does two things: it draws the die background with the \ct{super}-send, and then draws the dots.
+El m\'etodo \ct{drawOn:} hace dos cosas: dibuja el fondo muerto con la \ct{super}-send, y luego dibuja los puntos.
 \begin{method}{Drawing the die morph.}
 DieMorph>>>drawOn: aCanvas
 	super drawOn: aCanvas.
@@ -771,8 +787,8 @@ DieMorph>>>drawOn: aCanvas
 		do: [:aPoint | self drawDotOn: aCanvas at: aPoint]
 \end{method}
 
-The second part of this method uses the reflective capacities of \st.
-Drawing the dots of a face is a simple matter of iterating over the collection given by the \ct{faceX} method for that face, sending the \ct{drawDotOn:at:} message for each coordinate. To call the correct \ct{faceX} method, we use the \mthind{Object}{perform:} method which sends a message built from a string, here \lct{('face', dieValue asString) asSymbol}. You will encounter this use of \ct{perform:} quite regularly.
+La segunda parte de este m\'etodo usa las capacidades refletivas de \st.
+Dibujar los puntos de una cara es una simple cuesti\'on de iterar sobre la colecci\'on de dada por el m\'etodo \ct{faceX} para esa cara, envienado el mensaje \ct{drawDotOn:at:} para cada coordenada. Para llamar el correcto m'etodo \ct{faceX}, usamos el m\'etodo \mthind{Object}{perform:} que envia un mensaje creado desde un string, aqu\'i \lct{('face', dieValue asString) asSymbol}. Encotraras este uso de este \ct{perform:} bastante regularmente.
 \index{reflection}
 \begin{method}{Drawing a single dot on a face.}
 DieMorph>>>drawDotOn: aCanvas at: aPoint
