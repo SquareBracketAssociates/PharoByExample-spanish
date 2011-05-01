@@ -39,10 +39,12 @@
 %=================================================================
 \chapter{Sintaxis en dos palabras}
 \luq{¿Qué tal 'Sintaxis en resumen' o 'Sintaxis en pocas palabras'?}
+
+\nicopaez{Voto por 'Sintaxis en pocas palabras'}
 \chalabel{syntax}
 
 \pharo, como la mayoría de los dialectos de \st modernos, adopta una sintaxis muy similar a la de \st-80.
-La \ind{sintaxis} está diseñada para que el texto del programa pueda leerse como una especie de inglés macarrónico: \luq{¿o mejor lengua franca del inglés?}
+La \ind{sintaxis} está diseñada para que el texto del programa pueda leerse como una especie de inglés macarrónico: \luq{¿o mejor lengua franca del inglés?} \nicopaez{me gusta mas lengua franca del frances}
 
 \begin{code}{}
 (Smalltalk includes: Class) ifTrue: [ Transcript show: Class superclass ]
@@ -61,13 +63,13 @@ Las nuevas (sub)clases se crean enviando un mensaje a sus superclases.
 \section{Elementos sintácticos}
 
 Las expresiones se componen de las siguientes piezas:
-(i) seis palabras reservas o \emph{pseudo-variables}: 
+(i) seis palabras reservas \nicopaez{me parece que aqui en lugar de reservas seria reservadas} o \emph{pseudo-variables}: 
 \pvind{self}, \pvind{super}, \pvind{nil}, \pvind{true}, \pvind{false} y \pvind{thisContext}; 
 (ii) expresiones constantes para \emphind{objetos literales}
-incluyendo números, caracteres, cadenas de caracteres, símbolos y \emph{arrays}\luq{¿traduccimos array?};
+incluyendo números, caracteres, cadenas de caracteres, símbolos y \emph{arrays}\luq{¿traduccimos array?};\nicopaez{podriamos traducirlo como arreglo, no suena tan mal}
 (iii) declaraciones de variables; 
 (iv) asignaciones; 
-(v) \ind{bloques} de cierre \luq{¿traducción?} y
+(v) \ind{bloques} de cierre \luq{¿traducción?} \nicopaez{y si solo decimos bloques}y
 (vi) mensajes.
 
 \seeindex{pseudo-variable}{variable, pseudo}
@@ -84,7 +86,7 @@ incluyendo números, caracteres, cadenas de caracteres, símbolos y \emph{arrays
 		\lct{1}				 	&	entero decimal \\
 		\lct{2r101}				&	entero binario \\
 		\lct{1.5}					&	número en coma flotante \\
-        \luq{Usamos coma flotante o punto flotante?} \\
+        \luq{Usamos coma flotante o punto flotante?} \nicopaez{para mi seria punto flotante}\\
 		\lct{2.4e7}				&	notación exponencial \\
 		\lct{\$a}					&	el carácter `a' \\
 		\lct{'Hola'}				&	la cadena de caracteres ``Hola'' \\
@@ -114,12 +116,12 @@ incluyendo números, caracteres, cadenas de caracteres, símbolos y \emph{arrays
 Podemos ver ejemplos de los distintos elementos sintácticos en la \tabref{syntax}.
 \begin{description}
 \item[Variables locales] \ct{puntoInicial} es un nombre de variable, o identificador.
-  Por convenio, los identificadores están formados por palabras en ``\ind{camelCase}'' (es decir, cada palabra excepto la primera comienza con una letra mayúscula).
+  Por convenio,\nicopaez{no seria mejor decir 'por convencion'} los identificadores están formados por palabras en ``\ind{camelCase}'' (es decir, cada palabra excepto la primera comienza con una letra mayúscula).
   La primera letra de una variable de instancia, método, argumento de un bloque o variable temporal debe ser minúscula.
   Esto indica al lector que la variable tiene un alcance privado.
 
 \item[Variables compartidas] Los identificadores que comienzan con letras mayúsculas son variables \subind{variable}{globales}, variables \subind{variable}{de clase}, diccionarios comunes (\subind{variable}{pool} dictionaries) o nombres de clase.
-\luq{pool dictionaries?}
+\luq{pool dictionaries?}\nicopaez{no se me ocurre una buena traduccion, por eso lo dejaria en ingles}
 		\ct{Transcript} es una variable global, una instancia de la clase \ct{TranscriptStream}.
 		\seeindex{variable global}{variable, global}
 		\seeindex{diccionario común}{variable, pool}
@@ -139,9 +141,9 @@ Podemos ver ejemplos de los distintos elementos sintácticos en la \tabref{synta
 \item[Caracteres] Un signo dólar introduce un \subind{literal}{carácter} literal: \ct{$a}\ignoredollar$ es el literal para `a'.
   Pueden obtenerse instancias de caracteres no imprimibles enviando los mensajes adecuados a la clase \clsind{Character}, como \ct{Character space}\cmindex{clase Character}{space} y \ct{Character tab}\cmindex{clase Character}{tab}.
 		
-\item[Cadenas de caracteres] Las comillas simples se utilizan para definir una \subind{literal}cadena literal.
+\item[Cadenas de caracteres] Las comillas simples se utilizan para definir una \subind{literal} cadena literal.
   Si quieres una cadena que contenga una comilla, simplemente se usan dos comillas, como en \ct{'entre ''comillas'' simples'}.
-\luq{ejemplo en lugar de 'G''day' ?}
+\luq{ejemplo en lugar de 'G''day' ?}\nicopaez{te la debo}
 
 \item[Símbolos] se parecen a las cadenas en que contienen una secuencia de caracteres.
 	Sin embargo, al contrario que en una cadena, se garantiza que un símbolo \subind{símbolo}{literal} es único globalmente.
@@ -197,7 +199,7 @@ En la expresión \ct{2 raisedTo: 6 modulo: 10}, el \emphind{selector del mensaje
 	\index{mensaje!palabra clave}
 	\seeindex{mensaje de palabra clave}{mensaje, palabra clave}
 
-\item[Retorno de método] \ct{^} se usa para \emphind{retornar} un valor desde un método (debes escribir \verb|^| para obtener el caracter \ct{^}).
+\item[Retorno de método] \ct{^} se usa para \emphind{retornar} un valor desde un método (debes escribir \verb|^| para obtener el caracter \ct{^}).\nicopaez{ojo que me parece que esto ya no aplica en pharo}
 
 \item[Secuencias de sentencias]	Un punto (\ct{.}) es el \emphsubind{sentencia}{separador} de \emph{sentencias}. Poner un punto entre dos expresiones las convierte en sentencias independientes.
 	\seeindex{punto}{separador de sentencia}
@@ -208,7 +210,7 @@ En la expresión \ct{2 raisedTo: 6 modulo: 10}, el \emphind{selector del mensaje
 
 \end{description}
 
-Las clases \ct{Number}, \ct{Character}, \ct{String} y \ct{Boolean} se describen con más detalle en \charef{basic}.
+Las clases \ct{Number}, \ct{Character}, \ct{String} y \ct{Boolean} se describen con más detalle en \charef{basic}.\nicopaez{hay que ver como esto de las referencias}
 
 %=================================================================
 \section{Pseudo-variables}
@@ -267,7 +269,7 @@ Los mensajes unarios tienen la mayor precedencia, después los mensajes binarios
 (Primero enviamos \ct{factorial} a \ct{3}, después enviamos \ct{+ 6} a \ct{1} y por último, enviamos \ct{raisedTo: 7} a \ct{2}.)  
 Recuerda que usamos la notación \lct{\emph{expresión}}\ct{-->}\lct{\emph{resultado}} para mostrar el resultado de la evaluación de una expresión.
 
-Aparte de la precedencia, la evaluación se estrictamente de izquierda a derecha, con lo que:
+Aparte de la precedencia, la evaluación se \nicopaez{me parece que en lugar de 'se' deberia ser 'es'} estrictamente de izquierda a derecha, con lo que:
 \begin{code}{@TEST}
 1 + 2 * 3 --> 9
 \end{code}
@@ -326,7 +328,7 @@ Sintácticamente un método consiste en:
 \begin{enumerate}
   \item El patrón del metódo, que contiene el nombre (es decir, \ct{lineCount}) y los argumentos (ninguno en este ejemplo);
   \item comentarios (pueden aparecer en cualquier sitio, pero el convenio es colocar uno al comienzo que explique lo que hace el método);
-  \item de claraciones de las variables locales (es decir, \ct{cr} y \ct{count}); y
+  \item declaraciones de las variables locales (es decir, \ct{cr} y \ct{count}); y
   \item cualquier número de expresiones separadas por puntos; aquí hay cuatro.
 \end{enumerate}
 
@@ -360,7 +362,7 @@ Los bloques pueden recibir parámetros, cada uno de los cuales se declara con do
 
 Si tienes un bloque con más de cuatro parámetros, debes usar \mthind{BlockClosure}{valueWithArguments:} y pasar los argumentos en un array (un bloque con un número grande de parámetros es con frecuencia señal de un problema de diseño).
 
-Los bloques pueden también declarar variables locales, que son repodeadas por barras verticales, tal como las declaraciones de variables locales en un método.
+Los bloques pueden también declarar variables locales, que son repodeadas\nicopaez{querras decir 'rodeadas'?} por barras verticales, tal como las declaraciones de variables locales en un método.
 Las variables locales son declaradas después de los argumentos:
 \index{variable!declaración}
 
@@ -400,7 +402,7 @@ Esto significa que son objetos, por lo que pueden ser asignados a variables y pa
 
 
 %=================================================================
-\section{Condicionales y bucles en dos palabras}
+\section{Condicionales y bucles en dos palabras} \nicopaez{tal vez aqui deberiamos mantener el mismo criterio que usamo para el titulo del capitulo}
 
 \st no ofrece una sintaxis especial para construcciones de control. En su lugar, típicamente se expresan mediante el envío de mensajes a booleanos, números y colecciones, con bloques como argumentos.
 
@@ -468,9 +470,9 @@ result --> '1 2 3 4 5 6 7 8 9 10 '
 Las colecciones comprenden un gran número de clases diferentes, muchas de las cuales soportan el mismo protocolo.
 Los mensajes más importantes para iterar sobre las colecciones incluyen 
 \mthind{Collection}{do:}, \mthind{Collection}{collect:}, \mthind{Collection}{select:}, \mthind{Collection}{reject:}, \mthind{Collection}{detect:} and \mthind{Collection}{inject:into:}.
-Estos mensajes definen iteradors de orden superior que nos permiten escribir código muy compacto.
+Estos mensajes definen iteradores de orden superior que nos permiten escribir código muy compacto.
 
-Un \clsind{Interval} es una colección que nos permite iterar sobre una secuencia de números desde el punto de inicio hasta le final. \ct{1 to: 10} representa el intervalo desde 1 hasta 10.
+Un \clsind{Interval} es una colección que nos permite iterar sobre una secuencia de números desde el punto de inicio hasta el final. \ct{1 to: 10} representa el intervalo desde 1 hasta 10.
 Ya que es una colección, podemos enviarle el mensaje \ct{do:}.
 El argumento es un bloque que es evaluado por cada elemento de la colección.
 
@@ -492,7 +494,7 @@ result --> '1 2 3 4 5 6 7 8 9 10 '
 (1 to: 10) collect: [ :each | each * each ] --> #(1 4 9 16 25 36 49 64 81 100)
 \end{code}
 
-\ct{select:} y \ct{reject:} construyen nuevas colecciones, cada consistiendo en un subconjunto de los elementos que satisfacen (o no) la condición del bloque booleano.
+\ct{select:} y \ct{reject:} construyen nuevas colecciones, cada \nicopaez{me parece que aqui deberia ser 'cada una'} consistiendo en un subconjunto de los elementos que satisfacen (o no) la condición del bloque booleano.
 \ct{detect:} devuelve el primer elemento que satisface la condición.
 No olvides que las cadenas son también colecciones, por lo que puedes iterar sobre todos los caracteres.
 
@@ -502,8 +504,8 @@ No olvides que las cadenas son también colecciones, por lo que puedes iterar so
 'hello there' detect: [ :char | char isVowel ] --> $e
 \end{code}
 
-Finlalmente, deberías tener presente que las colecciones también soportan un operador como el \emph{fold} del estilo funcional en el método \ct{inject:into:} method.
-Este te permite generar un resultado acumulado usando una expresión que comienza con un valor semilla y que inyecta cada elemento de la colección.
+Finalmente, deberías tener presente que las colecciones también soportan un operador como el \emph{fold} del estilo funcional en el método \ct{inject:into:} method \nicopaez{me parece que esta ultima palabra esta de sobra}.
+Este te \nicopaez{quisiste poner 'te' o se te escapo?} permite generar un resultado acumulado usando una expresión que comienza con un valor semilla y que inyecta cada elemento de la colección.
 Sumas y productos son ejemplo típicos.
 \seeindex{fold}{\ct{Collection>>>inject:into}}
 
@@ -569,7 +571,7 @@ En \pharo, la sintaxis del corchete angular también se utiliza para las anotaci
 
 \begin{itemize}
 
-\item	\pharo (sólo) tiene) seis identificadores reservados también llamados \textit{pseudo-variables}: \ct{true}, \ct{false}, \ct{nil}, \ct{self}, \ct{super} y \ct{thisContext}.
+\item	\pharo (sólo) tiene) \nicopaez{estos parentesis no me cierran, hay algo mal} seis identificadores reservados también llamados \textit{pseudo-variables}: \ct{true}, \ct{false}, \ct{nil}, \ct{self}, \ct{super} y \ct{thisContext}.
 
 \item	Hay cinco tipos de objetos literales: números (\ct{5}, \ct{2.5}, \ct{1.9e15}, \ct{2r111}), caracteres (\ct{$a}), cadenas (\ct{'hola'}), símbolos (\ct{#hola}) y arrays (\ct{#('hola' #hola)})
 
@@ -589,7 +591,7 @@ En \pharo, la sintaxis del corchete angular también se utiliza para las anotaci
 		\emph{binarios} (\eg \ct{3 + 4}, \ct{'hola' , 'mundo'}) y
 		\emph{de palabra clave} (\eg \ct{'hola' at: 2 put: $o})
 
-\item	Un mensaje \emph{en cascada} envía una secuencia de mensajes al mismo destino, separados por puntos y coma:
+\item	Un mensaje \emph{en cascada} envía una secuencia de mensajes al mismo destino \nicopaez{me suena mejor 'destinatario'}, separados por puntos y coma:
 \ct{OrderedCollection new add: #calvin; add: #hobbes; size --> 2}
 
 \item	Las variables locales se declara con barras verticales.
