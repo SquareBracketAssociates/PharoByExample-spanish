@@ -1,6 +1,6 @@
-% $Author$
-% $Date$
-% $Revision$
+% $Author: oscar $
+% $Date: 2009-10-26 05:25:10 -0300 (lun 26 de oct de 2009) $
+% $Revision: 29516 $
 
 % HISTORY:
 % 2006-10-24 - Pollet started
@@ -36,7 +36,7 @@
 	\sloppy
 \fi
 %=================================================================
-\chapter{The Pharo programming environment}
+\chapter{El entorno de progamaci\'on Pharo}
 \chalabel{env}
 
 % Email 2009-10-21
@@ -72,16 +72,16 @@ I would also suggest to send the message \#at: 1 to the handler \\
 I think a good discussion about when to subclass an exception and when to reuse an exception is valuable. Something to help avoid a class explosion of exceptions... That is an interesting problem... \\
 }
 
-The goal of this chapter is to show you how to develop programs in the \pharo programming environment.
-You have already seen how to define methods and classes using the browser; this chapter will show you more of the features of the browser, and introduce you to some of the other browsers.
+El objetivo de este capitulo es mostrar la forma de desarrollar programas en el entorno de programaci\'on \pharo.
+Ya se ha visto como definir m\'etodos y clases usando el buscador; este capitulo mostrar\'a m\'as caracteristicas del buscador, e introducir\'a algunos de los dem\'as buscadores.
 
-Of course, very occasionally you may find that your program does not work as you expect. \pharo has an excellent debugger, but like most powerful tools, it can be confusing on first use.  We will walk you through a debugging session and demonstrate some of the features of the debugger. 
+Por supuesto, ocasionalmente puede suceder que el programa no realice la funci\'on que de \'el se espera. Por ello, \pharo tiene un excelente depurador, pero al igual que otras herramientas poderosas, puede resultar confuso cuando se lo usa por primera vez. En este capitulo se dar\'a un ejemplo de depuraci\'on y se demostrar\'an algunas de las caracter\'isticas de esta herramienta. 
 
-One of the unique features of Smalltalk is that while you are programming, you are living in a world of live objects, not in a world of static program text.  This makes it possible to get very rapid feedback while programming, which makes you more productive. There are two tools that let you look at, and indeed change, live objects: the \emph{inspector} and the \emph{explorer}.
+Una de las caracter\'isticas \'unicas de Smalltalk es que mientras se est\'a programando, uno pertenece a un mundo de objetos vivos, muy distinto al de los programas est\'aticos. Esto hace posible obtener feedback de forma instantanea mientras se programa, lo cual permite al programador ser m\'as productivo. Hay dos herramientas que permiten analizar, e incluso cambiar, los objetos vivos: el \emph{inspector} y el \emph{explorer}.
 
-The consequence of programming in a world of live objects rather than with files and a text editor is that you have to do something explicit to export your program from your Smalltalk image.  
-The old way of doing this, also supported by all Smalltalk dialects, is by creating a \emph{fileout} or a \emph{change set}, which are essentially encoded text files that can be imported into another system.  
-The new way of doing this in \pharo is to upload your code to a versioned repository on a server.  This is done using a tool called \ind{Monticello}, and is a much more powerful and effective way to work, especially when working in a team.
+La consecuencia de programar en un mundo de objetos vivos, en vez de hacerlo con archivos y un editor de texto, es que se debe realizar una acci\'on explicita para exportar el programa desde la imagen de Smalltalk.  
+La forma antigua de hacerlo, posible en todos los dialectos Smalltalk, es mediante crear un \emph{fileout} o un \emph{change set}, los cuales son en esencia archivos de texto encriptados que pueden ser importados desde otro sistema.  
+En cambio, la nueva forma de hacer esto en \pharo is subir el c\'odigo a un repositorio de versiones en un servidor.  Esto se logra usando una herramienta llamada \ind{Monticello}, y es una manera m\'as poderosa y eficiente de trabajar, especialmente en grupo.
 \seeindex{change set}{file, filing out}
 \index{file!filing out}
 
@@ -89,61 +89,62 @@ The new way of doing this in \pharo is to upload your code to a versioned reposi
 %\ab{Or I would, if I knew how.   We should do this, or remove the paragraph.}
 
 %=========================================================
-\section{Overview}
+\section{Resumen}
 \seclabel{overview}
 
-Smalltalk and modern graphical interfaces were developed together.
-Even before the first public release of Smalltalk in 1983, Smalltalk had a self-hosting graphical development environment, and all Smalltalk development was taking place in it.
-Let's start by looking at the main tools in \pharo.
+Smalltalk y las interfaces gr\'aficas modernas fueron desarrolladas juntas.
+Aun antes del primer lanzamiento p\'ublico de Smalltalk en 1983, este ten\'ia un entorno gr\'afico de desarrollo auto-alojado, y todo el desarrollo en Smalltalk tomaba lugar en \'el.
+Para empezar, se ver\'an las herramientas principales de \pharo.
 
 \begin{itemize}
-	\item {The \menu{Browser}} is the central development tool. You will use it to create, define, and organize your classes and methods. Using it you can also navigate through all the library classes: unlike other environments where the source code is stored in separate files, in Smalltalk all classes and methods are contained in the image.
+	\item {El \menu{Browser}} es la principal herramienta de desarrollo. Se usa para crear, definir y organizar las clases y m\'etodos. Usandolo tambien se puede navegar por todas las librer\'ias de clase: a diferencia de otros entornos donde el c\'odigo fuente es almacenado en archivos diferentes, en Smalltalk todas las clases y m\'etodos est\'an contenidos en la imagen.
 	\index{browser}
 
-	\item{The \menu{Message Names}} tool is used to look at all of the methods with a particular selector, or with a selector containing a substring.
+	\item{\menu{Message Names}} se usa para ver todos los m\'etodos con un selector particular, o con uno que contenga una subcadena de caracteres.
 	\index{message name finder}
 	
-	\item{The \menu{Method Finder}} tool will also let you find methods, but according to what they \emph{do} as well as what they are called.
+	\item{El \menu{Method Finder}} tambi\'en le ayudará a encontr\'ar m\'etodos, pero de acuerdo a lo que \emph{hacen} adem\'as de por su nombre.
 	\index{method finder}
 	
-	\item{The \menu{Monticello Browser}} is the starting point for loading code from, and saving code in, \ind{Monticello} packages.
-	
-	\item{The \menu{Process Browser} provides a view on all of the processes (threads) executing in Smalltalk.}
+	\item{El \menu{Monticello Browser}} es el punto de partida para cargar c\'odigo desde, o guardar c\'odigo en, los paquetes \ind{Monticello}.
+
+	\item{El \menu{Process Browser} permite ver todos los procesos (\emph{threads}) que se est\'an ejecutando en Smalltalk.}
 	\index{process browser}
 	
-	\item{The \menu{Test Runner}} lets you run and debug \SUnit tests, and is described in \charef{SUnit}.
+	\item{El \menu{Test Runner}} le permite correr y debbugear las pruebas \SUnit, y se describe en \charef{SUnit}.
 	\index{Test Runner}
 	\index{SUnit}
 	
-	\item{The \menu{Transcript}} is a window on the \glbind{Transcript} output stream, which is useful for writing log messages and has already been described in \secref{transcript}.
+	\item{El \menu{Transcript}} es una ventana en el canal de salida del \glbind{Transcript}, el cual es \'util para escribir mensajes de registro y que ya se ha descripto en \secref{transcript}.
 	
-	\item{The \menu{Workspace}} is a window into which you can type input.  
-	It can be used for any purpose, but is most often used for typing Smalltalk expressions and 
-	executing them as \menu{do it}s. The use of the \ind{workspace} was also illustrated in \secref{transcript}.
+	\item{El \menu{Workspace}} es una ventana donde se pueden tipear entradas.  
+	Puede ser usado con cualquier propósito, pero es m\'as usado para tipear expresiones de Smalltalk y 
+	ejecutarlas con \menu{do it}. El uso del \ind{workspace} tambi\'en fue ilustrado en \secref{transcript}.
+
 \end{itemize}
 
-The \menu{Debugger} has an obvious role, but you will discover that it has a more central place compared to debuggers for other programming languages, because in Smalltalk you can \emph{program} in the \ind{debugger}.  The debugger is not launched from a menu; it is normally entered by running a failing test, by typing \short{\textbf{.}} to interrupt a running process, or by inserting a \ct{self halt} expression in code.
+El \menu{Debugger} tiene una tarea obvia, pero descubrir\'a que tiene un rol más importante comparado con los debuggers de otros lenguajes de programaci\'on , porque en Smalltalk se puede \emph{programar} en el \ind{debugger}. El debugger no se lanza desde un men\'u; normalmente aparece al correr una prueba que falla, al tipear \short{\textbf{.}} para interrumpir un proceso en curso, o insertando una expreci\'on \ct{self halt} en el c\'odigo.
 \index{process!interrupting}
 
 %=========================================================
-\section{The Browser}
+\section{El Navegador}
 \seclabel{browser}
 
-Many different class browsers have been developed over the years for \st.
-\pharo simplifies this story by offering a single browser that integrates various views.
-\figref{SystemBrowser0} shows the browser as it appears when you first open it.\footnote{Recall that if the browser you get does not look like the one shown in \figref{classBrowser}, then you may need to change the default browser.  See \faqref{packagebrowser}.}
+Muchos navegadores de clases diferentes se han desarrollado a trevez de los años para \st.
+\pharo simplifica esta historia por medio de ofrecer un navegados que integra diversas vistas.
+\figref{SystemBrowser0} muestra el navegador como aparece la primera vez que es abierto.\footnote{Recuerde que si el navegador que usted tenga no se ve como el mostrado en \figref{classBrowser}, quiz\'as necesite cambiar el navegador por defecto.  V\'ease \faqref{packagebrowser}.}
 
 \begin{figure}[htbp]
    \centering
    \ifluluelse
 	 {\includegraphics[width=\textwidth]{SystemBrowser0} }
 	 {\includegraphics[width=0.7\textwidth]{SystemBrowser0} }
-   \caption{The Browser}
+   \caption{El Navegador}
    \figlabel{SystemBrowser0}
 \end{figure}
 
-The four small panes at the top of the browser represent a hierarchic view of the methods in the system, much in the same way as the \ind{NeXTstep} \textit{File Viewer} and the Mac OS X \textit{Finder} in column mode provide a view of the files on the disk.
-The leftmost pane lists \emph{packages} of classes; select one (say \scat{Kernel}) and the pane immediately to the right will then show all of the classes in that package.
+Los cuatro paneles pequeños en la parte superior del navegador representan una visi\'on jer\'arquica de los m\'etodos que se hallan en el sistema, de una manera muy similar a como el \textit{File Viewer} de \ind{NeXTstep} y el \textit{Finder} de Mac OS X en modo de columna, dan una vista de los archivos en el disco.
+En el panel que se halla en el extremo ixquierdo se encuentran las listas de los \emph{paquetes} de clases; seleccione uno (por ejemplo \scat{Kernel}) y el panel a la derecha mostrar\'a entonces todas las clases en ese paquete.
 % \on{I adopted the spelling of NeXTstep recommended by wikipedia}
 
 \begin{figure}[htbp]
@@ -151,15 +152,15 @@ The leftmost pane lists \emph{packages} of classes; select one (say \scat{Kernel
    \ifluluelse
 	   {\includegraphics[width=\textwidth]{SystemBrowser1} }
 	   {\includegraphics[width=.7\textwidth]{SystemBrowser1} }
-   \caption{Browser with the class \ct{Model} selected
+   \caption{El Navegador con la clase \ct{Model} seleccionada
    \figlabel{SystemBrowserModel}}
 \end{figure}
 
-Similarly, if you select one of the classes in the second pane, say, \menu{Model} (see  \figref{SystemBrowserModel}), the third pane will show all of the \emph{protocols} defined for that class, as well as a virtual protocol \prot{-{}-all-{}-}, which is selected by default. 
-Protocols are a way of categorizing methods; they make it easier to find and think about the behaviour of a class by breaking it up into smaller, conceptually coherent pieces.  
-The fourth pane shows the names of all of the methods defined in the selected protocol.
-If you then select a method name, the source code of the corresponding method appears in the large pane at the bottom of the browser, where you can view it, edit it, and save the edited version.
-If you select class \menu{Model},  protocol \protind{dependents} and the method \menu{myDependents}, the browser should look like \figref{SystemBrowserMyDependents}.
+De forma similar, si selecciona una de las clases en el segundo panel, por ejemplo, \menu{Model} (v\'ease \figref{SystemBrowserModel}), el tercer panel mostrar\'a todos los \emph{protocolos} definidos para esa clase, asi como un protocolo virtual \prot{-{}-all-{}-}, que est\'a seleccionado por defecto. 
+Los protocolos son una forma de categorizar los m\'etodos; hacen m\'as facil hallar y pensar en en el comportamiento de una clase al separarla en piezas m\'as pequeñas y conceptualmente coherentes.
+El cuarto panel muestra los nombres de todos los m\'etodos definidos en el protocolo seleccionado.
+Si selecciona el nombre de un m\'etodo, el c\'odigo fuente del m\'etodo correspondiente aparece en el panel alergado en la parte inferior del navegador, donde puede verlo, editarlo, y guardar la versi\'on editada.
+Si selecciona la clase \menu{Model}, el protocolo \protind{dependents} y el m\'etodo \menu{myDependents}, el navegador deber\'ia verse como en \figref{SystemBrowserMyDependents}.
 \protindex{all}
 \cmindex{Model}{myDependents}
 
@@ -168,16 +169,16 @@ If you select class \menu{Model},  protocol \protind{dependents} and the method 
    \ifluluelse
 	   {\includegraphics[width=\textwidth]{SystemBrowserMyDependents}}
 	   {\includegraphics[width=0.7\textwidth]{SystemBrowserMyDependents}}
-   \caption{Browser showing the \ct{myDependents} method in class \ct{Model}
+   \caption{El Navegador mostrando el m\'etodo \ct{myDependents} en la clase \ct{Model}
    \figlabel{SystemBrowserMyDependents}}
 \end{figure}
 
-Unlike directories in the Mac OS X \emph{Finder}, the four top panes of the browser are not quite equal.  
-Whereas classes and methods are part of the Smalltalk language, packages and protocols are not: they are a convenience introduced by the browser to limit the amount of information that needs to be shown in each pane.  For example, if there were no protocols, the browser would have to show a list of all of the methods in the selected class; for many classes this list would be too large to navigate conveniently.  
+A diferencia de los directorios en el \emph{Finder} de Mac OS X, los cuatro paneles superiores no son exactamente iguales.  
+Mientras que las clases y los m\'etodos son parte del lenguaje Smalltalk, los paquetes y protocolos no lo son: son una comodidad agregada por el navegador para limitar la cantidad de informaci\'on que debe ser mostrada en cada panel. Por ejemplo, si no hubiera protocolos, el navegador tendr\'ia que mostrar una lista de todos los m\'etodos en la clase seleccionada; para muchas clases esta lista ser\'ia muy extensa para ser recorrida convenientemente.
 \index{Mac OS X Finder}
 
-Because of this, the way that you create a new package or a new protocol is different from the way that you create a new class or a new method.  To create a new package, \actclick in the package pane and select \menu{new package}; to create a new protocol, \actclick in the protocol pane and select \menu{new protocol}.
-Enter the name of the new thing in the dialog, and you are done: there is nothing more to a package or a protocol than its name and its contents.
+Por esta raz\'on, la manera de crear un nuevo paquete o protocolo es diferente de la forma en que se crea una nueva clase o m\'etodo. Para crear un nuevo paquete, haga click en el panel de paquetes y seleccione \menu{new package}; para crear un nuevo protocolo, haga click en el panel de protocolos y seleccione \menu{new protocol}.
+Ingrese el nombre de este en el cuadro de dialogo, y est\'a listo: no hay nada m\'as en un paquete o protocolo que su nombre y su contenido.
 \index{package!creating}
 
 \begin{figure}[htbp]
@@ -185,36 +186,36 @@ Enter the name of the new thing in the dialog, and you are done: there is nothin
    \ifluluelse
 	   {\includegraphics[width=\textwidth]{SystemBrowserClassCreation}}
 	   {\includegraphics[width=0.7\textwidth]{SystemBrowserClassCreation}}
-   \caption{Browser showing the class-creation template
+   \caption{El Navegador mostrando la plantilla de creaci\'on de clases
    \figlabel{SystemBrowserClassCreation}}
 \end{figure}
 
-In contrast, to create a new class or a new method, you will actually
-have to write some Smalltalk code.  If you \click the currently
-selected package (in the left-most pane), the bottom
-browser pane will display a class creation template
-(\figref{SystemBrowserClassCreation}).  You create a new class by
-editing this template: replace \ct{Object} by the name of the existing
-class of which you wish to create a subclass, replace
-\ct{NameOfSubclass} by the name that you would like to give to your
-new subclass, and fill in the instance variable names if you know
-them.  The category for the new class is by default the category of the currently
-selected package\footnote{Recall that packages and categories are not exactly the same thing. We will look at the precise relationship in \secref{packages}}, but you can change this too if you like.  If you
-already have the browser focussed on the class that you wish to
-subclass, you can get the same template with slightly different
-initialization by \actclick{ing} in the class pane, and
-selecting \menu{class templates \ldots \go subclass template}.  You can also just
-edit the definition of an existing class, changing the class name to
-something new.  In all cases, when you accept the new definition, the
-new class (the one whose name follows the \ct{#}) is created (as is
-the corresponding metaclass).  Creating a class also creates a global
-variable that references the class, which is why you can refer to all
-of the existing classes by using their names.  \index{class!creation}
+Por otro lado, para crear una nueva clase o un nuevo m\'etodo, se deber\'a escribir
+cierto c\'odigo Smalltalk. Si hace \click en el paquete
+seleccionado(en el panel extremo izquierdo), el panel
+inferior del navegador mostrar\'a la plantilla para la creaci\'on de la clase.
+(\figref{SystemBrowserClassCreation}).  Se crea una nueva clase al
+editar esta plantilla: reemplace \ct{Object} por el nombre de la clase existente
+de la cual quiere crear una nueva subclase, reemplace
+\ct{NameOfSubclass} por el nombre que desea darle a la nueva
+subclase, y complete los nombres de las variables de instancia si los
+conoce.  La categor\'ia de la nueva clase es por defecto la del paquete
+que est\'e seleccionado\footnote{Recuerde que los paquetes y categor\'ias no son exactamente lo mismo. Se ver\'a la relaci\'on precisa en \secref{packages}}, pero puede cambiar esto tambi\'n si as\'i lo desea.  Si
+ya tiene el navegador centrado en la clase de la que desea una
+subclase, puede obtener la misma plantilla con unas pequeñas diferencias en la
+inicializaci\'on mediante \actclick{ing} en el panel de clase, y
+seleccionando \menu{class templates \ldots \go subclass template}.  Tambi\'en puede solo
+editar la definici\'on de una clase existente, cambiando el nombre de la clase a
+uno nuevo.  En todas las clases, cuando acepta la nueva definici\'on, la
+nueva clase (aquella cuyo nombre est\'a a continuacion de \ct{#}) es creada (as\'i como
+su correspondiente metaclase).  Crear una clase tambi\'en crea una variable global
+que referencia a la clase, que es por lo que uno puede referirse a todas las
+clases existentes por medio de usar sus nombres.  \index{class!creation}
 \index{browser!defining a class}
 
-Can you see why the name of the new class has to appear as a \clsind{Symbol} (\ie prefixed with \ct{#}) in the class creation template, but after the class is created, code can refer to the class by using the name as an identifier (\ie without the \ct{#})?
+Puede ver por qu\'e el nombre de la nueva clase tiene que aparecer como un \clsind{Symbol} (\ie antecedido por \ct{#}) en la plantilla de creaci\'on de la clase, pero despu\'es de que la clase ha sido creada, el c\'odigo puede referirse a la clase mediante usar el nombre como identificador (\ie sin el \ct{#})?
 
-The process of creating a new method is similar.  First select the class in which you want the method to live, and then select a protocol.  The browser will display a method-creation template, as shown in \figref{SystemBrowserMethodTemplate}, which you can fill-in or edit.
+El proceso de creaci\'on de un nuevo m\'etodo es similar. Primero selecciona la clase en la que se desea que exista el m\'etodo, y luego se elige un protocolo.  El navegador mostrar\'a una plantilla de creaci\'on de m\'etodos, como se ve en \figref{SystemBrowserMethodTemplate}, la cual puede completar o editar.
 \index{method!creation}
 \index{browser!defining a method}
 
@@ -223,7 +224,7 @@ The process of creating a new method is similar.  First select the class in whic
    \ifluluelse
 	   {\includegraphics [width=\textwidth]{SystemBrowserMethodTemplate}}
 	   {\includegraphics[width=0.7\textwidth]{SystemBrowserMethodTemplate}}
-   \caption{Browser showing the method-creation template
+   \caption{El navegador mostrando la plantilla de creaci\'on de m\'etodos
    \figlabel{SystemBrowserMethodTemplate}}
 \end{figure}
 
