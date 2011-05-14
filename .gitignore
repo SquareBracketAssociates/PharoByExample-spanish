@@ -14,5 +14,4 @@ scgbib
 package-cache
 *.command
 .project
-*.pdf
 *.gz
