@@ -1,13 +1,13 @@
---Gabriela Arevalo  - Chapter 1: A Quick Tour			-> No comenzado
---Hugo Ruscitti     - Chapter 2: A first application		-> Traducción en curso: 3/22 (tira error al generar el PDF)
-Rafael Luque      - Chapter 3: Syntax in a Nutshell		-> Traducción completa y revisado por nicopaez
--Pablo Lalloni	  - Chapter 4: Understanding Message Syntax	-> Traducción completa
---Mariano Peck      - Chapter 5: The Smalltalk object model	-> Traducción en curso, tira error al generar el pdf
-Debora Martin	  - Chapter 6: Environment			-> Traducción en curso: 7/44, tira error al generar el pdf
-Mirian Quinteros  - Chapter 7: SUnit				-> Traducción en curso: 3/18
--Ani Angelini      - Chapter 8: Basic Classes			-> No comenzado
--Veronica Uquillas - Chapter 9: Collections 			-> No comenzado
+Gabriel Falcone		- Chapter 1: A Quick Tour			-> No comenzado
+Federico Rodriguez 	- Chapter 2: A first application		-> Traducción en curso: 3/22 (tira error al generar el PDF)
+Rafael Luque	        - Chapter 3: Syntax in a Nutshell		-> Traducción completa y revisado por nicopaez
+Pablo Lalloni		- Chapter 4: Understanding Message Syntax	-> Traducción completa
+Maximiliano Sarno	- Chapter 5: The Smalltalk object model	-> Traducción en curso, tira error al generar el pdf
+>Debora Martin		- Chapter 6: Environment			-> Traducción en curso: 7/44, tira error al generar el pdf
+>Mirian Quinteros	- Chapter 7: SUnit				-> Traducción en curso: 3/18
+Matias Volgyi 		- Chapter 8: Basic Classes			-> No comenzado
+Pablo Barrientos >Veronica Uquillas - Chapter 9: Collections 			-> No comenzado
 Nicolas Paez      - Chapter 11: Morphic				-> Traducción completa	
 Rafael Luque      - Chapter 12: Seaside by Example		-> No comenzado 
-Jordi Delgado     - Chapter 13: Classes and Metaclasses		-> No comenzado
--Cesar Ballardini  - Chapter 14: Reflection			-> Traducción en curso, tira error al generar el pdf
+Jordi Delgado     - Chapter 13: Classes and Metaclasses		-> Traducción en curso
+Carlos Rodriguez  - Chapter 14: Reflection			-> Traducción en curso, tira error al generar el pdf
