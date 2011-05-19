@@ -146,39 +146,42 @@ Tan pronto como descubras un bug, escribe una prueba que lo exponga, ejecuta la 
 Ahora puedes comenzar a arreglar el bug: la prueba te dirá cuándo has terminado.
 %=================================================================
 \section{What makes a good test?}
+\section{Qué hace a una buena prueba}
 
-Writing good tests is a skill that can be learned most easily by
-practicing.  Let us look at the properties that tests should have to
-get a maximum benefit.
+Escribir buenas pruebas es una habilidad que puede ser aprendida más facilmente con práctica.
+Veamos las propiedades que las pruebas deberían tener para obtener el máximo beneficio: 
+
 
 \begin{enumerate}
-\item Tests should be repeatable.  You should be able to run a test
-  as often as you want, and always get the same answer.
 
-\item Tests should run without human intervention.  You should even be
-  able to run them during the night.
+%%%%%%% Tests should be repeatable (?)
+\item Las pruebas deben poder repetirse. Debes ser capaz de correr una prueba
+	las  veces que lo desees, y siempre obetener la misma respuesta.
 
-\item Tests should tell a story.  Each test should cover one aspect of a 
-  piece of code.  A test should act as a scenario that you or someone else can
-  read to understand a piece of functionality. \label{prop:oneAspect}
+\item Las pruebas deben correr sin la intervención humana. Debes ser capaz
+	incluso de correrlas durante la noche.
 
-\item Tests should have a change frequency lower than that of the
-  functionality they cover:  you do not want to have to change all your
-  tests every time you modify your application.  One way to achieve
-  this is to write tests based on the public interfaces of the
-  class that you are testing.  
-  It is OK to write a test for a private ``helper'' method if you feel that the method
-  is complicated enough to need the test, but you should be aware that such a test 
-  may have to be changed, or thrown away entirely, when you think of a better
-  implementation.
+\item Las pruebas deben contar una historia. Cada prueba debería cubrir un aspecto
+	de alguna pieza de código. Una prueba debería actuar como un escenario al que tú o alguien más
+	pueda leer para entender una parte de la funcionalidad. \label{prop:oneAspect}
+
+\item Las pruebas deberían tener una frecuencia de cambio menor
+	a la de la funcionalidad que cubren: no deberías tener que cambiar
+	todas tus pruebas cada vez que modificas la aplicación.  Una forma de lograr
+	esto es escribiendo pruebas a base de interfases públicas de la clase que
+	estás probando.      
+	Es correcto escribir una prueba para un método "de ayuda" privado si crees que 
+	ese método es lo suficientemente complicado para necesitar una prueba, pero debes
+	tener en cuenta que dicha prueba puede que sea cambiada, o directamente desechada,
+	cuando se te ocurra una mejor implementación.
 \end{enumerate}
 
-A consequence of property (\ref{prop:oneAspect}) is that 
-the number of tests should be somewhat proportional to the number of
-functions to be tested: changing one aspect of the
-system should not break all the tests but only a limited
-number.  This is important because having 100 tests fail should send a
-much stronger message than having 10 tests fail.
+Una consecuencia de la propiedad (\ref{prop:oneAspect}) es que 
+el número de pruebas debería ser algo proporcional al número de funciones
+a ser probadas: cambiando un aspecto del sistema no debería romper todas las pruebas
+excepto por un número limitado de ellas. Esto es importante porque teniendo 100 pruebas fallando
+debería enviar un mensaje más fuerte que teniendo 10 pruebas fallando.
+  
 However, it is not always possible to achieve this ideal: 
 in particular, if a change breaks the initialization of an object, or the
 set-up of a test, it is likely to cause all of the tests to fail. 
