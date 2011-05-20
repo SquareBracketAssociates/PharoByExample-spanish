@@ -182,18 +182,20 @@ a ser probadas: cambiando un aspecto del sistema no debería romper todas las pr
 excepto por un número limitado de ellas. Esto es importante porque teniendo 100 pruebas fallando
 debería enviar un mensaje más fuerte que teniendo 10 pruebas fallando.
   
-However, it is not always possible to achieve this ideal: 
-in particular, if a change breaks the initialization of an object, or the
-set-up of a test, it is likely to cause all of the tests to fail. 
+Sin embargo, no siempre es posible alcanzar este caso ideal: 
+en particular, si un cambio rompe la inicialización de un objeto, o el set-up de una prueba,
+seguramente causará que las otras pruebas fallen.
 
-\ind{eXtreme Programming} advocates writing tests before writing code.  This may seem to go
-against our deep instincts as software developers.  
-All we can say is: go ahead and try it.
-We have found that writing the tests before the code helps us
-to know what we want to code, helps us know when we are done,
-and helps us conceptualize the functionality of a class and to
-design its interface.
-Moreover, test-first development gives us the courage to go fast, because we are not afraid that we will forget something important.  
+\ind{eXtreme Programming} aboga por escribir pruebas antes de escribir el código.
+Esto parace ir en contra de nuestros instintos como desarrolladores de software. 
+Todo lo que podemos decir es: adelante e inténtalo!
+Hemos encontrado que escribir pruebas antes del código nos ayuda a saber qué queremos codificar,
+nos ayuda a saber cuándo hemos terminado, y nos ayuda a visualizar la funcionalidad
+de una clase y a dise\~nar su interfaz.
+
+Más aún, test-first development nos da el ánimo para ir rápido, porque no tenemos miedo de estar
+olvidandonos algo importante.
+
 
 % \on{I cannot understand this without some explanation!}
 
@@ -211,18 +213,22 @@ Moreover, test-first development gives us the courage to go fast, because we are
 
 % Now let's write our first test, and show you the benefits of using \SUnit.
 %=================================================================
+
 \section{\sunit by example}
 
-Before going into the details of \SUnit, we will show a step by step
-example.  We use an example that tests the class \ct{Set}.  Try
-entering the code as we go along.
+Antes de adentrarnos en detalles de \SUnit, mostraremos un ejemplo
+paso a paso.
+
+Usaremos un ejemplo que prueba la calse \ct{Set}. Intenta copiar el código como sigue.
+
 %---------------------------------------------------------
-\subsection{Step 1: create the test class}
+\subsection{Paso 1: crear la clase de prueba}
 
-\dothis{First you should create a new subclass of \clsind{TestCase} called
-\ct{ExampleSetTest}.   Add two instance variables so that your new
-class looks like this:}
+\dothis{ Primero debes crear una nueva subclase de \clsind{TestCase} llamada 
+\ct{ExampleSetTest}.  Agrega dos variables de instancia de forma tal
+que la clase  luzca así: }
 
+%%%%%%Codigo fuente a traducir
 \begin{classdef}[exampleSetTest]{An Example Set Test class}
 TestCase subclass: #ExampleSetTest
 	instanceVariableNames: 'full empty'
@@ -232,21 +238,30 @@ TestCase subclass: #ExampleSetTest
 \end{classdef}
 
 
-We will use the class \ct{ExampleSetTest} to group all the tests related to
-the class \ct{Set}.  It defines the context in which the tests
-will run.  Here the context is described by
-the two instance variables \ct{full} and \ct{empty}
-that we will use to represent a full and an empty set.
+Usaremos la clase \ct{ExampleSetTest} para agrupar todas las pruebas relacionadas con
+la clase \ct{Set}.  La misma define el contexto en el cual las pruebas
+correrán. Aquí el contexto es descripto por las dos variables de instancia \ct{full} and \ct{empty}
+que ussaremos para representar el set lleno y el set vacío.
 
-The name of the class is not critical, but by convention it should end in \ct{Test}.
-If you define a class called \ct{Pattern} and call the corresponding test class \ct{PatternTest}, the two classes will be alphabetized together in the browser (assuming that they are in the same category).  It \emph{is} critical that your class be a subclass of \ct{TestCase}.
+El nombre de la clase no es crítico, pero por convención debería terminar con \ct{Test}.
+Si defines una clase llamada \ct{Pattern} y nombras a la correspondiente clase de pruebas \ct{PatternTest},
+las dos clases serán indexadas alfabéticamente en forma conjunta en el browser (asumiendo
+que ambas se encuentran en la misma categoría).  Es de \emph{suma importancia} que tu clase 
+sea una subclase de \ct{TestCase}.
+
 %---------------------------------------------------------
-\subsection{Step 2: initialize the test context}
+\subsection{Paso 2: inicializar el contexto de prueba}
 
-The method \mthind{TestCase}{setUp} defines the context in which the tests will run, a bit like an initialize method.
-\ct{setUp} is invoked before the execution of each test
-method defined in the test class.
-\index{SUnit!set up method}
+El método \mthind{TestCase}{setUp} define el contexto en el cual las
+pruebas correrán, es una especie de método de inicialización.
+\ct{setUp} es invocado antes de la ejecución de cada método de  prueba definido
+en la clase de pruebas.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%% codigo a traducir
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\index{SUnit!método set up}
 \seeindex{testing}{SUnit}
 
 \dothis{Define the \ct{setUp} method as follows, to initialize the \ct{empty} variable to refer to an empty set and the \ct{full} variable to
@@ -266,14 +281,15 @@ test.
 \seeindex{fixture}{SUnit, fixture}
 
 %---------------------------------------------------------
-\subsection{Step 3: write some test methods}
+\subsection{Paso 3: escribir algunos métodos de prueba}
 
-Let's create some tests by defining some methods in the class
-\ct{ExampleSetTest}.  
-Each method represents one test; 
-the name of the method should start with the string `\ct{test}' so that \sunit
-will collect them into test suites.
-Test methods take no arguments.
+Vamos a crear algunas pruebas definiendo algunos métodos en
+la clase \ct{ExampleSetTest}.  
+Cada método representa una prueba: 
+el nombre del método debería comenzar con la cadena `\ct{test}' para que \sunit
+las tome en su juego de pruebas.
+
+Los métodos de pruebas no tooman argumentos.
 
 \dothis{Define the following test methods.}
 The first test, named \ct{testIncludes}, tests the
@@ -288,9 +304,8 @@ ExampleSetTest>>>testIncludes
 	self assert: (full includes: 6)
 \end{method}
 
-The second test, named \ct{testOccurrences}, verifies that the
-number of occurrences of~5 in \ct{full} set is equal to one, even if we
-add another element~5 to the set.
+La segunda prueba, llamada \ct{testOccurrences}, verifica que el número de ocurrencias
+de ~5 en el set \ct{lleno} es igual a uno, aún cuando agregamos otro elemento~5 al set.
 
 \needlines{6}
 \begin{method}[testOccurrences]{Testing occurrences}
@@ -301,8 +316,7 @@ ExampleSetTest>>>testOccurrences
 	self assert: (full occurrencesOf: 5) = 1
 \end{method}
 
-Finally, we test that the set no
-longer contains the element 5 after we have removed it.
+Finalmente, probamos que el set ya no contiene al elemento 5 después de que lo hemos removido.
 
 \begin{method}[testRemove]{Testing removal}
 ExampleSetTest>>>testRemove
@@ -312,13 +326,17 @@ ExampleSetTest>>>testRemove
 \end{method}
 
 \noindent
-Note the use of the method \mthind{TestCase}{deny:} to assert something that should not be true.
-\ct{aTest deny: anExpression} is equivalent to \ct{aTest assert: anExpression not}, but is much more readable.
+Nota que el uso del método \mthind{TestCase}{deny:} para afirmar que algo no debería ser 
+ verdadero.
+\ct{aTest deny: anExpression} es equivalente a \ct{aTest assert: anExpression not}, pero mucho más legible.
 %---------------------------------------------------------
-\subsection{Step 4: run the tests}
+\subsection{Paso 4: correr las pruebas}
 
-The easiest way to run the tests is directly from the browser.  Simply \actclick on the package, class name, or on an individual test method, and select \menu{run the tests (t)}.
-The test methods will be flagged red or green, depending on whether they pass or not, and the class will be flagged fully or partially green or red depending on whether all, some or none of the tests pass.
+La forma más fácil de correr las pruebas es directamente desde el browser.
+Simplemente \actclick sobre el paquete, nombre de clase o sobre un método de prueba individual, 
+y selecciona \menu{run the tests(t)}
+
+Los métodos de prueba serán marcados con rojo o verde, dependiendo si pasaron o no, y la clase será marcada completamente o parcialmente en verde o rojo dependiendo de si todas, algunas o ninguna prueba pasó.
 
 \begin{figure}[tbh]
   \begin{center}
@@ -328,10 +346,19 @@ The test methods will be flagged red or green, depending on whether they pass or
   \end{center}
 \end{figure}
 
-You can also select sets of test suites to run, and obtain a more detailed log of the results using the \sunit \emphind{Test Runner}, which you can open by selecting \menu{World \go Test Runner}.
-The \emph{TestRunner}, shown in \figref{test-runner}, is designed to make it easy  to execute groups of tests.
-The left-most pane lists all of the categories that contain test classes (\ie  subclasses of \ct{TestCase}); when some of these categories are selected, the test classes that they contain appear in the pane to the right.
-Abstract classes are italicized, and the test class hierarchy is shown by indentation, so subclasses of \ct{ClassTestCase} are indented more than subclasses of \ct{TestCase}.
+También puedes elegir conjuntos de juegos de pruebas a correr, y obtener un log mas detallado de los resultados
+usando \sunit \emphind{Test Runner}, el cual puedes abrir seleccionando \menu{World \go Test Runner}.
+
+
+El \emph{TestRunner}, mostrado en \figref{test-runner}, esta dise\~nado para hacer más
+fácil la ejecución de grupos de pruebas.
+
+El panel más a la izquierda lista todas las categorías que contienenlas clases de pruebas
+(\ie  subclasses of \ct{TestCase}); cuando algunas de esttas categorías es seleccionada, las clases de pruebas
+que ellas contienenaparecen en el panel de la derecha.
+Las clases abstractas se muestran en letra itálica, y la jerarquía de clases de pruebas se muestra con indentación,
+así las subclases de \ct{ClassTestCase} estan indentadas más que las subclases de \ct{Testcase}.
+
 
 \begin{figure}[tbh]
   \begin{center}
@@ -341,7 +368,7 @@ Abstract classes are italicized, and the test class hierarchy is shown by indent
   \end{center}
 \end{figure}
 
-\dothis{Open a Test Runner, select the category \menu{MyTest}, and click the \button{Run Selected} button.}
+\dothis{Abre un Test Runner, selecciona la categoría \menu{MyTest}, y haz click en el botón \button{Run Selected}.}
 
 % ON: With OB, you don't need this.
 %You can also run a single test by executing a \menu{print it} on the following code: \ct{ExampleSetTest run: #testRemove}.  
@@ -357,11 +384,12 @@ Abstract classes are italicized, and the test class hierarchy is shown by indent
 %	self deny: (full includes: 5)
 %\end{method}
 
-\dothis{Introduce a bug in \ct{ExampleSetTest>>>testRemove} and run the tests again. For example, change \ct{5} to \ct{4}.}
+\dothis{Introduce un error en \ct{ExampleSetTest>>>testRemove} y corre las pruebas nuevamente. Por ejemplo,
+cambia \ct{5} por \ct{4}.}
 
-The tests that did not pass (if any) are listed in the right-hand panes of
-the \emph{Test Runner};
-if you want to debug one, to see why it failed, just click on the name.
+Las pruebas que no pasaron (si es que hay alguna) son listadas a las ventanas de la derecha del \emph{Test Runner};
+si quieres debugguear una, para ver por qué falló, sólo haz click sobre el nombre.
+
 %Alternatively, you can execute the following expressions:
 %\begin{code}{}
 %(ExampleSetTest selector: #testRemove) debug
@@ -372,29 +400,35 @@ if you want to debug one, to see why it failed, just click on the name.
 %\end{code}
 
 %---------------------------------------------------------
-\subsection{Step 5: interpret the results}
+\subsection{Paso 5: interpretar los resultados}
 
-The method \mthind{TestCase}{assert:}\,, which is defined in the class
-\ct{TestCase}, expects a boolean argument, usually the value of a tested expression.  When the argument is
-true, the
-test passes; when the argument is false, the test fails.
+El método \mthind{TestCase}{assert:}\,, el cual está definido en la clase
+\ct{TestCase}, espera un argumento de valor booleano, usualmente el valor de 
+una expresion evaluada. Cuando el argumento es verdadero (true), la prueba pasa;
+cuando el argumento es falso (false), la prueba falla.
 
-There are actually three possible outcomes of a test.
-The outcome that we hope for is that all of the assertions in the test are true, in which case the test passes.
-In the test runner, when all of the tests pass, the bar at the top turns green.
-However, there are also two kinds of thing that can go wrong when
-you run a test.
-Most obviously, one of the assertions can be false, causing the test to \emph{fail}.
-However, it is also possible that some kind of error occurs during the execution of the test, such as a \emph{message not understood} error or an \emph{index out of bounds} error.
-If an error occurs, the assertions in the test method may not have been executed at all,
-so we can't say that the test has failed; nevertheless, something is clearly wrong!
-In the {test runner}, failing tests cause the bar at the top to turn yellow, and are listed in the middle pane on the right, whereas erroneous tests cause the bar to turn red, and are listed in the bottom pane on the right.
+En realidad, existen tres posibles retornos de una prueba.
+La salida que esperamos es que todas aseveraciones en la prueba sean verdaderas, en cuyo caso la prueba pasa.
+En el test runner, cuando todas las pruebas pasan, la barra de arriba se vuelve verde.
+Sin embargo, hay dos tipos de cosas que pueden ir mal cuando corres una prueba.
 
-\dothis{Modify your tests to provoke both errors and failures.}
+Como es lógico, una se las afirmaciones puede ser falsa, causando que la prueba \emph{fail}. 
+
+No obstante, es posible que algun otro tipo de error ocurra durante la ejecución de una prrueba,
+como un error de \emph{message not understood} o un error de \emph{index out of bounds}.
+
+Si un error ocurre, las assertions afirmaciones en la prueba puede que no se hayan ejecutado del todo, 
+por lo que no podemos decir que la prueba ha fallado; no obstante, algo está claramente mal!
+
+El el \emph{test runner}, las pruebas que fallan causan que la barra superior se vuelva amarilla, 
+y son listadas en la ventana del medio sobre la derecha, mientras que
+las pruebas erroneas causan que la barra se ponga roja, y son listadas en la ventana inferior de la derecha.
+
+\dothis{Modifica tus pruebas para provocar errores y fallas.}
 
 %=================================================================
-\section{The \SUnit cook book}
-This section will give you more details on how to use \SUnit.  If you
+\section{El libro de recetas de \SUnit }
+esta sección te dará mas detalles sobre cómo usar \SUnit.  If you
 have used another testing framework such as \JUnit\footnote{\url{http://junit.org}},
 much of this will be familiar, since all these frameworks have their roots in \SUnit.
 Normally you will use \SUnit's GUI to run tests, but there are
