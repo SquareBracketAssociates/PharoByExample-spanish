@@ -229,57 +229,104 @@ SimpleSwitchMorph subclass: #LOCell
 \index{class!creation}
 \index{Morphic}
 
-This new definition consists of a \st expression that sends a message to the
-existing class \ct{SimpleSwitchMorph}, asking it to create a subclass called
-\ct{LOCell}.  (Actually, since \ct{LOCell} does not exist yet, we passed as an
-argument the \emphind{symbol} \ct{#LOCell} which stands for the name of the
-class to create.) We also tell it that instances of the new class should have a
-\ct{mouseAction} instance variable, which we will use to define what action the
-cell should take if the mouse should click over it.
+% This new definition consists of a \st expression that sends a message to the
+% existing class \ct{SimpleSwitchMorph}, asking it to create a subclass called
+% \ct{LOCell}.  (Actually, since \ct{LOCell} does not exist yet, we passed as an
+% argument the \emphind{symbol} \ct{#LOCell} which stands for the name of the
+% class to create.) We also tell it that instances of the new class should have a
+% \ct{mouseAction} instance variable, which we will use to define what action the
+% cell should take if the mouse should click over it.
 
-\emph{At this point you still have not created anything.}
-Note that the border of the class template pane has changed to red (\figref{acceptClassDef}).
-This means that there are \emph{unsaved changes}.
-To actually send this message, you must \menu{accept} it.
+Esta nueva definición consiste de una expresión \st que envía un mensaje a la
+clase existente \ct{SimpleSwitchMorph}, pidiéndole que cree una subclase llamada
+\ct{LOCell}. (En realidad, como \ct{LOCell} no existe aún, se le pasa 
+\emphind{symbol} \ct{#LOCell} como argumento, que indica el nombre de la clase a 
+crear). También le indicamos que las instancias de la nueva clase deberían 
+tener una instancia de variable de \ct{mouseAction}, que usaremos para definir
+que acción debería tomar la celda si se hiciera click sobre esta.
+
+
+% \emph{At this point you still have not created anything.}
+% Note that the border of the class template pane has changed to red (\figref{acceptClassDef}).
+% This means that there are \emph{unsaved changes}.
+%WIP To actually send this message, you must \menu{accept} it.
+
+\emph {Hasta el momento no has creado nada.}
+Nota que el borde del panel de template de clase cambió a rojo (\figref{acceptClassDef}).
+Esto significa que hay cambios \emph {sin guardar.}
+Para enviar este mensaje, debes \menu {aceptarlo}. 
+%ver que hace el \menu, para ver si 'aceptarlo' queda en ingles o castellano
+
+
+%WIP \begin{figure}[h!t]
+%WIP \ifluluelse
+%WIP	 {\centerline {\includegraphics[width=\textwidth]{AcceptClassDef}}}
+%WIP	 {\centerline {\includegraphics[scale=0.7]{AcceptClassDef}}}
+%WIP \caption{The class-creation Template.
+%WIP \figlabel{acceptClassDef}}
+%WIP \end{figure}
 
 \begin{figure}[h!t]
 \ifluluelse
-	{\centerline {\includegraphics[width=\textwidth]{AcceptClassDef}}}
-	{\centerline {\includegraphics[scale=0.7]{AcceptClassDef}}}
-\caption{The class-creation Template.
+  {\centerline {\includegraphics[width=\textwidth]{AcceptClassDef}}}
+  {\centerline {\includegraphics[scale=0.7]{AcceptClassDef}}}
+\caption{Template de creación de clase.
 \figlabel{acceptClassDef}}
 \end{figure}
 
-\dothis{Accept the new class definition.}
-Either \actclick and select \menu{accept}, or use the shortcut \short{s} (for ``save'').
-The message will be sent to \ct{SimpleSwitchMorph}, which will cause the new class to be compiled.
-\index{keyboard shortcut!accept}
+% \dothis{Accept the new class definition.}
+% Either \actclick and select \menu{accept}, or use the shortcut \short{s} (for ``save'').
+% The message will be sent to \ct{SimpleSwitchMorph}, which will cause the new class to be compiled.
+%WIP \index{keyboard shortcut!accept}
 
-Once the class definition is accepted, the class will be created and appear in the classes pane of the browser (\figref{LOCell}).
-The editing pane now shows the class definition, and a small pane below it will remind you to write a few words describing the purpose of the class. This is called a \emph{class comment}, and it is quite important to write one that will give other programmers a high-level overview of the purpose of this class.
-Smalltalkers put a very high value on the readability of their code, and detailed comments in methods are unusual: the philosophy is that the code should speak for itself. (If it doesn't, you should refactor it until it does!) A class \subind{class}{comment} need not contain a detailed description of the class, but a few words describing its overall purpose are vital if programmers who come after you are to know whether to spend time looking at this class.
-\index{refactoring}
+\dothis{Aceptar la definición de la nueva clase.}
+Esto se puede hacer de dos formas: o bien \actclicky selecciona \menu{accept}, o bien
+usa el atajo \short{s} (para ``guardar'').
+El mensaje será enviado a \ct{SimpleSwitchMorph}, causando que la nueva clase sea compilada.
+\index{keyboard shortcut!accept} % <-- ver si hay que traducir esto.
 
-\dothis{Type a class comment for \ct{LOCell} and accept it; you can always improve it later.}
+% Once the class definition is accepted, the class will be created and appear in the classes pane of the browser (\figref{LOCell}).
+% The editing pane now shows the class definition, and a small pane below it will remind you to write a few words describing the purpose of the class. This is called a \emph{class comment}, and it is quite important to write one that will give other programmers a high-level overview of the purpose of this class.
+% Smalltalkers put a very high value on the readability of their code, and detailed comments in methods are unusual: the philosophy is that the code should speak for itself. (If it doesn't, you should refactor it until it does!) A class \subind{class}{comment} need not contain a detailed description of the class, but a few words describing its overall purpose are vital if programmers who come after you are to know whether to spend time looking at this class.
+% \index{refactoring}
+
+Una vez que la definición de la clase es aceptada, la clase será creada y aparecerá en el panel de clases del navegador (\figref{LOCell}).
+Ahora el panel de edición muestra la definición de la clase, y un pequeño panel debajo te recordará escribir unas pocas palabras describiendo el propósito de la clase. Esto se llama \emph {comentario de la clase}. Es importante escribir un comentario que le de a otros programadores una visión de alto nivel del propósito de la clase.
+Los desarrolladores Smalltalk le dan un gran valor a la legibilidad de su código, y es poco común entcontrar comentarios detallados dentro de los métodos: la filosofía de Smalltalk es que el código debe ser autoexplicativo. (Si no lo es, deberías refactorizarlo hasta que lo sea!) Una clase \subind{clase}{comentario} no debería contener una descripción detallada de la clase, pero unas pocas palabras que describan su propósito de manera general son vitales para que otros programadores sepan si vale la pena invertir tiempo en mirar la clase o no.
+\index{refactoring} % <--ver si se traduce
+
+%\dothis{Type a class comment for \ct{LOCell} and accept it; you can always improve it later.}
+\dothis{Escribe un comentario de clase para \ct{LOCell} y guárdalo; siempre se puede mejorar mas tarde.}
 
 \begin{figure}[h!t]
 \ifluluelse
 	{\centerline {\includegraphics[width=\textwidth]{LOCell}}}
 	{\centerline {\includegraphics[scale=0.7]{LOCell}}}
-\caption{The newly-created class \ct{LOCell}\figlabel{LOCell}}
+\caption{La nueva clase creada \ct{LOCell}\figlabel{LOCell}}
 \end{figure}
 
+
 %=================================================================
-\section{Adding methods to a class}
+%\section{Adding methods to a class}
+\section{Agregando métodos a una clase}
 
-Now let's add some methods to our class.
+%Now let's add some methods to our class.
+Ahora agreguemos algunos métodos a nuestra clase.
 
-\dothis{Select the protocol \prot{-{}-all-{}-} in the protocol pane.}
-You will see a template for method creation in the editing pane.
-Select it, and replace it by the text of \mthref{scbecellinitialize}.
+% \dothis{Select the protocol \prot{-{}-all-{}-} in the protocol pane.}
+% You will see a template for method creation in the editing pane.
+% Select it, and replace it by the text of \mthref{scbecellinitialize}.
+% \protindex{all}
+% \index{method!creation}
+% \index{browser!defining a method}
+
+\dothis{Selecciona el protocolo \prot{-{}-todo-{}-} en el panel de protocolos.}
+Verás un template para la creaciń de métodos en el panel de edición.
+Selecciónalo y reemplazalo por el texto de \mthref{scbecellinitialize}.
 \protindex{all}
 \index{method!creation}
 \index{browser!defining a method}
+
 
 \needlines{10}
 \begin{numMethod}[scbecellinitialize]{Initializing instances of \ct{LOCell}}
@@ -295,20 +342,39 @@ initialize
 \end{numMethod}
 \index{initialization}
 
+%\noindent
+% Note that the characters \ct{''} on line 3 are two separate single quotes with nothing between them, not a double quote!  \ct{''} denotes the empty string.
+
 \noindent
-Note that the characters \ct{''} on line 3 are two separate single quotes with nothing between them, not a double quote!  \ct{''} denotes the empty string.
+Notar que los caracteres \ct{''} en la línea 3 son comillas simples sin nada en el medio, no una doble comilla. \ct{''} es una cadena vacía. 
 
-\dothis{\menu{Accept} this method definition.}
+%\dothis{\menu{Accept} this method definition.}
 
-What does the above code do?  We won't go into all of the details here (that's what the rest of the book is for!), but we will give you a quick preview.  Let's take it line by line.
+\dothis{\menu{Aceptar} la definición de este método.}
 
-Notice that the method is called \mthind{LOCell}{initialize}.
-The name is very significant!
-By convention, if a class defines a method named \ct{initialize}, it will be called right after the object is created.
-So, when we evaluate \ct{LOCell new}, the message \ct{initialize} will be sent automatically to this newly created object.
-Initialize methods are used to set up the state of objects, typically to set their instance variables; this is exactly what we are doing here.
+%What does the above code do?  We won't go into all of the details here (that's what the rest of the book is for!), but we will give you a quick preview.  Let's take it line by line.
+
+¿Qué hace el código de arriba? No nos adentraremos en los detalles aquí (para eso es el resto del libro!), pero te daremos una rápida introducción. Veámoslo línea por línea.
+\fede{una mejor traducción para 'a quick preview'?}
+
+%Notice that the method is called \mthind{LOCell}{initialize}.
+%The name is very significant!
+%By convention, if a class defines a method named \ct{initialize}, it will be called right after the object is created.
+%So, when we evaluate \ct{LOCell new}, the message \ct{initialize} will be sent automatically to this newly created object.
+%Initialize methods are used to set up the state of objects, typically to set their instance variables; this is exactly what we are doing here.
+%\seeindex{Object!initialization}{initialization}
+%\index{initialization}
+
+Notar que el método se llama \mthind{LOCell}{initialize}.
+El nombre es muy significativo!
+Por convención, si una clase define un método llamado \ct{initialize}, este será llamado inmediatamente después que el objeto sea creado. 
+Entonces, cuando evaluamos \ct{LOCell new}, el mensaje \ct{initialize} será enviado automáticamente al objeto recién creado. 
+Los métodos "initialize" se usan para establecer el estado de los objetos, normalmente para establecer las variables de instancia; esto es exactamente lo que estamos haciendo acá. 
 \seeindex{Object!initialization}{initialization}
 \index{initialization}
+
+%%%------------HASTA ACA LLEGUE---------------%%%
+
 
 The first thing that this method does (line 2) is to execute the \ct{initialize} method of its superclass, \ct{SimpleSwitchMorph}.
 The idea here is that any inherited state will be properly initialized by the \ct{initialize} method of the superclass.
