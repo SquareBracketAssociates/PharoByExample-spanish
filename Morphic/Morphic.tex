@@ -42,8 +42,8 @@
 %The observer pattern and its implementation with changed:  and update: messages could go here.  Or in ``Idiomatic design patterns'' later.}
 
 \indmain{Morphic} es el nombre de la interface gr\'afica de \pharo.
-Morphic est\'a escrito es \st, por lo que es complementamente portable entre distintos sistemas operativos; como consecuencia de ello, \pharo se ve exactamente igual en Unix, MacOS y Windows.
-Lo que distingue a Morphic de la mayoria de los otros toolkits de interface de usuario es que no tiene modos separados para  ``composici\'on' y ``ejecuci\'on'' de la interface: todos los elementos gr\'aficos pueden ser ensamblados y desensamblados por el usuario en cualquier momento.\footnote{Le agradecemos a Hilaire Fernandes por permitir basar este cap\'itulo en su art\'iculo original en franc\'es.}
+Morphic est\'a escrito en \st, por lo que es complementamente portable entre distintos sistemas operativos; como consecuencia de ello, \pharo se ve exactamente igual en Unix, MacOS y Windows.
+Lo que distingue a Morphic de la mayoria de los otros toolkits de interface de usuario es que no tiene modos separados para  ``composici\'on' y ``ejecuci\'on'' de la interface: todos los elementos gráficos pueden ser ensamblados y desensamblados por el usuario en cualquier momento.\footnote{Le agradecemos a Hilaire Fernandes por permitir basar este cap\'itulo en su art\'iculo original en franc\'es.}
 
 \ab{After the first printing, I took an editing pass, correcting some errors and grammatical infelicities.}
 
@@ -53,10 +53,10 @@ Lo que distingue a Morphic de la mayoria de los otros toolkits de interface de u
 \section{La historia de Morphic}
 
 Morphic fue desarrollado por John Maloney and Randy Smith para el lenguaje de programaci\'on \ind{Self} , all\'a por 1993. 
-Posteriormente Maloney escribi\'o una nueva versi\'on de Morphic para \squeak, pero las ideas b\'asicas detras de la versi\'on de Self son a\'un vigentes en el Morphic de \pharo: \emph{directness} and \emph{liveness}.
+Posteriormente Maloney escribi\'o una nueva versi\'on de Morphic para \squeak, pero las ideas b\'asicas detras de la versi\'on de Self son a\'un vigentes en el Morphic de \pharo: \emph{directness} and \emph{liveness}.\nicopaez{alguna idea de como traducir estos términos?}
 Directness significa que las formas en la pantalla son objetos que pueden ser examinados o modificados directamente apuntandolos con el mouse.
 Liveness significa que la interface de usuario siempre es capaz de responder a las acciones del usuario: la informaci\'on en la pantalla es continuamente actualizada a medida que cambia el mundo que esta describe.
-Un simple ejemplo de esto es que uno puede desatachar un item de men\'u item y mantenerlo como un bot\'on.
+Un simple ejemplo de esto es que uno puede desacoplar un ítem de men\'u item y mantenerlo como un bot\'on.
 
 \dothis{Abre el men\'u World. \Metaclick para traer su halo morphic\footnote{Recuerdda que debes setear \button{halosEnabled} en el explorador de Preferencias. Alternativamente, puedes evaluar \ct{Preferences enable: \#halosEnabled} en un workspace.}, luego \metaclick otra vez el el \'item de men\'u que deseas desacoplar para traer su halo.  Ahora arrastra el el \'item a alg\'un otro lugar de la pantalla agarr\'andolo del manejador negro \grabHandle, como se muestra en \figref{detachingMenu}.}
 \index{Morphic!halo}
@@ -69,8 +69,8 @@ Un simple ejemplo de esto es que uno puede desatachar un item de men\'u item y m
 \end{figure}
 
 Todos los objetos que ves en la pantalla cuando ejecutas \pharo son \emph{Morphs}, eso es, son instancias de subclases de la clase \ct{Morph}.
-\mbox{\ct{Morph}} en si mismo es una clase grande con mucho m\'etodos; esto hace posible para las subclases implementar comportamiento interesante con poco c\'odigo.
-Tu puedes crear un morph para representar cualquier objeto, aunque cuan buena sea esa representanción depende del objeto!
+\mbox{\ct{Morph}} en si mismo es una clase grande con muchos m\'etodos; esto hace posible para las subclases implementar comportamiento interesante con poco c\'odigo.
+Tu puedes crear un morph para representar cualquier objeto, aunque cuan buena sea esa representanción, ¡depende del objeto!
 
 \dothis{Para crear un morph que represente a un objeto cadena de caracteres, ejecuta el siguiente c\'odigo en un workspace.} % , una l\'inea a la vez.}
 \begin{code}{}
@@ -86,7 +86,7 @@ Tu puedes crear un morph para representar cualquier objeto, aunque cuan buena se
 % ON: openViewerForArgument is gone in pharo!
 
 Esto crea un Morph para representar la cadena de caracteres \ct{'Morph'}, y luego lo abre (esto es, lo muestra) en el ``mundo'', que es el nombre que \pharo le da a la pantalla.
-You should obtain a graphical element\,---\,a Morph\,---\,which you can manipulate by \metaclick{ing}.
+Deberias obtener un elemento gráfico\,---\,un Morph\,---\,al que podrias manipular \metaclick{ing}.
 %The second line opens a ``viewer'' that shows you attributes of this Morph, such as its \ct{x} and \ct{y}  coordinates on the screen.  Clicking on one of the yellow exclamation marks sends a message to the Morph, which responds appropriately.
 
 Por supuesto, es posible definir morphs que sean representaciones gr\'aficas  m\'as interesante que la que hemos visto.
