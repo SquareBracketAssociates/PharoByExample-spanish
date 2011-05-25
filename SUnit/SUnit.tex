@@ -502,7 +502,7 @@ ExampleSetTest run: #testRemove --> 1 run, 1 passed, 0 failed, 0 errors
 
 Cualquier subclase de \ct{TestCase} responde al mensaje \ct{suite}, el cual
 construir\'a un juego de pruebas que contendr\'a todos los
-m\'etodos en la clase cuyos nombres empiecen con la cadena ``\ct{test}''.
+m\'etodos en la clase cuyos nombres empiezen con la cadena ``\ct{test}''.
 
 Para correr las pruebas en el juego, env\'ia el mensaje \ct{run}.
 
@@ -531,10 +531,8 @@ Recomendamos que no intentes hacer esto. El framework est\'a ah\'i: \'usalo.
 La idea de un \emph{test resource} fue introducida en \sunit 3.1 para representar a un recurso
 que es caro de alistar pero que puede ser usado por una serie completa de pruebas.  Un \ct{TestResource}
 especifica un m\'etodo \ct{setUp} que es ejecutado s\'olo una vez antes del juego de pruebas;
+esto es para distinguir del m\'etodo \ct{TestCase>>>setUp}, el cual es ejecutado antes de cada prueba. 
 
-
-this is in distinction to the \ct{TestCase>>>setUp} method, which is executed before
-each test.
 
 \begin{figure}[htb]
   \begin{center}
