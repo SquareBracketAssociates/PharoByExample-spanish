@@ -546,44 +546,57 @@ esto es para distinguir del m\'etodo \ct{TestCase>>>setUp}, el cual es ejecutado
 %---------------------------------------------------------
 \subsection{TestCase}
 
-\clsindmain{TestCase} is an abstract class that is designed to be subclassed; each of its subclasses represents a group of tests that share a common context (that is, a test suite).
-Each test is run by creating a new instance of a subclass of \ct{TestCase},
-running \mthind{TestCase}{setUp}, running the test method itself, and then running \mthind{TestCase}{tearDown}.
+\clsindmain{TestCase} es una clase abstracta que esta dise\~nada para ser heredada por alguna otra subclase;
+cada una de sus subclases representa un grupo de pruebas que comparten un contexto en com\'un (esto es, un set de pruebas).
 
-The context is specified
-by instance variables of the subclass
-and by the specialization of the method
-\ct{setUp}, which initializes those instance variables.
-Subclasses of \ct{TestCase} can also override method
-\ct{tearDown}, which is invoked after the execution of each test,
-and can be used to release any objects
-allocated during \ct{setUp}.
+Cada prueba se corre creando una nueva instancia de una subclase de \ct{TestCase},
+corriendo \mthind{TestCase}{setUp}, corriendo el m\'etodo de prueba en si mismo, y luego
+corriendo \mthind{TestCase}{tearDown}.
+
+
+El contexto esta especificado por las variables de instancia de la subclase y por la 
+especializaci\'on del m\'etodo \ct{setUp}, el cual inicializa esas variables
+de instancia. las subclases de \ct{TestCase} pueden tambi\'en sobreescribir el m\'etodo
+\ct{tearDown}, el cual es invocado luego de la ejecuci\'on de cada prueba, y puede ser usado para
+liberar cualquier objeto creado durante \ct{setUp}.
+
+
 %---------------------------------------------------------
 \subsection{TestSuite}
 
-Instances of the class \clsindmain{TestSuite} contain a collection of test cases.  An
-instance of \ct{TestSuite} contains tests, and other test suites.
-That is, a test suite contains sub-instances of
-\ct{TestCase} and \ct{TestSuite}.
-Both individual \lct{TestCase}s and \lct{TestSuite}s understand the same protocol, so they can be treated in the same way; for example, both can be \ct{run}.
-This is in fact an application of the composite
-pattern in which \ct{TestSuite} is the composite and the
-\ct{TestCase}s are the leaves\,---\,see \textit{Design Patterns} for more information on this pattern\cite{Gamm95a}.
+Las instancias de la clase \clsindmain{TestSuite} contienen una colecci\'on de casos de prueba.
+Una instancia de \ct{TestSuite} contiene pruebas, y otra sets de pruebas.
+
+Esto es, un set de pruebas contiene sub-instancias de \ct{TestCase} y \ct{TestSuite}.
+
+Individualmente, tanto \lct{TestCase}s como \lct{TestSuite}s entienden el mismo protocolo,
+por lo que ambas pueden ser tratadas en la misma forma; por ejemplo, ambas pueden \ct{correrse}.
+
+Esto es de hecho una aplicaci\'on del patr\'on 'composite' en el cual \ct{TestSuite} es el compuesto
+y las \ct{TestCase}s son las hojas\,---\,see \textit{Design Patterns} para m\'as informaci\'on sobre este patr\'on \cite{Gamm95a}.
+
 %---------------------------------------------------------
 \subsection{TestResult}
 
-The class \clsindmain{TestResult} represents the results of a
-\ct{TestSuite} execution.  It records the number of tests passed,
-the number of tests failed, and the number of errors signalled.
+La clase \clsindmain{TestResult} representa los reseultados de la ejecuci\'on de un \ct{TestSuite}.
+Graba los n\'umeros de pruebas pasadas correctamente, el n\'umero de pruebas fallidas y el n\'umero
+de errores encontrados.
 
 %---------------------------------------------------------
 \subsection{TestResource}
-\seclabel{resource}
+\seclabel{recurso}
 
-One of the important  features of a suite of tests is that they should be independent of each other: the failure of one test should not cause an avalanche of failures of other tests that depend upon it, nor should the order in which the tests are run matter.
-Performing \ct{setUp} before each test and \ct{tearDown} afterwards helps to reinforce this independence. 
+Una de las caracter\'isticas mas importantes de un set de prueebas es que 
+deber\'an ser independientes unas de otras: la falla de una prueba no deber\'ia causar una avalancha
+de fallas en las otras pruebas que dependen de ella, tampoco deber\'ia importar el orden en que se corren las
+pruebas.  
 
-However, there are occasions where setting up the necessary context is just too time-consuming for it to be practical to do once before the execution of each test.
+Ejecutando \ct{setUp} antes de cada prueba y \ct{tearDown} al final ayuda a reforzar esta independencia.
+ 
+Sin embargo, hay ocasiones en que inicializar el contexto necesario consume demasiado tiempo por lo que no es 
+pr\'actico de hacer antes de la ejecuci\'on de cada prueba.
+
+
 Moreover, if it is known that the test cases do not disrupt the resources used by the tests, then it is wasteful to set them up afresh for each test; it is sufficient to set them up once for each suite of tests.
 Suppose, for example, that a suite of tests needs to query a database, or do some analysis on some compiled code.
 In such cases, it may make sense to set up the database and open a connection to it, or to compile some source code, before any of the tests start to run.
