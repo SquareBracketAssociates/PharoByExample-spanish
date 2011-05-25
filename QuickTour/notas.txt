@@ -1,0 +1,3 @@
+L072: ¿Hay que traducir VM?
+L081: ¿Cómo se llama la página de la que hay que descargar Pharo?
+L087: ¿Hay que traducir esta linea?
