@@ -1,0 +1,17 @@
+*.aux
+*.blg
+*.glo
+*.idx
+*.ilg
+*.ind
+*.log
+*.out
+*.toc
+*.url
+log.txt
+scg.bib
+scgbib
+package-cache
+*.command
+.project
+*.gz

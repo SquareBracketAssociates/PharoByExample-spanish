@@ -595,24 +595,25 @@ Point new setX: 25 setY: 35; isZero --> false
 \end{code}
 
 %=============================================================
-\section{Chapter summary}
+\section{Resumen del capítulo}
 
 \begin{itemize}
-\item A message is always sent to an object named the \emph{receiver} which may be the result of other message sends.
+\item Un mensaje es siempre enviado a un objeto llamado el \emph{receptor} que puede ser el resultado de otro mensaje enviado.
 
-\item Unary messages are messages that do not require any argument.\\
-They are of the form of \lct{receiver \textbf{selector}}.
+\item Los mensajes unarios son mensajes que no requiren argumento.\\
+Son de la forma \lct{receptor \textbf{selector}}-
 
-\item Binary messages are messages that involve two objects, the receiver and another object \emph{and} whose selector is composed of  one or more characters from the following list: \ct{+}, \ct{-}, \ct{*}, \ct{/}, \ct{|}, \texttt{\&}, \ct{=}, \ct{>}, \ct{<}, \texttt{\~}, and \ct{@}.
-They are of the form: \lct{receiver \textbf{selector} argument}
-\item Keyword messages are messages that involve more than one object and that contain at least one colon character (\ct{:}). \\
-They are of the form:
-\lct{receiver \textbf{selectorWordOne:} argumentOne \textbf{wordTwo:} argumentTwo}
+\item Los mensajes binarios son mensajes que involucran dos objetos, el receptor y otro objeto \emph{y} cuyo selector está compuesto de uno o más de caracteresers de la siguiente lista: \ct{+}, \ct{-}, \ct{*}, \ct{/}, \ct{|}, \texttt{\&}, \ct{=}, \ct{>}, \ct{<}, \texttt{\~}, y \ct{@}.
+Son de la forma: \lct{receptor \textbf{selector} argumento}
 
-\item \textbf{Rule One.} Unary messages are sent first, then binary messages, and finally keyword messages.
-\item \textbf{Rule Two.} Messages in parentheses are sent before any others.
-\item \textbf{Rule Three.} When the messages are of the same kind, the order of evaluation is from left to right.
-\item In \st, traditional arithmetic operators such as + and * have the same priority. \ct{+} and \ct{*} are just binary messages, therefore \ct{*} does not have priority over \ct{+}. You must use parentheses to obtain a different result.
+\item Los mensajes de palabra clave son mensajes que involucran a más de un objeto y que contienen al menos un caracter dos puntos (\ct{:}). \\
+Son de la forma:
+\lct{receptor \textbf{selectorPalabraUno:} argumentoUno \textbf{palabraDos:} argumentoDos}
+
+\item \textbf{Regla Uno.} Los mensajes unarios son enviados primero, luego los binarios y finalmente los de palabra clave.
+\item \textbf{Regla Dos.} Los mensajes en paréntesis son enviados antes que cualquier otro.
+\item \textbf{Regla Tres.} Cuando los mensajes enviados son del  mismo tipo, el orden de evaluación de de izquierda a derecha.
+\item En \st, tradicional, la aritmética de operadores como + y * tienen la misma prioridad. \ct{+} y \ct{*} son solo mensaje binarios, por lo tanto \ct{*} no tienen prioridad sobre \ct{+}. Debes usar paréntesis para obtener un resultado diferente.
 \end{itemize}
 
 %\end{document}

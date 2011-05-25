@@ -1,0 +1,14 @@
+El general no traducimos:
+
+- Las figuras
+- Los menues
+- Los IDS, labels o cosas internas de LaTeX
+
+
+Palabras que NO traduciremos
+- Workspace
+- Transcript
+- Array
+- Method lookup
+- Keyword (cuando se refiere al tipo de mensaje
+- Toolkit, en el contexto de Morphic
