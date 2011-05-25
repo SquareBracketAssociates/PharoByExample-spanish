@@ -1,5 +1,6 @@
 Lista de palabras especificas y como las traducimos
 
+browser = navegador
 first-class objects and second-class objets = objetos de primer orden y objetos de segundo orden. 
 floating point number = numero en coma flotante
 in a nutshell = en dos palabras

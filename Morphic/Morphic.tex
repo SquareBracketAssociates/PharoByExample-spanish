@@ -34,6 +34,9 @@
 	% \renewcommand{\nnbb}[2]{} % Disable editorial comments
 	\sloppy
 \fi
+\renewcommand\yellowbox[1]{\relax}
+\renewcommand\nnbb[2]{\relax} 
+
 %=================================================================
 \chapter{Morphic}
 
@@ -58,13 +61,13 @@ Directness significa que las formas en la pantalla son objetos que pueden ser ex
 Liveness significa que la interface de usuario siempre es capaz de responder a las acciones del usuario: la informaci\'on en la pantalla es continuamente actualizada a medida que cambia el mundo que esta describe.
 Un simple ejemplo de esto es que uno puede desacoplar un ítem de men\'u item y mantenerlo como un bot\'on.
 
-\dothis{Abre el men\'u World. \Metaclick para traer su halo morphic\footnote{Recuerdda que debes setear \button{halosEnabled} en el explorador de Preferencias. Alternativamente, puedes evaluar \ct{Preferences enable: \#halosEnabled} en un workspace.}, luego \metaclick otra vez el el \'item de men\'u que deseas desacoplar para traer su halo.  Ahora arrastra el el \'item a alg\'un otro lugar de la pantalla agarr\'andolo del manejador negro \grabHandle, como se muestra en \figref{detachingMenu}.}
+\dothis{Abre el men\'u World. \Metaclick para traer su halo morphic\footnote{Recuerda que debes setear \button{halosEnabled} en el explorador de Preferencias. Alternativamente, puedes evaluar \ct{Preferences enable: \#halosEnabled} en un workspace.}, luego \metaclick otra vez el el \'item de men\'u que deseas desacoplar para traer su halo.  Ahora arrastra el \'item a alg\'un otro lugar de la pantalla agarr\'andolo del manejador negro \grabHandle, como se muestra en \figref{detachingMenu}.}
 \index{Morphic!halo}
 \index{blue button}
 
 \begin{figure}[ht]
 	\centerline{\includegraphics[width=0.3\textwidth]{detachingMenu}}
-	\caption{Desacoplar un morph, aqu\'i el \'item de men\'u \menu{Workspace}, para hacerlo un bot\'on independiente.
+	\caption{Desacoplando un morph, aqu\'i el \'item de men\'u \menu{Workspace}, para hacerlo un bot\'on independiente.
 		\figlabel{detachingMenu}}
 \end{figure}
 
@@ -86,13 +89,13 @@ Tu puedes crear un morph para representar cualquier objeto, aunque cuan buena se
 % ON: openViewerForArgument is gone in pharo!
 
 Esto crea un Morph para representar la cadena de caracteres \ct{'Morph'}, y luego lo abre (esto es, lo muestra) en el ``mundo'', que es el nombre que \pharo le da a la pantalla.
-Deberias obtener un elemento gráfico\,---\,un Morph\,---\,al que podrias manipular \metaclick{ing}.
+Deberias obtener un elemento gráfico\,---\,un Morph\,---\,al que podrias manipular con \metaclick.
 %The second line opens a ``viewer'' that shows you attributes of this Morph, such as its \ct{x} and \ct{y}  coordinates on the screen.  Clicking on one of the yellow exclamation marks sends a message to the Morph, which responds appropriately.
 
-Por supuesto, es posible definir morphs que sean representaciones gr\'aficas  m\'as interesante que la que hemos visto.
+Por supuesto, que es posible definir morphs que sean representaciones gr\'aficas  m\'as interesantes que la que hemos visto.
 El m\'etodo \mthind{Object}{asMorph} tiene una implementaci\'on por defecto en la clase  \ct{Object} que simplemente crea un StringMorph.
 Entonces, por ejemplo, \ct{Color tan asMorph} devuelve un StringMorph etiquetado con el resultado de \clsind{Color} \ct{tan printString}.
-Cambiemos estoy para obtener un rect\'angulo coloreado en su lugar.
+Cambiemos esto para obtener un rect\'angulo coloreado en su lugar.
 
 
 \dothis{Abre un browser en la clase \ct{Color} y agrega el siguiente m\'etodo:}
@@ -102,7 +105,7 @@ Color>>>asMorph
 	^ Morph new color: self
 \end{method}
 \noindent
-Ahora ejecuta \ct{Color orange asMorph} \mthind{Morph}{openInWorld} en un workspace. En lugar de morph tipo string, obtienes un rect\'angulo naranja!
+Ahora ejecuta \ct{Color orange asMorph} \mthind{Morph}{openInWorld} en un workspace. En lugar de morph tipo string, obtienes ¡un rect\'angulo naranja!
 
 
 
