@@ -428,25 +428,38 @@ las pruebas erroneas causan que la barra se ponga roja, y son listadas en la ven
 
 %=================================================================
 \section{El libro de recetas de \SUnit }
-esta sección te dará mas detalles sobre cómo usar \SUnit.  If you
-have used another testing framework such as \JUnit\footnote{\url{http://junit.org}},
-much of this will be familiar, since all these frameworks have their roots in \SUnit.
-Normally you will use \SUnit's GUI to run tests, but there are
-situations where you may not want to use it.
+
+Esta sección te dará mas detalles sobre cómo usar \SUnit.  Si has usado
+otro framework para hacer pruebas como \Junit\footnote{\url{http://junit.org}},
+gran parte de todo esto te resultar\'a familiar, desde ya que todos estos frameworks tienen
+sus raices en \SUnit.
+Usualmente usar\'as la GUI de \SUnit para correr las pruebas, pero 
+habr\'a situaciones donde puedes no querer usarla.
+
+
 %---------------------------------------------------------
-\subsection{Other assertions}
-In addition to \ct{assert:} and \ct{deny:}, there are several other methods that can be used to make assertions.
+\subsection{Otras aserciones}
+Adem\'as de \ct{assert:} y \ct{deny:}, existen varios otros m\'etodos que pueden
+ser usados para hacer aserciones.
 
-First, \mthind{TestCase}{assert:description:} and \mthind{TestCase}{deny:description:} take a second argument which is a message string that can be used to describe the reason for the failure, if it is not obvious from the test itself.   These methods are described in~\secref{descriptionStrings}.
+Primero, \mthind{Testcase}{assert:description:} y \mthind{TestCase}{deny:description:} toman un segundo
+argumento que es un mensaje en una cadena que puede ser usada para describir el motivo de la falla,
+si es que no es obvia desde la prueba misma.
 
-Next, \sunit provides two additional methods, \mthind{TestCase}{should:raise:} and
-\mthind{TestCase}{shouldnt:raise:} for testing exception propagation.
-For example, you would use 
-\ct{(self should: aBlock raise: anException)} to test that a particular exception is raised during the execution of \ct{aBlock}.  \Mthref{ESTtestIllegal}
-illustrates the use of \mbox{\ct{should:raise:}.}
+Estos m\'etodos estan definidos en~\secret{descriptionStrings}.
 
-\dothis{Try running this test.}
-Note that the first argument of the \ct{should:} and \ct{shouldnt:} methods is a \emphind{block} that \emph{contains} the expression to be evaluated.   
+Luego, \sunit provee dos m\'etodos adicionales, \mthind{TestCase}{should:raise:} y \mthind{TestCase}{shouldnt:raise:}
+para probar la propagaci\'on deuna excepci\'on. 
+
+Por ejemplo, podr\'ias usar \ct {(self should: aBlock raise: anException)}
+para probar si una excepci\'on en particular es lanzada durante la
+ejecuci\'on de \ct{aBlock}. \Mthref{ESTtestIllegal} ilustra el uso de \mbox{\ct{should:raise:}.}
+
+
+\dothis{Intenta correr esta prueba.}
+
+Nota que el primer argumento de los m\'etodos \ct{should:} y \ct{shouldnt:} es un
+\emphind{bloque} que \emph{contiene} la expresi\'on a ser evaluada.
 
 \begin{method}[ESTtestIllegal]{Testing error raising}
 ExampleSetTest>>>testIllegal
@@ -454,11 +467,13 @@ ExampleSetTest>>>testIllegal
 	self should: [empty at: 5 put: #zork] raise: Error
 \end{method}
 
-\sunit is portable: it can be used from all dialects of \st.  To make
-\sunit portable, its developers factored-out the dialect-dependent aspects.  The class method \cmind{TestResult class}{error} answers
-the system's error class in a dialect-independent fashion. 
-You can take advantage of this: if you want to write tests that will work in any dialect of \st, instead of 
-\mthref{ESTtestIllegal} you would write:
+\sunit es portable: puede ser usado en todos los dialectos \st.  Para hacer a \sunit portable,
+sus desarrolladores no tomaron en consideraci\'on los aspectos que son dependientes
+del dialecto. El m\'etodo de clase \cmind{TestResult class}{error} responde a la clase
+de error del sistema en una forma que es independiente del dialecto.
+
+Puedes aprovechar esto: si quieres escribir pruebas que funcionar\'an en cualquier dialecto de \st, en vez de
+\mthref{ESTtestIllegal} podr\'ias escribir:
 
 \needlines{4}
 \begin{method}[portabletestillegal]{Portable error handling}
@@ -467,47 +482,57 @@ ExampleSetTest>>>testIllegal
 	self should: [empty at: 5 put: #zork] raise: TestResult error
 \end{method}
 
-\dothis{Give it a try.}
+\dothis{Int\'entalo.}
 
 %---------------------------------------------------------
-\subsection{Running a single test}
-Normally, you will run your tests using the Test Runner.
-If you don't want to launch the Test Runner from the \menu{open\,\ldots} menu, you can execute \ct{TestRunner open} as a \menu{print it}.
+\subsection{Corriendo una sola prueba}
+Normalmente, correr\'as las pruebas usando el Test Runner.
 
-You can run a single test as follows.
+Si no quieres abrir el test Runner desde el men\'u \menu{open\,\ldots},
+puedes ejecutar \ct{TestRunner open} como un \menu{print it}.
+
+Puedes correr una sola prueba como sigue.
 
 \begin{code}{}
 ExampleSetTest run: #testRemove --> 1 run, 1 passed, 0 failed, 0 errors
 \end{code}
 
 %---------------------------------------------------------
-\subsection{Running all the tests in a test class}
+\subsection{Corriendo todas las pruebas en una clase de pruebas}
 
-Any subclass of \ct{TestCase} responds to the message \ct{suite}, which will build a test suite that contains all the
-methods in the class whose names start with the string ``\ct{test}''.
-To run the tests in the suite, send it the message \ct{run}.
-For example:
+Cualquier subclase de \ct{TestCase} responde al mensaje \ct{suite}, el cual
+construir\'a un juego de pruebas que contendr\'a todos los
+m\'etodos en la clase cuyos nombres empiecen con la cadena ``\ct{test}''.
+
+Para correr las pruebas en el juego, env\'ia el mensaje \ct{run}.
+
+Por ejemplo:
 
 \begin{code}{}
 ExampleSetTest suite run --> 5 run, 5 passed, 0 failed, 0 errors
 \end{code}
 
 %---------------------------------------------------------
-\subsection{Must I subclass TestCase?}
+\subsection{\¿ Debo heredar de TestCase?}
 
-In \JUnit{} you can build a \clsind{TestSuite} from an arbitrary class
-containing \ct{test*} methods.  In \st you can do the same
-but you will then have to create a suite by hand and your class will
-have to implement all the essential \ct{TestCase} methods like \ct{assert:}.
-We recommend that you not try to do this.  The framework is there: use it.
+En \JUnit{} puedes construir un \clsind{TestSuite} desde cualquier clase arbitraria
+que contenga m\'etodos \ct{test*}. En \st puedes hacer lo mismo pero tendr\'as
+que crear un juego a mano y tu clase deber\'a implementar todos los m\'etodos esenciales de 
+ \ct{TestCase} como por ejemplo, \ct{assert:}.
+
+Recomendamos que no intentes hacer esto. El framework est\'a ah\'i: \'usalo.
+
 %=================================================================
-\section{The SUnit framework}
 
-\sunit consists of four main classes: \clsind{TestCase},
-\clsind{TestSuite}, \clsind{TestResult}, and \clsind{TestResource}, as shown in \figref{sunit-classes}.
-The notion of a \emph{test resource} was introduced in \sunit 3.1 to represent a resource that is expensive to set-up but which can be used by
-a whole series of tests.  A \ct{TestResource}
-specifies a \ct{setUp} method that is executed just once before a suite of tests;
+\section{El framework SUnit}
+
+\sunit consiste en cuatro clases principales : \clsind{TestCase},
+\clsind{TestSuite}, \clsind{TestResult}, y \clsind{TestResource}, como se muestra en \figref{sunit-classes}.
+La idea de un \emph{test resource} fue introducida en \sunit 3.1 para representar a un recurso
+que es caro de alistar pero que puede ser usado por una serie completa de pruebas.  Un \ct{TestResource}
+especifica un m\'etodo \ct{setUp} que es ejecutado s\'olo una vez antes del juego de pruebas;
+
+
 this is in distinction to the \ct{TestCase>>>setUp} method, which is executed before
 each test.
 
