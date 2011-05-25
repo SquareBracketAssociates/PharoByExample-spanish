@@ -346,7 +346,7 @@ initialize
 % Note that the characters \ct{''} on line 3 are two separate single quotes with nothing between them, not a double quote!  \ct{''} denotes the empty string.
 
 \noindent
-Notar que los caracteres \ct{''} en la línea 3 son comillas simples sin nada en el medio, no una doble comilla. \ct{''} es una cadena vacía. 
+Notar que los caracteres \ct{''} en la línea 3 son comillas simples sin nada en el medio, no una doble comilla. \ct{''} es una cadena de caracteres vacía. 
 
 %\dothis{\menu{Accept} this method definition.}
 
@@ -373,20 +373,31 @@ Los métodos "initialize" se usan para establecer el estado de los objetos, norm
 \seeindex{Object!initialization}{initialization}
 \index{initialization}
 
-%%%------------HASTA ACA LLEGUE---------------%%%
+% The first thing that this method does (line 2) is to execute the \ct{initialize} method of its superclass, \ct{SimpleSwitchMorph}.
+% The idea here is that any inherited state will be properly initialized by the \ct{initialize} method of the superclass.
+% It is always a good idea to initialize inherited state by sending \ct{super initialize} before doing anything else; we don't know exactly what \ct{SimpleSwitchMorph}'s \ct{initialize} method will do, and we don't care, but it's a fair bet that it will set up some instance variables to hold reasonable default values, so we had better call it, or we risk starting in an unclean state.
 
+Lo primero que hace este método (línea 2) es ejecutar el método \ct{initialize} de su superclase, \ct{SimpleSwitchMorph}.
+% Superclass lo traducimos como superclase o como clase padre o como? <----
+El objetivo de esto es que cualquier estado heredado sea inicializado adecuadamente por el método \ct{initialize} de la superclase.
+Siempre es buena idea inicializar estado heredado enviando el mensaje \ct{super initialize} antes de hacer cualquier otra cosa; no sabemos exactamente que hará el método \ct{initialize} de \ct{SimpleSwitchMorph}, y no nos importa, pero seguramente inicializará algunas variables de instancia para que contengan valores razonables, por lo que es mejor invocarlo para no arriesgarse a que los objetos empiecen en un estado inválido.
 
-The first thing that this method does (line 2) is to execute the \ct{initialize} method of its superclass, \ct{SimpleSwitchMorph}.
-The idea here is that any inherited state will be properly initialized by the \ct{initialize} method of the superclass.
-It is always a good idea to initialize inherited state by sending \ct{super initialize} before doing anything else; we don't know exactly what \ct{SimpleSwitchMorph}'s \ct{initialize} method will do, and we don't care, but it's a fair bet that it will set up some instance variables to hold reasonable default values, so we had better call it, or we risk starting in an unclean state.
+% The rest of the method sets up the state of this object.
+% Sending \ct{self label: ''}, for example, sets the label of this object to the empty string.
+% \pvindex{self}
 
-The rest of the method sets up the state of this object.
-Sending \ct{self label: ''}, for example, sets the label of this object to the empty string.
+El resto del método establece el estado del objeto.
+Enviar el mensaje \ct{self label: ''}, por ejemplo, establece la etiqueta de este objeto a la cadena de caracteres vacía.
 \pvindex{self}
 
-The expression \ct{0@0 corner: 16@16} probably needs some explanation. 
-\lct{0@0} represents a \clsind{Point} object with $x$ and $y$ coordinates both set to 0.
-In fact, \ct{0@0} sends the message \ct{@}
+% The expression \ct{0@0 corner: 16@16} probably needs some explanation. 
+% \lct{0@0} represents a \clsind{Point} object with $x$ and $y$ coordinates both set to 0.
+% In fact, \ct{0@0} sends the message \ct{@}
+
+La expresión \ct{0@0 corner: 16@16} probablemente necesite un poco de explicación.
+\lct{0@0} representa un objeto \clsind{Point} con las coordenadas $x$ e $y$ en 0.
+De hecho, \ct{0@0} envía el mensaje \ct{@}
+
 % Yuck... the following should be \mthind{Number}{@} 
 %%% THIS IS BROKEN -- don't do it! (on)
 %\def\atsign{\textsf{@}}%
@@ -396,68 +407,117 @@ In fact, \ct{0@0} sends the message \ct{@}
 %	\protected@write\@indexfile{}%
 %    {\string\indexentry{Number!\string\atsign|hyperpage}{\thepage}}%
 %	\makeatother}
-to the number \ct{0} with argument \ct{0}.
-The effect will be that the number \ct{0} will ask the \ct{Point} class to create a new instance with coordinates (0,0).
-Now we send this newly created point the message \ct{corner: 16@16}, which causes it to create a \clsind{Rectangle} with corners \ct{0@0} and \ct{16@16}.
-This newly created rectangle will be assigned to the \ct{bounds} variable, inherited from the superclass.
 
-Note that the origin of the \pharo screen is the \emph{top left}, and the $y$ coordinate increases \emph{downwards}.
+% to the number \ct{0} with argument \ct{0}.
+% The effect will be that the number \ct{0} will ask the \ct{Point} class to create a new instance with coordinates (0,0).
+% Now we send this newly created point the message \ct{corner: 16@16}, which causes it to create a \clsind{Rectangle} with corners \ct{0@0} and \ct{16@16}.
+% This newly created rectangle will be assigned to the \ct{bounds} variable, inherited from the superclass.
 
-The rest of the method should be self-explanatory.
-Part of the art of writing good \st code is to pick good method names so that \st code can be read like a kind of pidgin English.
-You should be able to imagine the object talking to itself and saying ``\ct{Self use square corners!}'', ``\ct{Self turn off!}''.
+al número \ct{0} con parámetro \ct{0}.
+El efecto será que el número \ct{0} le pedirá a la clase \ct{Point} que cree una nueva instancia con coordenadas (0,0).
+Ahora le enviamos a este nuevo punto el mensaje \ct{corner: 16@16}, que hace que cree un \clsind{Rectangle} con esquinas \ct{0@0} y \ct{16@16}.
+Este nuevo rectángulo será asignado a la variable \ct{bounds}, heredada de la superclase. 
+
+% Note that the origin of the \pharo screen is the \emph{top left}, and the $y$ coordinate increases \emph{downwards}.
+Nota que el orígen de la pantalla de \pharo es la \emph{esquina izquierda}, y la coordenada $y$ se incrementa hacia \emph{abajo}.
+
+% The rest of the method should be self-explanatory.
+% Part of the art of writing good \st code is to pick good method names so that \st code can be read like a kind of pidgin English.
+% You should be able to imagine the object talking to itself and saying ``\ct{Self use square corners!}'', ``\ct{Self turn off!}''.
+
+El resto del método debería ser auto explicativo. 
+Parte de arte de escribir buen código \st es escoger los nombres adecuados para los métodos para que el código pueda ser leido como una especie de inglés macarrónico. 
+Deberías poder imaginar al objeto hablandose a sí mismo y diciendo ``\ct{Self use square corners!}'', ``\ct{Self turn off}''.
 
 %=================================================================
-\section{Inspecting an object}
+% \section{Inspecting an object}
+\section{Inspeccionando un objeto}
 
-You can test the effect of the code you have written by creating a new \ct{LOCell} object and inspecting it.
+% You can test the effect of the code you have written by creating a new \ct{LOCell} object and inspecting it.
+Puedes probar el efecto del código que acabas de escribir creando un nuevo objeto \ct{LOCell} y luego inspeccionándolo. 
 
-\dothis{Open a workspace. Type the expression \ct{LOCell new} and \menu{inspect it}.}
+% \dothis{Open a workspace. Type the expression \ct{LOCell new} and \menu{inspect it}.}
+\dothis{Abre un workspace. Tipea la expresión \ct{LOCell new} y \menu{inspect it}.}
+
+%\begin{figure}[htbp]
+%   \centering
+%   \includegraphics[width=\textwidth]{LOCellInspector} 
+%   \caption{The inspector used to examine a LOCell object.\figlabel{LOCellInspector}}
+%\end{figure}
 
 \begin{figure}[htbp]
    \centering
    \includegraphics[width=\textwidth]{LOCellInspector} 
-   \caption{The inspector used to examine a LOCell object.\figlabel{LOCellInspector}}
+   \caption{El inspector usado para examinar un objeto LOCell.\figlabel{LOCellInspector}}
 \end{figure}
 
-The left-hand pane of the \ind{inspector} shows a list of instance variables; if you select one (try \mbox{\ct{bounds}),} the value of the \ind{instance variable} is shown in the right pane.
+% The left-hand pane of the \ind{inspector} shows a list of instance variables; if you select one (try \mbox{\ct{bounds}),} the value of the \ind{instance variable} is shown in the right pane.
 
+El panel izquierdo de \ind{inpector} muestra una lista de variables de instancia; si seleccionas una (prueba \mbox{\ct{bounds}}), el valor de la \ind{variable de instancia} se muestra en el panel derecho. 
+
+%--- Codigo que ya estaba comentado, no figura en la version original ---%
 %  You can also use the inspector to change the value of an instance variable.
 %\dothis{Change the value of \ct{bounds} to \ct{0@0 corner: 50@50} and \menu{accept} it.}
 %\on{This does not work any more. I get:}
 %\ct{OTNamedVariableNode(Object)>>doesNotUnderstand: #selectedClass}
 %\on{should use the mini workspace instead to send bounds: ?}
 
-The bottom pane of the inspector is a mini-workspace.  It's useful because in this workspace the pseudo-variable \self is bound to the object selected. 
+% The bottom pane of the inspector is a mini-workspace.  It's useful because in this workspace the pseudo-variable \self is bound to the object selected. 
+El panel inferior del inspector es un mini-workspace. Es muy útil porque en este workspace la pseudo variable \self está ligada al objeto seleccionado.
+
+% \dothis{
+% Select the LOCell at the root of the inspector window.
+% Type the text \ct{self bounds: (200@200 corner: 250@250)} in the bottom pane and \menu{do it}. The \ct{bounds} variable should change in the inspector.
+% Now type the text \ct{self openInWorld} in the mini-workspace and \menu{do it}.}
+% The cell should appear near the top left-hand corner of the screen, indeed, exactly where its \ct{bounds} say that it should appear.
+% \metaclick on the cell to bring up the morphic \subind{Morphic}{halo}.
+% Move the cell with the brown (next to top-right) handle and resize it with the yellow (bottom-right) handle.
+% Notice how the bounds reported by the inspector also change.
+% (You may have to \actclick{} \menu{refresh} to see the new bounds value.)
 
 \dothis{
-Select the LOCell at the root of the inspector window.
-Type the text \ct{self bounds: (200@200 corner: 250@250)} in the bottom pane and \menu{do it}. The \ct{bounds} variable should change in the inspector.
-Now type the text \ct{self openInWorld} in the mini-workspace and \menu{do it}.}
-The cell should appear near the top left-hand corner of the screen, indeed, exactly where its \ct{bounds} say that it should appear.
-\metaclick on the cell to bring up the morphic \subind{Morphic}{halo}.
-Move the cell with the brown (next to top-right) handle and resize it with the yellow (bottom-right) handle.
-Notice how the bounds reported by the inspector also change.
-(You may have to \actclick{} \menu{refresh} to see the new bounds value.)
+Selecciona LOCell en la raíz de la ventana del inspector.
+Tipea el texto \ct{self openInWorld} en el mini-workspace y \menu{do it}.}
+La celda debería aparecer cerca de la esquina superior izquierda de la pantalla, exactamente donde sus \ct{límites} dicen que debería aparecer. 
+\metaclick en la celda para que aparezca el halo de morphic \subind{Morphic}. %% <---verificar
+Mueve la celda con el asa marrón (esquina superior derecha) y redimensiónalo con el asa amarilla (abajo a la derecha).
+Nota como los límites reportados por el inspector también cambian. 
+(Tal vez tengas que \actclick{} \menu{refresh} para ver los nuevos valores de los límites.)
+
+% \begin{figure}[htbp]
+% \centering
+% \ifluluelse
+% 	{\includegraphics[width=\textwidth]{LOCellResize} }
+% 	{\includegraphics[scale=0.7]{LOCellResize} }
+% \caption{Resizing the cell.\figlabel{cellresize}}
+% \end{figure}
+
+% \dothis{Delete the cell by clicking on the \ct{x} in the pink handle.}
 
 \begin{figure}[htbp]
 \centering
 \ifluluelse
 	{\includegraphics[width=\textwidth]{LOCellResize} }
 	{\includegraphics[scale=0.7]{LOCellResize} }
-\caption{Resizing the cell.\figlabel{cellresize}}
+\caption{Redimensiona la celda.\figlabel{cellresize}}
 \end{figure}
 
-\dothis{Delete the cell by clicking on the \ct{x} in the pink handle.}
+\dothis{Borra la celda haciendo click en la \ct{x} en el asa rosa.}
 
 %=================================================================
-\section{Defining the class LOGame}
+% \section{Defining the class LOGame}
+\section{Definiendo la clase LOGame}
 
-Now let's create the other class that we need for the game, which we will call \clsind{LOGame}.
+% Now let's create the other class that we need for the game, which we will call \clsind{LOGame}.
+Ahora creemos la otra clase que necesitamos para el juego, que llamaremos \clsind{LOGame}.
 
-\dothis{Make the class definition template visible in the browser main window.}
-Do this by clicking on the package name.
-Edit the code so that it reads as follows, and \menu{accept} it.
+% \dothis{Make the class definition template visible in the browser main window.}
+% Do this by clicking on the package name.
+% Edit the code so that it reads as follows, and \menu{accept} it.
+
+\dothis{Has visible el template de definici\'on de clases en la ventana principal del navegador.}
+Has esto haciendo click en el nombre del paquete.
+Edita el c\'odigo para que quede como se muestra a continuaci\'on, y has \menu{accept}.
 
 \needlines{6}
 \begin{classdef}[sbegame]{Defining the \ct{LOGame} class}
@@ -468,12 +528,17 @@ BorderedMorph subclass: #LOGame
    category: 'PBE-LightsOut'
 \end{classdef}
 
-Here we subclass \clsind{BorderedMorph}; \clsind{Morph} is the superclass of all of the graphical shapes in \pharo, and (surprise!) a \ct{BorderedMorph} is a \ct{Morph} with a border.  
-We could also insert the names of the instance variables between the quotes on the second line, but for now, let's just leave that list empty.
+% Here we subclass \clsind{BorderedMorph}; \clsind{Morph} is the superclass of all of the graphical shapes in \pharo, and (surprise!) a \ct{BorderedMorph} is a \ct{Morph} with a border.  
+% We could also insert the names of the instance variables between the quotes on the second line, but for now, let's just leave that list empty.
 
-Now let's define an \mthind{LOGame}{initialize} method for \ct{LOGame}.
+Aqu\'i creamos una subclase de \clsind{BorderedMorph}; \clsind{Morph} es la superclase de todas las formas gr\'aficas e \pharo, y(sorpresa!) un \ct{BorderedMorph} es un \ct{Morph} con borde.
+Podr\'iamos insertar los nombres de las variables de instancia entre comillas en la segunda l\'inea pero, por ahora, dejemos esa lista vac\'ia.
 
-\dothis{Type the following into the browser as a method for \ct{LOGame} and try to \menu{accept} it:}
+% Now let's define an \mthind{LOGame}{initialize} method for \ct{LOGame}.
+Ahora definamos un m\'etodo \mthind{LOGame}{initialize} para \ct{LOGame}.
+
+% \dothis{Type the following into the browser as a method for \ct{LOGame} and try to \menu{accept} it:}
+\dothis{Escribe lo siguiente en el navegador como un m\'etodo para \ct{LOGame} e intenta \menu{accept}:}
 
 \begin{numMethod}[sbegameinitialize]{Initializing the game}
 initialize
@@ -490,9 +555,11 @@ initialize
 %\sd{it would be nicer if we would not have to create an instance of LOCell for nothing}
 %\on{yes}
 
-\pharo will complain that it doesn't know the meaning of some of the terms.
-\pharo tells you that it doesn't know of a message \ct{cellsPerSide}, and suggests a number of corrections, in case it was a spelling mistake.
+% \pharo will complain that it doesn't know the meaning of some of the terms.
+% \pharo tells you that it doesn't know of a message \ct{cellsPerSide}, and suggests a number of corrections, in case it was a spelling mistake.
 
+\pharo se quejar\'a de que no conoce el significado de ciertos t\'erminos.
+\pharo dice que no conoce un mensaje \ct{cellsPerSide}, y sugiere algunas correcciones, en caso de que haya sido un error de tipeo.
 
 \begin{figure}[htb]
 \begin{minipage}{0.48\textwidth}
@@ -500,7 +567,8 @@ initialize
 	\ifluluelse
 		{\includegraphics[width=\textwidth]{UnknownSelector}}
 		{\includegraphics[scale=0.7]{UnknownSelector}}
-	\caption{\pharo detecting an unknown selector.\figlabel{unknownSelector}}
+%	\caption{\pharo detecting an unknown selector.\figlabel{unknownSelector}}
+ \caption{\pharo detectando un identificador desconocido.\figlabel{unknownSelector}}
 \end{minipage}
 \hfill
 \begin{minipage}{0.48\textwidth}
@@ -508,32 +576,54 @@ initialize
 	\ifluluelse
 		{\includegraphics[width=\textwidth]{DeclareInstanceVar}}
 		{\includegraphics[scale=0.7]{DeclareInstanceVar}}
-	\caption{Declaring a new instance variable.\figlabel{declareInstance}}
+%	\caption{Declaring a new instance variable.\figlabel{declareInstance}}
+	\caption{Declarando una nueva variable de instancia.\figlabel{declareInstance}}
 \end{minipage}
 \end{figure}
 
-But \ct{cellsPerSide} is not a mistake\,---\,it is just a method that we haven't yet defined\,---\,we will do so in a minute or two.
+% But \ct{cellsPerSide} is not a mistake\,---\,it is just a method that we haven't yet defined\,---\,we will do so in a minute or two.
+Pero \ct{cellsPerSide} no es un error\,---\, es solo un m\'etodo que no hemos definido aun\,---\, lo haremos en un momento.
 
-\dothis{So just select the first item from the menu, which confirms that we really meant \ct{cellsPerSide}.}
+% \dothis{So just select the first item from the menu, which confirms that we really meant \ct{cellsPerSide}.}
+\dothis{Selecciona el primer item del men\'u, que confirma que quisimos escribir \ct{cellsPerSide}.}
 
-Next, \pharo will complain that it doesn't know the meaning of \ct{cells}.  It offers you a number of ways of fixing this.
+% Next, \pharo will complain that it doesn't know the meaning of \ct{cells}.  It offers you a number of ways of fixing this.
+A continuaci\'on, \pharo se quejar\'a de que no conoce el significado de \ct{cells}. Te ofrece un n\'umero de formas de arreglar esto. 
 
-\dothis{Choose \menu{declare instance} because we want \ct{cells} to be an instance variable.}
-Finally, \pharo will complain about the message \ct{newCellAt:at:} sent on the last line; this is also not a mistake, so confirm that message too.
-\index{on the fly variable definition}
-\index{instance variable definition} 
+% \dothis{Choose \menu{declare instance} because we want \ct{cells} to be an instance variable.}
+% Finally, \pharo will complain about the message \ct{newCellAt:at:} sent on the last line; this is also not a mistake, so confirm that message too.
+% \index{on the fly variable definition}
+% \index{instance variable definition} 
 
-If you now look at the class definition once again (which you can do by clicking on the \button{instance} button), you will see that the browser has modified it to include the instance variable \ct{cells}.
+\dothis{Elige \menu{declare instance} porque queremos que \ct{cells} sea una variable de instancia.}
+Finalmente, \pharo se quejar\'a del mensaje \ct{newCellAt:at:} en la \'ultima l\'inea; esto tampoco es un error, asi que debes confirmar ese mensaje tambi\'en.
+\index{definici\'on de variable al vuelo} 
+%FR "al vuelo" me pareció lo mejor para "on the fly"
+\index{definici\'on de variable de instancia}
 
-Let's look at this \ct{initialize} method.
-The line \ct{| sampleCell width height n |}  declares 4 temporary variables. They are called temporary variables because their scope and lifetime are limited to this method.  Temporary variables with explanatory names are helpful in making code more readable.  Smalltalk has no special syntax to distinguish constants and variables, and in fact all four of these ``variables'' are really constants. 
-Lines 4--7 define these constants.
+% If you now look at the class definition once again (which you can do by clicking on the \button{instance} button), you will see that the browser has modified it to include the instance variable \ct{cells}.
 
-How big should our game board be?  Big enough to hold some integral number of cells, and big enough to draw a border around them.
-How many cells is the right number?  5? 10? 100? We don't know yet, and if we did, we would probably change our minds later.  So we delegate the responsibility for knowing that number to another method, which we will call \ct{cellsPerSide}, and which we will write in a minute or two.
-It's because we are sending the \ct{cellsPerSide} message before we define a method with that name that \pharo asked us to ``confirm, correct, or cancel'' when we accepted the method body for \ct{initialize}.
-Don't be put off by this: it is actually good practice to write in terms of other methods that we haven't yet defined.
-Why?  Well, it wasn't until we started writing the \ct{initialize} method that we realized that we needed it, and at that point, we can give it a meaningful name, and move on, without interrupting our flow.
+Si miras ahora a la definici\'on de la clase de nuevo (cosa que puedes hacer haciendo click en el bot\'on \button{nstance}), ver\'as que el navegador la modific\'o para incluir la variable de instancia \ct{cells}.
+
+% Let's look at this \ct{initialize} method.
+% The line \ct{| sampleCell width height n |}  declares 4 temporary variables. They are called temporary variables because their scope and lifetime are limited to this method.  Temporary variables with explanatory names are helpful in making code more readable.  Smalltalk has no special syntax to distinguish constants and variables, and in fact all four of these ``variables'' are really constants. 
+% Lines 4--7 define these constants.
+Miremos ahora al m\'etodo \ct{initialize}.
+La l\'inea \ct{| sampleCell width height n |} declara 4 variables temporales. Son llamadas temporarias porque su \'ambito y tiempo de vida son limitados a este m\'etodo. Las variables temporales con nombres explicativos ayudan a hacer el c\'odigo mas legible. SMalltalk no tiene sintaxis especial para distinguir constantes y variables, y en realidad estas cuatro ``variables'' son en realidad constantes.
+Las l\'ineas 4--7 definen estas constantes.
+
+% How big should our game board be?  Big enough to hold some integral number of cells, and big enough to draw a border around them.
+% How many cells is the right number?  5? 10? 100? We don't know yet, and if we did, we would probably change our minds later.  So we delegate the responsibility for knowing that number to another method, which we will call \ct{cellsPerSide}, and which we will write in a minute or two.
+% It's because we are sending the \ct{cellsPerSide} message before we define a method with that name that \pharo asked us to ``confirm, correct, or cancel'' when we accepted the method body for \ct{initialize}.
+% Don't be put off by this: it is actually good practice to write in terms of other methods that we haven't yet defined.
+% Why?  Well, it wasn't until we started writing the \ct{initialize} method that we realized that we needed it, and at that point, we can give it a meaningful name, and move on, without interrupting our flow.
+¿Qu\'e tan grande deber\'ia ser nuestro tablero de juego? Lo suficientemente grande como para almacenar algun n\'umero entero de celdas, y lo suficientemente grande como para dibujar un borde alrededor de ellas.
+¿Cu\'al ser\'ia el n\'umero correcto de celdas? ¿5? ¿10? ¿100? No sabemos a\'un, y si supi\'eramos, probablemente cambiar\'iamos de parecer luego. As\'i que delegamos la responsabilidad de saber ese n\'umero a otro m\'etodo, que llamaremos \ct{cellsPerSide}, y que escribiremos en un momento.
+Es porque estamos enviando el mensaje \ct{cellsPerSide} antes de definirlo que \pharo nos pidi\'o ``confirmar, corregir o cancelar'' cuando aceptamos el cuerpo del m\'etodo \ct{initialize}.
+No te desanimes por esto: es en realidad una buena pr\'actica escribir en t\'erminos de m\'etodos que no hemos definido a\'un.
+¿Por que? No fu\'e hasta que empezamos a escribir el m\'etodo \ct{initialize} que nos dimos cuenta que lo necesit\'abamos, y en ese momento, podemos darle un nombre significativo, y seguir adelante, sin interrumpir el flujo.
+ 
+%%%------------HASTA ACA LLEGUE---------------%%%
  
 The fourth line uses this method: 
 the Smalltalk \ct{self cellsPerSide} sends the message \ct{cellsPerSide} to \pvind{self}, i.e., to this very object.  
