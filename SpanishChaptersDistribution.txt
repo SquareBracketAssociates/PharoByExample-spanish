@@ -1,4 +1,4 @@
-Gabriel Falcone		- Chapter 1: A Quick Tour			-> No comenzado
+﻿Gabriel Falcone		- Chapter 1: A Quick Tour			-> 16/5/11 - En curso
 Federico Rodriguez 	- Chapter 2: A first application		-> Traducción en curso: 3/22 (tira error al generar el PDF)
 Rafael Luque	        - Chapter 3: Syntax in a Nutshell		-> Traducción completa y revisado por nicopaez
 Pablo Lalloni		- Chapter 4: Understanding Message Syntax	-> Traducción completa
@@ -6,7 +6,7 @@ Maximiliano Sarno	- Chapter 5: The Smalltalk object model	-> Traducción en curs
 >Debora Martin		- Chapter 6: Environment			-> Traducción en curso: 7/44, tira error al generar el pdf
 >Mirian Quinteros	- Chapter 7: SUnit				-> Traducción en curso: 3/18
 Matias Volgyi 		- Chapter 8: Basic Classes			-> No comenzado
-Pablo Barrientos >Veronica Uquillas - Chapter 9: Collections 			-> No comenzado
+Pablo Barrientos	- Chapter 9: Collections 			-> No comenzado
 Nicolas Paez      - Chapter 11: Morphic				-> Traducción completa	
 Rafael Luque      - Chapter 12: Seaside by Example		-> No comenzado 
 Jordi Delgado     - Chapter 13: Classes and Metaclasses		-> Traducción en curso

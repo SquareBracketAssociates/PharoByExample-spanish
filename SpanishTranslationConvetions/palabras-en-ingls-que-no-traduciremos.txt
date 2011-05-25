@@ -6,7 +6,9 @@ El general no traducimos:
 
 
 Palabras que NO traduciremos
+- Workspace
+- Transcript
 - Array
 - Method lookup
 - Keyword (cuando se refiere al tipo de mensaje
-
+- Toolkit, en el contexto de Morphic
