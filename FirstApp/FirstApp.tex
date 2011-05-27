@@ -189,7 +189,7 @@ a la categoría \scat{PBE-LightsOut}.
 % \index{category}
 
 Historicamente, se trata sobre \emp{categorias}, no paquetes.
-Entonces podrías preguntarte, ¿cual es la diferencia?
+Entonces podrías preguntarte, ?`cual es la diferencia?
 Una categoría es simplemente una collección de clases relacionanadas en
 una \st imagen.
 Un \emp{paquete} es una colleccion de clases relacionadas junto a
@@ -354,7 +354,7 @@ Notar que los caracteres \ct{''} en la línea 3 son comillas simples sin nada en
 
 %What does the above code do?  We won't go into all of the details here (that's what the rest of the book is for!), but we will give you a quick preview.  Let's take it line by line.
 
-¿Qué hace el código de arriba? No nos adentraremos en los detalles aquí (para eso es el resto del libro!), pero te daremos una rápida introducción. Veámoslo línea por línea.
+?`Qué hace el código de arriba? No nos adentraremos en los detalles aquí (para eso es el resto del libro!), pero te daremos una rápida introducción. Veámoslo línea por línea.
 \fede{una mejor traducción para 'a quick preview'?}
 
 %Notice that the method is called \mthind{LOCell}{initialize}.
@@ -617,67 +617,97 @@ Las l\'ineas 4--7 definen estas constantes.
 % It's because we are sending the \ct{cellsPerSide} message before we define a method with that name that \pharo asked us to ``confirm, correct, or cancel'' when we accepted the method body for \ct{initialize}.
 % Don't be put off by this: it is actually good practice to write in terms of other methods that we haven't yet defined.
 % Why?  Well, it wasn't until we started writing the \ct{initialize} method that we realized that we needed it, and at that point, we can give it a meaningful name, and move on, without interrupting our flow.
-¿Qu\'e tan grande deber\'ia ser nuestro tablero de juego? Lo suficientemente grande como para almacenar algun n\'umero entero de celdas, y lo suficientemente grande como para dibujar un borde alrededor de ellas.
-¿Cu\'al ser\'ia el n\'umero correcto de celdas? ¿5? ¿10? ¿100? No sabemos a\'un, y si supi\'eramos, probablemente cambiar\'iamos de parecer luego. As\'i que delegamos la responsabilidad de saber ese n\'umero a otro m\'etodo, que llamaremos \ct{cellsPerSide}, y que escribiremos en un momento.
+?`Qu\'e tan grande deber\'ia ser nuestro tablero de juego? Lo suficientemente grande como para almacenar algun n\'umero entero de celdas, y lo suficientemente grande como para dibujar un borde alrededor de ellas.
+?`Cu\'al ser\'ia el n\'umero correcto de celdas? ?`5? ?`10? ?`100? No sabemos a\'un, y si supi\'eramos, probablemente cambiar\'iamos de parecer luego. As\'i que delegamos la responsabilidad de saber ese n\'umero a otro m\'etodo, que llamaremos \ct{cellsPerSide}, y que escribiremos en un momento.
 Es porque estamos enviando el mensaje \ct{cellsPerSide} antes de definirlo que \pharo nos pidi\'o ``confirmar, corregir o cancelar'' cuando aceptamos el cuerpo del m\'etodo \ct{initialize}.
 No te desanimes por esto: es en realidad una buena pr\'actica escribir en t\'erminos de m\'etodos que no hemos definido a\'un.
-¿Por que? No fu\'e hasta que empezamos a escribir el m\'etodo \ct{initialize} que nos dimos cuenta que lo necesit\'abamos, y en ese momento, podemos darle un nombre significativo, y seguir adelante, sin interrumpir el flujo.
+?`Por que? No fu\'e hasta que empezamos a escribir el m\'etodo \ct{initialize} que nos dimos cuenta que lo necesit\'abamos, y en ese momento, podemos darle un nombre significativo, y seguir adelante, sin interrumpir el flujo.
  
 %%%------------HASTA ACA LLEGUE---------------%%%
  
-The fourth line uses this method: 
-the Smalltalk \ct{self cellsPerSide} sends the message \ct{cellsPerSide} to \pvind{self}, i.e., to this very object.  
-The response, which will be the number of cells per side of the game board, is assigned to \ct{n}.
+% The fourth line uses this method: 
+% the Smalltalk \ct{self cellsPerSide} sends the message \ct{cellsPerSide} to \pvind{self}, i.e., to this very object.  
+% The response, which will be the number of cells per side of the game board, is assigned to \ct{n}.
+La cuarta l\'inea usa este m\'etodo:
+El c\'odigo Smalltalk \ct{self cellsPerSide} env\'ia el mensaje \ct{cellsPerSide} a \pvind{self}, es decir, a este mismo objeto.
+La respuesta, que ser\'a el n\'umero de celdas por lado del tablero de juego, es asignado a \ct{n}.
 
-The next three lines create a new \ct{LOCell} object, and assign its width and height to the appropriate temporary variables. 
+% The next three lines create a new \ct{LOCell} object, and assign its width and height to the appropriate temporary variables. 
+Las siguientes tres l\'ineas crean un nuevo objeto \ct{LOCell}, y asignan su ancho y alto a las variables temporales adecuadas. 
 
+%**** CODIGO COMENTADO EN LA VERSION ORIGINAL ****%
 %The eighth line sends the message \ct{bounds:} to \self.
 %\ct{bounds:} is a method that we inherit from our superclass; it is used to define the space on the screen that this Morph will occupy.  
 %The single colon (\ct{:}) at the end of the name says that \ct{bounds:} expects a single parameter, which should be a rectangle object.
-Line 8 sets the \ct{bounds} of the new object.
-Without worrying too much about the details just yet, just believe us that the expression in parentheses creates a square with its origin (\ie its top-left corner) at the point (5,5) and its bottom-right corner far enough away to allow space for the right number of cells.
+%**** FIN CODIGO COMENTADO ****%
 
-The last line sets the \ct{LOGame} object's instance variable \ct{cells} to a newly created \clsind{Matrix} with the right number of rows and columns.   We do this by sending the message \ct{new:tabulate:} to the \ct{Matrix} class (classes are objects too, so we can send them messages).  We know that \mthind{Matrix class}{new:tabulate:} takes two arguments because it has two colons (\ct{:}) in its name.   The arguments go right after the colons.
-If you are used to languages that put all of the arguments together inside parentheses, this may seem weird at first.  Don't panic, it's only syntax!
-It turns out to be a very good syntax because the name of the method can be used to explain the roles of the arguments.  For example, it is pretty clear that \ct{Matrix rows: 5 columns: 2} has 5 rows and 2 columns, and not 2 rows and 5 columns.
+% Line 8 sets the \ct{bounds} of the new object.
+% Without worrying too much about the details just yet, just believe us that the expression in parentheses creates a square with its origin (\ie its top-left corner) at the point (5,5) and its bottom-right corner far enough away to allow space for the right number of cells.
+La l\'inea 8 establece los \ct{l\'imites} del nuevo objeto.
+Sin preocuparte mucho por los detalles ahora, conf\'ia en que la expresi\'on entre par\'entesis crea un cuadrado con or\'igen (\ie esquina superior izquierda) en el punto (5,5) y su esquina inferior derecha lo suficientemente lejos como para dar espacio al n\'umero correcto de celdas.
+
+% The last line sets the \ct{LOGame} object's instance variable \ct{cells} to a newly created \clsind{Matrix} with the right number of rows and columns.   We do this by sending the message \ct{new:tabulate:} to the \ct{Matrix} class (classes are objects too, so we can send them messages).  We know that \mthind{Matrix class}{new:tabulate:} takes two arguments because it has two colons (\ct{:}) in its name.   The arguments go right after the colons.
+% If you are used to languages that put all of the arguments together inside parentheses, this may seem weird at first.  Don't panic, it's only syntax!
+% It turns out to be a very good syntax because the name of the method can be used to explain the roles of the arguments.  For example, it is pretty clear that \ct{Matrix rows: 5 columns: 2} has 5 rows and 2 columns, and not 2 rows and 5 columns.
+% \cmindex{Matrix class}{rows:columns:}
+La \'ultima l\'inea establece la variable de instancia \ct{cells} del el objeto \ct{LOGame} a una recien creada \clsind{Matrix} con el correcto n\'umero de filas y columnas. Hacemos esto enviando el mensaje \ct{new:tabulate:} a la clase \ct{Matrix} (las clases son objetos tambi\'en, por lo que les podemos enviar mensajes). Sabemos que \mthind{Matrix class}{new:tabulate} espera dos par\'ametros porque tiene dos s\'imbolos \ct{:} en su nombre. Los par\'ametros van justo despues de los s\'imbolos ':'.
+Si est\'as acostumbrado a lenguajes que ponen todos los argumentos juntos dentro de par\'entesis, esto puede parecer raro al principio. !`No entres en p\'anico, es solo sintaxis!
+Resulta que es una muy buena sintaxis porque el nombre de un m\'etodo puede ser usado para explicar los roles de los argumentos. Por ejemplo, es bastante claro que \ct{Matrix rows: 5 columns: 2} tiene 5 filas y 2 columnas, y no 2 filas y 5 columnas. 
+
 \cmindex{Matrix class}{rows:columns:}
 
-\ct{Matrix new: n tabulate: [ :i :j | self newCellAt: i at: j ]} creates a new \ct{n}{$\times$}\ct{n} matrix and initializes its elements.  The initial value of each element will depend on its coordinates.  The \ct{(i,j)}\textsuperscript{th} element will be initialized to the result of evaluating \ct{self newCellAt: i at: j}.  
+% \ct{Matrix new: n tabulate: [ :i :j | self newCellAt: i at: j ]} creates a new \ct{n}{$\times$}\ct{n} matrix and initializes its elements.  The initial value of each element will depend on its coordinates.  The \ct{(i,j)}\textsuperscript{th} element will be initialized to the result of evaluating \ct{self newCellAt: i at: j}.  
+\ct{Matrix new: n tabulate: [ :i :j | self newCellAt: i at: j ]} crea una nueva matriz de \ct{n}{$\times$}\ct{n} e inicializa sus elementos. El valor inicial de cada elemento depender\'a de sus coordenadas.  El \ct{(i,j)}-\'esimo elemento ser\'a inicializado al resultado de evaluar \ct{self newCellAt: i at: j}.
 
 %:===> Pretty-print is broken! (how to pretty-print?)
 
 % \on{I think it is silly to copy paste from the pretty-print view to the normal view}
 
+%**** CODIGO COMENTADO EN LA VERSION ORIGINAL ****%
 %That's \ct{initialize}.  When you accept this message body, you might want to take the opportunity to pretty-up the formatting.  You don't have to do this by hand: from the \actclick menu select \menu{more \ldots \go prettyprint}, and the browser will do it for you\damien{this didn't do anything to me}.  You have to \menu{accept} again after you have \subind{method}{pretty-print}{}ed a method, or of course you can \subind{keyboard shortcut}{cancel} 
 %(\short{l}\,---\,that's a lower-case letter \emph{L}) if you don't like the result.
 %Alternatively, you can set up the browser to use the pretty-printer automatically whenever it shows you code: use the the right-most button in the button bar to adjust the view.
 %\seeindex{pretty-print}{method}
 
 %If you find yourself using \menu{more\,\ldots} a lot, it's useful to know that you can hold down the {\sc shift} key when you click to directly bring up the \menu{more \ldots} menu.
+%**** FIN CODIGO COMENTADO ****%
 
 %=================================================================
-\section{Organizing methods into protocols}
+% \section{Organizing methods into protocols}
+\section{Organizando m\'etodos en protocolos}
 
-Before we define any more methods, let's take a quick look at the third pane at the top of the browser.
-In the same way that the first pane of the browser lets us categorize classes into packages so we are not overwhelmed by a very long list of class names in the second pane, so the third pane lets us categorize methods so that we are not overwhelmed by a very long list of method names in the fourth pane.   
-These categories of methods are called ``protocols''.
-\index{protocol}
+% Before we define any more methods, let's take a quick look at the third pane at the top of the browser.
+% In the same way that the first pane of the browser lets us categorize classes into packages so we are not overwhelmed by a very long list of class names in the second pane, so the third pane lets us categorize methods so that we are not overwhelmed by a very long list of method names in the fourth pane.   
+% These categories of methods are called ``protocols''.
+% \index{protocol}
+Antes de definir m\'as m\'etodos, demos una r\'apida mirada al tercer panel en la parte superior del navegador. 
+De la misma manera que el primer panel del navegador nos permite categorizar clases en paquetes para que no nos sintamos abrumados por una larga lista de nombres de clases en el segundo panel, el tercer panel nos permite categorizar m\'etodos para que no nos sintamos abrumados por una larga lista de nombres de m\'etodos en el cuarto panel.
+Estas categor\'ias de m\'etodos se llaman ``protocolos''.
+\index{protocolo}
 
-If there are only a few methods in a class, the extra level of hierarchy provided by protocols is not really necessary.
-This is why the browser also offers us the \prot{-{}-all-{}-} virtual protocol, which, you will not be surprised to learn, contains all of the methods in the class.
+% If there are only a few methods in a class, the extra level of hierarchy provided by protocols is not really necessary.
+% This is why the browser also offers us the \prot{-{}-all-{}-} virtual protocol, which, you will not be surprised to learn, contains all of the methods in the class.
+% \protindex{all}
+Si s\'olo hay unos pocos m\'etodos en la clase, el nivel extra de jerarqu\'ia provisto por los protocolos no es realmente necesario.
+Esta es la raz\'on por la que el navegador tambi\'en nos ofrece el protocolo virtual \prot{-{}-all-{}-}, que, como no te sorprender\'a, contiene todos los m\'etodos de la clase.
 \protindex{all}
 
 \begin{figure}[htbp]
    \centering
    \includegraphics[width=\textwidth]{Categorize} 
-   \caption{Automatically categorize all uncategorized methods.\figlabel{categorize}}
+   %\caption{Automatically categorize all uncategorized methods.\figlabel{categorize}}
+   \caption{Catergoriza autim\'aticamente todos los m\'etodos sin categorizar.\figlabel{categorize}}
 \end{figure}
 
-If you have followed along with this example, the third pane may well contain the protocol \protind{as yet unclassified}.
+% If you have followed along with this example, the third pane may well contain the protocol \protind{as yet unclassified}.
+Si has seguido este ejemplo, el tercer panel bien podr\'ia contener el protocolo \protind{as yet unclassified}.
 
-\dothis{\Actclick in the protocol pane and select \menu{various \go categorize automatically} to fix this, and move the \ct{initialize} methods to a new protocol called \protind{initialization}.}
-How does \pharo{} know that this is the right protocol?  Well, in general \pharo{} can't know, but in this case there is also an \ct{initialize} method in a superclass, and \pharo assumes that our \ct{initialize} method should go in the same category as the one that it overrides.
-\index{method!categorize}
+% \dothis{\Actclick in the protocol pane and select \menu{various \go categorize automatically} to fix this, and move the \ct{initialize} methods to a new protocol called \protind{initialization}.}
+% How does \pharo{} know that this is the right protocol?  Well, in general \pharo{} can't know, but in this case there is also an \ct{initialize} method in a superclass, and \pharo assumes that our \ct{initialize} method should go in the same category as the one that it overrides.
+% \index{method!categorize}
+\dothis{\Actclick en el panel de protocolo y selecciona \menu{various \go categorize automatically} para arreglar esto, y mueve los m\'etodos \ct{initialize} a un nuevo protocolo llamado \protind{initialization}.}
+?`Como sabe \pharo que este es el protocolo correcto? Bueno, en general  \pharo{} no puede saber, pero en este caso tambi\'en hay un m\'etodo \ct{initialize} en una superclase, y \pharo asume que nuestro m\'etodo \ct{initialize deber\'ia ir en la misma categor\'ia que el que est\'a sobreescribiendo. 
+% \index{method!categorize}
 
 %You may find that \pharo has already put your \ct{initialize} method into the \protind{initialization} protocol.
 %If so, it's probably because you have loaded a package called \ct{AutomaticMethodCategorizer} into your image.
