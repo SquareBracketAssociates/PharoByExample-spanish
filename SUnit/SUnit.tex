@@ -596,24 +596,36 @@ Ejecutando \ct{setUp} antes de cada prueba y \ct{tearDown} al final ayuda a refo
 Sin embargo, hay ocasiones en que inicializar el contexto necesario consume demasiado tiempo por lo que no es 
 pr\'actico de hacer antes de la ejecuci\'on de cada prueba.
 
+M\'as a\'un, si se sabe que los casos de prueba no afectan los recursos de las pruebas, entonces es un
+desperdicio inicializarlas de nuevo por cada prueba; es suficiente inicializarlas una vez por cada juego
+de pruebas.
+Supongamos, por ejemplo, que un set de pruebas necesita consultar a una base de datos, o hacer
+alg\'un tipo de an\'alisis sobre un c\'odigo compilado.
+En esos casos, tendr\'ia sentido preparar la base de datos y abrir una conex\'ion, o compilar algo
+de c\'odigo, antes de que cualquier prueba comienze a correr.
 
-Moreover, if it is known that the test cases do not disrupt the resources used by the tests, then it is wasteful to set them up afresh for each test; it is sufficient to set them up once for each suite of tests.
-Suppose, for example, that a suite of tests needs to query a database, or do some analysis on some compiled code.
-In such cases, it may make sense to set up the database and open a connection to it, or to compile some source code, before any of the tests start to run.
 
-Where should we cache these resources, so that they can be shared by a suite of tests?
-The instance variables of a particular \ct{TestCase} sub-instance won't do, because such an instance persists only for the duration of a single test.
-A global variable would work, but using too many global variables pollutes the name space, and the binding between the global and the tests that depend on it will not be explicit.
-A better solution is to put the necessary resources in a singleton object of some class.
-The class \clsindmain{TestResource} exists to be subclassed by such resource classes.
-Each subclass of \lct{TestResource} understands the message  \ct{current}, which will answer a singleton instance of that subclass.
-Methods \ct{setUp} and \ct{tearDown} should be overridden in the subclass to ensure that the resource is initialized and finalized.
+D\'onde deber\'iamos preservar estos recursos, as\'i pueden ser compartidos por un set de pruebas?
+Las variables de instancia de una subclase de \ct{TestCase} en particular no nos sirven, dado que una instancia
+existe s\'olo lo que dura una prueba.
 
-One thing remains: somehow, \sunit has to be told which resources are associated with which test suite.
-A resource is associated
-with a particular subclass of \ct{TestCase} 
-by overriding the \emph{class} method \ct{resources}.
-\ab{The set of resources attributed to each test is actually the closure of these resources under the resources message, but I think that we don't want to say that!}
+Una variable global funcionar\'ia, pero usar demasiadas variables globales ensucia el espacio de nombres,
+y el v\'inculo entre lo global y las pruebas que dependen de ello no ser\'a expl\'icito. 
+
+Una mejor soluci\'on es poner los recursos necesarios en un objeto singleton de alguna clase.
+La clase \clsindmain{TestResource} existe para que ese tipo de clases de recursos hereden de ella.
+
+Cada subclase de \lct{TestResource}  comprende el mensaje \ct{actual}, al cual responder\'a una instancia singleton de esa subclase.
+
+Los m\'etodos \ct{setUp} y \ct{tearDown} deber\'ian sobreescribirse en la subclase, para tener seguridad de que el
+recurso es inicializado y finalizado. 
+
+Una cosa m\'as nos queda pendiente: de alguna forma, \sunit tiene que ser avisado sobre cu\'ales recursos
+estan asociados a determinado juego de pruebas.
+Un recurso es asociado a una sublcase en particular de \ct{TestCase}  sobreescribiendo el m\'etodo de \emph{clase}
+\emph{resources}.
+
+\ab{El conjunto de recursos atribuidos a cada prueba es en realidad of resources attributed to each test is actually the closure of these resources under the resources message, but I think that we don't want to say that!}
 By default, the resources of 
 a \ct{TestSuite} are
 the union of the resources of
