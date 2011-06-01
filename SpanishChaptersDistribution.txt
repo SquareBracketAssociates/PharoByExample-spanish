@@ -8,6 +8,6 @@ Maximiliano Sarno	- Chapter 5: The Smalltalk object model	-> Traducción en curs
 Matias Volgyi 		- Chapter 8: Basic Classes			-> No comenzado
 Pablo Barrientos	- Chapter 9: Collections 			-> No comenzado
 Nicolas Paez      - Chapter 11: Morphic				-> Traducción completa	
-Rafael Luque      - Chapter 12: Seaside by Example		-> No comenzado 
+Rafael Luque      - Chapter 12: Seaside by Example		-> Traducción en curso: 7/36 pages.
 Jordi Delgado     - Chapter 13: Classes and Metaclasses		-> Traducción en curso
 Carlos Rodriguez  - Chapter 14: Reflection			-> Traducción en curso, tira error al generar el pdf
