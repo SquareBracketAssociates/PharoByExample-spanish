@@ -1,4 +1,4 @@
- $Author$
+% $Author$
 % $Date$
 % $Revision$
 
@@ -1072,10 +1072,8 @@ métodos de nuestra clase \ct{Demo}.
 
 
 \dothis{Evalúa \lct{Demo methodDict at: \#answer42 put:
-    ObjectsAsMethodsExample new.}
-
-Ahora intenta obtener de nuevo el resultado de \ct{Demo new
-  answer42}.  Esta vez obtenemos la respuesta \ct{42}.
+    ObjectsAsMethodsExample new.} Ahora intenta obtener de nuevo el resultado de \ct{Demo new
+  answer42}.  Esta vez obtenemos la respuesta \ct{42}.}
 
 Si echamos una mirada a la clase \clsind{ObjectsAsMethodsExample}
 vamos a encontrar los siguientes métodos:
@@ -1121,20 +1119,15 @@ la utilización de \clsmthind{MethodDictionary}{at:put:}.)
 
 
 %-------------------------------------------------------------------------
-\subsection{Cómo usar los objetos disfrazados para hacer  test coverage}
+\subsection{Usando m\'etodos wrappers para realizar pruebas de cobertura}
 
-% -------- FIXME: seguir desde aca -------------------------------
+Los m\'etodos wrappers sun una t\'ecnica bastante conocida para interceptar mensajes \cite{Bran98a}. En la implementaci\'on original\footnote{http://www.squeaksource.com/MethodWrappers.html}, un m\'etodo wrapper es una instancia de la subclase \ct{CompiledMethod}. Al instalarlo, el m\'etodo wrapper puede realizar acciones especiales antes o despu\'es de invocar al m\'etodo original. Cuando se desinstala, el m\'etodo original es devuelto a su correcta posici\'on en el diccionario de m\'etodos.
 
-Method wrappers are a well-known technique for intercepting messages \cite{Bran98a}.
-In the original implementation\footnote{http://www.squeaksource.com/MethodWrappers.html}, a method wrapper is an instance of a subclass of \ct{CompiledMethod}. When installed, a method wrapper can perform special actions before or after invoking the original method.
-When uninstalled, the original method is returned to its rightful position in the method dictionary.
+En Pharo, los \ind{m\'etodos wrappers} pueden ser implementados m\'as facilmente al implementar \ct{run:with:in:} como instancia de la la subclase \ct{CompiledMethod}. De hecho, existe una implementaci\'on ligera de objetos como m\'etodos wrappers\footnote{http://www.squeaksource.com/ObjectsAsMethodsWrap.html}, pero esto no forma parte de Pharo estandar al momento de escribir esto.
 
-In Pharo, \ind{method wrappers} can be implemented more easily by implementing \ct{run:with:in:} instead of by subclassing \ct{CompiledMethod}. In fact, there exists a lightweight implementation of objects as method wrappers\footnote{http://www.squeaksource.com/ObjectsAsMethodsWrap.html}, but it is not part of standard Pharo at the time of this writing.
+Sin embargo, el Pharo Test Runner usa precisamente esta técnica para evaluar la cobertura de los test. Hechemos un vistazo al funcionamiento de esto:
 
-Nevertheless, the Pharo Test Runner uses precisely this technique to evaluate test coverage.
-Let's have a quick look at how it works.
-
-The entry point for test coverage is the method \clsmthind{TestRunner}{runCoverage}:
+El punto de entrara para la prueba de cobertura es el m\'etodo \clsmthind{TestRunner}{runCoverage}:
 \begin{code}{}
 TestRunner>>>runCoverage
         | packages methods |
@@ -1142,7 +1135,7 @@ TestRunner>>>runCoverage
         self collectCoverageFor: methods
 \end{code}
 
-The method \clsmthind{TestRunner}{collectCoverageFor:} clearly illustrates the coverage checking algorithm:
+El m\'etodo \clsmthind{TestRunner}{collectCoverageFor:} claramente ilustra el algoritmo que chequea la cobertura:
 \begin{code}{}
 TestRunner>>>collectCoverageFor: methods
         | wrappers suite |
@@ -1158,13 +1151,10 @@ TestRunner>>>collectCoverageFor: methods
                         [ UIManager default inform: 'Congratulations. Your tests cover all code under analysis.' ]
                 ifFalse: ...
 \end{code}
-A wrapper is created for each method to be checked, and each wrapper is installed.
-The tests are run, and all wrappers are uninstalled.
-Finally the user obtains feedback concerning the methods that have not been covered.
+Un wrapper es creado por cada m\'etodo a ser chequeado y cada wrapper está instalado. Al corror la prueba, todos los wrappers son desintalados. Finalmente el usuario obtiene la informaci\'on acerca de cuales m\'etodos no han estado cubiertos.
 
-How does the wrapper itself work?
-The \ct{TestCoverage} wrapper has three instance variables, \ct{hasRun}, \ct{reference} and \ct{method}.
-They are initialized as follows:
+C\'omo hace el wrapper su trabajo? El wrapper \ct{TestCoverage} tiene tres variables de instacia \ct{hasRun}, \ct{reference} and \ct{method}.
+Se inicializan as\'i:
 \begin{code}{}
 TestCoverage class>>>on: aMethodReference
         ^ self new initializeOn: aMethodReference
@@ -1175,7 +1165,7 @@ TestCoverage>>>initializeOn: aMethodReference
         method := reference compiledMethod
 \end{code}
 
-The install and uninstall methods simply update the method dictionary in the obvious way:
+La instalaci\'on y desinstalaci\'on de los m\'etodos simplemente actualiza el diccionario de m\'etodos en la forma obvia:
 \begin{code}{}
 TestCoverage>>>install
         reference actualClass methodDictionary
@@ -1188,7 +1178,7 @@ TestCoverage>>>uninstall
                 put: method
 \end{code}
 \noindent
-and the \ct{run:with:in:} method simply updates the \ct{hasRun} variable, uninstalls the wrapper (since coverage has been verified), and resends the message to the original method
+y el m\'etodo \ct{run:with:in:} simplemente actualiza la variable \ct{hasRun} ,desinstala el wrapper (una vez que la cobertura haya sido verificada), y reenv\'ia el mensaje al m\'etodo original
 \begin{code}{}
 run: aSelector with: anArray in: aReceiver
         self mark; uninstall.
@@ -1197,28 +1187,29 @@ run: aSelector with: anArray in: aReceiver
 mark
         hasRun := true
 \end{code}
-(Have a look at \clsmthind{ProtoObject}{withArgs:executeMethod:} to see how a method displaced from its method dictionary can be invoked.)
+(Dele un vistazo a \clsmthind{ProtoObject}{withArgs:executeMethod:} para ver c\'omo  un m\'etodo desplazado de su diccionario de m\'etodos puede ser invocado.)
 
-That's all there is to it!
+Esto es todo lo que hay que hacer!
 
-Method wrappers can be used to perform any kind of suitable behaviour before or after the normal operation of a method.  Typical applications are instrumentation (collecting statistics about the calling patterns of methods), checking optional pre- and post-conditions, and memoization (optionally cacheing computed values of methods).
+Los m\'etodos wrappers puede ser usados para realizar cualquier tipo de comportamiento adecuado antes o despu\'es de la normal operaci\'on de un m\'etodo. Aplicaciones t\'ipicas son en instrumentaci\'on (recolectando estad\'isticas sobre invocaciones de los patrones de m\'etodos), chequeo de pre- y post- condiciones,
+y en memoization (opcionalmente haciendo cache de valores computados por los m\'etodos).
 
 %======================================
 \section{Pragmas}
 
-A \emphind{pragma} is an annotation that specifies data about a program, but is not involved in the execution of the program. Pragmas have no direct effect on the operation of the method they annotate.
-Pragmas have a number of uses, among them:
+Un \emphind{pragma} es una anotación que espec\'ifica informaci\'on espec\'icfica sobre un programa, pero que no est\'a envuelto en su ejecuci\'on. Los Pragmas no afectan directamente la operaci\'on del m\'etodo que anotan. Los Pragmas tienen variados usos, como ser:
+
 \begin{itemize}
-\item Information for the compiler: \indmain{pragmas} can be used by the compiler to make a method call a primitive function. This function has to be defined by the virtual machine or by an external plugging.
-\item Runtime processing: Some pragmas are available to be examined at runtime.
+\item Informaci\'on del compilador: Los \indmain{pragmas} pueden ser usados para hacer que un m\'etodo llame a una funci\'on primitiva. Esta funci\'on tiene que estar definida por la m\'aquina virtual o ser un pluggin externo.
+
+\item Procesamiento en tiempo de ejecuci\'on: Algunos pragmas est\'an disponibles para ser examinados en tiempo de ejecuci\'on.
 \end{itemize}
 
-Pragmas can be applied to a program's method declarations only. A method may declare one or more pragmas, and the pragmas have to be declared prior any Smalltalk statement. Each pragma is in effect a static message send with literal arguments.
+Los pragmas pueden ser aplicados a la declaraci\'on de m\'etodos de un programa solamente. Un m\'etodo puede declarar uno o m\'as pragmas y todos los pragmas deben estar declarados anteriormente a cualquier sentencia Smalltalk. Cada pragma es efectivamente un mensaje est\'atico enviado con argumentos literales.
 
-We briefly saw pragmas when we introduced primitives earlier in this chapter. A primitive is nothing more than a pragma declaration.
-Consider \ct{<primitive: 73>} as contained in \ct{instVarAt:}. The pragma's selector is \ct{primitive:} and its arguments is an immediate literal value, \ct{73}.
+Brevemente menciomas pragmas cuando introdujimos primitivas al comienzo de este cap\'itulo. Una primitiva no es m\'as qu una declaraci\'on de pragma. Considere \ct{<primitive: 73>} que est\'a contenida en \ct{instVarAt:}. El selector de pragma es \ct{primitive:} y su argumento es un inmediato valor literal \ct{73}.
 
-The compiler is probably the bigger user of pragmas. SUnit is another tool that makes use of annotations. SUnit is able to estimate the coverage of an application from a test unit. One may want to exclude some methods from the coverage. This is the case of the \ct!documentation! method in \ct!SplitJointTest class!:
+El compilador es probablemente el mayor usuario de pragmas. SUnit es otra herramienta que hace uso de las anotaciones. SUnit es capaz de estimar la cobertura de una aplicaci\'on desde una unidad de prueba. Uno puede querer excluir algunos m\'etodos de la cobertura. Este es el caso del m\'etodo \ct{documentation} en la clase \ct{SplitJointTest}:  
 
 \begin{code}{}
 SplitJointTest class>>>documentation
@@ -1228,7 +1219,7 @@ SplitJointTest class>>>documentation
         ^ 'This package provides function.... "
 \end{code}
 
-By simply annotating a method with the pragma \ct!<ignoreForCoverage>! one can control the scope of the coverage.
+Simplemente anotando un m\'etodo con el pragma \ct!<ignoreForCoverage>! uno puede controlar el alcance de la cobertura
 
 %Beside the compiler, Lint is a heavy user of pragmas. Lint is a static code analyzer that flags suspicious, non-portable constructs and code that is likely to contain bugs. It may happen that a method needs to be excluded from Lint analysis. This is the case here:
 
@@ -1244,7 +1235,7 @@ By simply annotating a method with the pragma \ct!<ignoreForCoverage>! one can c
 
 %One of the pragmas used by Lint to filter out methods is \ct{lint:rationale:author:}.
 
-As instances of the class \clsind{Pragma}, pragmas are first class objects. A compiled method answers to the message \mthind{CompiledMethod}{pragmas}. This method returns an array of pragmas.
+Como instancias de la clase \clsind{Pragma}, los pragmas son objetos de primera clase. Un m\'etodo compilado responde al mensaje \mthind{CompiledMethod}{pragmas}. Este m\'etodo devuelve un arreglo de pragmas.
 
 \begin{code}{@TEST}
 (SplitJoinTest class >> #showDocumentation) pragmas
@@ -1252,39 +1243,41 @@ As instances of the class \clsind{Pragma}, pragmas are first class objects. A co
 (Float>>#+) pragmas --> an Array(<primitive: 41>)
 \end{code}
 
-Methods defining a particular query may be retrieved from a class. The class side of \ct!SplitJoinTest! contains some methods annotated with \ct!<ignoreForCoverage>!:
+
+Los m\'etodos que definene una consulta particular pueden ser devueltos desde la clase. La class-side \ct!SplitJoinTest! contiene algunos m\'etodos anotados con \ct!<ignoreForCoverage>!:
 
 \begin{code}{@TEST}
 Pragma allNamed: #ignoreForCoverage in: SplitJoinTest class  --> an Array(<ignoreForCoverage> <ignoreForCoverage> <ignoreForCoverage>)
 \end{code}
 
-A variant of \ct{allNamed:in:} may be found on the class side of \ct{Pragma}.
+Una variante de \ct{allNamed:in:} puede ser encontrada en la class-side de \ct{Pragma}.
 
-A pragma knows in which method it is defined (using \ct{method}), the name of the method (\ct{selector}), the class that contains the method (\ct{methodClass}), its number of arguments (\ct{numArgs}), about the literals the pragma has for arguments (\ct{hasLiteral:} and \ct{hasLiteralSuchThat:}).
+Un pragma conoce en cual m\'etodo esta definido (usando \ct{method}), el nombre del m\'etodo (\ct{selector}) la clase que contiene el m\'etodo (\ct{methodClass}), su n\'umero de argumentos (\ct{numArgs}), acerca de los literales que el pragma tiene por argumentos (\ct{hasLiteral:} y \ct{hasLiteralSuchThat:}).
 
-\lr{Typically pragmas are performed on an interpreter object that understands the pragma message.}
+\lr{Tipicamente los pragmas son realizados sobre un objeto it\'erprete que entienda el mensaje del pragma.}
 
 %======================================
-\section{Chapter summary}
+\section{Resumen del cap\'itulo}
 
-Reflection refers to the ability to query, examine and even modify the metaobjects of the run-time system as ordinary objects.
+Reflexi\'on se refiere a la habilidad de consultar, examinar e incluso modificar metaobjetos tanto del sistema en ejecuci\'on como objetos ordinarios.
 
 \begin{itemize}
-\item The Inspector uses \ct{instVarAt:} and related methods to query and modify ``private'' instance variables of objects.
-\item Send \ct{Behavior>>>allInstances} to query instances of a class.
-\item The messages \ct{class}, \ct{isKindOf:}, \ct{respondsTo:} \etc  are useful for gathering metrics or building development tools, but they should be avoided in regular applications: they violate the encapsulation of objects and make your code harder to understand and maintain.
-\item \ct{SystemNavigation} is a utility class holding many useful queries for navigation and browsing the \ct class hierarchy. For example, use \ct{SystemNavigation default browseMethodsWithSourceString: 'pharo'.} to find and browse all methods with a given source string. (Slow, but thorough!)
-\item Every \st class points to an instance of \ct{MethodDictionary} which maps selectors to instances of \ct{CompiledMethod}. A compiled method knows its class, closing the loop.
-\item \ct{MethodReference} is a leightweight proxy for a compiled method, providing additional convenience methods, and used by many \st tools.
-\item \ct{BrowserEnvironment}, part of the Refactoring Browser infrastructure, offers a more refined interface than \ct{SystemNavigation} for querying the system, since the result of a query can be used as a the scope of a new query. Both GUI and programmatic interfaces are available.
-\item \ct{thisContext} is a pseudo-variable that reifies the run-time stack of the virtual machine. It is mainly used by the debugger to dynamically construct an interactive view of the stack. It is also especially useful for dynamically determining the sender of a message.
-\item Intelligent breakpoints can be set using \ct{haltIf:}, taking a method selector as its argument. \ct{haltIf:} halts only if the named method occurs as a sender in the run-time stack.
-\item A common way to intercept messages sent to a given target is to use a ``minimal object'' as a proxy for that target. The proxy implements as few methods as possible, and traps all message sends by implementing \ct{doesNotunderstand:}. It can then perform some additional action and then forward the message to the original target.
-\item Send \ct{become:} to swap the references of two objects, such as a proxy and its target.
-\item Beware, some messages, like \ct{class} and \ct{yourself} are never really sent, but are interpreted by the VM.  Others, like \ct{+}, \ct{-} and \ct{ifTrue:} may be directly interpreted or inlined by the VM depending on the receiver.
-\item Another typical use for overriding \ct{doesNotUnderstand:} is to lazily load or compile missing methods.
-\item \ct{doesNotUnderstand:} cannot trap \self-sends.
-\item A more rigorous way to intercept messages is to use an object as a method wrapper. Such an object is installed in a method dictionary in place of a compiled method. It should implement \ct{run:with:in:} which is sent by the VM when it detects an ordinary object instead of a compiled method in the method dictionary. This technique is used by the SUnit Test Runner to collect coverage data.
+\item El Inspector usa \ct{instVarAt:} y m\'etodos realacionados par aconsultar y modificar variables de instancia ``privadas'' de los objetos.
+\item Envie \ct{Behavior>>>allInstances} para consultar instancias de una clase.
+\item Los mensajes \ct{class}, \ct{isKindOf:}, \ct{respondsTo:} \etc  son \'utiles para obtener m\'etricas o construir herramientas de desarrollo, pero deben ser evitados en aplicaciones regulares: Voilan el encapsulamiento de los objetos y hacen su c\'odigo dif\'icil de entender y mantener
+\item \ct{SystemNavigation} es una clase \'util para explotar muchas \'utiles consultas sobre la navegaci\'on e inspecci\'on de la jerarqu\'ia de \ct class. Por ejemplo, use \ct{SystemNavigation default browseMethodsWithSourceString: 'pharo'.} para encontrar y ver todos los m\'etodos con una determinada cadena de caracteres. (Es lento, pero completo!)
+\item Cada clase de \st apunta a una instancia del \ct{MethodDictionary} el cual mapea selectores a instancias de \ct{CompiledMethod}. Un m\'etodo compilado conoce si propia clase, cerrando el c\'irculo.
+\item \ct{MethodReference} es un proxy ligero para un m\'etodo compilado, proveyendo conveniententemen m\'etodos adicionales y es usado por muchas herramientas de \st .
+\item \ct{BrowserEnvironment}, es parte de la infraestructura del Refactoring Browser, ofrece una interfaz m\'as refinada que \ct{SystemNavigation} para consultas el sistema, desde el resultado de una consulta, puede ser usado como el alcance de una nueva consulta. Tanto la GUI y las intefaces programables est\'an disponibles.
+\item \ct{thisContext} es una pseudo-variable que reifica la pila de ejecuci\'on dela \'aquina virtual. Es mayormente usada por el depurador para construir din\'amicamente una vista interactiva de la pila. Es tambi\'en \'util para determinar din\'amicamente el remitente de un mensaje.
+\item Puntos de ruptura inteligentes puede ser ajustados usando \ct{haltIf:}, tomando un selector de m\'etodo como su argumento. \ct{haltIf:} se detiene solo si el m\'etodo se\~nalado es un remitente en la pila de ejecuci\'on.
+\item Una manera com\'un de interceptar mensajes enviado a un determinado destino es insando un ``objeto m\'inimo'' como proxy del destino. El proxy implementa tan pocos m\'etodos como le es posible y atrapa todos los mensajes enviados por la implementaci\'on de \ct{doesNotunderstand:}. Tambi\'en puede ser usado para realizar algunas acciones adiciones y reci\'en entonces enviar el mensajes al destino original.
+\item Enviar \ct{become:} para intercambiar las referencias de dos objetos , tal como un proxy y su destino.
+\item Cuidado, algunos mensajes, como  \ct{class} y \ct{yourself} nunca son realmenten enviados, pero son interceptados por la m\'aquina virtual. Otros, como \ct{+}, \ct{ifTrue:} y \ct{-} pueden ser directamente interceptados o introducidos por la m\'aquina virtual dependiendo del receptor.
+\item Otro uso t\'ipico para la sobreescritura de \ct{doesNotUnderstand:} es la carga  lenta o la compilaci\'on de m\'etodos perdidos.
+\item \ct{doesNotUnderstand:} no puede atrapar \self-sends.
+\item Una forma m\'as rigurosa de interceptar mensajes es usar un objeto como un m\'etodo wrapper. 
+A more rigorous way to intercept messages is to use an object as a method wrapper. Este ipo de objeto es instalado en el diccionario de m\'etodos en lugar de un m\'etodo compiado.  Deber\'ia implementar \ct{run:with:in:}, el cual es enviado por la m\'aquina virtual cuando detecta un objeto ordinario en lugar de un m\'etodo compilado en el diccionario de m\'etodos. Esta t\'ecnica es usad por SUnit Test Runner para recoger informaci\'ion sobre la cobertura.
 \end{itemize}
 
 %=========================================================

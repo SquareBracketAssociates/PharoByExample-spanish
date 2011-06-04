@@ -36,6 +36,7 @@
 	% \renewcommand{\nnbb}[2]{} % Disable editorial comments
 	\sloppy
 \fi
+
 %=================================================================
 \chapter{Colecciones}
 \chalabel{collections}
@@ -551,8 +552,11 @@ Como explicamos m\'as abajo, los elementos de un conjunto son accedidos usando i
 
 %---------------------------------------------------------
 \subsection{SortedCollection}
-En contraste a una \ct{OrderedCollection}, una \clsindmain{SortedCollection} mantiene sus elementos en un orden particular. Por defecto, una sorted collection usa el mensaje \mthind{Magnitude}{<=} para establecer el orden de los elementos, por lo cual puede ordenar instancias de subclases de la clase abstracta \clsind{Magnitude}, que define el protocolo de objetos comparables (\mthind{Magnitude}{<}, \mthind{Magnitude}{=}, \mthind{Magnitude}{>}, \mthind{Magnitude}{>=}, \mthind{Magnitude}{between:and:}...).
+En contraste a una \ct{OrderedCollection}, una \clsindmain{SortedCollection} mantiene sus elementos en un orden particular. 
+
+Por defecto, una sorted collection usa el mensaje \mthind{Magnitude}{<=} para establecer el orden de los elementos, por lo cual puede ordenar instancias de subclases de la clase abstracta \clsind{Magnitude}, que define el protocolo de objetos comparables (\mthind{Magnitude}{<}, \mthind{Magnitude}{=}, \mthind{Magnitude}{>}, \mthind{Magnitude}{>=}, \mthind{Magnitude}{between:and:}...).
 (Vea \charef{basic}.)
+
 
 Puede crear una \ct{SortedCollection} creando una nueva instancia y agregando elementos a ella:
 \begin{code}{@TEST}

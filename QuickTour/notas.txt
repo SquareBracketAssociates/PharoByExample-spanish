@@ -1,3 +1,7 @@
 L072: ¿Hay que traducir VM?
 L081: ¿Cómo se llama la página de la que hay que descargar Pharo?
 L087: ¿Hay que traducir esta linea?
+L111: ¿Hay que traducir workspace?
+L125: ¿Hay que traducir world menu?
+L138-L148: sin traducir
+L163-L178: sin traducir

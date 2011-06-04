@@ -12,7 +12,7 @@
 % 2009-04-17 - Fabrizio Perin reviewed
 % 2009-04-18 - Jorge Ressia reviewed
 % 2009-05-06 - Oscar converted to Pharo; fixed review comments
-
+% 2011-05-29 - Rafael Luque translated to spanish
 %=================================================================
 \ifx\wholebook\relax\else
 % --------------------------------------------
@@ -39,112 +39,111 @@
 	\sloppy
 \fi
 %=================================================================
-\chapter{Seaside by Example}
+\chapter{Seaside con Ejemplos}
 \chalabel{seaside}
+
+\luq{Otras opción posible para el título podría ser: Seaside en Ejemplos}
 
 %=================================================================
 
-\ind{Seaside} is a framework for building web applications in Smalltalk.  It was originally developed by Avi Bryant \index{Bryant, Avi} in 2002; once mastered, Seaside makes web applications almost as easy to write as desktop applications.
+\ind{Seaside} es un marco de trabajo para crear aplicaciones web en Smalltalk. Fue desarrollado originalmente por Avi Bryant \index{Bryant, Avi} en 2002; una vez dominado, Seaside hace las aplicaciones web tan fáciles de escribir como las aplicaciones de escritorio.
 
-Two of the better known applications built with Seaside are \ind{SqueakSource}\footnote{\url{http://SqueakSource.com}} and \ind{Dabble DB}\footnote{\url{http://DabbleDB.com}}.
-Seaside is unusual in that it is thoroughly object-oriented: there are no XHTML templates, no complicated control flows through web pages, and no encoding of state in URLs. Instead, you just send messages to objects.  What a nice idea!
+Dos de las aplicaciones creadas con Seaside más conocidas son \ind{SqueakSource}\footnote{\url{http://SqueakSource.com}} y \ind{Dabble DB}\footnote{\url{http://DabbleDB.com}}.
+Seaside es poco común ya que está rigurosamente orientado a objetos: no hay plantillas XHTML, ni complicados controles de flujo a través de páginas web, ni codificación del estado en las URLs. En su lugar, sólo envías mensajes a los objetos. ¡Qué buena idea!
 
-\section{Why do we need Seaside?}
+\section{¿Por qué necesitamos Seaside?}
 
-Modern web applications try to interact with the user in the same way as desktop applications: they ask the user questions and the user responds, usually by filling in a form or clicking a button.
-But the web works the other way around: the user's browser makes a request of the server, and the server responds with a new web page.
-So \ind{web application development} frameworks have to cope with a host of problems, chief among them being the management of this ``inverted'' control flow. 
-Because of this, many web applications try to forbid the use of the browser's ``back'' button due to the difficulty of keeping track of the state of a session. 
-Expressing non-trivial control flows across multiple web pages is often cumbersome, and multiple control flows can be difficult or impossible to express.
+Las aplicaciones web modernas tratan de interactuar con el usuario de la misma manera que las aplicaciones de escritorio: realizan al usuario preguntas y el usuario responde, normalmente rellenando un formulario o pulsando un botón. Pero la web funciona en sentido inverso: el navegador del usuario realiza una petición al servidor y el servidor responde con una nueva página web.
+
+Por lo tanto los marcos de \ind{desarrollo de aplicaciones web} tienen que tratar con un montón de problemas, siendo el principal entre ellos la gestión de este control de flujo ``invertido''.
+Por esto, muchas aplicaciones intentan prohibir el uso del botón ``volver atrás'' del navegador, debido a la dificultad de mantener el seguimiento del estado de una sesión.
+Expresar un control de flujo no trivial a través de varias páginas normalmente es engorroso y varios flujos de control pueden ser difíciles o imposibles de expresar.
 
 % Seaside is a component-based framework that uses ``\ind{continuations}''\footnote{A \emph{continuation} represents ``the rest of the computation'' at any point in a computation. In Smalltalk, a continuation is just an object that captures the current state of the computation, and which can be resumed at any point.} to keep track of multiple points in the control flow of web applications. Continuations are managed automatically by Seaside, so web developers do not even have to be aware of the underlying machinery. It just works.
 
-\index{Seaside!backtracking state}
-\index{Seaside!transactions}
-\index{Seaside!components}
-Seaside is a component-based framework that makes web development easier in several ways.
-First,  control flow can be expressed naturally using message sends.
-Seaside keeps track of which web page corresponds to which point in the execution of the web application.
-This means that the browser's ``back'' button works correctly.
+\index{Seaside!backtracking de estado}\luq{Traducimos backtracking como vuelta a atrás?}
+\index{Seaside!transacciones}
+\index{Seaside!componentes}
 
-Second, state is managed for you.
-As the developer, you have the choice of enabling 
-backtracking of state, so that navigation ``back'' in time will undo side-effects.
-Alternatively, you can use the transaction support built into Seaside to prevent users from undoing permanent side-effects when they use the back button.
-You do not have to encode state information in the URL\,---\,this too is managed automatically for you.
+Seaside es un marco de trabajo basado en componentes que hace el desarrollo web más fácil en varias formas.
+Primero, el control de flujo puede expresarse de forma natural usando el envío de mensajes. Seaside realiza el seguimiento de la página web que corresponde con cada punto de ejecución de la aplicación web.
+Esto significa que el botón ``volver atrás'' del navegador funciona correctamente.  
 
-Third, web pages are built up from nested components, each of which can support its own, independent control flow.
-There are no XHTML templates\,---\,instead valid XHTML is generated programmatically using a simple Smalltalk protocol.
-Seaside supports Cascading Style Sheets (\ind{CSS}), so content and layout are cleanly separated.
-\seeindex{Cascading Style Sheets}{CSS}
+Segundo, gestiona el estado en tu lugar.
+Como el desarrollador, puedes escoger habilitar el seguimiento del estado, para que la navegación ``hacia atrás'' en el tiempo desahaga los efectos laterales.
+Si no, puedes usar el soporte de transacciones incluído en Seaside para evitar que los usuarios deshagan los efectos laterales permanentes cuando usen el botón volver atrás.
+No tienes que codificar la información de estado en la URL\,---\,esto también es gestionado automáticamente por ti
 
-Finally, Seaside provides a convenient web-based development interface, making it easy to develop applications iteratively, debug applications interactively, and recompile and extend applications while the server is running.
+Tercero, las páginas web son construídas a partir de componentes anidados, cada uno de los cuales soporta su propio control de flujo independiente.
+No hay plantillas XHTML\,---\,en cambio, se genera XHTML válido programadamente, usando un sencillo protocolo Smalltalk.
+Seaside soporta Hojas de Estilo en Cascada (\ind{CSS}), de forma que el contenido y disposición estén claramente separados.
+\seeindex{Hojas de Estilo en Cascada}{CSS}
+
+Finalmente, Seaside proporciona una práctica interfaz de desarrollo basada en web, lo que hace fácil desarrollar aplicaciones iterativamente, depurar aplicaciones interactivamente  y recompilar y extender aplicaciones miembras el servidor está ejecutándose.
 
 %=================================================================
-\section{Getting started}
+\section{Para empezar}
 
-The easiest way to get started is to download the ``Seaside \subind{Seaside}{One-Click Experience}'' from the Seaside \subind{Seaside}{web site}\footnote{\url{http://seaside.st}}.
-This is a prepackaged version of Seaside 2.8 for \ind{Mac OSX}, \ind{Linux} and \ind{Windows}.
-The same web site lists many pointers to additional resources, including documentation and tutorials.
-Be warned, however, that Seaside has evolved considerably over the years, and not all available material refers to the latest version of Seaside.
+La forma más sencilla de comenzar es descargar ``Seaside \subind{Seaside}{Experiencia en Un Click}'' desde el \subind{Seaside}{sitio web} de Seaside\footnote{\url{http://seaside.st}}.
+Esta es una versión preempaquetada de Seaside 2.8 para \ind{Mac OSX}, \ind{Linux} y \ind{Windows}.
+El mismo sitio web lista muchas referencias a recursos adicionales, incluyendo documentación y tutoriales.
+Ten advertimos, sin embargo, de que Seaside ha evolucionado considerablemente con los años y no todo el material disponible se refiere a la última versión de Seaside.
+
 
 % If you are feeling more adventurous, an alternative to the ``one-click'' image is to start with the latest \ind{\pharo web image}\footnote{\url{http://pharo-project.org/download}}, and install Seaside yourself by following the manual \subind{Seaside}{installation} instructions on the Seaside web site.
 
-Seaside includes a web server; you can turn the server on, telling it to listen on port 8080, by evaluating \clsind{WAKom} \ct{startOn: 8080},
-and you can turn it off again by evaluating \ct{WAKom stop}.
-In the default installation, the default \subind{Seaside}{administrator login} is \lct{admin} and the default password is \lct{seaside}.
-To change them, evaluate: \clsind{WADispatcherEditor} \ct{initialize}.
-This will prompt you for a new name and password.
-
+Seaside incluye un servidor web; puedes iniciar el servidor, diciéndole que escuche en el puerto 8080, evaluando \clsind{WAKom} \ct{startOn: 8080},
+y puedes detenerlo otra vez evaluando \ct{WAKom stop}.
+En la instalación por defecto, el \subind{Seaside}{login de administrador} por defecto es \lct{admin} y la contraseña por defecto es \lct{seaside}.
+Para cambiarlos, evalúa: \clsind{WADispatcherEditor} \ct{initialize}.
+Esto te solicitará un nuevo nombre y contraseña.
 
 \begin{figure}[tbh]
 \begin{center}
 \includegraphics[width=\textwidth]{seasideStartup}
-\caption{Starting up Seaside
-}
+\caption{Iniciando Seaside}
 \figlabel{seasideStartup}
 \end{center}
 \end{figure}
 
-\dothis{Start the Seaside server and direct a web browser to \url{http://localhost:8080/seaside/}.}
+\dothis{Inicia el servidor Seaside y dirige un navegador web a \url{http://localhost:8080/seaside/}.}
 
 \noindent
-You should see a web page that looks like \figref{seasideStartup}.
+Deberías ver una página web como la de \figref{seasideStartup}.
 
 \noindent
-\dothis{Navigate to the \lct{examples{\go}counter} page. (\figref{counter})}
-
+\dothis{Navega a la página \lct{examples{\go}counter} page. (\figref{counter})}
 
 \begin{figure}[htb]
 \begin{center}
 \includegraphics[width=0.8\textwidth]{counter}
-\caption{The counter.}
+\caption{El contador.}
 \figlabel{counter}
 \end{center}
 \end{figure}
 
 \noindent
-This page is a small Seaside application: it displays a \subind{Seaside}{counter} that can be incremented or decremented by clicking on the \link{++} and \link{--\,--} links.
+Esta página es una pequeña aplicación Seaside: muestra un \subind{Seaside}{contador} que puede ser incrementado o decrementado haciendo click en los enlaces \link{++} y \link{--\,--}.
 
 \noindent
-\dothis{Play with the counter by clicking on these links.
-Use your browser's ``back'' button to go back to a previous state, and then click on \link{++} again.
-Notice how the counter is correctly incremented with respect to the currently displayed state, rather than the state that the counter was in when you started using the ``back'' button.}
+\dothis{Juega con el contador haciendo click en estos enlaces.
+Usa el botón ``atrás'' de tu navegador para volver a un estado previo y entonces haz cllick en \link{++} otra vez.
+Fíjate cómo el contador se incrementa correctamente con respecto al estado mostrado en ese momento, en lugar del estado en que estaba cuando usaste el botón ``volver''.} 
 
-Notice the \subind{Seaside}{toolbar} at the bottom of the web page in \figref{seasideStartup}.
-Seaside supports a notion of ``sessions'' to keep track of the state of the application for different users.
-\button{New Session} will start a new session on the counter application.
-\button{Configure} allows you to configure the settings of your application through a convenient web-interface.
-(To close the \button{Configure} view, click on the \link{x} in the top right corner.)
-\button{Toggle Halos} provides a way to explore the state of the application running on the Seaside server.
-\button{Profiler} and \button{Memory} provide detailed information about the run-time performance of the application.
-\button{XHTML} can be used to validate the generated web page, but works only  when the web page is publicly accessible from the Internet, because it uses the W3C validation service.
+Fíjate en la \subind{Seaside}{barra de herramientas} al final de la página web en \figref{seasideStartup}.
+Seaside soporta una noción de ``sesiones'' para realizar el seguimiento del estado de la aplicación para diferentes usuarios.
+\button{New Session} comenzará una nueva sesión en la aplicación contador.
+\button{Configure} permite configurar los ajustes de tu aplicación a través de una cómoda interfaz web.
+(Para cerrar la vista \button{Configure}, pulsa en la \link{x} en la esquina superior derecha.)
+\button{Toggle Halos} proporciona una forma de explorar el estado de la aplicación ejecutándose en el servidor Seaside.
+\button{Profiler} y \button{Memory} proporcionan información detallada sobre el rendimiento de la aplicación en tiempo de ejecución.
+\button{XHTML} puede usarse para validar la página web generada, pero sólo funciona cuando la página web es públicamente accesible en Internet porque usa el servicio de validación del W3C.
 \index{Seaside!halos}
 
-Seaside applications are built up from pluggable ``components''.
-In fact, components are ordinary Smalltalk objects.
-The only thing that is special about them is that they should be instances of classes that inherit from the Seaside framework class \ct{WAComponent}.
-We can explore components and their classes from the \pharo image, or directly from the web interface using halos.
+Las aplicaciones Seaside se construyen a partir de ``componentes'' conectables.
+De hecho, los componentes son objetos normales de Smalltalk.
+Lo único que tienen de especial es que deben ser instancias de clases que heredan de la clase \ct{WAComponent} del marco de trabajo Seaside.
+Podemos explorar los componentes y sus clases desde la imagen \pharo o directamente desde la interfaz web usando los halos.
 
 \begin{figure}[ht]
 \begin{center}
@@ -154,94 +153,93 @@ We can explore components and their classes from the \pharo image, or directly f
 \end{center}
 \end{figure}
 
-\dothis{Select \button{Toggle Halos}. You should see a web page like \figref{counterHalos}.
-At the top left the text \ct{WACounter} tells us the class of the Seaside component that implements the behavior of this web page. 
-Next to this are three clickable icons. 
-The first, with the pencil, activates a Seaside class browser on this class.
-The second, with the magnifying glass, opens an object inspector on the currently active \ct{WACounter} instance. 
-The third, with the coloured circles, displays the \ind{CSS} style sheet for this component. 
-At the top right, the \link{R} and \link{S} let you toggle between the rendered and source views of the web page. 
-Experiment with all of these links. 
-Note that the \link{++} and \link{--} links are also active in the source view.
-Contrast the nicely-formatted source view provided by the Halos with the unformatted source view offered by your browser.}
+\dothis{Seleccion \button{Toggle Halos}. Deberías ver una página web como \figref{counterHalos}.
+En la esquina superior izquierda el texto \ct{WACounter} indica la clase del componente Seaside que implementa el comportamiento de esta página web.
+Junto a este hay tres iconos que puedes pulsar.
+El primero, con el lápiz, activa el navegador de clases de Seaside sobre esta clase.
+El segundo, con la lupa, abre un inspector de objetos sobre la instancia \ct{WACounter} actualmente activa.
+El tercero, con los circulos de color, muestra la hoja de estilo \ind{CSS} para este componente.
+En la esquena superior derecha, la \link{R} y \link{S} te permiten conmutar entre las vistas renderizadas y fuente de la página web.
+Experimenta con todos estos enlaces.
+Ten en cuenta que los vínculos \link{++} y \link{--} también están activos en la vista fuente.
+Compara la vista fuente correctamente formateada que proporciona los Halos con la vista fuente sin formato ofrecido por tu navegador.}
 
-The Seaside class browser and object inspector can be very convenient when the server is running on another computer, especially when the server does not have a display, or if it is in remote place. 
-However, when you are first developing a Seaside application, the server will be running locally, and it is easy to use the ordinary \pharo development tools in the server image.
+El navegador de clases y el inspector de objetos de Seaside pueden ser muy útiles cuando el servidor está ejecutándose en otro ordenador, especialmente cuando el servidor no tiene pantalla o está en un lugar remoto.
+Sin embargo, cuando desarrollas una aplicación Seaside por vez primera, el servidor estará ejecutándose localmente y es fácil usar las herramientas de desarrollo normales de \pharo en la imagen del servidor.
 
 \begin{figure}[ht]
 \begin{center}
 \includegraphics[width=0.7\textwidth]{haltingCounter}
-\caption{Halting the counter}
+\caption{Deteniendo el contador}
 \figlabel{haltingCounter}
 \end{center}
 \end{figure}
 
-\dothis{Using the object inspector link in the web browser, open an inspector on the underlying Smalltalk counter object and evaluate \ct{self halt}.
-The web page will stop loading.
-Now switch to the Seaside image.
-You should see a pre-debugger window (\figref{haltingCounter}) showing a \ct{WACounter} object executing a \ct{halt}.
-Examine this execution in the debugger, and then \button{Proceed}.
-Go back to the web browser and notice that the counter application is running again.}
+\dothis{Usando el enlace del inspector de objetos en el navegador web, abrir un inspector sobre el objeto contador de Smalltalk subyacente y evaluar \ct{self halt}.
+La página web detendrá la carga.
+Ahora cambia a la imagen de Seaside.
+Deberías ver una ventana de pre-depurador (\figref{haltingCounter}) mostrando un objeto \ct{WACounter} ejecutando un \ct{halt}.
+Examina la ejecución en el depurador y entonces \button{Proceed}.
+Vuelve al navegador web y fíjate en que la aplicación contador está ejecutándose otra vez.}
 
-Seaside components can be instantiated multiple times and in different contexts.
+Los componentes de Seaside pueden instanciarse varias veces y en diferentes contextos.
 
 \begin{figure}[ht]
 \begin{center}
 \includegraphics[width=\textwidth]{multiCounterHalos}
-\caption{Independent subcomponents}
+\caption{Subcomponentes independientes}
 \figlabel{multiCounterHalos}
 \end{center}
 \end{figure}
 
-\dothis{Point your web browser to \url{http://localhost:8080/seaside/examples/multicounter}.
-You will see an application built out of a number of independent instances of the counter component.
-Increment and decrement several of the counters.
-Verify that they behave correctly even if you use the ``back'' button.
-Toggle the halos to see how the application is built out of nested components.
-Use the Seaside class browser to view the implementation of \ct{WAMultiCounter}.
-You should see three methods on the class side (\ct{canBeRoot}, \ct{description}, and \ct{initialize}) and three on the instance side (\ct{children}, \ct{initialize}, and \ct{renderContentOn:}).
-Note that an application is simply a component that is willing to be at the root of the component containment hierarchy; this willingness is indicated by defining a class-side method \ct{canBeRoot}
-to answer \ct{true}.}
-\index{Seaside!multi-counter}
+\dothis{Dirige tu navegador web a \url{http://localhost:8080/seaside/examples/multicounter}.
+Verás una aplicación formada por un número de instancias independientes del componente contador.
+Incrementa y decrementa varios de los contadores.
+Verifica que se comportan correctamente incluso si usas el botón ``atrás''.
+Activa los halos para ver cómo la aplicación está formada por componentes anidados.
+Usa el navegador de clases de Seaside para ver la implementación de  \ct{WAMultiCounter}.
+Deberías ver tres métodos en el lado de clase (\ct{canBeRoot}, \ct{description} y \ct{initialize}) y tres en el lado de instancia (\ct{children}, \ct{initialize} y \ct{renderContentOn:}).
+Observa que una aplicación es simplemente un componente dispuesto a estar en la raíz de la jerarquía de componentes; esta predisposición se indica definiendo un método de clase \ct{canBeRoot} para responder \ct{true}.}
+\index{Seaside!multi contador}
 
-You can use the Seaside web interface to configure, copy or remove individual applications (\ie root-level components).  Try making the following configuration change.
+Puedes usar la interfaz web de Seaside para configurar, copiar o eliminar aplicaciones individuales (es decir, componentes del nivel raíz). Inteta realizar el siguiente cambio de configuración.
 
-\dothis{Point your web browser to \url{http://localhost:8080/seaside/config}.
-Supply the login and password (\ct{admin} and \ct{seaside} by default).
-Select \link{Configure} next to ``examples.''
-Under the heading ``Add entry point'', enter the new name ``counter2'' for the type \emph{Application} and click on \button{Add} (see \figref{counter2}).
-On the next screen, set the \emph{Root Component} to \clsind{WACounter}, then click \button{Save} and \button{Close}.
-Now we have a new counter installed at \url{http://localhost:8080/seaside/examples/counter2}.
-Use the same configuration interface to remove this entry point.
+\dothis{Dirige tu navegador web a  \url{http://localhost:8080/seaside/config}.
+Introduce el login y contraseña (\ct{admin} y \ct{seaside} por defecto).
+Selecciona \link{Configure} junto a ``examples.''
+Bajo la cabecera ``Add entry point'', introduce el nuevo nombre ``counter2'' para el tipo \emph{Application} y pulsa sobre \button{Add} (ver \figref{counter2}).
+En la siguiente pantalla, cambia \emph{Root Component} a \clsind{WACounter}, entonces haz click en \button{Save} y \button{Close}.
+Ahora tenemos un nuevo contador instalada en  \url{http://localhost:8080/seaside/examples/counter2}.
+Usa la misma interfaz de configuración para eliminar este punto de entrada.
 }
-\index{Seaside!configuration}
+\index{Seaside!configuración}
 
 
 \begin{figure}[ht]
 \begin{center}
 \includegraphics[width=\textwidth]{counter2}
-\caption{Configuring a new application}
+\caption{Configurando una nueva aplicación}
 \figlabel{counter2}
 \end{center}
 \end{figure}
 
-Seaside operates in two modes: \emph{development} mode, which is what we have seen so far, and \emph{deployment} mode, in which the toolbar is not available.
-\index{Seaside!deployment mode}
-\index{Seaside!development mode}
-You can put Seaside into deployment mode using either the configuration page (navigate to the entry for the application and click on the \link{Configure} link)
+Seaside opera en dos modos: el modo \emph{desarrollo}, que es el que hemos visto hasta ahora, y el modo \emph{despliegue}, enn el que la barra de herramientas no está disponible.
+\index{Seaside!modo desarrollo}
+\index{Seaside!modo despliegue}
+Puedes poner Seaside en el modo despliegue usando la página de configuración (navega a la entrada para la aplicación y haz click en el enlace \link{Configure})
 % \ab{How?  I couldn't find this}
-or click the \button{Configure} button in the toolbar.
-In either case, set the deployment mode to \emph{true}.
-Note that this affects new sessions only.
-You can also set the mode globally by evaluating
+o haciendo click en el botón \button{Configure} en la barra de herramientas.
+En cualquier caso, se pone el modo despliegue a \emph{true}.
+Observa que esto sólo afecta a las nuevas sesiones.
+También puedes poner el modo globalmente evaluando
 \clsind{WAGlobalConfiguration} \lct{setDeploymentMode}
-or
+o
 \ct{WAGlobalConfiguration setDevelopmentMode}.
-\index{Seaside!deployment mode}
-\index{Seaside!development mode}
+\index{Seaside!modo desarrollo}
+\index{Seaside!modo despliegue}
 
-The configuration web page is just another Seaside application, so it too can be controlled from the configuration page.
-If you remove the ``config'' application, you can get it back by evaluating
+La página web de configuración sólo es otra aplicación Seaside por lo que también puede ser controlada desde la página de configuración.
+Si eliminar la aplicación ``config'', puedes recuperarla evaluando
 \clsind{WADispatcherEditor} \ct{initialize}.
 
 %=================================================================
