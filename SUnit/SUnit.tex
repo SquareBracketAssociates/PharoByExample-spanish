@@ -146,51 +146,56 @@ Tan pronto como descubras un bug, escribe una prueba que lo exponga, ejecuta la 
 Ahora puedes comenzar a arreglar el bug: la prueba te dirá cuándo has terminado.
 %=================================================================
 \section{What makes a good test?}
+\section{Qué hace a una buena prueba}
 
-Writing good tests is a skill that can be learned most easily by
-practicing.  Let us look at the properties that tests should have to
-get a maximum benefit.
+Escribir buenas pruebas es una habilidad que puede ser aprendida más facilmente con práctica.
+Veamos las propiedades que las pruebas deberían tener para obtener el máximo beneficio: 
+
 
 \begin{enumerate}
-\item Tests should be repeatable.  You should be able to run a test
-  as often as you want, and always get the same answer.
 
-\item Tests should run without human intervention.  You should even be
-  able to run them during the night.
+%%%%%%% Tests should be repeatable (?)
+\item Las pruebas deben poder repetirse. Debes ser capaz de correr una prueba
+	las  veces que lo desees, y siempre obetener la misma respuesta.
 
-\item Tests should tell a story.  Each test should cover one aspect of a 
-  piece of code.  A test should act as a scenario that you or someone else can
-  read to understand a piece of functionality. \label{prop:oneAspect}
+\item Las pruebas deben correr sin la intervención humana. Debes ser capaz
+	incluso de correrlas durante la noche.
 
-\item Tests should have a change frequency lower than that of the
-  functionality they cover:  you do not want to have to change all your
-  tests every time you modify your application.  One way to achieve
-  this is to write tests based on the public interfaces of the
-  class that you are testing.  
-  It is OK to write a test for a private ``helper'' method if you feel that the method
-  is complicated enough to need the test, but you should be aware that such a test 
-  may have to be changed, or thrown away entirely, when you think of a better
-  implementation.
+\item Las pruebas deben contar una historia. Cada prueba debería cubrir un aspecto
+	de alguna pieza de código. Una prueba debería actuar como un escenario al que tú o alguien más
+	pueda leer para entender una parte de la funcionalidad. \label{prop:oneAspect}
+
+\item Las pruebas deberían tener una frecuencia de cambio menor
+	a la de la funcionalidad que cubren: no deberías tener que cambiar
+	todas tus pruebas cada vez que modificas la aplicación.  Una forma de lograr
+	esto es escribiendo pruebas a base de interfases públicas de la clase que
+	estás probando.      
+	Es correcto escribir una prueba para un método "de ayuda" privado si crees que 
+	ese método es lo suficientemente complicado para necesitar una prueba, pero debes
+	tener en cuenta que dicha prueba puede que sea cambiada, o directamente desechada,
+	cuando se te ocurra una mejor implementación.
 \end{enumerate}
 
-A consequence of property (\ref{prop:oneAspect}) is that 
-the number of tests should be somewhat proportional to the number of
-functions to be tested: changing one aspect of the
-system should not break all the tests but only a limited
-number.  This is important because having 100 tests fail should send a
-much stronger message than having 10 tests fail.
-However, it is not always possible to achieve this ideal: 
-in particular, if a change breaks the initialization of an object, or the
-set-up of a test, it is likely to cause all of the tests to fail. 
+Una consecuencia de la propiedad (\ref{prop:oneAspect}) es que 
+el número de pruebas debería ser algo proporcional al número de funciones
+a ser probadas: cambiando un aspecto del sistema no debería romper todas las pruebas
+excepto por un número limitado de ellas. Esto es importante porque teniendo 100 pruebas fallando
+debería enviar un mensaje más fuerte que teniendo 10 pruebas fallando.
+  
+Sin embargo, no siempre es posible alcanzar este caso ideal: 
+en particular, si un cambio rompe la inicialización de un objeto, o el set-up de una prueba,
+seguramente causará que las otras pruebas fallen.
 
-\ind{eXtreme Programming} advocates writing tests before writing code.  This may seem to go
-against our deep instincts as software developers.  
-All we can say is: go ahead and try it.
-We have found that writing the tests before the code helps us
-to know what we want to code, helps us know when we are done,
-and helps us conceptualize the functionality of a class and to
-design its interface.
-Moreover, test-first development gives us the courage to go fast, because we are not afraid that we will forget something important.  
+\ind{eXtreme Programming} aboga por escribir pruebas antes de escribir el código.
+Esto parace ir en contra de nuestros instintos como desarrolladores de software. 
+Todo lo que podemos decir es: adelante e inténtalo!
+Hemos encontrado que escribir pruebas antes del código nos ayuda a saber qué queremos codificar,
+nos ayuda a saber cuándo hemos terminado, y nos ayuda a visualizar la funcionalidad
+de una clase y a dise\~nar su interfaz.
+
+Más aún, test-first development nos da el ánimo para ir rápido, porque no tenemos miedo de estar
+olvidandonos algo importante.
+
 
 % \on{I cannot understand this without some explanation!}
 
@@ -208,18 +213,22 @@ Moreover, test-first development gives us the courage to go fast, because we are
 
 % Now let's write our first test, and show you the benefits of using \SUnit.
 %=================================================================
+
 \section{\sunit by example}
 
-Before going into the details of \SUnit, we will show a step by step
-example.  We use an example that tests the class \ct{Set}.  Try
-entering the code as we go along.
+Antes de adentrarnos en detalles de \SUnit, mostraremos un ejemplo
+paso a paso.
+
+Usaremos un ejemplo que prueba la calse \ct{Set}. Intenta copiar el código como sigue.
+
 %---------------------------------------------------------
-\subsection{Step 1: create the test class}
+\subsection{Paso 1: crear la clase de prueba}
 
-\dothis{First you should create a new subclass of \clsind{TestCase} called
-\ct{ExampleSetTest}.   Add two instance variables so that your new
-class looks like this:}
+\dothis{ Primero debes crear una nueva subclase de \clsind{TestCase} llamada 
+\ct{ExampleSetTest}.  Agrega dos variables de instancia de forma tal
+que la clase  luzca así: }
 
+%%%%%%Codigo fuente a traducir
 \begin{classdef}[exampleSetTest]{An Example Set Test class}
 TestCase subclass: #ExampleSetTest
 	instanceVariableNames: 'full empty'
@@ -229,21 +238,30 @@ TestCase subclass: #ExampleSetTest
 \end{classdef}
 
 
-We will use the class \ct{ExampleSetTest} to group all the tests related to
-the class \ct{Set}.  It defines the context in which the tests
-will run.  Here the context is described by
-the two instance variables \ct{full} and \ct{empty}
-that we will use to represent a full and an empty set.
+Usaremos la clase \ct{ExampleSetTest} para agrupar todas las pruebas relacionadas con
+la clase \ct{Set}.  La misma define el contexto en el cual las pruebas
+correrán. Aquí el contexto es descripto por las dos variables de instancia \ct{full} and \ct{empty}
+que ussaremos para representar el set lleno y el set vacío.
 
-The name of the class is not critical, but by convention it should end in \ct{Test}.
-If you define a class called \ct{Pattern} and call the corresponding test class \ct{PatternTest}, the two classes will be alphabetized together in the browser (assuming that they are in the same category).  It \emph{is} critical that your class be a subclass of \ct{TestCase}.
+El nombre de la clase no es crítico, pero por convención debería terminar con \ct{Test}.
+Si defines una clase llamada \ct{Pattern} y nombras a la correspondiente clase de pruebas \ct{PatternTest},
+las dos clases serán indexadas alfabéticamente en forma conjunta en el browser (asumiendo
+que ambas se encuentran en la misma categoría).  Es de \emph{suma importancia} que tu clase 
+sea una subclase de \ct{TestCase}.
+
 %---------------------------------------------------------
-\subsection{Step 2: initialize the test context}
+\subsection{Paso 2: inicializar el contexto de prueba}
 
-The method \mthind{TestCase}{setUp} defines the context in which the tests will run, a bit like an initialize method.
-\ct{setUp} is invoked before the execution of each test
-method defined in the test class.
-\index{SUnit!set up method}
+El método \mthind{TestCase}{setUp} define el contexto en el cual las
+pruebas correrán, es una especie de método de inicialización.
+\ct{setUp} es invocado antes de la ejecución de cada método de  prueba definido
+en la clase de pruebas.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%% codigo a traducir
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\index{SUnit!método set up}
 \seeindex{testing}{SUnit}
 
 \dothis{Define the \ct{setUp} method as follows, to initialize the \ct{empty} variable to refer to an empty set and the \ct{full} variable to
@@ -263,14 +281,15 @@ test.
 \seeindex{fixture}{SUnit, fixture}
 
 %---------------------------------------------------------
-\subsection{Step 3: write some test methods}
+\subsection{Paso 3: escribir algunos métodos de prueba}
 
-Let's create some tests by defining some methods in the class
-\ct{ExampleSetTest}.  
-Each method represents one test; 
-the name of the method should start with the string `\ct{test}' so that \sunit
-will collect them into test suites.
-Test methods take no arguments.
+Vamos a crear algunas pruebas definiendo algunos métodos en
+la clase \ct{ExampleSetTest}.  
+Cada método representa una prueba: 
+el nombre del método debería comenzar con la cadena `\ct{test}' para que \sunit
+las tome en su juego de pruebas.
+
+Los métodos de pruebas no tooman argumentos.
 
 \dothis{Define the following test methods.}
 The first test, named \ct{testIncludes}, tests the
@@ -285,9 +304,8 @@ ExampleSetTest>>>testIncludes
 	self assert: (full includes: 6)
 \end{method}
 
-The second test, named \ct{testOccurrences}, verifies that the
-number of occurrences of~5 in \ct{full} set is equal to one, even if we
-add another element~5 to the set.
+La segunda prueba, llamada \ct{testOccurrences}, verifica que el número de ocurrencias
+de ~5 en el set \ct{lleno} es igual a uno, aún cuando agregamos otro elemento~5 al set.
 
 \needlines{6}
 \begin{method}[testOccurrences]{Testing occurrences}
@@ -298,8 +316,7 @@ ExampleSetTest>>>testOccurrences
 	self assert: (full occurrencesOf: 5) = 1
 \end{method}
 
-Finally, we test that the set no
-longer contains the element 5 after we have removed it.
+Finalmente, probamos que el set ya no contiene al elemento 5 después de que lo hemos removido.
 
 \begin{method}[testRemove]{Testing removal}
 ExampleSetTest>>>testRemove
@@ -309,13 +326,17 @@ ExampleSetTest>>>testRemove
 \end{method}
 
 \noindent
-Note the use of the method \mthind{TestCase}{deny:} to assert something that should not be true.
-\ct{aTest deny: anExpression} is equivalent to \ct{aTest assert: anExpression not}, but is much more readable.
+Nota que el uso del método \mthind{TestCase}{deny:} para afirmar que algo no debería ser 
+ verdadero.
+\ct{aTest deny: anExpression} es equivalente a \ct{aTest assert: anExpression not}, pero mucho más legible.
 %---------------------------------------------------------
-\subsection{Step 4: run the tests}
+\subsection{Paso 4: correr las pruebas}
 
-The easiest way to run the tests is directly from the browser.  Simply \actclick on the package, class name, or on an individual test method, and select \menu{run the tests (t)}.
-The test methods will be flagged red or green, depending on whether they pass or not, and the class will be flagged fully or partially green or red depending on whether all, some or none of the tests pass.
+La forma más fácil de correr las pruebas es directamente desde el browser.
+Simplemente \actclick sobre el paquete, nombre de clase o sobre un método de prueba individual, 
+y selecciona \menu{run the tests(t)}
+
+Los métodos de prueba serán marcados con rojo o verde, dependiendo si pasaron o no, y la clase será marcada completamente o parcialmente en verde o rojo dependiendo de si todas, algunas o ninguna prueba pasó.
 
 \begin{figure}[tbh]
   \begin{center}
@@ -325,10 +346,19 @@ The test methods will be flagged red or green, depending on whether they pass or
   \end{center}
 \end{figure}
 
-You can also select sets of test suites to run, and obtain a more detailed log of the results using the \sunit \emphind{Test Runner}, which you can open by selecting \menu{World \go Test Runner}.
-The \emph{TestRunner}, shown in \figref{test-runner}, is designed to make it easy  to execute groups of tests.
-The left-most pane lists all of the categories that contain test classes (\ie  subclasses of \ct{TestCase}); when some of these categories are selected, the test classes that they contain appear in the pane to the right.
-Abstract classes are italicized, and the test class hierarchy is shown by indentation, so subclasses of \ct{ClassTestCase} are indented more than subclasses of \ct{TestCase}.
+También puedes elegir conjuntos de juegos de pruebas a correr, y obtener un log mas detallado de los resultados
+usando \sunit \emphind{Test Runner}, el cual puedes abrir seleccionando \menu{World \go Test Runner}.
+
+
+El \emph{TestRunner}, mostrado en \figref{test-runner}, esta dise\~nado para hacer más
+fácil la ejecución de grupos de pruebas.
+
+El panel más a la izquierda lista todas las categorías que contienenlas clases de pruebas
+(\ie  subclasses of \ct{TestCase}); cuando algunas de esttas categorías es seleccionada, las clases de pruebas
+que ellas contienenaparecen en el panel de la derecha.
+Las clases abstractas se muestran en letra itálica, y la jerarquía de clases de pruebas se muestra con indentación,
+así las subclases de \ct{ClassTestCase} estan indentadas más que las subclases de \ct{Testcase}.
+
 
 \begin{figure}[tbh]
   \begin{center}
@@ -338,7 +368,7 @@ Abstract classes are italicized, and the test class hierarchy is shown by indent
   \end{center}
 \end{figure}
 
-\dothis{Open a Test Runner, select the category \menu{MyTest}, and click the \button{Run Selected} button.}
+\dothis{Abre un Test Runner, selecciona la categoría \menu{MyTest}, y haz click en el botón \button{Run Selected}.}
 
 % ON: With OB, you don't need this.
 %You can also run a single test by executing a \menu{print it} on the following code: \ct{ExampleSetTest run: #testRemove}.  
@@ -354,11 +384,12 @@ Abstract classes are italicized, and the test class hierarchy is shown by indent
 %	self deny: (full includes: 5)
 %\end{method}
 
-\dothis{Introduce a bug in \ct{ExampleSetTest>>>testRemove} and run the tests again. For example, change \ct{5} to \ct{4}.}
+\dothis{Introduce un error en \ct{ExampleSetTest>>>testRemove} y corre las pruebas nuevamente. Por ejemplo,
+cambia \ct{5} por \ct{4}.}
 
-The tests that did not pass (if any) are listed in the right-hand panes of
-the \emph{Test Runner};
-if you want to debug one, to see why it failed, just click on the name.
+Las pruebas que no pasaron (si es que hay alguna) son listadas a las ventanas de la derecha del \emph{Test Runner};
+si quieres debugguear una, para ver por qué falló, sólo haz click sobre el nombre.
+
 %Alternatively, you can execute the following expressions:
 %\begin{code}{}
 %(ExampleSetTest selector: #testRemove) debug
@@ -369,47 +400,66 @@ if you want to debug one, to see why it failed, just click on the name.
 %\end{code}
 
 %---------------------------------------------------------
-\subsection{Step 5: interpret the results}
+\subsection{Paso 5: interpretar los resultados}
 
-The method \mthind{TestCase}{assert:}\,, which is defined in the class
-\ct{TestCase}, expects a boolean argument, usually the value of a tested expression.  When the argument is
-true, the
-test passes; when the argument is false, the test fails.
+El método \mthind{TestCase}{assert:}\,, el cual está definido en la clase
+\ct{TestCase}, espera un argumento de valor booleano, usualmente el valor de 
+una expresion evaluada. Cuando el argumento es verdadero (true), la prueba pasa;
+cuando el argumento es falso (false), la prueba falla.
 
-There are actually three possible outcomes of a test.
-The outcome that we hope for is that all of the assertions in the test are true, in which case the test passes.
-In the test runner, when all of the tests pass, the bar at the top turns green.
-However, there are also two kinds of thing that can go wrong when
-you run a test.
-Most obviously, one of the assertions can be false, causing the test to \emph{fail}.
-However, it is also possible that some kind of error occurs during the execution of the test, such as a \emph{message not understood} error or an \emph{index out of bounds} error.
-If an error occurs, the assertions in the test method may not have been executed at all,
-so we can't say that the test has failed; nevertheless, something is clearly wrong!
-In the {test runner}, failing tests cause the bar at the top to turn yellow, and are listed in the middle pane on the right, whereas erroneous tests cause the bar to turn red, and are listed in the bottom pane on the right.
+En realidad, existen tres posibles retornos de una prueba.
+La salida que esperamos es que todas aseveraciones en la prueba sean verdaderas, en cuyo caso la prueba pasa.
+En el test runner, cuando todas las pruebas pasan, la barra de arriba se vuelve verde.
+Sin embargo, hay dos tipos de cosas que pueden ir mal cuando corres una prueba.
 
-\dothis{Modify your tests to provoke both errors and failures.}
+Como es lógico, una se las afirmaciones puede ser falsa, causando que la prueba \emph{fail}. 
+
+No obstante, es posible que algun otro tipo de error ocurra durante la ejecución de una prrueba,
+como un error de \emph{message not understood} o un error de \emph{index out of bounds}.
+
+Si un error ocurre, las assertions afirmaciones en la prueba puede que no se hayan ejecutado del todo, 
+por lo que no podemos decir que la prueba ha fallado; no obstante, algo está claramente mal!
+
+El el \emph{test runner}, las pruebas que fallan causan que la barra superior se vuelva amarilla, 
+y son listadas en la ventana del medio sobre la derecha, mientras que
+las pruebas erroneas causan que la barra se ponga roja, y son listadas en la ventana inferior de la derecha.
+
+\dothis{Modifica tus pruebas para provocar errores y fallas.}
 
 %=================================================================
-\section{The \SUnit cook book}
-This section will give you more details on how to use \SUnit.  If you
-have used another testing framework such as \JUnit\footnote{\url{http://junit.org}},
-much of this will be familiar, since all these frameworks have their roots in \SUnit.
-Normally you will use \SUnit's GUI to run tests, but there are
-situations where you may not want to use it.
+\section{El libro de recetas de \SUnit }
+
+Esta sección te dará mas detalles sobre cómo usar \SUnit.  Si has usado
+otro framework para hacer pruebas como \Junit\footnote{\url{http://junit.org}},
+gran parte de todo esto te resultar\'a familiar, desde ya que todos estos frameworks tienen
+sus raices en \SUnit.
+Usualmente usar\'as la GUI de \SUnit para correr las pruebas, pero 
+habr\'a situaciones donde puedes no querer usarla.
+
+
 %---------------------------------------------------------
-\subsection{Other assertions}
-In addition to \ct{assert:} and \ct{deny:}, there are several other methods that can be used to make assertions.
+\subsection{Otras aserciones}
+Adem\'as de \ct{assert:} y \ct{deny:}, existen varios otros m\'etodos que pueden
+ser usados para hacer aserciones.
 
-First, \mthind{TestCase}{assert:description:} and \mthind{TestCase}{deny:description:} take a second argument which is a message string that can be used to describe the reason for the failure, if it is not obvious from the test itself.   These methods are described in~\secref{descriptionStrings}.
+Primero, \mthind{Testcase}{assert:description:} y \mthind{TestCase}{deny:description:} toman un segundo
+argumento que es un mensaje en una cadena que puede ser usada para describir el motivo de la falla,
+si es que no es obvia desde la prueba misma.
 
-Next, \sunit provides two additional methods, \mthind{TestCase}{should:raise:} and
-\mthind{TestCase}{shouldnt:raise:} for testing exception propagation.
-For example, you would use 
-\ct{(self should: aBlock raise: anException)} to test that a particular exception is raised during the execution of \ct{aBlock}.  \Mthref{ESTtestIllegal}
-illustrates the use of \mbox{\ct{should:raise:}.}
+Estos m\'etodos estan definidos en~\secret{descriptionStrings}.
 
-\dothis{Try running this test.}
-Note that the first argument of the \ct{should:} and \ct{shouldnt:} methods is a \emphind{block} that \emph{contains} the expression to be evaluated.   
+Luego, \sunit provee dos m\'etodos adicionales, \mthind{TestCase}{should:raise:} y \mthind{TestCase}{shouldnt:raise:}
+para probar la propagaci\'on deuna excepci\'on. 
+
+Por ejemplo, podr\'ias usar \ct {(self should: aBlock raise: anException)}
+para probar si una excepci\'on en particular es lanzada durante la
+ejecuci\'on de \ct{aBlock}. \Mthref{ESTtestIllegal} ilustra el uso de \mbox{\ct{should:raise:}.}
+
+
+\dothis{Intenta correr esta prueba.}
+
+Nota que el primer argumento de los m\'etodos \ct{should:} y \ct{shouldnt:} es un
+\emphind{bloque} que \emph{contiene} la expresi\'on a ser evaluada.
 
 \begin{method}[ESTtestIllegal]{Testing error raising}
 ExampleSetTest>>>testIllegal
@@ -417,11 +467,13 @@ ExampleSetTest>>>testIllegal
 	self should: [empty at: 5 put: #zork] raise: Error
 \end{method}
 
-\sunit is portable: it can be used from all dialects of \st.  To make
-\sunit portable, its developers factored-out the dialect-dependent aspects.  The class method \cmind{TestResult class}{error} answers
-the system's error class in a dialect-independent fashion. 
-You can take advantage of this: if you want to write tests that will work in any dialect of \st, instead of 
-\mthref{ESTtestIllegal} you would write:
+\sunit es portable: puede ser usado en todos los dialectos \st.  Para hacer a \sunit portable,
+sus desarrolladores no tomaron en consideraci\'on los aspectos que son dependientes
+del dialecto. El m\'etodo de clase \cmind{TestResult class}{error} responde a la clase
+de error del sistema en una forma que es independiente del dialecto.
+
+Puedes aprovechar esto: si quieres escribir pruebas que funcionar\'an en cualquier dialecto de \st, en vez de
+\mthref{ESTtestIllegal} podr\'ias escribir:
 
 \needlines{4}
 \begin{method}[portabletestillegal]{Portable error handling}
@@ -430,49 +482,57 @@ ExampleSetTest>>>testIllegal
 	self should: [empty at: 5 put: #zork] raise: TestResult error
 \end{method}
 
-\dothis{Give it a try.}
+\dothis{Int\'entalo.}
 
 %---------------------------------------------------------
-\subsection{Running a single test}
-Normally, you will run your tests using the Test Runner.
-If you don't want to launch the Test Runner from the \menu{open\,\ldots} menu, you can execute \ct{TestRunner open} as a \menu{print it}.
+\subsection{Corriendo una sola prueba}
+Normalmente, correr\'as las pruebas usando el Test Runner.
 
-You can run a single test as follows.
+Si no quieres abrir el test Runner desde el men\'u \menu{open\,\ldots},
+puedes ejecutar \ct{TestRunner open} como un \menu{print it}.
+
+Puedes correr una sola prueba como sigue.
 
 \begin{code}{}
 ExampleSetTest run: #testRemove --> 1 run, 1 passed, 0 failed, 0 errors
 \end{code}
 
 %---------------------------------------------------------
-\subsection{Running all the tests in a test class}
+\subsection{Corriendo todas las pruebas en una clase de pruebas}
 
-Any subclass of \ct{TestCase} responds to the message \ct{suite}, which will build a test suite that contains all the
-methods in the class whose names start with the string ``\ct{test}''.
-To run the tests in the suite, send it the message \ct{run}.
-For example:
+Cualquier subclase de \ct{TestCase} responde al mensaje \ct{suite}, el cual
+construir\'a un juego de pruebas que contendr\'a todos los
+m\'etodos en la clase cuyos nombres empiezen con la cadena ``\ct{test}''.
+
+Para correr las pruebas en el juego, env\'ia el mensaje \ct{run}.
+
+Por ejemplo:
 
 \begin{code}{}
 ExampleSetTest suite run --> 5 run, 5 passed, 0 failed, 0 errors
 \end{code}
 
 %---------------------------------------------------------
-\subsection{Must I subclass TestCase?}
+\subsection{\¿ Debo heredar de TestCase?}
 
-In \JUnit{} you can build a \clsind{TestSuite} from an arbitrary class
-containing \ct{test*} methods.  In \st you can do the same
-but you will then have to create a suite by hand and your class will
-have to implement all the essential \ct{TestCase} methods like \ct{assert:}.
-We recommend that you not try to do this.  The framework is there: use it.
+En \JUnit{} puedes construir un \clsind{TestSuite} desde cualquier clase arbitraria
+que contenga m\'etodos \ct{test*}. En \st puedes hacer lo mismo pero tendr\'as
+que crear un juego a mano y tu clase deber\'a implementar todos los m\'etodos esenciales de 
+ \ct{TestCase} como por ejemplo, \ct{assert:}.
+
+Recomendamos que no intentes hacer esto. El framework est\'a ah\'i: \'usalo.
+
 %=================================================================
-\section{The SUnit framework}
 
-\sunit consists of four main classes: \clsind{TestCase},
-\clsind{TestSuite}, \clsind{TestResult}, and \clsind{TestResource}, as shown in \figref{sunit-classes}.
-The notion of a \emph{test resource} was introduced in \sunit 3.1 to represent a resource that is expensive to set-up but which can be used by
-a whole series of tests.  A \ct{TestResource}
-specifies a \ct{setUp} method that is executed just once before a suite of tests;
-this is in distinction to the \ct{TestCase>>>setUp} method, which is executed before
-each test.
+\section{El framework SUnit}
+
+\sunit consiste en cuatro clases principales : \clsind{TestCase},
+\clsind{TestSuite}, \clsind{TestResult}, y \clsind{TestResource}, como se muestra en \figref{sunit-classes}.
+La idea de un \emph{test resource} fue introducida en \sunit 3.1 para representar a un recurso
+que es caro de alistar pero que puede ser usado por una serie completa de pruebas.  Un \ct{TestResource}
+especifica un m\'etodo \ct{setUp} que es ejecutado s\'olo una vez antes del juego de pruebas;
+esto es para distinguir del m\'etodo \ct{TestCase>>>setUp}, el cual es ejecutado antes de cada prueba. 
+
 
 \begin{figure}[htb]
   \begin{center}
@@ -486,61 +546,86 @@ each test.
 %---------------------------------------------------------
 \subsection{TestCase}
 
-\clsindmain{TestCase} is an abstract class that is designed to be subclassed; each of its subclasses represents a group of tests that share a common context (that is, a test suite).
-Each test is run by creating a new instance of a subclass of \ct{TestCase},
-running \mthind{TestCase}{setUp}, running the test method itself, and then running \mthind{TestCase}{tearDown}.
+\clsindmain{TestCase} es una clase abstracta que esta dise\~nada para ser heredada por alguna otra subclase;
+cada una de sus subclases representa un grupo de pruebas que comparten un contexto en com\'un (esto es, un set de pruebas).
 
-The context is specified
-by instance variables of the subclass
-and by the specialization of the method
-\ct{setUp}, which initializes those instance variables.
-Subclasses of \ct{TestCase} can also override method
-\ct{tearDown}, which is invoked after the execution of each test,
-and can be used to release any objects
-allocated during \ct{setUp}.
+Cada prueba se corre creando una nueva instancia de una subclase de \ct{TestCase},
+corriendo \mthind{TestCase}{setUp}, corriendo el m\'etodo de prueba en si mismo, y luego
+corriendo \mthind{TestCase}{tearDown}.
+
+
+El contexto esta especificado por las variables de instancia de la subclase y por la 
+especializaci\'on del m\'etodo \ct{setUp}, el cual inicializa esas variables
+de instancia. las subclases de \ct{TestCase} pueden tambi\'en sobreescribir el m\'etodo
+\ct{tearDown}, el cual es invocado luego de la ejecuci\'on de cada prueba, y puede ser usado para
+liberar cualquier objeto creado durante \ct{setUp}.
+
+
 %---------------------------------------------------------
 \subsection{TestSuite}
 
-Instances of the class \clsindmain{TestSuite} contain a collection of test cases.  An
-instance of \ct{TestSuite} contains tests, and other test suites.
-That is, a test suite contains sub-instances of
-\ct{TestCase} and \ct{TestSuite}.
-Both individual \lct{TestCase}s and \lct{TestSuite}s understand the same protocol, so they can be treated in the same way; for example, both can be \ct{run}.
-This is in fact an application of the composite
-pattern in which \ct{TestSuite} is the composite and the
-\ct{TestCase}s are the leaves\,---\,see \textit{Design Patterns} for more information on this pattern\cite{Gamm95a}.
+Las instancias de la clase \clsindmain{TestSuite} contienen una colecci\'on de casos de prueba.
+Una instancia de \ct{TestSuite} contiene pruebas, y otra sets de pruebas.
+
+Esto es, un set de pruebas contiene sub-instancias de \ct{TestCase} y \ct{TestSuite}.
+
+Individualmente, tanto \lct{TestCase}s como \lct{TestSuite}s entienden el mismo protocolo,
+por lo que ambas pueden ser tratadas en la misma forma; por ejemplo, ambas pueden \ct{correrse}.
+
+Esto es de hecho una aplicaci\'on del patr\'on 'composite' en el cual \ct{TestSuite} es el compuesto
+y las \ct{TestCase}s son las hojas\,---\,see \textit{Design Patterns} para m\'as informaci\'on sobre este patr\'on \cite{Gamm95a}.
+
 %---------------------------------------------------------
 \subsection{TestResult}
 
-The class \clsindmain{TestResult} represents the results of a
-\ct{TestSuite} execution.  It records the number of tests passed,
-the number of tests failed, and the number of errors signalled.
+La clase \clsindmain{TestResult} representa los reseultados de la ejecuci\'on de un \ct{TestSuite}.
+Graba los n\'umeros de pruebas pasadas correctamente, el n\'umero de pruebas fallidas y el n\'umero
+de errores encontrados.
 
 %---------------------------------------------------------
 \subsection{TestResource}
-\seclabel{resource}
+\seclabel{recurso}
 
-One of the important  features of a suite of tests is that they should be independent of each other: the failure of one test should not cause an avalanche of failures of other tests that depend upon it, nor should the order in which the tests are run matter.
-Performing \ct{setUp} before each test and \ct{tearDown} afterwards helps to reinforce this independence. 
+Una de las caracter\'isticas mas importantes de un set de prueebas es que 
+deber\'an ser independientes unas de otras: la falla de una prueba no deber\'ia causar una avalancha
+de fallas en las otras pruebas que dependen de ella, tampoco deber\'ia importar el orden en que se corren las
+pruebas.  
 
-However, there are occasions where setting up the necessary context is just too time-consuming for it to be practical to do once before the execution of each test.
-Moreover, if it is known that the test cases do not disrupt the resources used by the tests, then it is wasteful to set them up afresh for each test; it is sufficient to set them up once for each suite of tests.
-Suppose, for example, that a suite of tests needs to query a database, or do some analysis on some compiled code.
-In such cases, it may make sense to set up the database and open a connection to it, or to compile some source code, before any of the tests start to run.
+Ejecutando \ct{setUp} antes de cada prueba y \ct{tearDown} al final ayuda a reforzar esta independencia.
+ 
+Sin embargo, hay ocasiones en que inicializar el contexto necesario consume demasiado tiempo por lo que no es 
+pr\'actico de hacer antes de la ejecuci\'on de cada prueba.
 
-Where should we cache these resources, so that they can be shared by a suite of tests?
-The instance variables of a particular \ct{TestCase} sub-instance won't do, because such an instance persists only for the duration of a single test.
-A global variable would work, but using too many global variables pollutes the name space, and the binding between the global and the tests that depend on it will not be explicit.
-A better solution is to put the necessary resources in a singleton object of some class.
-The class \clsindmain{TestResource} exists to be subclassed by such resource classes.
-Each subclass of \lct{TestResource} understands the message  \ct{current}, which will answer a singleton instance of that subclass.
-Methods \ct{setUp} and \ct{tearDown} should be overridden in the subclass to ensure that the resource is initialized and finalized.
+M\'as a\'un, si se sabe que los casos de prueba no afectan los recursos de las pruebas, entonces es un
+desperdicio inicializarlas de nuevo por cada prueba; es suficiente inicializarlas una vez por cada juego
+de pruebas.
+Supongamos, por ejemplo, que un set de pruebas necesita consultar a una base de datos, o hacer
+alg\'un tipo de an\'alisis sobre un c\'odigo compilado.
+En esos casos, tendr\'ia sentido preparar la base de datos y abrir una conex\'ion, o compilar algo
+de c\'odigo, antes de que cualquier prueba comienze a correr.
 
-One thing remains: somehow, \sunit has to be told which resources are associated with which test suite.
-A resource is associated
-with a particular subclass of \ct{TestCase} 
-by overriding the \emph{class} method \ct{resources}.
-\ab{The set of resources attributed to each test is actually the closure of these resources under the resources message, but I think that we don't want to say that!}
+
+D\'onde deber\'iamos preservar estos recursos, as\'i pueden ser compartidos por un set de pruebas?
+Las variables de instancia de una subclase de \ct{TestCase} en particular no nos sirven, dado que una instancia
+existe s\'olo lo que dura una prueba.
+
+Una variable global funcionar\'ia, pero usar demasiadas variables globales ensucia el espacio de nombres,
+y el v\'inculo entre lo global y las pruebas que dependen de ello no ser\'a expl\'icito. 
+
+Una mejor soluci\'on es poner los recursos necesarios en un objeto singleton de alguna clase.
+La clase \clsindmain{TestResource} existe para que ese tipo de clases de recursos hereden de ella.
+
+Cada subclase de \lct{TestResource}  comprende el mensaje \ct{actual}, al cual responder\'a una instancia singleton de esa subclase.
+
+Los m\'etodos \ct{setUp} y \ct{tearDown} deber\'ian sobreescribirse en la subclase, para tener seguridad de que el
+recurso es inicializado y finalizado. 
+
+Una cosa m\'as nos queda pendiente: de alguna forma, \sunit tiene que ser avisado sobre cu\'ales recursos
+estan asociados a determinado juego de pruebas.
+Un recurso es asociado a una sublcase en particular de \ct{TestCase}  sobreescribiendo el m\'etodo de \emph{clase}
+\emph{resources}.
+
+\ab{El conjunto de recursos atribuidos a cada prueba es en realidad of resources attributed to each test is actually the closure of these resources under the resources message, but I think that we don't want to say that!}
 By default, the resources of 
 a \ct{TestSuite} are
 the union of the resources of
