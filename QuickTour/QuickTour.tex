@@ -160,16 +160,16 @@ Un buen lugar para comenzar es el menú \ind{world menu} mostrado en \figref{thre
 
 \st fué diseñado originalmente para computadoras con un \ind{ratón de tres botones}. Si tu ratón tiene menos de tres botones, tendrás que presionar teclas extras mientras \click{ing} el ratón para simular los botones faltantes. Un ratón de dos botones funciona bastante bien con \pharo, pero si tienes un ratón de un solo botón, deberías considerar seriamente comprar un ratón de dos botones con rueda de desplazamiento que permita hacer clic: hará que trabajar con \pharo mucho mas placentero.
 
-\pharo avoids terms like ``left mouse click'' because different computers, mice, keyboards and personal configurations mean that different users will need to press different physical buttons to achieve the same effect.
-Originally \st introduced colours to stand for the different mouse buttons.\footnote{The button colours were \emph{red}, \emph{yellow} and \emph{blue}. The authors of this book could never remember which colour referred to which button.}
+\pharo evita términos como ``clic con el botón izquierdo'' porque diferentes computadoras, ratones, teclados y configuraciones personales significa que diferentes usuarios necesitarán presionar diferentes botones parato lograr el mismo efecto.
+Originalmente \st introdujo colores para representar los diferentes botones del ratón.\footnote{Los colores de los botones eran \emph{rojo}, \emph{amarillo} y \emph{azul}. Los autores de este libro nunca podían recordar qué color refería a qué botón.}
 \index{red button}
 \index{yellow button}
 \index{blue button}
-Since many users will use various modifiers keys (\emph{control}, \emph{ALT}, \emph{meta} \etc) to achieve the same effect, we will instead use the following terms:
+Dado que muchos usuarios usaran teclas modificadoras (\emph{control}, \emph{ALT}, \emph{meta} \etc) para lograr el mismo efecto, en su lugar usaremos los siguientes términos:
 \begin{description}
-\item [\click:] this is the most often used mouse button, and is normally equivalent to \click{ing} a single-mouse button without any modifier key; \click{} on the image to bring up the ``World'' menu (\figref{threeButtons:click}).
-\item [\actclick:] this is the next most used button; it is used to bring up a contextual menu, that is, a menu that offers different sets of actions depending on where the mouse is pointing; see \figref{threeButtons:actclick}. If you do not have a multi-button mouse, then normally you will configure the \emph{control} modifier key to \actclick with the mouse button.
-\item [\metaclick:] Finally, you may \metaclick on any object displayed in the image to activate the ``morphic \subind{Morphic}{halo}'', an array of handles that are used to perform operations on the on-screen objects themselves, such as rotating them or resizing them; see \figref{threeButtons:metaclick}.\footnote{Note that the morphic handles are inactive by default in \pharo, but you can turn them on using the Preferences Browser, which we will see shortly.}
+\item [\click:] este es el botón del reatón mas usado, y es quivalente a \click{ing} un ratón de un solo botón sin ninguna tecla modificadora; \click{} en la imagen para para que aparezca el menú ``World'' (\figref{threeButtons:click}).
+\item [\actclick:] este es el segundo botón mas usado; es usado para que aparezca el menú contextual, eso es, un menú que ofrece diferentes conjuntos de acciones dependiendo en donde está apuntando el ratón; vea \figref{threeButtons:actclick}. Si no tienes un ratón multi-botones, normalmente configurarás la tecla modificadora \emph{control} para \actclick con el botón del ratón.
+\item [\metaclick:] Finalmente, puedes \metaclick on any object displayed in the image to activate the ``morphic \subind{Morphic}{halo}'', an array of handles that are used to perform operations on the on-screen objects themselves, such as rotating them or resizing them; see \figref{threeButtons:metaclick}.\footnote{Note that the morphic handles are inactive by default in \pharo, but you can turn them on using the Preferences Browser, which we will see shortly.}
 If you let the mouse linger over a handle, a help balloon will explain its function.
 In \pharo, how you \metaclick depends on your operating system:
 either you must hold {\sc shift} \emph{ctrl} or {\sc shift} \emph{option} while clicking.

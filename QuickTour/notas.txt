@@ -4,4 +4,8 @@ L087: ¿Hay que traducir esta linea?
 L111: ¿Hay que traducir workspace?
 L125: ¿Hay que traducir world menu?
 L138-L148: sin traducir
-L163-L178: sin traducir
+L165-L167: sin tarducir
+L169: revisar
+L170: no se si hay que traducir [\click:] y \click{ing} y (\figref{threeButtons:click})
+L171: no está traducido [\actclick:] ni \figref{threeButtons:actclick}
+L172: no treduje \item [\metaclick:] ``morphic \subind{Morphic}{halo}'' 
