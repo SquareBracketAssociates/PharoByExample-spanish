@@ -82,8 +82,8 @@ Te recomendamos que uses la imagen provista en la página \pharo by Example.\foot
 \index{download}
 \seclabel{sbeImage}
 
-La mayor parte del material introductiorio de este libro funciona con cualquier versión por lo que si ya tienes una versión de \pharo, puedes continuar usándola.
-Sin embargo, si notas diferencias entre la apariencia o el comportamiento de tu sistema y el descripto aquí, no te sorprendas. 
+La mayor parte del material introductorio de este libro funciona con cualquier versión por lo que si ya tienes una versión de \pharo, puedes continuar usándola.
+Sin embargo, si notas diferencias entre la apariencia o el comportamiento de tu sistema y el descripto aquí, no te preocupes. 
 % On the other hand, if you are about to download \pharo for the first time, you may as well grab the \emph{\pharo by Example} image.
 
 Al trabajar en \pharo, el archivo de imágen y el archivo de cambios se modifican por lo que necesitas asegurarte que ambos pueden escribirse.
@@ -91,9 +91,9 @@ Mantén siempre estos archivos juntos.
 Nunca los edites directamente con un editor de texto, ya que \pharo los usa para almacenar los objetos con los que está trabajando y para registrar los cambios en que haces en el código fuente.
 Es una buena idea guardar una copia de los archivos de imágen y cambios descargados para poder siempre empezar de una imágen limpia y recargar tu código.
 
-The \emphind{sources} file and the VM can be read-only\,---\,they can be shared between different users.
-All of these files can be placed in the same directory, but it is also possible to put the Virtual Machine and sources file in separate directory where everyone has access to them.
-Do whatever works best for your style of working and your operating system.
+El archivo \emphind{sources} y la VM pueden estar como solo lectura\,---\,pueden ser compartidas entre diferentes usuarios.
+Todos estos archivos pueden ser puestos en el mismo directorio y es también posible poner la máquina virtualy el archivo and \emphind{sources} en directorio separado donde todos tengan acceso a ellos.
+Haz lo que funcione mejor con tu estilo de trabajo y tu sistema operativo.
 
 %\sd{it would be really nice to have a setup and startup section on PC, Mac and Linux}
 %\ab{I agree entirely; the reason that this is not here is because I could do only the Mac section.  Damien can probably do Windoze.  Perhaps we can ask on the list for a Linux volunteer?}
@@ -102,27 +102,27 @@ Do whatever works best for your style of working and your operating system.
 \begin{figure}[htb]
 % \centerline {\includegraphics[width=0.6\textwidth]{download}}
 \centerline {\includegraphics[width=\textwidth]{startup}}
-\caption{A fresh \pbe image.\figlabel{startup}}
+\caption{Una imagen limpia de \pbe.\figlabel{startup}}
 \end{figure}
 
 \index{launching \pharo}
-\paragraph{Launching.} To start \pharo, do whatever your operating system expects: drag the \emph{.}\emphind{image} file onto the icon of the virtual machine, or double-click the \emph{.image} file, or  at the command line type the name of the virtual machine followed by the path to the \emph{.image} file. (When you have multiple VMs installed on your machine the operating system may not automatically pick the right one; in this case it is safer to drag and drop the image onto the virtual machine, or to use the command line.)
+\paragraph{Comenzando.} Para arrancar \pharo, haz lo que tu sistema operativo espera: arrastra el archivo \emph{.}\emphind{image} sobre el ícono de la máquina virtual, o haz doble clic en el arhivo \emph{.image}, o en la linea de comandos escribe el nombre de la máquina virtual seguido de la ruta al archivo \emph{.image}. (Si tienes multiples máquinas virtuales en tu máquina el sistema operativo puede no elegir la correcta; en ese caso es mas seguro arrastrar y soltar la imagen sobre la máquina virtual, o usar la linea de comandos.)
 
-Once \pharo is running, you should see a single large window, possibly containing some open workspace windows (see \figref{startup}), and it's not obvious how to proceed!
-You might notice a menu bar, but \pharo mainly makes use of context-dependent pop-up menus.
+Una vez que \pharo está ejecutando, deberías ver una única ventana, posiblemente conteniendo algunas ventanas de workspace abiertos (ver \figref{startup}) ¡y no es ovbio cómo continuar!
+Puedes notar una barra de menú, pero principalmente \pharo hace uso de menues contextuales.
 % You will notice that there is no menu bar, or at least not a useful one.  
 % Instead,  \pharo makes heavy use of context-dependent pop-up menus.
 
-\dothis{Start \pharo. You can dismiss any open workspaces by \click{ing} on the red button in the top left corner of the workspace window.}
+\dothis{Ejecuta \pharo. Puedes cerrar cualquier workspaces abierto haciendo \click{ing} en el botón rojo en la esquina superior izquierda de la ventana del workspace.}
 
-You can minimize windows (so that they move to the dock on the bottom of the screen) by \click{ing} on the orange button.  Clicking on the green button will cause the window to take up the entire screen.
+Puedes minimizar ventanas (estas se moverán a la parte inferior de la pantalla) haciendo \click{ing} en el botón naranja. Haciendo clic en el botón verde la ventana ocupará la pantalla completa.
 
 %-----------------------------------------------------------------
-\paragraph{First Interaction.}
+\paragraph{Primera interacción.}
 
-A good place to get started is the \ind{world menu} shown in \figref{threeButtons:click}. 
+Un buen lugar para comenzar es el menú \ind{world menu} mostrado en \figref{threeButtons:click}. 
 
-\dothis{Click with the mouse on the background of the main window to show the world menu, then choose \menu{Workspace} to create a new workspace.}
+\dothis{Haz clic con el ratón en el fondo de la ventana principal para mostrar el menú world, elige \menu{Workspace} para crear un nuevo workspace.}
 
 %\begin{figure}[tbh]
 %	\centering
@@ -158,18 +158,18 @@ A good place to get started is the \ind{world menu} shown in \figref{threeButton
 %\figlabel{colouredMouse}
 %\end{wrapfigure}
 
-\st was originally designed for a computer with a \ind{three button mouse}.  If your mouse has fewer than three buttons, you will have to press extra keys while \click{ing} the mouse to simulate the extra buttons.  A two-button mouse works quite well with \pharo, but if you have only a single-button mouse, you should seriously consider buying a two-button mouse with a clickable scroll wheel: it will make working with \pharo much more pleasant.
+\st fué diseñado originalmente para computadoras con un \ind{ratón de tres botones}. Si tu ratón tiene menos de tres botones, tendrás que presionar teclas extras mientras \click{ing} el ratón para simular los botones faltantes. Un ratón de dos botones funciona bastante bien con \pharo, pero si tienes un ratón de un solo botón, deberías considerar seriamente comprar un ratón de dos botones con rueda de desplazamiento que permita hacer clic: hará que trabajar con \pharo mucho mas placentero.
 
-\pharo avoids terms like ``left mouse click'' because different computers, mice, keyboards and personal configurations mean that different users will need to press different physical buttons to achieve the same effect.
-Originally \st introduced colours to stand for the different mouse buttons.\footnote{The button colours were \emph{red}, \emph{yellow} and \emph{blue}. The authors of this book could never remember which colour referred to which button.}
+\pharo evita términos como ``clic con el botón izquierdo'' porque diferentes computadoras, ratones, teclados y configuraciones personales significa que diferentes usuarios necesitarán presionar diferentes botones parato lograr el mismo efecto.
+Originalmente \st introdujo colores para representar los diferentes botones del ratón.\footnote{Los colores de los botones eran \emph{rojo}, \emph{amarillo} y \emph{azul}. Los autores de este libro nunca podían recordar qué color refería a qué botón.}
 \index{red button}
 \index{yellow button}
 \index{blue button}
-Since many users will use various modifiers keys (\emph{control}, \emph{ALT}, \emph{meta} \etc) to achieve the same effect, we will instead use the following terms:
+Dado que muchos usuarios usaran teclas modificadoras (\emph{control}, \emph{ALT}, \emph{meta} \etc) para lograr el mismo efecto, en su lugar usaremos los siguientes términos:
 \begin{description}
-\item [\click:] this is the most often used mouse button, and is normally equivalent to \click{ing} a single-mouse button without any modifier key; \click{} on the image to bring up the ``World'' menu (\figref{threeButtons:click}).
-\item [\actclick:] this is the next most used button; it is used to bring up a contextual menu, that is, a menu that offers different sets of actions depending on where the mouse is pointing; see \figref{threeButtons:actclick}. If you do not have a multi-button mouse, then normally you will configure the \emph{control} modifier key to \actclick with the mouse button.
-\item [\metaclick:] Finally, you may \metaclick on any object displayed in the image to activate the ``morphic \subind{Morphic}{halo}'', an array of handles that are used to perform operations on the on-screen objects themselves, such as rotating them or resizing them; see \figref{threeButtons:metaclick}.\footnote{Note that the morphic handles are inactive by default in \pharo, but you can turn them on using the Preferences Browser, which we will see shortly.}
+\item [\click:] este es el botón del reatón mas usado, y es quivalente a \click{ing} un ratón de un solo botón sin ninguna tecla modificadora; \click{} en la imagen para para que aparezca el menú ``World'' (\figref{threeButtons:click}).
+\item [\actclick:] este es el segundo botón mas usado; es usado para que aparezca el menú contextual, eso es, un menú que ofrece diferentes conjuntos de acciones dependiendo en donde está apuntando el ratón; vea \figref{threeButtons:actclick}. Si no tienes un ratón multi-botones, normalmente configurarás la tecla modificadora \emph{control} para \actclick con el botón del ratón.
+\item [\metaclick:] Finalmente, puedes \metaclick on any object displayed in the image to activate the ``morphic \subind{Morphic}{halo}'', an array of handles that are used to perform operations on the on-screen objects themselves, such as rotating them or resizing them; see \figref{threeButtons:metaclick}.\footnote{Note that the morphic handles are inactive by default in \pharo, but you can turn them on using the Preferences Browser, which we will see shortly.}
 If you let the mouse linger over a handle, a help balloon will explain its function.
 In \pharo, how you \metaclick depends on your operating system:
 either you must hold {\sc shift} \emph{ctrl} or {\sc shift} \emph{option} while clicking.
@@ -177,9 +177,9 @@ either you must hold {\sc shift} \emph{ctrl} or {\sc shift} \emph{option} while 
 % Typically you will use a third modifier key, such as \emph{command} or \emph{meta} to \metaclick.
 \end{description}
 
-\dothis{Type \ct{Time now} in the workspace.
-Now \actclick in the workspace.
-Select \menu{print it}.}
+\dothis{Escribe \ct{Time now} en el workspace.
+Ahora \actclick en el workspace.
+Selecciona \menu{print it}.}
 
 %Now we will activate \metaclick{ing}.
 
@@ -193,7 +193,7 @@ Select \menu{print it}.}
 %\dothis{Now you should be able to \metaclick on the workspace. (See \figref{threeButtons:metaclick}.)
 %Grab the blue \raisebox{-0.4ex}{\includegraphics[width=1em]{morphicRotate}} handle near the bottom left corner and drag it to rotate the workspace.}
 
-We recommend that right-handed people configure their mouse to \click with the left button, \actclick with the right button, and \metaclick with the  clickable scroll wheel, if one is available.
+Recomendamos a las personas diestras configurar sus ratones para hacer \click con el botón izquierdo, \actclick con el botón derecho, y \metaclick con la rueda de desplazamiento si está disponible.
 % If you don't have a clickable scroll wheel, then you can get the Morphic halo by holding down the \ct{alt} or \ct{option} key while \click{ing}. 
 % \ab{This doesn't work any more.  This sentence either repeats or contradicts the meta-click item above; neither is a good idea.}
 If you are using a Macintosh without a second mouse button, you can simulate one by holding down the \clover{} key while \click{ing} the mouse.  However, if you are going to be using \pharo at all often, we recommend investing in a mouse with at least two buttons.
