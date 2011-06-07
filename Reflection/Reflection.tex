@@ -86,15 +86,15 @@ programa desde el interior del propio programa.  La \emph{reflexión
 de ejecución y la \emphind{reflexión de comportamiento} modifica la
 interpretación de esas estructuras.
 
-Ene ste capítulo nos enfocaremos principalmente en la \ind{reflexión
-  estructural}.  Vamos a explorar muchos ejemplos prácticos que
+En este capítulo nos enfocaremos principalmente en la \ind{reflexión
+  estructural}. Vamos a explorar muchos ejemplos prácticos que
 ilustrarán como \st permite la introspección y la metaprogramación.
 
 %======================================
 \section{Introspección}
 
 Mediante el inspector, puedes mirar dentro de un objeto, cambiar los
-valores de sus variables de instancia, e incluso enciarle mensajes.
+valores de sus variables de instancia, e incluso enviarle mensajes.
 
 \dothis{Evalúa el siguiente código en un workspace:}
 \begin{code}{| w |}
@@ -114,11 +114,11 @@ derecha va a mostrar una cadena vacía.
 
 \begin{figure}[ht]\centering
         \includegraphics[width=\linewidth]{workspaceInspector}
-        \caption{Inspección de un\ct!Workspace!.\figlabel{workspaceInspector}}
+        \caption{Inspección de un \ct!Workspace!.\figlabel{workspaceInspector}}
 \end{figure}
 
 \dothis{Ahora escribe \ct!'hello'! en lugar de esa cadena vacía, y
-  luego \emph{accept}ala.}
+  luego \emph{ac\'eptala}.}
 
 El valor de la variable \ct!contents! va a cambiar, pero la ventana
 del espacio de trabajo no se percata de ello, así que no se vuelve a
@@ -133,7 +133,7 @@ inspector.
 ¿Cómo funciona el inspector?  En \st, todas las variables de instancia
 son protegidas.  En teoría, es imposible accederlas desde otro objeto
 si la clase no define sus accesores.  En la práctica, el
-inspectorpuede acceder a las variables de instancia sin necesidad de
+inspector puede acceder a las variables de instancia sin necesidad de
 accesores, porque usa las capacidades de reflexión computacional de
 \st.  En \st, las clases definen variables de instancia o bien
 mediante un nombre o bien mediante un índice numérico.  El inspector
@@ -195,7 +195,7 @@ sistema \pharo.
 La \figref{allInstanceVariables} muestra cómo pueden verse los valores
 de las variables de instancia de una instancia arbitraria (\ct!w!) de
 la clase \ct!Workspace!.  El método \ct!allInstVarNames! retorna todos
-los nombres de las variables de instancia de una dada clase.
+los nombres de las variables de instancia de una clase dada.
 
 De manera similar, es posible conseguir las instancias que tienen
 ciertas propiedades específicas.  Por ejemplo, para obtener todas las
@@ -235,7 +235,7 @@ Object>>>instanceVariableValues
 Este método itera sobre los índices de las variables de instancia que
 están definidas en la clase; el primer valor corresponde al primer
 índice no usado por la superclase.  (El método \ct!instSize! retorna
-la cantidad de variables de instancia nominadas que define una clase.)
+la cantidad de variables de instancia nominadas que define una clase)
 
 %-----------------------------------------------------------------
 \subsection{Cómo consultar clases e interfaces}
@@ -247,7 +247,7 @@ computacional que hemos visto hasta ahora.
 Se muestran a continuación otros mensajes que pueden resultar útiles
 para construir herramientas de desarrollo:
 
-\lct{isKindOf: \emph{aClass}} returna true si el receptor es una
+\lct{isKindOf: \emph{aClass}} retorna true si el receptor es una
 instancia de \lct{\emph{aClass}} o una de sus superclases.  Por
 ejemplo:
 \begin{code}{@TEST}
@@ -361,13 +361,13 @@ Estas características pueden resultar muy útiles al depurar una
 aplicación, porque puedes solicitar a una clase que enumere aquellos
 de sus métodos que exhiben ciertas propiedades.
 \begin{itemize}
-\item \mthind{Behavior}{whichSelectorsAccess:} returna la lista de
+\item \mthind{Behavior}{whichSelectorsAccess:} retorna la lista de
   todos los selectores de métodos que leen o escriben la variable de
   instancia nombrada por el argumento
-\item \mthind{Behavior}{whichSelectorsStoreInto:} returna los
+\item \mthind{Behavior}{whichSelectorsStoreInto:} retorna los
   selectores de métodos que modifican el valor de una variable de
   instancia dada
-\item \mthind{Behavior}{whichSelectorsReferTo:} returna los selectores
+\item \mthind{Behavior}{whichSelectorsReferTo:} retorna los selectores
   de métodos que envían un dado mensaje
 \item \mthind{Behavior}{crossReference} asocia cada mensaje con el
   conjunto de métodos que lo envían.
@@ -386,9 +386,9 @@ Point crossReference --> an Array(
 Los siguientes mensajes tienen en cuenta a la herencia:
 
 \begin{itemize}
-\item \mthind{Behavior}{whichClassIncludesSelector:} returna la
+\item \mthind{Behavior}{whichClassIncludesSelector:} retorna la
   superclase que implementa el mensaje dado
-\item \mthind{Behavior}{unreferencedInstanceVariables} returna la
+\item \mthind{Behavior}{unreferencedInstanceVariables} retorna la
   lista de variables de instancia que no se usan en la clase del
   receptor ni en sus subclases.
 \end{itemize}
@@ -398,10 +398,10 @@ Rectangle whichClassIncludesSelector: #inspect --> Object
 Rectangle unreferencedInstanceVariables            --> #()
 \end{code}
 
-\clsind{SystemNavigation} es un ***facade*** que incluye varios
+\clsind{SystemNavigation} es una fachada [facade] que incluye varios
 métodos útiles para consultar y navegar a través del código fuente del
 sistema.  \ct{SystemNavigation} \mthind{SystemNavigation
-  class}{default} returna una instancia que puedes usar para navegar
+  class}{default} retorna una instancia que puedes usar para navegar
 por el sistema.  Por ejemplo:
 
 \mthindex{SystemNavigation}{allClassesImplementing:}
@@ -421,7 +421,7 @@ SystemNavigation default allUnimplementedCalls size --> 270
 \end{code}
 
 Que un mensaje esté implementado y que nadie lo envíe no es
-necesariamwnte una señal de un mensaje inútil, pues puede ser que se
+necesariamente una señal de un mensaje inútil, pues puede ser que se
 lo envíe implícitamente (por ejemplo, mediante \ct{perform:}).  Los
 mensajes que se envían pero no están implementados son más
 problemáticos, porque los métodos que envían esos mensajes van a
@@ -429,7 +429,7 @@ fallar en tiempo de ejecución.  Son la señal de una implementación sin
 terminar, APIs obsoletas o bibliotecas faltantes.
 
 \mthindex{SystemNavigation}{allCallsOn:}
-\ct!SystemNavigation default allCallsOn: #Point! returna todos los
+\ct!SystemNavigation default allCallsOn: #Point! retorna todos los
 mensajes enviados explícitamente a \ct!Point! como receptor.
 
 Todas estas características están integradas en el entorno de
@@ -511,11 +511,11 @@ continuación:
   --> an IdentitySet(#threeDigitName #printStringBase:nDigits: ...)
 \end{code}
 
-EL método compilado no almacena solamente los bytecodes del método.
-Es un objeto que proporciona muchos métodos útiles para co0nsultar el
+El método compilado no almacena solamente los bytecodes del método.
+Es un objeto que proporciona muchos métodos útiles para consultar el
 sistema.  Uno de tales métodos es \ct{isAbstract} (que nos indica si
 el método envía \ct{subclassResponsibility}).  Podemos usarlo para
-ideentificar todos los métodos abstractos de una clase abstracta.
+identificar todos los métodos abstractos de una clase abstracta.
 \needlines{4}
 \begin{code}{}
 [:aClass| aClass methodDict keys select: [:aMethod |
@@ -527,7 +527,7 @@ obtener el método compilado de un selector dado.
 
 % As a slightly more complex example, we can browse
 
-Para pasear por los sends a super dentro de una dada jerarquía, por
+Para pasear por los sends a super dentro de una jerarquía dada, por
 ejemplo dentro de la jerarquía de Collection, podemos realizar una
 consulta más sofisticada:
 \begin{code}{}
@@ -561,7 +561,7 @@ tanto una vía interactiva como una programática para realizar
 consultas complejas.
 
 Supongamos que queremos averiguar cuáles de los métodos dentro de la
-jerarquía \lct{Collection}envían un mensaje a \super que sea diferente
+jerarquía \lct{Collection} envían un mensaje a \super que sea diferente
 del selector del método.  Esto se considera un mal \ind{olor de
   código} [code smell], porque el send a \super normalmente debería
 poder reemplazarse por un send a \self. (Piénsalo por un momento: la
@@ -688,8 +688,8 @@ métodos utilizan a \ct{thisContext}:
 SystemNavigation default browseMethodsWithSourceString: 'thisContext'
 \end{code}
 
-Como pudes ver, una de las aplicaciones más comunes es para descubrir
-el enviador de un mensaje.  A continuación se muestra una aplicación
+Como puedes ver, una de las aplicaciones más comunes es para descubrir
+el remitente de un mensaje.  A continuación se muestra una aplicación
 típica:
 \begin{code}{}
 Object>>>subclassResponsibility
@@ -704,7 +704,7 @@ se consideran abstractos.  Ahora bien, ¿cómo
 hace \clsmthind{Object}{subclassResponsibility} para proporcionar un
 mensaje de error útil que indique cuál de los métodos abstractos ha
 sido invocado?  Muy simple, preguntando cuál es el \ct{thisContext}
-del enviador.
+del remitente.
 
 \lr{I think co-routines and continuations should at least mentioned
   here. Another very practical application that is simple and could be
@@ -721,7 +721,7 @@ del enviador.
 
 \mthindex{Object}{halt}
 
-La manela a la \st de crear un punto de interrupción [breakpoint]
+La manera a la \st de crear un punto de interrupción [breakpoint]
 consiste en evaluar \ct{self halt} en una posición interesante de un
 método.  Esto hace que \ct{thisContext} se reifique y que se abra una
 ventana de \ind{debugger} sobre el punto de interrupción.
@@ -788,7 +788,7 @@ Para cada contexto, desde \ct!thisContext!, \ct!haltIf:! hacia arriba
 en la pila de ejecución, se comprueba si el nombre del método que hace
 la llamada es el mismo símbolo que el recibido como parámetro.  Si se
 da el caso, se levanta una excepción, que de manera predeterminada
-***summons*** el depurador.
+apremia al depurador.
 
 También se puede proporcionar un valor booleano o un bloque booleano
 como argumento de \ct{haltIf:}, pero esos casos son sencillos y no
@@ -911,7 +911,7 @@ point class --> LoggingProxy
 
 Resulta curioso que el método \ct{class} no está implementado ni
 siquiera en \ct{ProtoObject} sino en \ct{Object}, ¡del cual no hereda
-\ct{LoggingProxy}!  La respuesta a este ***riddle*** es que \ct{class}
+\ct{LoggingProxy}!  La respuesta a este acertijo es que \ct{class}
 nunca se envía como mensaje, sino que la respuesta la da directamente
 la máquina virtual.\footnote{\ct{yourself} tampoco se envía,
   verdaderamente.  Hay otros mensajes que pueden ser interpretados
@@ -923,7 +923,7 @@ la máquina virtual.\footnote{\ct{yourself} tampoco se envía,
 \ct{next nextPut: atEnd}
 \ct{blockCopy: value value: do: new new: x y}.
 Hay selectores que nunca se envían, porque el compilador los compila
-***inline*** y los transforma a bytecodes de comparación y salto:
+en l\'inea y los transforma a bytecodes de comparación y salto:
 \ct{ifTrue: ifFalse: ifTrue:ifFalse: ifFalse:ifTrue:}
 \ct{and: or:}
 \ct{whileFalse: whileTrue: whileFalse whileTrue}
@@ -937,7 +937,7 @@ Otra forma de hacerlo es capturar la excepción
 \ct{NonBooleanReceiver}}% NB: Notes by Lukas Renggli 
 
 Aún si podemos ignorar tales envíos especiales de mensajes, exite otro
-problema fundamental que no se puede ***overcome*** mediante este
+problema fundamental que no se puede sobrellevar mediante este
 enfoque:  los envíos a \self no pueden interceptarse:
 \begin{code}{}
 point := 1@2.
@@ -947,7 +947,7 @@ point rect: (3@4)        --> 1@2 corner: 3@4
 point invocationCount --> 1
 \end{code}
 
-Nuestro proxy ***has been cheated out*** de dos envíos a \self en el
+Nuestro proxy ha sido estafado por dos envíos a \self en el
 método \ct{rect:}
 \begin{code}{}
 Point>>>rect: aPoint
@@ -966,13 +966,9 @@ La otra aplicación más popular de la intercepción de mensajes no
 definidos es la carga o generación dinámica de los métodos faltantes.
 Considere una biblioteca muy extensa de clases que tiene muchos
 métodos.  En lugar de cargar la biblioteca completa, podemos cargar un
-***stub*** para cada clase de la biblioteca.  Los ***stubs*** saben
+empalme para cada clase de la biblioteca.  Los empalmes saben
 dónde encontrar el código fuente de todos sus métodos.  Los
-***stubs*** simplemente interceptan todos los mensajes ***does not
-understand*** y cargan dinámicamente los métodos faltantes a medida
-que son necesarios.  En algún momento posterior se puede desactivar
-este comportamiento, y grabar el código cargado como el mínimo
-subconjunto necesario para la aplicación cliente.
+empalmes simplemente interceptan todos los mensajes no entendidos y cargan dinámicamente los métodos faltantes a medida que son necesarios.  En algún momento posterior se puede desactivar este comportamiento, y grabar el código cargado como el mínimo subconjunto necesario para la aplicación cliente.
 
 % \on{Stef sez: check ObjectOut -- I looked, but this seems to be very
 %   old. Depends on SqueakPage.}
@@ -1003,7 +999,7 @@ DynamicAcccessors>>>doesNotUnderstand: aMessage
         ^ super doesNotUnderstand: aMessage
 \end{code}
 Cualquier mensaje no definido se intercepta aquí.  Si existe una
-variable de instancia con el mismo nombre del mensaje, etonces
+variable de instancia con el mismo nombre del mensaje, entonces
 solicitamos a nuestra clase que compile un accesor para esa variable
 de instancia y reenviamos el mensaje.
 
@@ -1021,7 +1017,7 @@ el mensaje \ct{x} a nuestro objeto (mira \figref{DynamicAccessors}).
 
 \begin{figure}[ht]\centering
         \includegraphics[width=\linewidth]{DynamicAccessors}
-        \caption{Dynamically creating accessors.\figlabel{DynamicAccessors}}
+        \caption{Creaci\'on din\'amica de Accessors.\figlabel{DynamicAccessors}}
         % \alex{not sure whether the figure is highly necessary. The code is rather simple and the figure complete to follow in my opinion.}}
         % \on{trust me, it is useful to see all the steps.}
 \end{figure}
@@ -1052,7 +1048,7 @@ de ejecución:
 \end{code}
 
 %======================================
-\section{Los objetos disfrazados de métodos}
+\section{Los objetos como métodos wrappers}
 \seclabel{wrapper}
 
 Ya hemos visto que los métodos compilados son objetos ordinarios en
@@ -1090,7 +1086,7 @@ run: oldSelector with: arguments in: aReceiver
 \end{code}
 
 Cuando nuestra instancia de \ct{Demo} recibe el mensaje \ct{answer42},
-la búsqueda del método procede como es usual, sin embargo, ka máquina
+la búsqueda del método procede como es usual, sin embargo, la máquina
 virtual detecta que en lugar de un método compilado hay un objeto
 ordinario tratando de ocupar su lugar.
 
@@ -1121,13 +1117,13 @@ la utilización de \clsmthind{MethodDictionary}{at:put:}.)
 %-------------------------------------------------------------------------
 \subsection{Usando m\'etodos wrappers para realizar pruebas de cobertura}
 
-Los m\'etodos wrappers sun una t\'ecnica bastante conocida para interceptar mensajes \cite{Bran98a}. En la implementaci\'on original\footnote{http://www.squeaksource.com/MethodWrappers.html}, un m\'etodo wrapper es una instancia de la subclase \ct{CompiledMethod}. Al instalarlo, el m\'etodo wrapper puede realizar acciones especiales antes o despu\'es de invocar al m\'etodo original. Cuando se desinstala, el m\'etodo original es devuelto a su correcta posici\'on en el diccionario de m\'etodos.
+Los m\'etodos wrappers son una t\'ecnica bastante conocida para interceptar mensajes \cite{Bran98a}. En la implementaci\'on original\footnote{http://www.squeaksource.com/MethodWrappers.html}, un m\'etodo wrapper es una instancia de la subclase \ct{CompiledMethod}. Al instalarlo, el m\'etodo wrapper puede realizar acciones especiales antes o despu\'es de invocar al m\'etodo original. Cuando se desinstala, el m\'etodo original es devuelto a su correcta posici\'on en el diccionario de m\'etodos.
 
 En Pharo, los \ind{m\'etodos wrappers} pueden ser implementados m\'as facilmente al implementar \ct{run:with:in:} como instancia de la la subclase \ct{CompiledMethod}. De hecho, existe una implementaci\'on ligera de objetos como m\'etodos wrappers\footnote{http://www.squeaksource.com/ObjectsAsMethodsWrap.html}, pero esto no forma parte de Pharo estandar al momento de escribir esto.
 
 Sin embargo, el Pharo Test Runner usa precisamente esta técnica para evaluar la cobertura de los test. Hechemos un vistazo al funcionamiento de esto:
 
-El punto de entrara para la prueba de cobertura es el m\'etodo \clsmthind{TestRunner}{runCoverage}:
+El punto de entrada para la prueba de cobertura es el m\'etodo \clsmthind{TestRunner}{runCoverage}:
 \begin{code}{}
 TestRunner>>>runCoverage
         | packages methods |
@@ -1151,7 +1147,7 @@ TestRunner>>>collectCoverageFor: methods
                         [ UIManager default inform: 'Congratulations. Your tests cover all code under analysis.' ]
                 ifFalse: ...
 \end{code}
-Un wrapper es creado por cada m\'etodo a ser chequeado y cada wrapper está instalado. Al corror la prueba, todos los wrappers son desintalados. Finalmente el usuario obtiene la informaci\'on acerca de cuales m\'etodos no han estado cubiertos.
+Un wrapper es creado por cada m\'etodo a ser chequeado y cada wrapper se instala. Al correr la prueba, todos los wrappers son desintalados. Finalmente el usuario obtiene la informaci\'on acerca de cuales m\'etodos no han estado cubiertos.
 
 C\'omo hace el wrapper su trabajo? El wrapper \ct{TestCoverage} tiene tres variables de instacia \ct{hasRun}, \ct{reference} and \ct{method}.
 Se inicializan as\'i:
@@ -1197,7 +1193,7 @@ y en memoization (opcionalmente haciendo cache de valores computados por los m\'
 %======================================
 \section{Pragmas}
 
-Un \emphind{pragma} es una anotación que espec\'ifica informaci\'on espec\'icfica sobre un programa, pero que no est\'a envuelto en su ejecuci\'on. Los Pragmas no afectan directamente la operaci\'on del m\'etodo que anotan. Los Pragmas tienen variados usos, como ser:
+Un \emphind{pragma} es una anotación que espec\'ifica informaci\'on espec\'ifica sobre un programa, pero que no est\'a envuelto en su ejecuci\'on. Los Pragmas no afectan directamente la operaci\'on del m\'etodo que anotan. Los Pragmas tienen variados usos, como ser:
 
 \begin{itemize}
 \item Informaci\'on del compilador: Los \indmain{pragmas} pueden ser usados para hacer que un m\'etodo llame a una funci\'on primitiva. Esta funci\'on tiene que estar definida por la m\'aquina virtual o ser un pluggin externo.
@@ -1207,7 +1203,7 @@ Un \emphind{pragma} es una anotación que espec\'ifica informaci\'on espec\'icfi
 
 Los pragmas pueden ser aplicados a la declaraci\'on de m\'etodos de un programa solamente. Un m\'etodo puede declarar uno o m\'as pragmas y todos los pragmas deben estar declarados anteriormente a cualquier sentencia Smalltalk. Cada pragma es efectivamente un mensaje est\'atico enviado con argumentos literales.
 
-Brevemente menciomas pragmas cuando introdujimos primitivas al comienzo de este cap\'itulo. Una primitiva no es m\'as qu una declaraci\'on de pragma. Considere \ct{<primitive: 73>} que est\'a contenida en \ct{instVarAt:}. El selector de pragma es \ct{primitive:} y su argumento es un inmediato valor literal \ct{73}.
+Brevemente mencionamos pragmas cuando introdujimos primitivas al comienzo de este cap\'itulo. Una primitiva no es m\'as qu una declaraci\'on de pragma. Considere \ct{<primitive: 73>} que est\'a contenida en \ct{instVarAt:}. El selector de pragma es \ct{primitive:} y su argumento es un inmediato valor literal \ct{73}.
 
 El compilador es probablemente el mayor usuario de pragmas. SUnit es otra herramienta que hace uso de las anotaciones. SUnit es capaz de estimar la cobertura de una aplicaci\'on desde una unidad de prueba. Uno puede querer excluir algunos m\'etodos de la cobertura. Este es el caso del m\'etodo \ct{documentation} en la clase \ct{SplitJointTest}:  
 
@@ -1262,22 +1258,21 @@ Un pragma conoce en cual m\'etodo esta definido (usando \ct{method}), el nombre 
 Reflexi\'on se refiere a la habilidad de consultar, examinar e incluso modificar metaobjetos tanto del sistema en ejecuci\'on como objetos ordinarios.
 
 \begin{itemize}
-\item El Inspector usa \ct{instVarAt:} y m\'etodos realacionados par aconsultar y modificar variables de instancia ``privadas'' de los objetos.
+\item El Inspector usa \ct{instVarAt:} y m\'etodos realacionados para consultar y modificar variables de instancia ``privadas'' de los objetos.
 \item Envie \ct{Behavior>>>allInstances} para consultar instancias de una clase.
-\item Los mensajes \ct{class}, \ct{isKindOf:}, \ct{respondsTo:} \etc  son \'utiles para obtener m\'etricas o construir herramientas de desarrollo, pero deben ser evitados en aplicaciones regulares: Voilan el encapsulamiento de los objetos y hacen su c\'odigo dif\'icil de entender y mantener
-\item \ct{SystemNavigation} es una clase \'util para explotar muchas \'utiles consultas sobre la navegaci\'on e inspecci\'on de la jerarqu\'ia de \ct class. Por ejemplo, use \ct{SystemNavigation default browseMethodsWithSourceString: 'pharo'.} para encontrar y ver todos los m\'etodos con una determinada cadena de caracteres. (Es lento, pero completo!)
-\item Cada clase de \st apunta a una instancia del \ct{MethodDictionary} el cual mapea selectores a instancias de \ct{CompiledMethod}. Un m\'etodo compilado conoce si propia clase, cerrando el c\'irculo.
+\item Los mensajes \ct{class}, \ct{isKindOf:}, \ct{respondsTo:} \etc  son \'utiles para obtener m\'etricas o construir herramientas de desarrollo, pero deben ser evitados en aplicaciones regulares: Violan el encapsulamiento de los objetos y hacen su c\'odigo dif\'icil de entender y mantener
+\item \ct{SystemNavigation} es una clase \'util para explotar muchas \'utiles consultas sobre la navegaci\'on e inspecci\'on de la jerarqu\'ia de \ct class. Por ejemplo, use \ct {SystemNavigation default browseMethodsWithSourceString: 'pharo'.} para encontrar y ver todos los m\'etodos con una determinada cadena de caracteres. (Es lento, pero completo!)
+\item Cada clase de \st apunta a una instancia del \ct{MethodDictionary} el cual mapea selectores a instancias de \ct{CompiledMethod}. Un m\'etodo compilado conoce su propia clase, cerrando el c\'irculo.
 \item \ct{MethodReference} es un proxy ligero para un m\'etodo compilado, proveyendo conveniententemen m\'etodos adicionales y es usado por muchas herramientas de \st .
 \item \ct{BrowserEnvironment}, es parte de la infraestructura del Refactoring Browser, ofrece una interfaz m\'as refinada que \ct{SystemNavigation} para consultas el sistema, desde el resultado de una consulta, puede ser usado como el alcance de una nueva consulta. Tanto la GUI y las intefaces programables est\'an disponibles.
-\item \ct{thisContext} es una pseudo-variable que reifica la pila de ejecuci\'on dela \'aquina virtual. Es mayormente usada por el depurador para construir din\'amicamente una vista interactiva de la pila. Es tambi\'en \'util para determinar din\'amicamente el remitente de un mensaje.
-\item Puntos de ruptura inteligentes puede ser ajustados usando \ct{haltIf:}, tomando un selector de m\'etodo como su argumento. \ct{haltIf:} se detiene solo si el m\'etodo se\~nalado es un remitente en la pila de ejecuci\'on.
-\item Una manera com\'un de interceptar mensajes enviado a un determinado destino es insando un ``objeto m\'inimo'' como proxy del destino. El proxy implementa tan pocos m\'etodos como le es posible y atrapa todos los mensajes enviados por la implementaci\'on de \ct{doesNotunderstand:}. Tambi\'en puede ser usado para realizar algunas acciones adiciones y reci\'en entonces enviar el mensajes al destino original.
+\item \ct{thisContext} es una pseudo-variable que reifica la pila de ejecuci\'on de la m\'aquina virtual. Es mayormente usada por el depurador para construir din\'amicamente una vista interactiva de la pila. Es tambi\'en \'util para determinar din\'amicamente el remitente de un mensaje.
+\item Los puntos de ruptura inteligentes pueden ser ajustados usando \ct{haltIf:}, tomando un selector de m\'etodo como su argumento. \ct{haltIf:} se detiene solo si el m\'etodo se\~nalado es un remitente en la pila de ejecuci\'on.
+\item Una manera com\'un de interceptar mensajes enviados a un determinado destino es usando un ``objeto m\'inimo'' como proxy del destino. El proxy implementa tan pocos m\'etodos como le es posible y atrapa todos los mensajes enviados por la implementaci\'on de \ct{doesNotunderstand:}. Tambi\'en puede ser usado para realizar algunas acciones adiciones y reci\'en entonces enviar el mensajes al destino original.
 \item Enviar \ct{become:} para intercambiar las referencias de dos objetos , tal como un proxy y su destino.
 \item Cuidado, algunos mensajes, como  \ct{class} y \ct{yourself} nunca son realmenten enviados, pero son interceptados por la m\'aquina virtual. Otros, como \ct{+}, \ct{ifTrue:} y \ct{-} pueden ser directamente interceptados o introducidos por la m\'aquina virtual dependiendo del receptor.
 \item Otro uso t\'ipico para la sobreescritura de \ct{doesNotUnderstand:} es la carga  lenta o la compilaci\'on de m\'etodos perdidos.
 \item \ct{doesNotUnderstand:} no puede atrapar \self-sends.
-\item Una forma m\'as rigurosa de interceptar mensajes es usar un objeto como un m\'etodo wrapper. 
-A more rigorous way to intercept messages is to use an object as a method wrapper. Este ipo de objeto es instalado en el diccionario de m\'etodos en lugar de un m\'etodo compiado.  Deber\'ia implementar \ct{run:with:in:}, el cual es enviado por la m\'aquina virtual cuando detecta un objeto ordinario en lugar de un m\'etodo compilado en el diccionario de m\'etodos. Esta t\'ecnica es usad por SUnit Test Runner para recoger informaci\'ion sobre la cobertura.
+\item Una forma m\'as rigurosa de interceptar mensajes es usar un objeto como un m\'etodo wrapper. Este tipo de objeto es instalado en el diccionario de m\'etodos en lugar de un m\'etodo compilado.  Deber\'ia implementar \ct{run:with:in:}, el cual es enviado por la m\'aquina virtual cuando detecta un objeto ordinario en lugar de un m\'etodo compilado en el diccionario de m\'etodos. Esta t\'ecnica es usada por SUnit Test Runner para recoger informaci\'on sobre la cobertura.
 \end{itemize}
 
 %=========================================================
