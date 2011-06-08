@@ -1,6 +1,6 @@
-% $Author$
-% $Date$
-% $Revision$
+% $Author: CesarBallardini $
+% $Date: 2009-12-21 01:54:32 +0100 (Mon, 21 Dec 2009) $
+% $Revision: 30012 $
 
 % HISTORY:
 % 2006-10-24 - Stef started
@@ -43,13 +43,13 @@
 
 El modelo de programaci\'on de \st es simple y uniforme: todo es un objeto, y los objetos se comunican entre si \'unicamente mediante el env\'io de mensajes. 
 
-Sin embargo, esta simplicidad y uniformidad puede ser una fuente de dificultad para aquellos programadores que est\'an acostumbrados a otros lengujes. En este cap\'itulo, presentamos los conceptos claves del modelo de objetos de \st; en particular discutimos las concequencias de representar clases como objetos.
+Sin embargo, esta simplicidad y uniformidad puedes ser una fuente de dificultad para aquellos programadores que est\'an acostumbrados a otros lengujes. En este cap\'itulo, presentamos los conceptos claves del modelo de objetos de \st; en particular discutimos las concequencias de representar clases como objetos.
 
 %=========================================================
 \section{Las reglas del modelo}
 \seclabel{rules}
 
-El modelo de objetos de \st est\'a basado en un conjunto de reglas simples  que son aplicadas  \emph{de manera uniforme}. Las reglas son las siguientes:
+El modelo de objetos de \st est\'a basado en un conjunto de reglas simples  que son aplicadas  \emph{de manera uniforme}. Dichas reglas son las siguientes:
 
 \begin{enumerate}[label={\textbf{Rule \arabic{*}}.}, ref={Rule \arabic{*}}, leftmargin=*]
 \item{} \rulelabel{everything}
@@ -66,12 +66,11 @@ El modelo de objetos de \st est\'a basado en un conjunto de reglas simples  que 
 
 \item{}  \rulelabel{lookup}
 	El Method lookup sigue la cadena de herencia.
-
+% VER COMO TRADUZCO ESTO
 \end{enumerate}
 
 \noindent
 Veamos cada una de estas reglas en detalle.
-
 
 %=========================================================
 \section{Todo es un Objeto}
@@ -79,11 +78,12 @@ Veamos cada una de estas reglas en detalle.
 %\ruleref{everything}
 
 La frase ``todo es un objeto'' es altamente contagiosa.
-Despu\'es de un corto tiempo trabajando con \st, te vas a sorprender de c\'omo esta regla simplifica todo lo que haces.  
-Integers, for ejemplo, son objetos verdaderos, por lo tanto le pod\'es enviar mensajes, tal como lo haces con cualquier otro objeto. 
+Despu\'es de poco tiempo trabajando con \st, te sorprender\'as de c\'omo esta regla simplifica todo lo que haces.  
+Los n\'umeros enteros, por ejemplo, son objetos verdaderos, por lo tanto puedes enviarles mensajes, tal como lo haces con cualquier otro objeto.
+
 
 \begin{code}{@TEST}
-3 + 4            --> 7    "send '+ 4' to 3, yielding 7"
+3 + 4            --> 7    ``env\'\i{}a '+ 4' to 3, yielding 7''
 20 factorial  --> 2432902008176640000   "send factorial, yielding a big number"
 \end{code}
 
@@ -93,18 +93,20 @@ La representaci\'on de \ct{20 factorial} es ciertamente diferente de la represen
 Quiz\'as, la consecuencia fundamental de esta regla es lo siguiente:
 \important{Las clases son objetos tambi\'en.}
 
-Adem\'as, las clases no son objetos de segunda clase: son realmente objetos de primera clase a los cuales les puedes enviar mensajes, inspeccionar, etc.
-Esto significa que \pharo es un sistema verdaderamente reflectivo, lo que da un gran poder de expresiÃ³n a los desarrolladores.
+Adem\'as, las clases no son objetos de segundo orden: realmente son objetos de primer orden a los cuales les puedes enviar mensajes, inspeccionar, etc.
+Esto significa que \pharo es un sistema verdaderamente reflectivo, lo que da un gran poder de expresi\'on a los desarrolladores.
 
+M\'as produndo en la implementaci\'on, hay tres tipos diferentes de objetos. Existen (1) objetos ordinarios con variables de instancia que son pasadas por referencia, existen (2) \emph{small integers} %VER COMO TRADUZCO ESTO
+que son pasados por valor, y existen objetos indexables como arrays % VER COMO TRADUZCO
+ que contienen una porci\'on continua de memoria. La belleza de \st es que normalmente no tienes que preocuparte por las diferencias de estos tres tipos de objetos. 
 
-Deep in the implementation of \st, there are three different kinds of objects.  There are (1) ordinary objects with instance variables that are passed by references, there are (2) \emph{small integers} that are passed by value, and there are (3) indexable objects like arrays that hold a contiguous portion of memory.  The beauty of \st is that you normally don't need to care about the differences between these three kinds of object.
 
 %=========================================================
-\section{Every object is an instance of a class}
+\section{Todo objeto es instancia de una clase}
 
 %\ruleref{instance}
 
-Every object has a class; you can find out which by sending it the message \ct{class}.
+Todo objeto tiene una clase; puedes averiguar cu\'al envi\'andole el mensaje \ct{class}.
 
 \begin{code}{@TEST}
 1 class                 --> SmallInteger
@@ -115,42 +117,55 @@ Every object has a class; you can find out which by sending it the message \ct{c
 Object new class --> Object
 \end{code}
 
-A class defines the \emph{structure} of its instances via instance variables,
-and the \emph{behavior} of its instances via methods.
-Each method has a name, called its \emphsubind{method}{selector}, which is unique within the class.
+Una clase define la \emph{estructura} de sus instancias mediante variables de instancia, y el \emph{comportamiento} mediante m\'etodos. Cada m\'etodo tiene un nombre, llamado su \emphsubind{method}{selector}, que es \'unico dentro de su clase. 
 
-Since \emph{classes are objects}, and \emph{every object is an instance of a class}, it follows that classes must also be instances of classes.
-A class whose instances are classes is called a \emphind{metaclass}.
-Whenever you create a class, the system automatically creates a metaclass for you.
-The metaclass defines the structure and behavior of the class that is its instance.
-99\% \damien{Did any of you verify it is 99\%? Maybe 'Most' would have been better than '99\%'} of the time you will not need to think about metaclasses, and may happily ignore them.
-(We will have a closer look at metaclasses in \charef{metaclasses}.)
+Dado que \emph{las clases son objetos}, y que \emph{todo objeto es instancia de una clase}, entonces se deduce que las clases tambi\'en tienen que ser instancias de clases. Una clase cuyas instancias son clases, se llama  \emphind{metaclase}. Siempre que creas una clase, el sistema crea autom\'aticamente la metaclase. 
+La metaclase define la estructura y el comportamiento de la clase que es su instancia. 
+El 99\% \damien{Did any of you verify it is 99\%? Maybe 'Most' would have been better than '99\%'}de las veces no necesitar\'as pensar en metaclases, y posiblemente, las ignores. 
+(Tendremos una mirada m\'as de cerca a metaclases en \charef{metaclasses}.)
+%No esta andando el charef
 
 %---------------------------------------------------------
-\subsection{Instance variables}
+\subsection{Variables de instancia}
 
-Instance variables in \st are private to the \emph{instance} itself.
-This is in contrast to \ind{Java} and \ind{C++}, which allow instance variables (also known as ``fields'' or ``member variables'') to be accessed by any other instance that happens to be of the same class.
-We say that the \emphind{encapsulation boundary} of objects in Java and C++ is the class, whereas in \st it is the instance.
+Las variables de instancia en \st son privadas a la instancia en si misma. 
+Esto es un contraste con \ind{Java} y \ind{C++}, que permiten que las variables de instancia (tambi\'en conocidas como ``campos'', ``atributos'' o incluso ``colaboradores internos'') sean accedidas por otras instancias de la misma clase.  
+Decimos que el \emphind{l\'\i{}mite del encapsulamiento} de los objetos en Java y C++ es la clase, mientras que en \st es la instancia.
+
+%QUE HAGO CON ESTO? LO TRADUZCO ?
 \seeindex{variable!instance}{instance variable}
 \seeindex{field}{instance variable}
 \seeindex{attribute}{instance variable}
 \seeindex{slot}{instance variable}
 \index{instance variable}
 
-In \st, two instances of the same class cannot access each other's instance variables unless the class defines ``\ind{accessor} methods''.
-There is no language syntax that provides direct access to the instance variables of any other object.
-(Actually, a mechanism called \ind{reflection}
-%, discussed in \charef{metaprog},
-does provide a way to ask another object for the values of its instance variables; meta-programming is intended for writing tools like the object \ind{inspector}, whose sole purpose is to look inside other objects.)
 
-Instance variables can be accessed by name in any of the instance methods of the class that defines them, and also in the methods defined in its subclasses. This means that \st instance variables are similar to \emph{protected} variables in C++ and Java. However, we prefer to say that they are private, because it is considered bad style in \st to access an instance variable directly from a subclass. 
+En \st dos instancias de la misma clase no pueden acceder a las variables de instancia de la otra a menos que la clase defina ``m\'etodos de \ind{acceso}''.
+%Aca tengo que hacer referencia a la palabra en ingles accessor  o getter
 
-\subsubsection{Example}
-Method \cmind{Point}{dist:} (\mthref{dist:}) computes the distance between the receiver and another point. The instance variables \ct{x} and \ct{y} of the receiver are accessed directly by the method body.  However, the instance variables of the other point must be accessed by sending it the messages \ct{x} and \ct{y}.
 
+No existe sintaxis alguna del lenguaje que provea acceso directo a las variables de instancia de cualquier otro objeto. 
+(En realidad, un mecanismo llamado reflexi\'on s\'\i{} 
+% pongo reflextion en inges?
+provee una forma de pedirle a otro objeto el valor de sus variables de instancia; la meta-programaci\'on es usada para escribir herramientas como el inspector de objetos,
+%Menciono el Object inspector en ingles?
+ cuyo \'unico prop\'osito es mirar internamente otros objetos.) 
+
+
+Las variables de instancia pueden ser accedidas por nombre desde cualquier m\'etodo de instancia de la clase que las define y tambi\'en desde los m\'etodos definidos en sus subclases. Esto significa que las variables de instancia de \st son similares a las variables  \emph{protegidas} de C++ y Java.      
+%Tengo que traducir el protected variabes
+No obstante, preferimos decir que son privadas, pues en \st es considerado un mal estilo acceder directamente a las variables de instancia desde una subclase.  
+
+
+
+\subsubsection{Ejemplo}
+
+El m\'etodo \cmind{Point}{dist:} (\mthref{dist:}) computa la distancia entre el receptor y otro punto. Las variabes de instancia \ct{x} e \ct{y} del receptor son accedidas directamente por el cuerpo de m\'etodo. Sin embargo, las variables de instancia del otro punto deben ser accedidas envi\'andole los mensajes \ct{x} e \ct{y}.
+
+
+%Se traducen los comentarios de los ejemplos de codigo ?
 \needlines{7}
-\begin{method}[dist:]{the distance between two points}
+\begin{method}[dist:]{la distancia entre dos puntos}
 Point>>>dist: aPoint 
 	"Answer the distance between aPoint and the receiver."  
 	| dx dy |
@@ -163,53 +178,53 @@ Point>>>dist: aPoint
 1@1 dist: 4@5 --> 5.0
 \end{code}
 
-The key reason to prefer instance-based encapsulation to class-based encapsulation is that it enables different implementations of the same abstraction to coexist.
-For example, method \ct{point>>>dist:}, need not know or care whether the argument \ct{aPoint} is an instance of the same class as the receiver.  The argument object might be represented in polar coordinates, or as a record in a database, or on another computer in a distributed system; as long as it can respond to the messages \ct{x} and \ct{y}, the code in \mthref{dist:} will still work.
+La raz\'on clave para preferir encapsulamiento basado en instancias sobre encapsulamiento basado en clases, es que permite que diferentes implementaciones de la misma abstracci\'on puedan coexistir. 
+
+Por ejemplo, el m\'etodo \ct{point>>>dist:} no necesita saber o preocuparse si el argumento \ct{aPoint} es una instancia de la misma clase que el receptor o no. El objeto del argumento podr\'\i{}a estar representado en coordinadas polares, o como un registro en una base de datos, o en otra computadora en un sistema distribuido; mientras pueda responder a los mensajes \ct{x} e \ct{y}, el c\'odigo de \mthref{dist:} va a seguir funcionando correctamente.
 
 %---------------------------------------------------------
-\subsection{Methods}
+\subsection{M\'etodos}
 
-All methods are \subind{method}{public}.\footnote{Well, almost all.  In \pharo, methods whose selectors start with the string \ct{pvt} are private: a \ct{pvt} message can be sent \emph{only} to \self.  However, \ct{pvt} methods are not used very much.}
-Methods are grouped into protocols that indicate their intent.
-Some common protocol names have been established by convention, for example, \protind{accessing} for all accessor methods, and \protind{initialization} for establishing a consistent initial state for the object.
-The protocol \protind{private} is sometimes used to group methods that should not be seen from outside.
-Nothing, however, prevents you from sending a message that is implemented by such a ``private'' method.
+Todos los m\'etodos  son \subind{method}{p\'ublicos}.\footnote{Bueno, en realidad, casi todos. En \pharo, los m\'etodos cuyos selectores empiezan con el prefijo \ct{pvt} son privados: Un mensaje \ct{pvt} puede ser enviado  \emph{solamente} a \self. No obstante, los m\'etodos \ct{pvt} no son muy usados.}
+Los m\'etodos son agrupados en protocolos que indican su intenci\'on. 
+Algunos nombres de protocolos comunes han sido establecidos por convenci\'on, por ejemplo, \protind{accessing} para todos los m\'etodos de acceso, e \protind{initialization} para crear un estado concistente inicial del objeto. El protocolo \protind{private} se usa a veces para agrupar m\'etodos que no deber\'\i{}an ser vistos desde afuera del objeto. Sin embargo, nada previene que le puedas enviar un mensaje que est\'a implementado como ``privado''.  
 
-Methods can access all instance variables of the object.
-Some \st developers prefer to access instance variables only through accessors.
-This practice has some value, but it also clutters the interface of your classes, and worse, exposes private state to the world.
+Los m\'etodos pueden acceder a todas las variables de instancia del objeto.
+Algunos programadores \st prefieren acceder a las variables de instancia \'unicamente mediante m\'etodos de acceso. 
+Dicha pr\'actica tiene cierto valor, pero tambi\'en impacta en la interfaz de las clases, y pero a\'un, expone estado privado al mundo.
 
 %---------------------------------------------------------
-\subsection{The instance side and the class side}
+\subsection{Del lado de instancia y del lado de clase}
 
-Since classes are objects, they can have their own instance variables and their own methods.
-We call these \emph{class instance variables} and \emph{class methods}, but they are really no different from ordinary instance variables and methods:
-class instance variables are just instance variables defined by a metaclass, and class methods are just methods defined by a \ind{metaclass}. 
+Dado que las clases son objetos, tambi\'en tienen sus propias variables de instancia y sus propios m\'etodos.
+Llamamos a ellos, \emph{variables de instancia de clase} y \emph{m\'etodos de clase}, pero en realidad no son diferentes a las variables de instancia y m\'etodos ordinarios:
+las variables de instancia de clase son s\'olo variables de instancia definidas por una metaclase, y los m\'etodos de clase son simplemente m\'etodos definidos por una  \ind{metaclase}. 
+
 \index{class!instance variable}
 \seeindex{variable!class instance}{class, instance variable}
 \index{class!method}
 
-A class and its \ind{metaclass} are two separate classes, even though the former is an instance of the latter. 
-However, this is largely irrelevant to you as a programmer: you are concerned with defining the behavior of your objects and the classes that create them.
+Una clase y su \ind{metaclase} son dos clases separadas, a pesar de que la primera es una instancia de la segunda. No obstante, esto es en gran medida irrelevante para el programador:  debe concentrarse en definir el comportamiento de sus objetos y en las clases que los crean. 
+
 
 \begin{figure}[htb]
 \begin{center}
 \includegraphics[width=\textwidth]{Color-Buttons}
-\caption{Browsing a class and its metaclass.
+\caption{Navegando una clase y su metaclase.
 % \sd{Do we use Key everywhere in the picture as a legend indicator?}
 % \on{sure, wherever appropriate}
 \figlabel{Buttons}}
 \end{center}
 \end{figure}
 
-For this reason, the browser \index{browser} helps you to browse both class and metaclass as if they were a single thing with two ``sides'': the ``\subind{browser}{instance side}'' and the ``\subind{browser}{class side}'', as shown in \figref{Buttons}. Clicking 
-on the \button{instance} button browses the class \ct{Color}, \ie you browse the methods that are executed when messages
-are sent to an instance of \ct{Color}, like the blue color. Pressing the \button{class} button browses the class \ct{Color class}, \ie you see
-the methods that will be executed when messages are sent to the class \ct{Color} itself.
-For example, \ct{Color blue} sends the message \ct{blue} to the class \clsind{Color}.
-You will therefore find the method \ct{blue} defined on the class side of \ct{Color}, not on the instance side.
+For esta raz\'on, el navegador \index{browser}  te ayuda a navegar ambas, la clase y su metaclase, como si fueran una sola cosa con dos pesta\~nas: ``\subind{browser}{del lado de instancia}'' y ``\subind{browser}{del lado de clase}'', como se muestra en \figref{Buttons}. 
+
+%Como traduzco clicking ?
+Clickeando en el bot\'on \button{instance} navegamos la clase \ct{Color}, \ie puedes navegar los m\'etodos que son ejecutados cuando se le env\'\i{}an mensajes a una instancia de \ct{Color}, como por ejemplo el color azul. Presionando el bot\'on  \button{class} navegamos la clase \ct{Color class}, \ie se pueden ver los m\'etodos que ser\'an ejecutados cuando se le envien mensajes a la clase \ct{Color}  propiamente dicha.
+Por ejemplo, \ct{Color blue} env\'\i{}a el mesaje \ct{blue} a la clase \clsind{Color}. Por lo tanto, encontrar\'as el m\'etodo  \ct{blue} definido en el lado de clase de  \ct{Color}, no del lado de instancia. 
 \seeindex{class side}{browser!class side}
 \seeindex{instance side}{browser!instance side}
+
 
 \needlines{5}
 \begin{code}{@TEST | aColor |}
@@ -219,45 +234,53 @@ aColor red  --> 0.0         "Instance side accessor method red"
 aColor blue --> 1.0        "Instance side accessor method blue"
 \end{code}
 
-You define a class by filling in the template proposed on the \subind{browser}{instance side}.
-When you accept this template, the system creates not just the class that you defined, but also the corresponding metaclass.
-You can browse the metaclass by clicking on the \button{class} button.
-The only part of the metaclass creation template that makes sense for you to edit directly is the list of instance variable names.
 
-Once a class has been created, clicking the \button{instance} button lets you edit and browse the methods that will be possessed by instances of that class (and of its subclasses). For example, we can see in \figref{Buttons} that the method \ct{hue} is defined on instances of the class \ct{Color}.
-In contrast, the \button{class} button lets you browse and edit the metaclass (in this case \ct{Color class}).
+%como traduzco template ?
+Una clase se define completando el esqueleto propuesto en el  \subind{browser}{lado de instancia}. 
+Cuando se acepta esta plantilla, el sistema crea no s\'olo la clase definida, pero tambi\'en la metaclase asociada.
 
-%---------------------------------------------------------
-\subsection{Class methods} 
+Puede navegar la metaclase clickeando en el bot\'on \button{class}.
+La \'unica parte de la plantilla de creaci\'on de la metaclase que tiene sentido editar directamente es la lista de nombres de variables de instancia.
 
-Class methods can be quite useful; browse \ct{Color class} for some good examples.
-You will see that there are two kinds of \subind{class}{method} defined on a class: those that create instances of the class, like \cmind{Color class}{blue} and those that perform a utility function, like 
-\cmind{Color class}{showColorCube}.
-This is typical, although you will occasionally find class methods used in other ways.
-
-It is convenient to place utility methods on the \subind{browser}{class side} because they can be executed without having to create any additional objects first.
-Indeed, many of them will contain a comment designed to make it easy to execute them.
-
-\dothis{Browse method \ct{Color class>>>showColorCube}, double-click just inside the quotes on the comment \ct{"Color showColorCube"} and type \short{d}.}
-You will see the effect of executing this method.  (Select \menu{World \go \ind{restore display}~(r)} to undo the effects.)
-
-For those familiar with \ind{Java} and \ind{C++},  class methods may seem similar to static methods. 
-However, the uniformity of \st means that they are somewhat different: whereas Java static methods are really just statically-resolved procedures, \st class methods are dynamically-dispatched methods.  This means that inheritance, overriding and super-sends work for class methods in \st, whereas they don't work for static methods in Java.  
+Una vez que una clase fue creada, clickeando en el bot\'on \button{instance} podemos editar y navegar los m\'etodos  que ser\'an pose\'\i{}dos por instancias de esa clase (y de sus subclases). Por ejemplo, podemos ver en la \figref{Buttons} que el m\'etodo \ct{hue} est\'a definido en el lado de instancia de la clase  \ct{Color}.
+Por el contrario, el b\'oton  \button{class} permite navegar y editar la metaclase (en este caso \ct{Color class}).
 
 %---------------------------------------------------------
-\subsection{Class instance variables}
-With ordinary instance variables, all the instances of a class have the same set of variable names, and the instances of its subclasses inherit those names; however, each instance has its own private set of values.
-The story is exactly the same with class \subind{class}{instance variable}{}s: each class has its own private class instance variables.
-A subclass will inherit those class instance variables, \emph{but it has its own private copies of those variables}.
-Just as objects don't share instance variables, neither do classes and their subclasses share class instance variables.
+\subsection{M\'etodos de clase} 
 
-You could use a class instance variable called \ct{count} to keep track of how many instances you create of a given class.
-However, any subclass would have its own \ct{count} variable, so subclass instances would be counted separately.
+Los m\'etodos de clase pueden ser muy \'utiles; puedes navegar \ct{Color class} para ver unos buenos ejemplos.
+Ver\'as que hay dos tipos de \subind{class}{m\'etodos} definidos en una clase: aquellos que crean instancias de la clase, como \cmind{Color class}{blue} y aquellos que llevan a cabo una funci\'on de utilidad, como \cmind{Color class}{showColorCube}. 
+Esto es lo t\'\i{}pico, aunque ocasionalmente encontrar\'as m\'etodos de clase usados para otra cosa.  
 
-\paragraph{Example: class instance variables are not shared with subclasses.}
-Suppose we define classes \ct{Dog} and \ct{Hyena}, where \ct{Hyena} inherits the class instance variable \ct{count} from \ct{Dog}.
+Es conveniente poner los m\'etodos de utilidad \subind{browser}{del lado de clase} porque pueden ser ejecutados sin tener que crear ning\'un objeto primero.
+De hecho, la mayor\'\i{}a de ellos tendr\'an un comentario cuyo objetivo es hacer m\'as f\'acil su ejecuci\'on.
 
-\begin{classdef}[dog]{Dogs and Hyenas}
+\dothis{Navegue el m\'etodo  \ct{Color class>>>showColorCube}, doble click justo adentro de las comillas del comentario  \ct{"Color showColorCube"} y tipee \short{d}.}
+Ver\'as el efecto de ejecutar este m\'etodo. (Seleccione \menu{World \go \ind{restore display}~(r)} para deshacer los cambios.)
+
+
+Para aquellos familiarizados con \ind{Java} y \ind{C++}, los m\'etodos de clase parecieran ser similares a los m\'etodos est\'aticos.
+Sin embargo, la uniformidad de \st implica que de alguna forma son distintos: mientras que los m\'etodos est\'aticos de Java son realmente simples procedimientos resueltos est\'aticamente, los m\'etodos de clase de \st son m\'etodos despachados dinamicamente. 
+%como traduzco dynamic-dispatteched methods?
+Esto significa que la herencia, sobre-escritura y mensajes enviados con super funcionan en los m\'etdos de clase en \st, mientras que no funcionan con los m\'etodos est\'aticos de Java.
+
+
+%---------------------------------------------------------
+
+\subsection{Variables de instancia de clase}
+
+Con las variables de instancia ordinarias, todas las instancias de una clase tienen el mismo conjunto de nombres de variables, y las instancias de sus subclases heredan esos nombres; no obstante, cada instancia tiene su propio conjunto privado de valores.
+%No se como poner el subind aca
+La historia es exactamente la misma con las variables de instancia de clase: cada clase tiene sus propias variables de instancia de clase privadas. 
+Una subclase heredar\'a esas variables de instancia de clase, \emph{pero tendr\'a sus propias copias de dichas variables}.
+As\'\i{} c\'omo los objetos no comparten sus variables de instancia, tampoco las clases ni sus subclases comparten las variables de instancia de clase.
+
+Una variable de instancia de clase llamada \ct{contador} se podr\'\i{}a usar por ejemplo, para llevar la cuenta de cuantas instancias se crean de una clase dada. De todos modos, cada subclase tendr\'a su propia variable \ct{count}, por lo tanto, las instancias de las subclases ser\'\i{}an contadas por separado. 
+
+\paragraph{Ejemplo: las variables de instancia de clase no son compartidas con sus subclases.}
+Supongamos que definimos las classes  \ct{Dog} (perro) y \ct{Hyena} (hiena), donde \ct{Hyena} hereda la variable de instancia de clase  \ct{contador} de \ct{Dog}.
+
+\begin{classdef}[dog]{Perros y hienas}
 Object subclass: #Dog
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -274,8 +297,8 @@ Dog subclass: #Hyena
 	category: 'PBE-CIV'
 \end{classdef}
 
-Now suppose we define class methods for \ct{Dog} to initialize its \ct{count} to \ct{0}, and to increment it when new instances are created:
-\begin{method}[dogcount]{Keeping count of new dogs}
+Ahora supongamos que creamos m\'etodos de clase en \ct{Dog} para inicializar su variable \ct{count} a \ct{0}.
+\begin{method}[dogcount]{Manteniendo la cuenta de perros nuevos}
 Dog class>>>initialize
 	super initialize.
 	count := 0.
@@ -288,7 +311,8 @@ Dog class>>>count
 	^ count
 \end{method}
 
-Now when we create a new \ct{Dog} its count is incremented, and so is that of every \ct{Hyena}, but they are counted separately:
+Ahora cuando creamos un nuevo perro su contador es incrementado, y lo mismo para cada hiena, pero son contados por separado:
+
 \begin{code}{}
 Dog initialize.
 Hyena initialize.
@@ -303,26 +327,28 @@ Hyena count --> 1
 \end{code}
 % ON: In order to make this a test, I need the previous code to be part of the setup. Bleh.
 
-Note also that class instance variables are private to a class in exactly the same way that instance variables are private to the instance.
-Since classes and their instances are different objects,
-this has the following immediate consequences:
-\important{A class does not have access to the instance variables of its own instances.}
-\important{An instance of a class does not have access to the class instance variables of its class.}
-For this reason, instance initialization methods must always be defined on the \subind{browser}{instance side}\,---\,the \subind{browser}{class side} has no access to instance variables, so cannot initialize them!  
-All that the class can do is to send \ind{initialization} messages, possibly using accessors, to newly created instances.
+Note tambi\'en que las variables de instancia de clase son privadas a la clase extactamente de la misma forma en que las variables de instancia son privadas a la instancia. 
+Dado que las clases y sus instancias son diferentes objetos, existen las siguientes inmediatas consecuencias:
+\important{Una clase no tiene acceso a las variables de instancia de sus propias instancias.}
+\important{Una instancia de una clase no tiene acceso a las variables de instancia de clase de su propia clase.}
+%No se como poner el subind aca
+Por esta raz\'on, los m\'etodos de inicializaci\'on de instancia deber ser definidos siempre en el lado de instancia del navegador
+\,---\,el lado de clase del navegador no tiene acceso a las variables de instancia, por lo tanto no las puede inicializar! 
 
-Similarly, instances can only access class instance variables indirectly, by sending accessor messages to their class.
+De manera similar, las instancias puede acceder a las variables de instancia de clase solamente de forma indirecta, enviando un mensaje de acceso a sus clases. 
 
-\ind{Java} has nothing equivalent to class instance variables.  
-Java and \ind{C++} static variables are more like \st class variables, which we will discuss in \secref{classVars}: all of the subclasses and all of their instances share the same static variable.
+\ind{Java} no tiene nada equivalente a las variables de instancia de clase. 
+Las variables est\'aticas de Java y \ind{C++} son m\'as parecidas a las variables de clase de \st, que discutiremos en la \secref{classVars}: todas las subclases y todas sus instancias comparten la misma variable est\'atica.
 
-\paragraph{Example: Defining a Singleton.}
-The \ind{Singleton pattern}~\cite{Alpe98a} provides a typical example of the use of class instance variables and class methods.
-Imagine that we would like to implement a class \ct{WebServer} and use the Singleton pattern to ensure that it has only one instance.
 
-Clicking on the \button{instance} button in the browser, we define the class \clsind{WebServer} as follows (\clsref{singleton}).
+%Traduzco Singleton ? como ?
+\paragraph{Ejemplo: Definiendo un Singleton.}
+El \ind{patr\'on Singleton}~\cite{Alpe98a} provee un t\'\i{}pico ejemplo del uso de variables de instancia de clase y de m\'etodos de clase.
+Imagine que quisi\'eramos implementar la clase \ct{WebServer} y usar el patr\'on Singleton para asegurarnos que tenga una \'unica instancia. 
 
-\begin{classdef}[singleton]{A singleton class}
+Clickeando en el bot\'on \button{instance} del navegador, definimos la clase \clsind{WebServer} como sigue (\clsref{singleton}). 
+
+\begin{classdef}[singleton]{Una clase singleton}
 Object subclass: #WebServer
 	instanceVariableNames: 'sessions' 	
 	classVariableNames: '' 	
@@ -330,42 +356,48 @@ Object subclass: #WebServer
 	category: 'Web'
 \end{classdef}
 
-Then, clicking on the \button{class} button, we add the instance variable \ct{uniqueInstance} to the \subind{browser}{class side}.
+Luego, clieckeando en el bot\'on \button{class}, agregamos la variable de instancia \ct{uniqueInstance} \subind{browser}{del lado de clase}
 
-\begin{classdef}[webserver]{The class side of the singleton class}
+\begin{classdef}[webserver]{El lado de clase de la clase singleton}
 WebServer class 	
 	instanceVariableNames: 'uniqueInstance'
 \end{classdef}
 
-The consequence of this is that the class \ct{WebServer} now has another instance variable,
-in addition to the variables that it inherits, such as \ct{superclass} and \ct{methodDict}.
+La consequencia de esto es que la clase \ct{WebServer} ahora tiene otra variable de instancia, 
+adem\'as de las variables de instancia que hereda, como \ct{superclass} y \ct{methodDict}.
 
-We can now define a class \subind{class}{method} named \ct{uniqueInstance} as shown in \mthref{uniqueInstance}. 
-This method first checks whether \ct{uniqueInstance} has been initialized.
-If it has not, the method creates an instance and assigns it to the class instance variable \ct{uniqueInstance}.  
-Finally the value of \ct{uniqueInstance} is returned.
-Since \ct{uniqueInstance} is a class instance variable, this method can directly access it.
+
+%Habria que cambiar el mthref para que lo imprima en espaniol
+Ahora podemos definir un \subind{class}{m\'etodo} de clase llamado \ct{uniqueInstance} como se muestra en el \mthref{uniqueInstance}.
+Este m\'etodo primero chequea si  \ct{uniqueInstance} ha sido inicializada o no.
+Si no lo fue, el m\'etodo crea una instancia y la asigna a la variable de instancia de clase  \ct{uniqueInstance}.  
+Finalmente el valor de \ct{uniqueInstance} es retornado.
+Como  \ct{uniqueInstance} es una variable de instancia de clase, \'este m\'etodo puede acceder a ella directamente. 
+
     
-\begin{method}[uniqueInstance]{uniqueInstance (on the class side)}
+\begin{method}[uniqueInstance]{uniqueInstance (en el lado de clase)}
 WebServer class>>>uniqueInstance
      uniqueInstance ifNil: [uniqueInstance := self new].
      ^ uniqueInstance
 \end{method}
 
-The first time that \ct{WebServer uniqueInstance} is executed, an instance of the class \ct{WebServer} will be created and assigned to the \ct{uniqueInstance} variable. 
-The next time, the previously created instance will be returned instead of creating a new one. 
+La primera vez que \ct{WebServer uniqueInstance} es ejecutado, una instancia de la clase \ct{WebServer}  ser\'a creada y asignada a la variable \ct{uniqueInstance}.
+La pr\'oxima vez, la instancia creada previamente ser\'a retornada, en lugar de crear una nueva. 
 
-Note that the instance creation code inside the conditional in \mthref{uniqueInstance} is written as \ct{self new} and not as \ct{WebServer new}.
-What is the difference?   Since the \ct{uniqueInstance} method is defined in \ct{WebServer class}, you might think that they were the same.    And indeed, until someone creates a subclass of \lct{WebServer}, they are the same.  But suppose that \ct{ReliableWebServer} is a subclass of \ct{WebServer}, and inherits the \ct{uniqueInstance} method.  We would clearly expect \ct{ReliableWebServer uniqueInstance} to answer a \lct{ReliableWebServer}:. Using \self ensures that this will happen, since it will be bound to the respective class.
-Note also that \ct{WebServer} and \ct{ReliableWebServer} will each have their own class instance variable called \ct{uniqueInstance}.  These two variables will of course have different values.
+
+Note que el c\'odigo de creaci\'on de instancias adentro del condicional en el \mthref{uniqueInstance} est\'a escrito como \ct{self new}  y no como \ct{WebServer new}.
+?`Cu\'al es la diferencia?   Dado que el m\'etodo \ct{uniqueInstance} est\'a definido en la \ct{clase WebServer}, podr\'\i{}a pensarse que ambas son iguales. De hecho, hasta que alguien cree una subclase de \lct{WebServer}, son iguales. Pero supongamos que \ct{ReliableWebServer} es una subclase de  \ct{WebServer}, y hereda el m\'etodo \ct{uniqueInstance}. Esperar\'\i{}amos claramente que \ct{ReliableWebServer uniqueInstance} responda un \lct{ReliableWebServer}. Usando \self nos aseguramos de que as\'\i{} sea, pues ser\'a ligado con la correspondiente clase. 
+Note tambi\'en que \ct{WebServer} y \ct{ReliableWebServer} van a tener, cada uno, sus propias variables de instancia de clase llamadas
+\ct{uniqueInstance}.  Esas dos variables van a tener obviamente distintos valores.
+
 
 %=========================================================
-\section{Every class has a superclass}
+\section{Toda clase tiene una superclase}
 
 %\ruleref{inheritance}
 
-Each class in \st inherits its behaviour and the description of its structure from a single \emphind{superclass}.
-This means that \st has single \ind{inheritance}.
+Cada clase en \st hereda su comportamiento y la descripci\'on de su estructura de una \'unica \emphind{superclase}.
+Esto significa que \st tiene \ind{herencia} simple.
 
 \needlines{2}
 \begin{code}{@TEST}
@@ -377,47 +409,60 @@ Object superclass           --> ProtoObject
 ProtoObject superclass  --> nil
 \end{code}
 
-Traditionally the root of the \st inheritance hierarchy is the class \clsind{Object} (since everything is an object).
-In \pharo, the root is actually a class called \clsind{ProtoObject}, but you will normally not pay any attention to this class.
-\ct{ProtoObject} encapsulates the minimal set of messages that all objects \emph{must} have.  However, most classes inherit from \ct{Object}, which defines many additional messages that almost all objects ought to understand and respond to.
-Unless you have a very good reason to do otherwise, when creating application classes you should normally subclass \ct{Object}, or one of its subclasses.
 
-\dothis{A new class is normally created by sending the message
+Tradicionalmente la raiz de la jerarqu\'\i{}a de herencia en \st es la clase \clsind{Object} (dado que todo es un objeto).
+En \pharo, la raiz es en realidad una clase llamada \clsind{ProtoObject}, aunque normalmente no prestar\'as atenci\'on a esta clase. 
+\ct{ProtoObject} encapsula el conjunto de mensajes m\'\i{}nimos que todos los objetos \emph{deben} tener. Sin embargo, la mayor\'\i{}a de las clases heredan de \ct{Object}, quien define varios mensajes adicionales que casi todos los objetos deber\'\i{}an entender y responder.
+A menos que tengas una muy buena raz\'on para hacer lo contrario, cuando crees clases para aplicaciones deber\'\i{}an normalmente 
+heredar de  \ct{Object}, o de una de sus subclases.
+
+
+\dothis{Una nueva clase es creada normalmente enviando el mensaje
 \ct{subclass: instanceVariableNames: ...}
-to an existing class.
-There are a few other methods to create classes.
-Have a look at the protocol \prot{Kernel-Classes \go Class \go subclass creation} to see what they are.}
+a una clase existente.
+Hay tambi\'en algunos otros m\'etodos para crear clases.
+Puedes observar el protocolo \prot{Kernel-Classes \go Class \go subclass creation} para ver cuales son.}
 \scatindex{Kernel-Classes}
-\protindex{creation}
+\protindex{creation}	
 
 %There is no special syntax for creating abstract classes in \st.
 %An abstract class is an ordinary class in which the implementation of some methods is deferred to a subclass.
 %This is repeated in the next section
 
-Although \pharo does not provide multiple inheritance, it supports a mechanism called \emphind{trait}{}s for sharing behaviour across unrelated classes.
-Traits are collections of methods that can be reused by multiple classes that are not related by inheritance. Using traits allows one to share code between different classes without duplicating code.
+Aunque \pharo no provee m\'ultiple herencia, s\'\i{} soporta una mecanismo llamado \emphind{trait}{}s para compartir comportamiento entre clases no relacionadas.
+Traits son colecciones de m\'etodos que pueden ser reutilizados por m\'ultiples cases que no est\'an relacionadas por la herencia. Usando traits uno puede compartir c\'odigo entre diferentes clases sin duplicaci\'on de c\'odigo.
+
 
 %---------------------------------------------------------
-\subsection{Abstract methods and abstract classes}
+\subsection{M\'etodos abstractos y clases abstractas}
 
-An \subind{class}{abstract} class is a class that exists to be subclassed, rather than to be instantiated.
-An abstract class is usually incomplete, in the sense that it does not define all of the methods that it uses.
-The ``missing'' methods\,---\,those that the other methods assume, but which are not themselves defined\,---\,are called \subind{method}{abstract} methods.
-\seeindex{abstract class}{class, abstract}
-\seeindex{abstract method}{method, abstract}
+Una clase \subind{clase}{abstracta}  es una clase que existe para ser subclasificada, m\'as que instanciada. 
+Una clase abstracta es usualmente incompleta, en el sentido de que no define todos los m\'etodos que usa. 
+Todos esos m\'etodos que le faltan\,---\,aquellos que otros m\'etodos asumen, pero que no est\'an definidos en si mismos\,---\, son llamados m\'etodos \subind{m\'etodo}{abstractos}. 
+\seeindex{clase abstracta}{clase, abstracta}
+\seeindex{m\'etodo abstracto}{m\'etodo, abstracto}
 
-\st has no dedicated syntax to specify that a method or a class is abstract. 
-By convention, the body of an abstract method consists of the expression \mbox{\ct{self subclassResponsibility}.} 
-This is known as a ``marker method'', and indicates that subclasses have the responsibility to define a concrete version of the method. 
-\ct{self subclassResponsibility} methods should always be overridden, and thus should never be executed.
-If you forget to override one, and it is executed, an exception will be raised. 
+
+\st no tiene una sintaxis dedicada para especificar que un m\'etodo o clase es abstracta. 
+Por convenci\'on, el cuerpo de un m\'etodo abstracto conciste en la expresi\'on \mbox{\ct{self subclassResponsibility}.} 
+Este es un conocido ``Marker Method'', e indica que las subclases tienen la responsabilidad de definir una versi\'on concreta del m\'etodo.
+Los m\'etodos \ct{self subclassResponsibility} deber\'\i{}an ser siempre sobreescritos, y por lo tanto nunca deber\'\i{}an ser ejecutados.
+Si te olvidas de sobreescribir alguno, y es ejecutado, una excepci\'on ser\'a lanzada. 
 \cmindex{Object}{subclassResponsibility}
 
-A class is considered abstract if one of its methods is abstract.
-Nothing actually prevents you from creating an instance of an abstract class; everything will work until an abstract method is invoked. 
 
-\subsubsection{Example: the class \ct{Magnitude}.}
-\clsind{Magnitude} is an abstract class that helps us to  define objects that can be compared to each other. Subclasses of \ct{Magnitude} should implement the methods \ct{<}, \ct{=} and \ct{hash}. Using such messages \ct{Magnitude} defines other methods such as \ct{>}, \ct{>=}, \ct{<=}, \ct{max:}, \ct{min:} \ct{between:and:} and others for comparing objects. Such methods are inherited by subclasses. The method \mthind{Magnitude}{<} is abstract and defined as shown in \mthref{MagnitudeLessThan}.
+Una clase es considerada abstracta si al menos uno de sus m\'etodos es abstracto.
+En realidad, nada te previene de crear una instancia de una clase abstracta: todo va a andar bien hasta que un m\'etodo abstracto sea invocado. 
+
+
+\subsubsection{Ejemplo: la clase \ct{Magnitude}.}
+
+
+\clsind{Magnitude} is an abstract class that helps us to  define objects that can be compared to each other. Subclasses of \ct{Magnitude} should implement the methods \ct{<}, \ct{=} and \ct{hash}. Using such messages \ct{Magnitude} defines other methods such as \ct{>}, \ct{>=}, \ct{<=}, \ct{max:}, \ct{min:} \ct{between:and:} and others for comparing objegraphses. The method \mthind{Magnitude}{<} is abstract and defined as shown in \mthref{MagnitudeLessThan}.
+
+
+\clsind{Magnitude} es una clase abstracta que nos ayuda a definir objetos que pueden ser comparados con otros. Las subclases de \ct{Magnitude} deber\'\i{}an implementar los m\'etodos \ct{<}, \ct{=} and \ct{hash}. Usando esos mensajes \ct{Magnitude} define otros m\'etodos como \ct{>}, \ct{>=}, \ct{<=}, \ct{max:}, \ct{min:} \ct{between:and:} y otros para comparar grafos de objetos.  El m\'etodo  \mthind{Magnitude}{<}  es abstracto y definido como se muestra en  \mthref{MagnitudeLessThan}.
+
 
 \begin{method}[MagnitudeLessThan]{\ct{Magnitude>>><}}
 Magnitude>>>< aMagnitude 
@@ -426,16 +471,19 @@ Magnitude>>>< aMagnitude
 \end{method}
 
 \noindent
-By contrast, the method \mthind{Magnitude}{>=} is concrete; it is defined in terms of \ct{<}:
+Por el contrario, el m\'etodo \mthind{Magnitude}{>=} es concreto; est\'a definido en t\'erminos de \ct{<}:
+
 
 \begin{method}[Magnitude>=]{\ct{Magnitude>>>>=}}
 >= aMagnitude 
 	"Answer whether the receiver is greater than or equal to the argument."
 	^(self < aMagnitude) not
 \end{method}
-The same is true of the other comparison methods.
 
-\clsind{Character} is a subclass of \ct{Magnitude}; it overrides the \mthind{Object}{subclassResponsibility} method for \ct{<} with its own version of \ct{<} (see \mthref{CharacterLessThan}).  \ct{Character} also defines methods \ct{=} and \ct{hash}; it inherits from \ct{Magnitude} the methods \ct{>=}, \ct{<=}, \ct{~=} and others.
+Lo mismo sucede con los otros m\'etodos de comparaci\'on.
+
+\clsind{Character} es una subclase de \ct{Magnitude}; sobreescribe el m\'etodo \mthind{Object}{subclassResponsibility} de \ct{<} con su propia versi\'on de \ct{<} (mirar \mthref{CharacterLessThan}).  \ct{Character} tambi\'en define los m\'etodos \ct{=} y \ct{hash}; hereda de \ct{Magnitude} los m\'etodos \ct{>=}, \ct{<=}, \ct{~=} entre otros.
+
 
 \begin{method}[CharacterLessThan]{\ct{Character>>><}}
 Character>>>< aCharacter 
@@ -443,12 +491,13 @@ Character>>>< aCharacter
 	^self asciiValue < aCharacter asciiValue
 \end{method}
 
+
+
 %---------------------------------------------------------
 \subsection{Traits}
-A \emphind{trait} is a collection of methods that can be included in the behaviour of a class without the need for inheritance.
-This makes it easy for classes to have a unique superclass, yet still share useful methods with otherwise unrelated classes.
+Un \emphind{trait} es una colecci\'on de m\'etodos que pueden ser incluidos en el comportamiento de una clase sin la necesidad de la herencia. Esto permite facilmente que las clases tengan una \'unica superclase, pero que tambi\'en puedan compartir m\'etodos con otras clases con las que no est\'an relacionadas.
 
-To define a new trait, simply replace the subclass creation template by a message to the class \clsind{Trait}.
+Para definir un nuevo trait, simplemente remplaza la plantilla de creaci\'on de subclases, enviando un mensaje a la clase \clsind{Trait}.
 
 \needspace{5\baselineskip}
 \begin{classdef}[tauthor]{Defining a new trait}
@@ -458,14 +507,15 @@ Trait named: #TAuthor
 \end{classdef}
 
 \noindent
-Here we define the trait \ct{TAuthor} in the category \scat{PBE-LightsOut}.
-This trait does not \emph{use} any other existing traits.
-In general we can specify a \emph{trait composition expression} of other traits to use as part of the \ct{uses:} keyword argument.
-Here we simply provide an empty array.
+Ac\'a definimos el trait \ct{TAuthor} en la categor\'\i{}a \scat{PBE-LightsOut}.
+Este trait no \emph{usa} ning\'un otro trait existente.
+En general siempre podemos especificar la expresi\'on de composici\'on de un trait, de otros traits para usar como parte del argumnento de palabra clave \ct{uses:}.
 
-Traits may contain methods, but no instance variables.
-Suppose we would like to be able to add an \ct{author} method to various classes, independent of where they occur in the hierarchy.
-We might do this as follows:
+
+Los traits pueden contener m\'etodos pero no variables de instancia.
+Supongamos que queremos agregar un m\'etodo \ct{author} a varias clases, independientemente de la herencia. 
+Podr\'\i{}amos hacerlo de la siguiente manera:
+
 
 \begin{method}[author]{An author method}
 TAuthor>>>author
@@ -473,9 +523,12 @@ TAuthor>>>author
 	^ 'on'    "oscar nierstrasz"
 \end{method}
 
+\
 \noindent
-Now we can use this trait in a class that already has its own superclass, for instance the \ct{LOGame} class that we defined in \charef{firstApp}.
-We simply modify the class creation template for \ct{LOGame} to include a \ct{uses:} keyword argument that specifies that \ct{TAuthor} should be used.
+Ahora podemos usar este trait en una clase que ya tiene su propia superclase, por ejemplo en la clase \ct{LOGame} que definimos en \charef{firstApp}.
+Simplemente modificamos la plantilla de creaci\'on de clases de  \ct{LOGame} para incluir la palabra clave  \ct{uses:}  que especifica que \ct{TAuthor} deber\'\i{}a ser usado.
+
+
 
 \begin{classdef}[sbegamewithtrait]{Using a trait}
 BorderedMorph subclass: #LOGame
@@ -486,7 +539,7 @@ BorderedMorph subclass: #LOGame
 	category: 'PBE-LightsOut'
 \end{classdef}
 
-If we now instantiate \ct{LOGame}, it will respond to the \ct{author} message as expected.
+Como es esperado, si ahora instanciamos un \ct{LOGame}, dicho objeto reponder\'a al mensaje  \ct{author}  de forma correcta.
 
 \begin{code}{}
 LOGame new author --> 'on'
@@ -513,118 +566,122 @@ Here we see that the method \ct{addTraitSelector:withMethod:} defined in the tra
 Support for traits is currently being added to the browsers.
 
 %=========================================================
-\section{Everything happens by sending messages}
+\section{Todo ocurre mediante el env\'io de mensajes}
 
 %\ruleref{message}
 
-This rule captures the essence of programming in \st.
+Esta regla captura la escencia de programar en \st.
 
-In procedural programming, the choice of which piece of code to execute when a procedure is called is made by the caller.
-The caller chooses the procedure or function to execute \emph{statically}, by name.  
+En la programaci\'on procedural, la elecci\'on de que pieza del c\'odigo se ejecutará cuando un procedimiento se llama es hecha por quien llama.
+El que llama elige el procedimiento o funci\'on se ejecutar\'a \emph{de forma est\'atica}, por nombre.  
 
-In object-oriented programming, we do \emph{not} ``call methods'': we ``\subind{message}{send} messages.''
-The choice of terminology is significant.
-Each object has its own responsibilities.
-We do not \emph{tell} an object what to do by applying some procedure to it.
-Instead, we politely \emph{ask} an object to do something for us by sending it a message.
-The message is \emph{not} a piece of code: it is nothing but a name and a list of arguments.
-The receiver then decides how to respond by selecting its own \emph{method} for doing what was asked.
-Since different objects may have different methods for responding to the same message, the method must be chosen \emph{dynamically}, when the message is received.
+En la programaci\'on orientada a objetos, nosotros \emph{no} ``llamamos m\'etodos'': nosotros ``\subind{message}{enviamos} mensajes.''
+La elecci\'on de terminolog\'ia es significativa.
+Cada objeto tiene sus propias responsabilidades.
+No le \emph{decimos} a un objeto qu\'e hacer apicandole alg\'un procedimiento.
+En su lugar, le \emph{pedimos} a un objeto que haga algo por nosotros enviandole un mensaje.
+El mensaje \emph{no} es una pieza de c\'odigo: no es mas que un nombre y una lista de argumentos.
+El receptor luego decide como responder seleccionando su propio \emph{m\'etodo} para hacer lo que le pedimos.
+
+Dado que objetos diferentes pueden terner m\'etodos diferentes para responder al mismo mensaje, el m\'etodo debe ser escojido \emph{din\'amicamente}, cuando el mensaje es recibido.
 \begin{code}{@TEST}
-3 + 4         --> 7          "send message + with argument 4 to integer  3"
-(1@2) + 4 --> 5@6    "send message + with argument 4 to point (1@2)"
+3 + 4         --> 7          "enviar el mensaje + con argumento 4 al integer  3"
+(1@2) + 4 --> 5@6    "enviar el mensaje + con argumento 4 al point (1@2)"
 \end{code}
 \noindent
-As a consequence, we can send the \emph{same message} to different objects, each of which may have \emph{its own method} for responding to the message.
-We do not tell the \ct{SmallInteger} \ct{3} or the \ct{Point} \ct{1@2} how to respond to the message \ct{+ 4}.
-Each has its own method for \ct{+}, and responds to \ct{+ 4} accordingly.
+Como consecuencia, podemos enviarle el \emph{mismo mensaje} a diferentes objetos, cada uno de los cuales puede tener \emph{su propio m\'etodo} para responder al mensaje.
+No le decimos al \ct{SmallInteger} \ct{3} o al \ct{Point} \ct{1@2} como responder al mensaje \ct{+ 4}.
+Cada uno tiene su propio m\'etodo para \ct{+}, y responde a \ct{+ 4} como corresponde.
 
-One of the consequences of \st's model of message sending is that it encourages a style in which objects tend to have very small methods and delegate tasks to other objects, rather than implementing huge, procedural methods that assume too much responsibility.
+Una de las consecuencias del modelo de env\'io de mensajes de \st's es que fomenta un estilo en el cual los objetos tienden a tener m\'etodos muy pequeños y delegan tareas a otros objetos, en lugar de implementar m\'etodos procedurales enormes que asumen demasiada responsabilidad.
 Joseph Pelrine
 \ab{Citation?}
 \on{sorry, just personal communication and my own lecture notes!}
-expresses this principle succinctly as follows:
+expresa este principio de la siguiente manera:
+
+\important{No haga nada que pueda recaer en alguien mas.}
 \important{Don't do anything that you can push off onto someone else.}
 \index{Pelrine, Joseph}
 
-Many object-oriented languages provide both static and dynamic operations for objects; in \st there are only dynamic message sends. Instead of providing static class operations, for instance, classes are objects and we simply send messages to classes.
+Muchos lenguajes orientados a proporcionan operaciones para objetos tanto estaticas como din\'amicas; en \st hay \'unicamente env\'ios de mensajes din\'amicos. En lugar de proporcionar operaciones de clase est\'aticas, por ejemplo, las clases son objetos y sencillamente les mandamos mensajes.
 
-\emph{Nearly} everything in \st happens by sending messages.
-At some point action must take place:
+\emph{Casi} todo en \st sucede enviando mensajes.
+En alg\'un punto la acci\'on debe llevarse a cabo:
 \begin{itemize}
-  \item \emph{Variable declarations} are not message sends.
-  		In fact, variable \subind{variable}{declaration}{}s are not even executable.
-  		Declaring a variable just causes space to be allocated for an object reference.
-  \item \emph{Assignments} are not message sends.
-  		An \ind{assignment} to a variable causes that variable name to be freshly bound in the scope of its definition.
-  \item \emph{Returns} are not message sends.
-  		A \ind{return} simply causes the computed result to be returned to the sender.
-  \item \emph{Primitives} are not message sends.
-  		They are implemented in the \ind{virtual machine}.
+  \item Las \emph{declaraciones de variable} no son envios de mensajes.
+  		De hecho, las declaraciones de variable \subind{variable} ni siquiera son ejecutables.
+  		Declarar una variable solo provoca que se asigne espacio para una referencia al objeto.
+  \item Las\emph{asignaciones} no son envios de mensajes.
+  		Una \ind{asignaci\'on} a una variable provoca que ese nombre de variable 
+		An \ind{assignment} to a variable causes that variable name to be freshly bound in the scope of its definition.
+  \item Los \emph{Returns} no son envios de mensajes.
+  		Un \ind{return} simplemente hace que el resultado computado sea devuelto al emisor.
+  \item Los \emph{primitivos} no son envios de mensajes.
+  		Est\'an implementados en la \ind{m\'aquina virtual}.
 		\index{primitive}
 \end{itemize}
-Other than these few exceptions, pretty much everything else does truly happen by sending messages.
-In particular, since there are no ``public fields'' in \st, the only way to update an \ind{instance variable} of another object is to send it a message asking that it update its own field.
-Of course, providing setter and getter methods for all the instance variables of an object is not good object-oriented style.
-Joseph Pelrine also states this very nicely:
-\important{Don't let anyone else play with your data.}
+Salvo estas pocas excepciones, casi todo lo dem\'as realmente sucede mediante el env\'io de mensajes.
+En particular, dado que no hay ``campos p\'ublicos'' en \st, la unica manera de actualizar una \ind{variable de instancia} de otro objeto es enviandole un mensaje solicitando que actualize su propio campo.
+Por supuesto, proporcionar m\'etodos getter y setter para todas las variables de instancia de un objeto no es una buena practica de la orientaci\'on a objetos.
+Joseph Pelrine tambi\'en establece esta muy bien:
+\important{No deje que nadie juegue con sus datos.}
 
 %=========================================================
-\section{Method lookup follows the inheritance chain} 
+\section{El Method lookup sigue la cadena de herencia} 
 
 %\ruleref{lookup}
 
-What exactly happens when an object receives a message?
+Que sucede exactamente cuando un objeto recibe un mensaje?
 
-The process is quite simple:
-the class of the receiver looks up the method to use to handle the message.
-If this class does not have a method, it asks its \ind{superclass}, and so on, up the \ind{inheritance} chain.
-When the method is found, the arguments are bound to the parameters of the method, and the \ind{virtual machine} executes it.
+El proceso es bastante sencillo:
+La clase del receptor busca el m\'etodo a usar para encargarse del mensaje.
+Si la clase no posee un m\'etodo, le pregunta a su \ind{superclase}, y asi sucesivamente, subiendo en la cadena de \ind{herencia}.
+Cuando el m\'etodo es encontrado, los argumentos se vinculan con los par\'ametros del m\'etodo, y la \ind{maquina virtual} lo ejecuta.
 \index{method!lookup}
 
-It is essentially as simple as this.
-Nevertheless there are a few questions that need some care to answer:
+En esencia es tan simple como esto
+Sin embargo hay algunas cuestiones que necesitan ser respondidas con cuidado:
 
 \begin{itemize}
-  \item \emph{What happens when a method does not explicitly return a value?}
-  \item \emph{What happens when a class reimplements a superclass method?}
-  \item \emph{What is the difference between \pvind{self} and \pvind{super} sends?}
-  \item \emph{What happens when no method is found?}
+  \item \emph{¿Qu\'e sucede cu\'ando un m\'etodo no devuelve explicitamente un valor?}
+  \item \emph{¿Qu\'e sucede cu\'ando una clase reimplementa un metodo de superclase?}
+  \item \emph{¿Cu\'al es la diferencia entre los env\'ios de \pvind{self} y \pvind{super}?}
+  \item \emph{¿Qu\'e sucede cuando no se encuentra ning\'un m\'etodo?}
 \end{itemize}
 
-The rules for method lookup that we present here are conceptual: virtual machine implementors use all kinds of tricks and optimizations to speed-up method lookup. 
-That's their job, but you should never be able to detect that they are doing something different from our rules.
-% Whatever the implementation does, these rules will give you a clear understanding of the semantics of sending messages to \self and \super.
+Las reglas que aqui presentamos para el method lookup son conceptuales: las implementaciones de la maquina virtual usan todo tipo de trucos y optimizaciones para acelerar el method lookup. 
+Ese es su trabajo, pero usted nunca deber\'ia detectar que estan haciendo algo diferente a nuestras reglas.
+% Sin importar lo que la implementaci\'on haga, estas reglas le daran una clara comprensi\'on de la sem\'antica de enviar mensajes a \self y \super.
 
-First let us look at the basic lookup strategy, and then consider these further questions.
+Primero echemos un vistazo a la estrategia b\'asica de busqueda, y luego consideremos estas cuestiones.
 
 %---------------------------------------------------------
-\subsection{Method lookup}
-Suppose we create an instance of \ct{EllipseMorph}.
+\subsection{El Method lookup}
+Suponga que creamos una instancia de \ct{EllipseMorph}.
 \begin{code}{@TEST | anEllipse |}
 anEllipse := EllipseMorph new.
 \end{code}
 \noindent
-If we now send this object the message \ct{defaultColor}, we get the result \ct{Color yellow}:
+Si ahora le enviamos a este objeto el mensaje \ct{defaultColor}, obtenemos el resultado \ct{Color yellow}:
 \begin{code}{@TEST | anEllipse | anEllipse := EllipseMorph new.}
 anEllipse defaultColor --> Color yellow
 \end{code}
 \noindent
-The class \ct{EllipseMorph} implements \ct{defaultColor}, so the appropriate method is found immediately.
+La clase \ct{EllipseMorph} implementa \ct{defaultColor}, asi que el m\'etodo indicado es encontrado inmediatamente.
 
 \begin{method}[defaultColor]{A locally implemented method}
 EllipseMorph>>>defaultColor
-	"answer the default color/fill style for the receiver"
+	"responder el color predeterminado / estilo de relleno a el receptor"
 	^ Color yellow
 \end{method}
 \cmindex{EllipseMorph}{defaultColor}
 
-In contrast, if we send the message \ct{openInWorld} to \ct{anEllipse}, the method is not immediately found, since the class \ct{EllipseMorph} does not implement \ct{openInWorld}.
-The search therefore continues in the superclass, \lct{BorderedMorph}, and so on, until an \ct{openInWorld} method is found in the class \ct{Morph} (see \figref{openInWorldLookup}).
+En cambio, si enviamos el mensaje \ct{openInWorld} a \ct{anEllipse}, el m\'etodo no es encontrado de inmediato, dado que la clase \ct{EllipseMorph} no implementa \ct{openInWorld}.
+La busqueda por lo tamto continua en la superclase, \lct{BorderedMorph}, y asu sucesivamente, hasta que un m\'etodo \ct{openInWorld} sea encontrado en la clase \ct{Morph} (ver \figref{openInWorldLookup}).
 
 \begin{method}[openInWorld]{An inherited method}
 Morph>>>openInWorld
-	"Add this morph to the world."
+	"añadir este morph al mundo."
 
 	self openInWorld: self currentWorld
 \end{method}
@@ -633,42 +690,44 @@ Morph>>>openInWorld
 \begin{figure}[htb]
 \begin{center}
 	{\includegraphics[width=0.8\textwidth]{openInWorldLookup}}
-\caption{Method lookup follows the inheritance hierarchy.\figlabel{openInWorldLookup}}
+\caption{El Method lookup sigue la cadena de herencia.\figlabel{openInWorldLookup}}
 \end{center}
 \end{figure}
 
 %---------------------------------------------------------
-\subsection{Returning self}
+\subsection{Devolviendo self}
 
-Notice that \ct{EllipseMorph>>>defaultColor} (\mthref{defaultColor}) explicitly returns \ct{Color yellow} whereas \ct{Morph>>>openInWorld} (\mthref{openInWorld}) does not appear to return anything.
+Note que \ct{EllipseMorph>>>defaultColor} (\mthref{defaultColor}) explicitamente devuelve \ct{Color yellow} mientras que \ct{Morph>>>openInWorld} (\mthref{openInWorld}) no parece devolver nada.
 
-Actually a method \emph{always} answers a message with a value\,---\,which is, of course, an object.
-The answer may be defined by the \ct{^} construct in the method, but if execution reaches the end of the method without executing a \ct{^}, the method still answers a value: it answers the object that received the message.
-We usually say that the method ``answers \self'', because in Smalltalk the pseudo-variable \self represents the receiver of the message, rather like \ct{this} in \ind{Java}.
+De hecho un m\'etodo \emph{siempre} responde un mensaje con un valor\,---\,que es, por supuesto, un objeto.
+
+La respuesta puede estar definida por el concepto de \ct{^} en el m\'etodo, pero si la ejecuci\'on alcanza el final del m\'etodo sin ejecutar un \ct{^}, el m\'etodo a\'un devuelve un valor: devuelve el objeto que recibi\'o el mensaje.
+Com\'unmente decimos que el m\'etodo ``responde a \self'', porque en Smalltalk la pseudo-variable \self representa al receptor del mensaje, como lo hace \ct{this} en \ind{Java}.
 \index{variable!pseudo}
 \index{return}
 \seeindex{caret}{return}
 
-This suggests that \mthref{openInWorld} is equivalent to \mthref{openInWorldReturnSelf}:
+Esto sugiere que \mthref{openInWorld} es equivalente a \mthref{openInWorldReturnSelf}:
 
 \needlines{5}
 \begin{method}[openInWorldReturnSelf]{Explicitly returning self}
 Morph>>>openInWorld
-	"Add this morph to the world."
+	"Añade este morph al mundo."
 	
     self openInWorld: self currentWorld
-	^ self		"Don't do this unless you mean it!"
+	^ self		"No hagas esto a menos que sea tu intenci\'on!"
 \end{method}
 
+Por qu\'e no es bueno escribir \ct{^ self} explicitamente?
 Why is writing \ct{^ self} explicitly not a good thing to do?
-Well, when you return something explicitly, you are communicating that you are returning something of interest to the sender.
-When you explicitly return \self, you are saying that you expect the sender to use the returned value.
-This is not the case here, so it is best not to explicitly return \self.
+Bueno, cuando devuelves algo explicitamente, estas comunicando que devuelves algo de inter\'es para el emisor.
+Cuando expresamente devuelves \self, estas diciendo que esperas que el emisor utilice el valor devuelto.
+Aqu\'i este no es el caso, as\'i que es mejor no retornar explicitamente \self.
 
-This is a common idiom in \st, which Kent Beck refers to as ``Interesting return value'' \cite{Beck97a}:
+Se trata de un lenguaje com\'un en \st, al cual Kent Beck denomina ``Interesante valor de retorno'' \cite{Beck97a}:
 \index{Beck, Kent}
 
-\important{Return a value only when you intend for the sender to use the value.}
+\important{Devuelve un valor solo cuando es tu intenci\'on que el emisor use el valor.}
 
 %---------------------------------------------------------
 \subsection{Overriding and extension}
