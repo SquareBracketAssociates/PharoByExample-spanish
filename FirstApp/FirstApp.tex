@@ -479,7 +479,7 @@ El panel inferior del inspector es un mini-workspace. Es muy útil porque en est
 Selecciona LOCell en la raíz de la ventana del inspector.
 Tipea el texto \ct{self openInWorld} en el mini-workspace y \menu{do it}.}
 La celda debería aparecer cerca de la esquina superior izquierda de la pantalla, exactamente donde sus \ct{límites} dicen que debería aparecer. 
-\metaclick en la celda para que aparezca el halo de morphic \subind{Morphic}. %% <---verificar
+\metaclick en la celda para que aparezca el halo de Morphic \subind{Morphic}. %% <---verificar
 Mueve la celda con el asa marrón (esquina superior derecha) y redimensiónalo con el asa amarilla (abajo a la derecha).
 Nota como los límites reportados por el inspector también cambian. 
 (Tal vez tengas que \actclick{} \menu{refresh} para ver los nuevos valores de los límites.)
@@ -858,64 +858,96 @@ Recuerda que en \ct{LOGame>>>newCellAt: i at: j} asignamos el siguiente fragment
 \noindent
 % Sending the \ct{value} message causes this code fragment to be evaluated, and consequently the state of the cells will toggle.
 Enviar el mensaje \ct{value} provoca que este fragmento de c\'odigo sea evaluado, y consecuentemente el estado de las celdas cambiar\'a. 
-%%%------------HASTA ACA LLEGUE---------------%%%
+
 %=================================================================
-\section{Let's try our code}
+% \section{Let's try our code}
+\section{Probemos nuestro c\'odigo}
 
-That's it: the Lights Out game is complete!
+% That's it: the Lights Out game is complete!
+Eso es: el juego Lights Out est\'a completo!
 
-If you have followed all of the steps, you should be able to play the game, consisting of just 2 classes and 7 methods.
+% If you have followed all of the steps, you should be able to play the game, consisting of just 2 classes and 7 methods.
+Si has seguido todos los pasos, deber\'ias poder jugar el juego, que consiste en solo 2 clases y 7 m\'etodos.
 
-\dothis{In a workspace, type \ct{LOGame new openInWorld} and \menu{do it}.}
+% \dothis{In a workspace, type \ct{LOGame new openInWorld} and \menu{do it}.}
+\dothis{En un workspace, tipea \ct{LOGame new openInWorld} y \menu{do it}.}
 
-The game will open, and you should be able to click on the cells and see how it works.
+% The game will open, and you should be able to click on the cells and see how it works.
+El juego se abrir\'a, y deber\'ias poder hacer click en las celdas y ver como funciona. 
 
-Well, so much for theory\ldots{}
-When you click on a cell, a \emphind{notifier} window called the \clsind{PreDebugWindow}window appears with an error message!
-As depicted in \figref{lightsOutError}, it says \ct{MessageNotUnderstood: LOGame>>>toggleState}.
+% Well, so much for theory\ldots{}
+% When you click on a cell, a \emphind{notifier} window called the \clsind{PreDebugWindow}window appears with an error message!
+% As depicted in \figref{lightsOutError}, it says \ct{MessageNotUnderstood: LOGame>>>toggleState}.
+Bueno, demasiada teor\'ia\ldots{}
+Cuando haces click en una celda, una ventana de \emphind{notificaci\'on} llamada ventana \clsind{PreDebugWindow} aparece con un mensaje de error!
+Como se muestra en \figref{lightsOutError}, dice \ct{MessageNotUnderstood: LOGame>>>toggleState}.
 
 \begin{figure}[ht]
 \ifluluelse
 	{\centerline{\includegraphics[width=\textwidth]{Error}}}
 	{\centerline{\includegraphics[scale=0.7]{Error}}}
-\caption{There is a bug in our game when a cell is clicked!
+%\caption{There is a bug in our game when a cell is clicked!
+\caption{'!Hay un bug en nuestro juego cuando se hace click en nuestra celda!
 \figlabel{lightsOutError}}
 \end{figure}
 
 \noindent
-What happened? To find out, let's use one of Smalltalk's more powerful tools: the \ind{debugger}.
+% What happened? To find out, let's use one of Smalltalk's more powerful tools: the \ind{debugger}.
+'¿Qu\'e pas\'o? Para averiguarlo, usemos uno de las herramientas m\'as poderosas de Smalltalk: el \ind{debugger}.
 
-\dothis{Click on the \menu{debug} button in the notifer window.}
-The debugger will appear.
-In the upper part of the debugger window you can see the execution stack, showing all the active methods; selecting any one of them will show, in the middle pane, the Smalltalk code being executed in that method, with the part that triggered the error highlighted.
+% \dothis{Click on the \menu{debug} button in the notifer window.}
+% The debugger will appear.
+% In the upper part of the debugger window you can see the execution stack, showing all the active methods; selecting any one of them will show, in the middle pane, the Smalltalk code being executed in that method, with the part that triggered the error highlighted.
+\dothis{Haz click en el bot\'on \menu{debug} en la ventana de notificaci\'on.}
+El debugger aparecer\'a.
+En la parte superior de la ventana del debugger puedes ver la pila de ejecuci\'on, mostrando todos los m\'etodos activos; seleccionando alguno de ellos se mostrar\'a, en el panel del medio, el c\'odigo Smalltalk ejecut\'andose en ese m\'etodo, con la parte que dispar\'o el error resaltada. 
 
-\dothis{Click on the line labelled
+% \dothis{Click on the line labelled
+% \ct{LOGame>>>toggleNeighboursOfCellAt:at:} (near the top).}
+% The debugger will show you the \ind{execution context} within this method where the error occurred (\figref{debugToggle}).
+\dothis{Has click en la l\'inea etiquetada 
 \ct{LOGame>>>toggleNeighboursOfCellAt:at:} (near the top).}
-The debugger will show you the \ind{execution context} within this method where the error occurred (\figref{debugToggle}).
+El debugger te mostrar\'a el \ind{contexto de ejecuci\'on} de este m\'etodo donde ocurri\'o el error (\figref{debugToggle}).
 
 \begin{figure}[ht]
 \ifluluelse
 	{\centerline {\includegraphics[width=\textwidth]{Debugger}}}
 	{\centerline {\includegraphics[scale=0.7]{Debugger}}}
-\caption{The debugger, with the method \ct{toggleNeighboursOfCell:at:}  selected.
+% \caption{The debugger, with the method \ct{toggleNeighboursOfCell:at:}  selected.
+\caption{El debugger, con el m\'etodo \ct{toggleNeighboursOfCell:at:}  seleccionado.
 \figlabel{debugToggle}}
 \end{figure}
 
-At the bottom of the debugger are two small inspector windows.  On the left, you can inspect the object that is the receiver of the message that caused the selected method to execute, so you can look here to see the values of the instance variables.
-On the right you can inspect an object that represents the currently executing method itself, so you can look here to see the values of the method's parameters and temporary variables.
+% At the bottom of the debugger are two small inspector windows.  On the left, you can inspect the object that is the receiver of the message that caused the selected method to execute, so you can look here to see the values of the instance variables.
+% On the right you can inspect an object that represents the currently executing method itself, so you can look here to see the values of the method's parameters and temporary variables.
+En la parte inferior del debugger hay dos pequeñas ventanas de inspecci\'on. A la izquierda, puedes inspeccionar el objeto receptor del mensaje que caus\'o que el mensaje seleccionado se ejecute, asi que pudes mirar aqu\'i para ver los valores de las variables de instancia.
+A la derecha puedes inspeccionar un objeto que representa el m\'etodo que se est\'a ejecutando, asi que puedes mirar aqu\'i para ver los valores de los par\'ametros del m\'etodo y las variables temporales.
 
-Using the debugger, you can execute code step by step, inspect objects in parameters and local variables, evaluate code just as you can in a workspace, and, most surprisingly to those used to other debuggers, change the code while it is being debugged! Some Smalltalkers program in the debugger almost all the time, rather than in the browser.  The advantage of this is that you see the method that you are writing as it will be executed, with real parameters in the actual execution context.
 
-In this case we can see in the first line of the top panel that the \ct{toggleState} message has been sent to an instance of \ct{LOGame}, while it should clearly have been an instance of \lct{LOCell}.
-The problem is most likely with the initialization of the \ct{cells} matrix.
-Browsing the code of \cmind{LOGame}{initialize} shows that \ct{cells} is filled with the return values of \ct{newCellAt:at:}, but when we look at that method, we see that there is no return statement there!
-By default, a method returns \ct{self}, which in the case of \ct{newCellAt:at:} is indeed an instance of \ct{LOGame}.
+% Using the debugger, you can execute code step by step, inspect objects in parameters and local variables, evaluate code just as you can in a workspace, and, most surprisingly to those used to other debuggers, change the code while it is being debugged! Some Smalltalkers program in the debugger almost all the time, rather than in the browser.  The advantage of this is that you see the method that you are writing as it will be executed, with real parameters in the actual execution context.
+Usando el debugger, puedes ejecutar c\'odigo paso a paso, inspeccionar objetos en par\'ametros y variables locales, evaluar c\'odigo como lo puedes hacer en el workspace, y, m\'as sorprendente a\'un para los que est\'an acostumbrados a otros debuggers, '!cambiar el c\'odigo mientras est\'a siendo debuggeado! Algunos programadores Smalltalk programan en el debugger casi todo el tiempo, en lugar de usar el browser. La ventaja de esto es que puedes ver el m\'etodo que est\'as escribiendo como ser\'a ejecutado, con par\'ametros reales en el contexto de ejecuci\'on real.
+
+% In this case we can see in the first line of the top panel that the \ct{toggleState} message has been sent to an instance of \ct{LOGame}, while it should clearly have been an instance of \lct{LOCell}.
+% The problem is most likely with the initialization of the \ct{cells} matrix.
+% Browsing the code of \cmind{LOGame}{initialize} shows that \ct{cells} is filled with the return values of \ct{newCellAt:at:}, but when we look at that method, we see that there is no return statement there!
+% By default, a method returns \ct{self}, which in the case of \ct{newCellAt:at:} is indeed an instance of \ct{LOGame}.
+% \index{method!returning self}
+En este caso podemos ver en la primera l\'inea del panel superior que el mensaje \ct{toggleState} fu\'e enviado a una instancia de \ct{LOGame}, cuando, claramente, deber\'ia haber sido una instancia de \lct{LOCell}.
+El problema est\'a seguramente con la inicializaci\'on de la matriz \ct{cells}.
+Explorando el c\'odigo de \cmind{LOGame}{initialize} nos muestra que \ct{cells} se llena con el valor de retorno de \ct{newCellAt:at:}, pero cuand miramos ese m\'etodo, '!vemos que no hay sentencia de retorno!
+Por defecto, un m\'etodo retorna \ct{self}, que en el caso de \ct{newCellAt:at:} es de hecho una instancia de \ct{LOGame}.
 \index{method!returning self}
 
-\dothis{Close the debugger window.
-Add the expression ``\ct{^ c}'' to the end of the method \ct{LOGame>>>newCellAt:at:} so that it returns \ct{c}.
+% \dothis{Close the debugger window.
+% Add the expression ``\ct{^ c}'' to the end of the method \ct{LOGame>>>newCellAt:at:} so that it returns \ct{c}.
+%-- Codigo comentado en la version original --%
 % It should now look as shown in \mthref{newCellAt:at:nobug}.}
-(See \mthref{newCellAt:at:nobug}.)}
+%-- Fin codigo comentado en la version original --%
+% (See \mthref{newCellAt:at:nobug}.)}
+
+\dothis{Cierra la ventana del debugger.
+Agrega la expresi\'on ``\ct{^ c}'' al final del m\'etodo \ct{LOGame>>>newCellAt:at:} para que devuelva \ct{c}.
+(Ver \mthref{newCellAt:at:nobug}.)}
 
 % \needlines{6}
 \begin{method}[newCellAt:at:nobug]{Fixing the bug.}
@@ -932,14 +964,21 @@ LOGame>>>newCellAt: i at: j
 \end{method}
 \cmindex{LOGame}{newCellAt:at:}
 
-\noindent
-Recall from \charef{quick} that the construct to \ind{return} a \subind{method}{value} from a method in Smalltalk is \ct{^}, which you obtain by typing \verb|^|.
+% \noindent
+%Recall from \charef{quick} that the construct to \ind{return} a \subind{method}{value} from a method in Smalltalk is \ct{^}, which you obtain by typing \verb|^|.
 % \index{^@\verb|^|}
+% \index{^@{$\uparrow$}|see{return}}
+\noindent
+Recuerda de \charef{quick} que la manera de hacer \ind{return} de un \subind{method}{valor} de un m\'etodo en Smalltalk es \ct{^}, que obtienes tipeando \verb|^|.
 \index{^@{$\uparrow$}|see{return}}
+% Verificar si esta bien esto del subind... como se puede traducir?
 
-Often, you can fix the code directly in the debugger window and click \menu{Proceed} to continue running the application.
-In our case, because the bug was in the initialization of an object, rather than in the method that failed, the easiest thing to do is to close the debugger window, destroy the running instance of the game (with the \subind{Morphic}{halo}), and create a new one.
-
+% Often, you can fix the code directly in the debugger window and click \menu{Proceed} to continue running the application.
+% In our case, because the bug was in the initialization of an object, rather than in the method that failed, the easiest thing to do is to close the debugger window, destroy the running instance of the game (with the \subind{Morphic}{halo}), and create a new one.
+A menudo puedes arreglar el c\'odigo directamente en la ventaba del debugger y hacer click en \menu{Proceed} para continuar corriendo la aplicaci\'on.
+En nuestro caso, como el bug estaba en la inicializaci\'on de un objeto, y no en el m\'etodo que fall\'o, lo m\'as f\'acil
+es cerrar la ventana de debug, destruir la intancia del juego ejecut\'andose (con el \subind{Morphic}{halo}), y crear una nueva.
+%%%------------HASTA ACA LLEGUE---------------%%%
 %Indeed, even in this case it would be possible to \menu{do} \ct{self initialize} and then \menu{Proceed} the \ct{toggleNeighboursOfCellAt:at:} method.
 %\ab{St\'eph, did you try this?  It seems to me that it ought to work, but when I tried it, it messed up my image.}
 % ON : It messed me up too!  Better not propose this.

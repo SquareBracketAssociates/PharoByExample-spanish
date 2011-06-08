@@ -566,118 +566,122 @@ Here we see that the method \ct{addTraitSelector:withMethod:} defined in the tra
 Support for traits is currently being added to the browsers.
 
 %=========================================================
-\section{Everything happens by sending messages}
+\section{Todo ocurre mediante el env\'io de mensajes}
 
 %\ruleref{message}
 
-This rule captures the essence of programming in \st.
+Esta regla captura la escencia de programar en \st.
 
-In procedural programming, the choice of which piece of code to execute when a procedure is called is made by the caller.
-The caller chooses the procedure or function to execute \emph{statically}, by name.  
+En la programaci\'on procedural, la elecci\'on de que pieza del c\'odigo se ejecutará cuando un procedimiento se llama es hecha por quien llama.
+El que llama elige el procedimiento o funci\'on se ejecutar\'a \emph{de forma est\'atica}, por nombre.  
 
-In object-oriented programming, we do \emph{not} ``call methods'': we ``\subind{message}{send} messages.''
-The choice of terminology is significant.
-Each object has its own responsibilities.
-We do not \emph{tell} an object what to do by applying some procedure to it.
-Instead, we politely \emph{ask} an object to do something for us by sending it a message.
-The message is \emph{not} a piece of code: it is nothing but a name and a list of arguments.
-The receiver then decides how to respond by selecting its own \emph{method} for doing what was asked.
-Since different objects may have different methods for responding to the same message, the method must be chosen \emph{dynamically}, when the message is received.
+En la programaci\'on orientada a objetos, nosotros \emph{no} ``llamamos m\'etodos'': nosotros ``\subind{message}{enviamos} mensajes.''
+La elecci\'on de terminolog\'ia es significativa.
+Cada objeto tiene sus propias responsabilidades.
+No le \emph{decimos} a un objeto qu\'e hacer apicandole alg\'un procedimiento.
+En su lugar, le \emph{pedimos} a un objeto que haga algo por nosotros enviandole un mensaje.
+El mensaje \emph{no} es una pieza de c\'odigo: no es mas que un nombre y una lista de argumentos.
+El receptor luego decide como responder seleccionando su propio \emph{m\'etodo} para hacer lo que le pedimos.
+
+Dado que objetos diferentes pueden terner m\'etodos diferentes para responder al mismo mensaje, el m\'etodo debe ser escojido \emph{din\'amicamente}, cuando el mensaje es recibido.
 \begin{code}{@TEST}
-3 + 4         --> 7          "send message + with argument 4 to integer  3"
-(1@2) + 4 --> 5@6    "send message + with argument 4 to point (1@2)"
+3 + 4         --> 7          "enviar el mensaje + con argumento 4 al integer  3"
+(1@2) + 4 --> 5@6    "enviar el mensaje + con argumento 4 al point (1@2)"
 \end{code}
 \noindent
-As a consequence, we can send the \emph{same message} to different objects, each of which may have \emph{its own method} for responding to the message.
-We do not tell the \ct{SmallInteger} \ct{3} or the \ct{Point} \ct{1@2} how to respond to the message \ct{+ 4}.
-Each has its own method for \ct{+}, and responds to \ct{+ 4} accordingly.
+Como consecuencia, podemos enviarle el \emph{mismo mensaje} a diferentes objetos, cada uno de los cuales puede tener \emph{su propio m\'etodo} para responder al mensaje.
+No le decimos al \ct{SmallInteger} \ct{3} o al \ct{Point} \ct{1@2} como responder al mensaje \ct{+ 4}.
+Cada uno tiene su propio m\'etodo para \ct{+}, y responde a \ct{+ 4} como corresponde.
 
-One of the consequences of \st's model of message sending is that it encourages a style in which objects tend to have very small methods and delegate tasks to other objects, rather than implementing huge, procedural methods that assume too much responsibility.
+Una de las consecuencias del modelo de env\'io de mensajes de \st's es que fomenta un estilo en el cual los objetos tienden a tener m\'etodos muy pequeños y delegan tareas a otros objetos, en lugar de implementar m\'etodos procedurales enormes que asumen demasiada responsabilidad.
 Joseph Pelrine
 \ab{Citation?}
 \on{sorry, just personal communication and my own lecture notes!}
-expresses this principle succinctly as follows:
+expresa este principio de la siguiente manera:
+
+\important{No haga nada que pueda recaer en alguien mas.}
 \important{Don't do anything that you can push off onto someone else.}
 \index{Pelrine, Joseph}
 
-Many object-oriented languages provide both static and dynamic operations for objects; in \st there are only dynamic message sends. Instead of providing static class operations, for instance, classes are objects and we simply send messages to classes.
+Muchos lenguajes orientados a proporcionan operaciones para objetos tanto estaticas como din\'amicas; en \st hay \'unicamente env\'ios de mensajes din\'amicos. En lugar de proporcionar operaciones de clase est\'aticas, por ejemplo, las clases son objetos y sencillamente les mandamos mensajes.
 
-\emph{Nearly} everything in \st happens by sending messages.
-At some point action must take place:
+\emph{Casi} todo en \st sucede enviando mensajes.
+En alg\'un punto la acci\'on debe llevarse a cabo:
 \begin{itemize}
-  \item \emph{Variable declarations} are not message sends.
-  		In fact, variable \subind{variable}{declaration}{}s are not even executable.
-  		Declaring a variable just causes space to be allocated for an object reference.
-  \item \emph{Assignments} are not message sends.
-  		An \ind{assignment} to a variable causes that variable name to be freshly bound in the scope of its definition.
-  \item \emph{Returns} are not message sends.
-  		A \ind{return} simply causes the computed result to be returned to the sender.
-  \item \emph{Primitives} are not message sends.
-  		They are implemented in the \ind{virtual machine}.
+  \item Las \emph{declaraciones de variable} no son envios de mensajes.
+  		De hecho, las declaraciones de variable \subind{variable} ni siquiera son ejecutables.
+  		Declarar una variable solo provoca que se asigne espacio para una referencia al objeto.
+  \item Las\emph{asignaciones} no son envios de mensajes.
+  		Una \ind{asignaci\'on} a una variable provoca que ese nombre de variable 
+		An \ind{assignment} to a variable causes that variable name to be freshly bound in the scope of its definition.
+  \item Los \emph{Returns} no son envios de mensajes.
+  		Un \ind{return} simplemente hace que el resultado computado sea devuelto al emisor.
+  \item Los \emph{primitivos} no son envios de mensajes.
+  		Est\'an implementados en la \ind{m\'aquina virtual}.
 		\index{primitive}
 \end{itemize}
-Other than these few exceptions, pretty much everything else does truly happen by sending messages.
-In particular, since there are no ``public fields'' in \st, the only way to update an \ind{instance variable} of another object is to send it a message asking that it update its own field.
-Of course, providing setter and getter methods for all the instance variables of an object is not good object-oriented style.
-Joseph Pelrine also states this very nicely:
-\important{Don't let anyone else play with your data.}
+Salvo estas pocas excepciones, casi todo lo dem\'as realmente sucede mediante el env\'io de mensajes.
+En particular, dado que no hay ``campos p\'ublicos'' en \st, la unica manera de actualizar una \ind{variable de instancia} de otro objeto es enviandole un mensaje solicitando que actualize su propio campo.
+Por supuesto, proporcionar m\'etodos getter y setter para todas las variables de instancia de un objeto no es una buena practica de la orientaci\'on a objetos.
+Joseph Pelrine tambi\'en establece esta muy bien:
+\important{No deje que nadie juegue con sus datos.}
 
 %=========================================================
-\section{Method lookup follows the inheritance chain} 
+\section{El Method lookup sigue la cadena de herencia} 
 
 %\ruleref{lookup}
 
-What exactly happens when an object receives a message?
+Que sucede exactamente cuando un objeto recibe un mensaje?
 
-The process is quite simple:
-the class of the receiver looks up the method to use to handle the message.
-If this class does not have a method, it asks its \ind{superclass}, and so on, up the \ind{inheritance} chain.
-When the method is found, the arguments are bound to the parameters of the method, and the \ind{virtual machine} executes it.
+El proceso es bastante sencillo:
+La clase del receptor busca el m\'etodo a usar para encargarse del mensaje.
+Si la clase no posee un m\'etodo, le pregunta a su \ind{superclase}, y asi sucesivamente, subiendo en la cadena de \ind{herencia}.
+Cuando el m\'etodo es encontrado, los argumentos se vinculan con los par\'ametros del m\'etodo, y la \ind{maquina virtual} lo ejecuta.
 \index{method!lookup}
 
-It is essentially as simple as this.
-Nevertheless there are a few questions that need some care to answer:
+En esencia es tan simple como esto
+Sin embargo hay algunas cuestiones que necesitan ser respondidas con cuidado:
 
 \begin{itemize}
-  \item \emph{What happens when a method does not explicitly return a value?}
-  \item \emph{What happens when a class reimplements a superclass method?}
-  \item \emph{What is the difference between \pvind{self} and \pvind{super} sends?}
-  \item \emph{What happens when no method is found?}
+  \item \emph{¿Qu\'e sucede cu\'ando un m\'etodo no devuelve explicitamente un valor?}
+  \item \emph{¿Qu\'e sucede cu\'ando una clase reimplementa un metodo de superclase?}
+  \item \emph{¿Cu\'al es la diferencia entre los env\'ios de \pvind{self} y \pvind{super}?}
+  \item \emph{¿Qu\'e sucede cuando no se encuentra ning\'un m\'etodo?}
 \end{itemize}
 
-The rules for method lookup that we present here are conceptual: virtual machine implementors use all kinds of tricks and optimizations to speed-up method lookup. 
-That's their job, but you should never be able to detect that they are doing something different from our rules.
-% Whatever the implementation does, these rules will give you a clear understanding of the semantics of sending messages to \self and \super.
+Las reglas que aqui presentamos para el method lookup son conceptuales: las implementaciones de la maquina virtual usan todo tipo de trucos y optimizaciones para acelerar el method lookup. 
+Ese es su trabajo, pero usted nunca deber\'ia detectar que estan haciendo algo diferente a nuestras reglas.
+% Sin importar lo que la implementaci\'on haga, estas reglas le daran una clara comprensi\'on de la sem\'antica de enviar mensajes a \self y \super.
 
-First let us look at the basic lookup strategy, and then consider these further questions.
+Primero echemos un vistazo a la estrategia b\'asica de busqueda, y luego consideremos estas cuestiones.
 
 %---------------------------------------------------------
-\subsection{Method lookup}
-Suppose we create an instance of \ct{EllipseMorph}.
+\subsection{El Method lookup}
+Suponga que creamos una instancia de \ct{EllipseMorph}.
 \begin{code}{@TEST | anEllipse |}
 anEllipse := EllipseMorph new.
 \end{code}
 \noindent
-If we now send this object the message \ct{defaultColor}, we get the result \ct{Color yellow}:
+Si ahora le enviamos a este objeto el mensaje \ct{defaultColor}, obtenemos el resultado \ct{Color yellow}:
 \begin{code}{@TEST | anEllipse | anEllipse := EllipseMorph new.}
 anEllipse defaultColor --> Color yellow
 \end{code}
 \noindent
-The class \ct{EllipseMorph} implements \ct{defaultColor}, so the appropriate method is found immediately.
+La clase \ct{EllipseMorph} implementa \ct{defaultColor}, asi que el m\'etodo indicado es encontrado inmediatamente.
 
 \begin{method}[defaultColor]{A locally implemented method}
 EllipseMorph>>>defaultColor
-	"answer the default color/fill style for the receiver"
+	"responder el color predeterminado / estilo de relleno a el receptor"
 	^ Color yellow
 \end{method}
 \cmindex{EllipseMorph}{defaultColor}
 
-In contrast, if we send the message \ct{openInWorld} to \ct{anEllipse}, the method is not immediately found, since the class \ct{EllipseMorph} does not implement \ct{openInWorld}.
-The search therefore continues in the superclass, \lct{BorderedMorph}, and so on, until an \ct{openInWorld} method is found in the class \ct{Morph} (see \figref{openInWorldLookup}).
+En cambio, si enviamos el mensaje \ct{openInWorld} a \ct{anEllipse}, el m\'etodo no es encontrado de inmediato, dado que la clase \ct{EllipseMorph} no implementa \ct{openInWorld}.
+La busqueda por lo tamto continua en la superclase, \lct{BorderedMorph}, y asu sucesivamente, hasta que un m\'etodo \ct{openInWorld} sea encontrado en la clase \ct{Morph} (ver \figref{openInWorldLookup}).
 
 \begin{method}[openInWorld]{An inherited method}
 Morph>>>openInWorld
-	"Add this morph to the world."
+	"añadir este morph al mundo."
 
 	self openInWorld: self currentWorld
 \end{method}
@@ -686,42 +690,44 @@ Morph>>>openInWorld
 \begin{figure}[htb]
 \begin{center}
 	{\includegraphics[width=0.8\textwidth]{openInWorldLookup}}
-\caption{Method lookup follows the inheritance hierarchy.\figlabel{openInWorldLookup}}
+\caption{El Method lookup sigue la cadena de herencia.\figlabel{openInWorldLookup}}
 \end{center}
 \end{figure}
 
 %---------------------------------------------------------
-\subsection{Returning self}
+\subsection{Devolviendo self}
 
-Notice that \ct{EllipseMorph>>>defaultColor} (\mthref{defaultColor}) explicitly returns \ct{Color yellow} whereas \ct{Morph>>>openInWorld} (\mthref{openInWorld}) does not appear to return anything.
+Note que \ct{EllipseMorph>>>defaultColor} (\mthref{defaultColor}) explicitamente devuelve \ct{Color yellow} mientras que \ct{Morph>>>openInWorld} (\mthref{openInWorld}) no parece devolver nada.
 
-Actually a method \emph{always} answers a message with a value\,---\,which is, of course, an object.
-The answer may be defined by the \ct{^} construct in the method, but if execution reaches the end of the method without executing a \ct{^}, the method still answers a value: it answers the object that received the message.
-We usually say that the method ``answers \self'', because in Smalltalk the pseudo-variable \self represents the receiver of the message, rather like \ct{this} in \ind{Java}.
+De hecho un m\'etodo \emph{siempre} responde un mensaje con un valor\,---\,que es, por supuesto, un objeto.
+
+La respuesta puede estar definida por el concepto de \ct{^} en el m\'etodo, pero si la ejecuci\'on alcanza el final del m\'etodo sin ejecutar un \ct{^}, el m\'etodo a\'un devuelve un valor: devuelve el objeto que recibi\'o el mensaje.
+Com\'unmente decimos que el m\'etodo ``responde a \self'', porque en Smalltalk la pseudo-variable \self representa al receptor del mensaje, como lo hace \ct{this} en \ind{Java}.
 \index{variable!pseudo}
 \index{return}
 \seeindex{caret}{return}
 
-This suggests that \mthref{openInWorld} is equivalent to \mthref{openInWorldReturnSelf}:
+Esto sugiere que \mthref{openInWorld} es equivalente a \mthref{openInWorldReturnSelf}:
 
 \needlines{5}
 \begin{method}[openInWorldReturnSelf]{Explicitly returning self}
 Morph>>>openInWorld
-	"Add this morph to the world."
+	"Añade este morph al mundo."
 	
     self openInWorld: self currentWorld
-	^ self		"Don't do this unless you mean it!"
+	^ self		"No hagas esto a menos que sea tu intenci\'on!"
 \end{method}
 
+Por qu\'e no es bueno escribir \ct{^ self} explicitamente?
 Why is writing \ct{^ self} explicitly not a good thing to do?
-Well, when you return something explicitly, you are communicating that you are returning something of interest to the sender.
-When you explicitly return \self, you are saying that you expect the sender to use the returned value.
-This is not the case here, so it is best not to explicitly return \self.
+Bueno, cuando devuelves algo explicitamente, estas comunicando que devuelves algo de inter\'es para el emisor.
+Cuando expresamente devuelves \self, estas diciendo que esperas que el emisor utilice el valor devuelto.
+Aqu\'i este no es el caso, as\'i que es mejor no retornar explicitamente \self.
 
-This is a common idiom in \st, which Kent Beck refers to as ``Interesting return value'' \cite{Beck97a}:
+Se trata de un lenguaje com\'un en \st, al cual Kent Beck denomina ``Interesante valor de retorno'' \cite{Beck97a}:
 \index{Beck, Kent}
 
-\important{Return a value only when you intend for the sender to use the value.}
+\important{Devuelve un valor solo cuando es tu intenci\'on que el emisor use el valor.}
 
 %---------------------------------------------------------
 \subsection{Overriding and extension}
