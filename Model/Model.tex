@@ -66,7 +66,7 @@ El modelo de objetos de \st est\'a basado en un conjunto de reglas simples  que 
 
 \item{}  \rulelabel{lookup}
 	El Method lookup sigue la cadena de herencia.
-% VER COMO TRADUZCO ESTO
+
 \end{enumerate}
 
 \noindent
@@ -864,33 +864,35 @@ In fact, this can be an easy way to implement automatic delegation of messages f
 A \ct{Delegator} object could simply delegate all messages it does not understand to another object whose responsibility it is to handle them, or raise an error itself!
 
 %=========================================================
-\section{Shared variables}
+\section{Variables compartidas}
 
-Now we will look at an aspect of \st that is not so easily covered by our five rules: \subind{variable}{shared} variables.
+Ahora echaremos un vistazo a un aspecto de \st que no queda cubierto tan facilmente por nuestras cinco reglas: las variables \subind{variable}{compartidas}.
 
-\st provides three kinds of shared variables: (1) \emph{globally} shared variables; (2) variables shared between instances and classes (\emph{class variables}), and (3) variables shared amongst a group of  classes (\emph{pool variables}).  The names of all of these shared variables start with a capital letter, to warn us that they are indeed shared between multiple objects.
+\st proporciona tres tipos de variables compartidas: (1) variables \emph{globalmente} compartidas; (2) variables compartidas entre instancias y clases (\emph{variables de clase}), y (3) variables compartidas entre un grupo de clases (\emph{pool variables}).  Los nombres de todas esas variables compartidas comienzan con una letra mayuscula, para advertirnos que realmente estan compratidas entre m\'ultiples objetos.
+% COMO TRADUZCO POOL VARIABLES?
 \index{variable!global}
 \index{class!variable}
 \index{variable!pool}
 
 %---------------------------------------------------------
-\subsection{Global variables}
-In \pharo, all global variables are stored in a namespace called \glbind{Smalltalk}, which is implemented as an instance of the class \clsind{SystemDictionary}.
-Global variables are accessible everywhere. 
-Every class is named by a global variable; in addition, a few globals are used to name special or commonly useful objects.
+\subsection{Variables globales}
+En \pharo, todas las variables globales estan almacenadas en un namespace llamado \glbind{Smalltalk}, el cual est\'a implementado como una instancia de la clase \clsind{SystemDictionary}.
+% COMO TRADUZCO namespace
+Las variables globales son accesibles en todas partes. 
+Cada clase es nombrada por una variable global; adem\'as, unas pocas variables globales son usadas para nombrar objetos especiales u objetos comunmente \'utiles.
 
-The variable \glbind{Transcript} names an instance of \clsind{TranscriptStream}, a stream that writes to a scrolling window.
-The following code displays some information and then goes to the next line in the \ct{Transcript}.
+La variable \glbind{Transcript} nombra una instancia de \clsind{TranscriptStream}, un flujo de datos que escribe en una ventana que se desplaza.
+El siguiente c\'odigo muestra cierta informaci\'on y luego avanza a la siguiente linea en el \ct{Transcript}.
 
 \begin{code}{}
 Transcript show: 'Pharo is fun and powerful' ; cr
 \end{code}
 
 \noindent
-Before you \menu{do it}, open a transcript by selecting \menu{World \go Tools \ldots \go Transcript}.
+Antes de ejecutar \menu{do it}, abre un transcript seleccionando \menu{World \go Tools \ldots \go Transcript}.
 
-\hint{Writing to the Transcript is slow, especially when the transcript window is open. 
-So, if you experience some sluggishness and are writing to the Transcript, think about collapsing it.}
+\hint{Escribir en el Transcript es lento, en especial cuando la ventana de transcript est\'a abierta. 
+Asi que, si experimentas algo de lentitud y estas escribiendo en el Transcript, considera cerrarlo.}
 
 \subsubsection{Other useful global variables}
 
