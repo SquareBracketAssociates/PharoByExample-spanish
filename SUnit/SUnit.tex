@@ -8,6 +8,7 @@
 % 2007-05-22 - Andrew first draft
 % 2007-06-24 - Oscar edit
 % 2009-07-06 - Oscar migrate to pharo
+% 2011-06-08 - Mirian traslation finished!.
 
 %=================================================================
 \ifx\wholebook\relax\else
@@ -39,94 +40,96 @@
 \chalabel{SUnit}
 
 %=================================================================
-\section{Introduction} 
+\section{Introducci\'on} 
 
-\on{Would be nice to have an example of test-driven development with SUnit from beginning to end. Perhaps this is for another chapter?}
+%\on{Would be nice to have an example of test-driven development with SUnit from beginning to end. Perhaps this is for another chapter?}
 
-\indmain{SUnit} es un pequeño pero poderoso framework que cuenta con soporte para la
-creación y despliegue de pruebas.
-Como puede intuirse por su nombre, el diseño de \sunit se enfoca en las \emph{Unit Tests} (pruebas unitarias), 
-pero también puede ser utilizado para pruebas de integración y pruebas funcionales.
+\indmain{SUnit} es un peque\~no pero poderoso framework que cuenta con soporte para la creaci\'on y despliegue de pruebas.
+Como puede intuirse por su nombre, el dise\`no de \sunit se enfoca en las \emph{Unit Tests} (pruebas unitarias), 
+pero tambi\'en puede ser utilizado para pruebas de integraci\'on y pruebas funcionales.
 \sunit fue originalmente desarrollado por Kent Beck y posteriormente ampliado por Joseph
-Pelrine entre otros, para integrar la noción de un recurso,
+Pelrine entre otros, para integrar la noci\'on de un recurso,
 el cual describiremos en \secref{resource}.
 \index{Beck, Kent}
 \index{Pelrine, Joseph}
 \seeindex{resource}{test, resource}
 
-El interés en las pruebas y en el \ind{Test Driven Development}
-no está limitado a \pharo o a \st.  
-Las pruebas automatizadas se han convertido en un sello del movimiento del \ind{desarrollo de software Ágil (Agile software development)},
-y cualquier desarrollador que se ocupe de la mejora de la calidad de software hará bien en adoptarlo.
-Es más, muchos programadores en diferentes lenguajes han llegado a apreciar el poder
+El inter\'es en las pruebas y en el \ind{Desarrollo guiado por pruebas -Test Driven Development}
+no est\'a limitado a \pharo o a \st.  
+Las pruebas automatizadas se han convertido en un sello del movimiento del \ind{desarrollo de software \'Agil (Agile software development)},
+y cualquier desarrollador que se ocupe de la mejora de la calidad de software har\'a bien en adoptarlo.
+Es m\'as, muchos programadores en diferentes lenguajes han llegado a apreciar el poder
 de las pruebas unitarias, y ahora existen versiones de 
 \xUnit{}  para muchos lenguajes, tales como \ind{Java}, \ind{Python}, \ind{Perl}, .Net y \ind{Oracle}.
+
 \seeindex{Matrix!free will}{Oracle} % sorry, couldn't resist
 %  OSCAR: There was a broken citation here for the xprogramming web site
 % I could not figure out what it was supposed to refer to.
-Este capítulo describe \SUnit~3.3 (la versión más reciente al momento de este escrito); el sitio web oficial de \sunit es
-\url{sunit.sourceforge.net}, donde pueden encontrarse las actualizaciones.
+Este cap\'itulo describe \SUnit~3.3 (la versi\'on m\'as reciente al momento de editar este texto); el sitio web oficial de \sunit es \url{sunit.sourceforge.net}, donde pueden encontrarse otras actualizaciones.
 \index{xUnit}
 \index{Net@.Net}
 
-Ni las pruebas, ni la construcción de conjuntos de pruebas, es nuevo:  todos saben que  las pruebas son una buena forma 
-de capturar errores.
-La \mbox{\ind{Programación eXtrema (eXtreme Programming)},} al hacer de las pruebas una práctica central
-y al enfatizar las pruebas automatizadas (\emph{automated} tests), 
-ha ayudado a convertir al testeo en algo productivo y entretenido, y no en una tarea más que a los programadores les disguste.
-La comunidad \st tiene una larga tradición en el testeo
-porque el estilo de desarrollo incremental está respaldado por su ambiente de desarrollo.  
-En el desarrollo en \st tradicional, el programador escribiría pruebas en un workspace 
-tan pronto como un método es terminado de escribir.
+Ni las pruebas, ni la construcci\'on de conjuntos de pruebas, es nuevo:  todos saben que  las pruebas son una buena forma de capturar errores.
+
+La \mbox{\ind{Programaci\'on eXtrema (eXtreme Programming)},} que hace de las pruebas una pr\'actica central
+y enfatiza las pruebas automatizadas (\emph{automated} tests), 
+ha ayudado a que el desarrollo de pruebas se convierta en algo productivo y entretenido, y no en una tarea m\'as que a los programadores les disguste.
+
+La comunidad \st tiene una larga tradici\'on en la construcci\'on de pruebas porque el estilo de desarrollo incremental est\'a respaldado por su ambiente de desarrollo.
+  
+En el desarrollo tradicional en \st , el programador escribir\'ia pruebas en un workspace 
+tan pronto como un m\'etodo se termina de escribir.
 A veces una prueba puede ser incorporada como un comentario en la cabecera
-del método sobre el cual se está trabajando,
-o las pruebas que necesiten alguna configuración pueden ser incluídas como métodos de ejemplo en la clase.
-El problema con estas prácticas es que estas pruebas no están
-disponibles para otros programadores que modificaron el código; los comentarios y los métodos de ejemplo son mejores 
-en ese sentido, pero aún no existe una manera fácil de hacer un seguimiento de ellos y de hacer que corran automáticamente.
-¡Las pruebas que no se ejecutan no ayudan a encontrar bugs!
-Más aún, un método de ejemplo no informa al lector sobre el resultado esperado:
-puedes correr un ejemplo y ver \,---\,quizás con gran sorpresa\,---\,el resultado, 
-pero no sabrás si el comportamiento observado es el correcto.
+del m\'etodo sobre el cual se est\'a trabajando,
+o las pruebas que necesiten alguna configuraci\'on pueden ser inclu\'idas como m\'etodos de ejemplo en la clase.
+El problema con estas pr\'acticas es que estas pruebas no est\'an
+disponibles para otros programadores que modifiquen el c\'odigo; los comentarios y los m\'etodos de ejemplo son mejores 
+en ese sentido, pero a\'un no existe una manera f\'acil de hacer un seguimiento de ellos y de hacer que corran autom
+\'aticamente.
+\¡Las pruebas que no se ejecutan no ayudan a encontrar bugs!
 
-\sunit es valioso porque nos permite escribir pruebas que son chequeadas por si mismas (self-checking):
-la prueba misma define cuál debería ser el resultado correcto.
-También nos ayuda a organizar pruebas en grupo, para describir el contexto en el cual las pruebas deben correrse,
- y a correrlas en conjunto automaticamente.
-En menos de dos minutos puedes escribir pruebas usando \sunit, así que en lugar de escribir pequeños fragmentos de código en un workspace,
-te animamos a usar \sunit y obtener todas las ventajas de las pruebas acumulables y automaticamente ejecutables.
+M\'as a\'un, un m\'etodo de ejemplo no informa al lector sobre el resultado esperado:
+puedes correr un ejemplo y ver \,---\,quiz\'as con gran sorpresa\,---\,el resultado, 
+pero no sabr\'as si el comportamiento observado es el correcto.
 
-En este capítulo comenzaremos debatiendo por qué hacemos pruebas y qué es lo que hace a un buen testeo. Luego presentamos una serie de 
-pequeños ejemplos mostrando cómo usar \sunit.
-Por último, miraremos la implementación de \sunit, y de esa forma entender cómo \st usa el poder de la \ind{reflexión} en el soporte 
-de sus herramientas.
+\sunit es valioso porque nos permite escribir pruebas que son chequeadas por s\'i mismas (self-checking):
+la prueba misma define cu\'al deber\'ia ser el resultado correcto.
+Tambi\'en nos ayuda a organizar pruebas en grupo, para describir el contexto en el cual las pruebas deben correrse,
+ y a correrlas en conjunto autom\'aticamente.
+En menos de dos minutos puedes escribir pruebas usando \sunit, as\'i que en lugar de escribir peque\~nos fragmentos de c\'odigo en un workspace,
+te animamos a usar \sunit y obtener todas las ventajas de las pruebas acumulables y autom\'aticamente ejecutables.
+
+En este cap\'itulo comenzaremos debatiendo por qu\'e hacemos pruebas y qu\'e es lo que hace a un buen desarrollo de pruebas. Luego presentamos una serie de 
+peque\~nos ejemplos mostrando c\'omo usar \sunit.
+Por \'ultimo, miraremos la implementaci\'on de \sunit, y de esa forma entender c\'omo \st usa el poder de la \ind{reflexi\'on} en el soporte de sus herramientas.
 
 %=================================================================
-\section{Por qué el testeo es importante}
+\section{Por qu\'e el desarrollo y ejecuci\'on de pruebas es importante}
 \seclabel{why}
 
-Desafortunadamente, muchos desarrolladores creen que el testeo es una pérdida de tiempo.
-Después de todo, \emph{ellos} no escriben bugs\,---\,sólo los \emph{otros} programadores lo hacen.
-La mayoría de nosotros ha dicho, en algún momento:
-``Yo escribiría pruebas si tuviera más tiempo.''
-Si nunca escribieras bugs, y si tu código nunca fuera a ser cambiado en el futuro,
-entonces las pruebas sí serían una pérdida de tiempo.
-Sin embargo, esto probablemente significa que tu aplicación es trivial, o que ya no es usada ni por ti ni por nadie más.  
-Piensa en las pruebas como una inversión para el futuro: tener un paquete de pruebas será bastante útil ahora,
- pero será \emph{extremadamente} útil cuando tu aplicación, o el entorno en el cual se ejecuta, cambie en el futuro.
+Desafortunadamente, muchos desarrolladores creen que el desarrollo de pruebas es una p\'erdida de tiempo.
+Despu\'es de todo, \emph{ellos} no escriben bugs\,---\,s\'olo los \emph{otros} programadores lo hacen.
+La mayor\'ia de nosotros ha dicho, en alg\'un momento:
+``Yo escribir\'ia pruebas si tuviera m\'as tiempo.''
+Si nunca escribieras bugs, y si tu c\'odigo nunca fuera a ser cambiado en el futuro,
+entonces las pruebas s\'i ser\'ian una p\'erdida de tiempo.
+Sin embargo, esto probablemente significa que tu aplicaci\'on es trivial, o que ya no es usada ni por ti ni por nadie m\'as.  
+Piensa en las pruebas como una inversi\'on para el futuro: tener un paquete de pruebas ser\'a bastante \'util ahora,
+ pero ser\'a \emph{extremadamente} \'util cuando tu aplicaci\'on, o el entorno en el cual se ejecuta, cambie en el futuro.
 
-Las pruebas juegan muchos roles. Primero, proveen documentación sobre la funcionalidad que cubren.
-Más aún, la documentación es activa: mirar las pruebas pasar te dice que la documentación está actualizada.
-Segundo,
-las pruebas ayudan a los desarrolladores a confirmar que los cambios que le 
-acaban de hacer a un paquete no ha roto nada más en el sistema\,---\,y a encontrar las partes que se rompen cuando la confianza
-resulta estar fuera de lugar.
-Finalmente, escribir las pruebas al mismo tiempo \,---\,o antes\,---\,de programar te obliga a pensar sobre la funcionalidad
-que quieres diseñar, \emph{y cómo debería mostrarse al cliente}, 
-y no acerca de cómo implementarla.
-Escribiendo las pruebas primero\,---\,antes que el código\,---\,estás obligado a indicar el contexto en el que 
-la funcionalidad se ejecutará, la forma en la que interactuará con el código cliente, y los resultados esperados.  
-Tu código mejorará: pruébalo.
+Las pruebas juegan muchos roles. Primero, proveen documentaci\'on sobre la funcionalidad que cubren.
+M\'as a\'un, la documentaci\'on es activa: ver que las pruebas pasan ok te dice que la documentaci\'on est\'a actualizada.
+
+Segundo, las pruebas ayudan a los desarrolladores a confirmar que los cambios que le 
+acaban de hacer a un paquete no ha roto nada m\'as en el sistema\,---\,y a encontrar las partes que se rompen cuando la confianza resulta estar fuera de lugar.
+
+Finalmente, escribir las pruebas al mismo tiempo \,---\,o antes\,---\,de programar te obliga a pensar sobre la funcionalidad que quieres dise\~nar, \emph{y c\'omo deber\'ia mostrarse al cliente}, 
+y no acerca de c\'omo implementarla.
+
+Escribiendo las pruebas primero\,---\,antes que el c\'odigo\,---\,est\'as obligado a indicar el contexto en el que 
+la funcionalidad se ejecutar\'a, la forma en la que va a interactuar con el c\'odigo cliente, y los resultados esperados.  
+
+Tu c\'odigo mejorar\'a: pru\'ebalo.
 
 %The culture of tests has always been present in the \st
 %community because after writing a method, we would write a small
@@ -137,64 +140,64 @@ Tu código mejorará: pruébalo.
 %the context of the tests is left unspecified so the reader has to
 %interpret the results and assess if they are right or wrong.
 
-No podemos probar todos los aspectos de una aplicación realista.
-Cubrir una aplicación completa es sencillamente imposible y no sería el objetivo del testeo.
+No podemos probar todos los aspectos de una aplicaci\'on realista.
+Cubrir una aplicaci\'on completa es sencillamente imposible y no ser\'ia el objetivo del desarrollo de pruebas.
 Incluso con un buen conjunto de pruebas
-algunos bugs aún quedarán en la aplicación, donde ellos pueden permanecer latentes, esperando la oportunidad para dañar su sistema.
-Si encuentras que esto ha ocurrido, ¡aprovechálo!
-Tan pronto como descubras un bug, escribe una prueba que lo exponga, ejecuta la prueba, y mírala fallar.
-Ahora puedes comenzar a arreglar el bug: la prueba te dirá cuándo has terminado.
-%=================================================================
-\section{What makes a good test?}
-\section{Qué hace a una buena prueba}
+algunos bugs a\'un quedar\'an en la aplicaci\'on, donde permanecer\'an latentes, esperando la oportunidad para da\~nar su sistema.
+Si encuentras que esto ha ocurrido, ¡aprovech\'alo!
+Tan pronto como descubras un bug, escribe una prueba que lo exponga, ejecuta la prueba, y m\'irala fallar.
+Ahora puedes comenzar a arreglar el bug: la prueba te dir\'a cu\'ando has terminado.
 
-Escribir buenas pruebas es una habilidad que puede ser aprendida más facilmente con práctica.
-Veamos las propiedades que las pruebas deberían tener para obtener el máximo beneficio: 
+%=================================================================
+%\section{What makes a good test?}
+\section{\¿Qu\'e hace a una buena prueba?}
+
+Escribir buenas pruebas es una habilidad que puede ser aprendida m\'as facilmente con pr\'actica.
+Veamos las propiedades que las pruebas deber\'ian tener para obtener el m\'aximo beneficio: 
 
 
 \begin{enumerate}
 
 %%%%%%% Tests should be repeatable (?)
 \item Las pruebas deben poder repetirse. Debes ser capaz de correr una prueba
-	las  veces que lo desees, y siempre obetener la misma respuesta.
+	las  veces que lo desees, y siempre obtener la misma respuesta.
 
-\item Las pruebas deben correr sin la intervención humana. Debes ser capaz
+\item Las pruebas deben correr sin la intervenci\'on humana. Debes ser capaz
 	incluso de correrlas durante la noche.
 
-\item Las pruebas deben contar una historia. Cada prueba debería cubrir un aspecto
-	de alguna pieza de código. Una prueba debería actuar como un escenario al que tú o alguien más
+\item Las pruebas deben contar una historia. Cada prueba deber\'ia cubrir un aspecto
+	de alguna pieza de c\'odigo. Una prueba deber\'ia actuar como un escenario al que t\'u o alguien m\'as
 	pueda leer para entender una parte de la funcionalidad. \label{prop:oneAspect}
 
-\item Las pruebas deberían tener una frecuencia de cambio menor
-	a la de la funcionalidad que cubren: no deberías tener que cambiar
-	todas tus pruebas cada vez que modificas la aplicación.  Una forma de lograr
-	esto es escribiendo pruebas a base de interfases públicas de la clase que
-	estás probando.      
-	Es correcto escribir una prueba para un método "de ayuda" privado si crees que 
-	ese método es lo suficientemente complicado para necesitar una prueba, pero debes
+\item Las pruebas deber\'ian tener una frecuencia de cambio menor
+	a la de la funcionalidad que cubren: no deber\'ias tener que cambiar
+	todas tus pruebas cada vez que modificas la aplicaci\'on.  Una forma de lograr
+	esto es escribiendo pruebas a base de interfases p\'ublicas de la clase que
+	est\'as probando.      
+	Es correcto escribir una prueba para un m\'etodo "de ayuda" privado si crees que 
+	ese m\'etodo es lo suficientemente complicado para necesitar una prueba, pero debes
 	tener en cuenta que dicha prueba puede que sea cambiada, o directamente desechada,
-	cuando se te ocurra una mejor implementación.
+	cuando se te ocurra una mejor implementaci\'on.
 \end{enumerate}
 
 Una consecuencia de la propiedad (\ref{prop:oneAspect}) es que 
-el número de pruebas debería ser algo proporcional al número de funciones
-a ser probadas: cambiando un aspecto del sistema no debería romper todas las pruebas
-excepto por un número limitado de ellas. Esto es importante porque teniendo 100 pruebas fallando
-debería enviar un mensaje más fuerte que teniendo 10 pruebas fallando.
+el n\'umero de pruebas deber\'ia ser algo proporcional al n\'umero de funciones
+a ser probadas: cambiando un aspecto del sistema no deber\'ia romper todas las pruebas
+excepto por un n\'umero limitado de ellas. Esto es importante porque teniendo 100 pruebas fallando
+deber\'ia enviar un mensaje m\'as fuerte que teniendo 10 pruebas fallando.
   
 Sin embargo, no siempre es posible alcanzar este caso ideal: 
-en particular, si un cambio rompe la inicialización de un objeto, o el set-up de una prueba,
-seguramente causará que las otras pruebas fallen.
+en particular, si un cambio rompe la inicializaci\'on de un objeto, o el set-up de una prueba,
+seguramente causar\'a que las otras pruebas fallen.
 
-\ind{eXtreme Programming} aboga por escribir pruebas antes de escribir el código.
+\ind{eXtreme Programming} aboga por escribir pruebas antes de escribir el c\'odigo.
 Esto parace ir en contra de nuestros instintos como desarrolladores de software. 
-Todo lo que podemos decir es: adelante e inténtalo!
-Hemos encontrado que escribir pruebas antes del código nos ayuda a saber qué queremos codificar,
-nos ayuda a saber cuándo hemos terminado, y nos ayuda a visualizar la funcionalidad
+Todo lo que podemos decir es: adelante e int\'entalo!
+Hemos encontrado que escribir pruebas antes del c\'odigo nos ayuda a saber qu\'e queremos codificar,
+nos ayuda a saber cu\'ando hemos terminado, y nos ayuda a visualizar la funcionalidad
 de una clase y a dise\~nar su interfaz.
 
-Más aún, test-first development nos da el ánimo para ir rápido, porque no tenemos miedo de estar
-olvidandonos algo importante.
+M\'as a\'un, el desarrollo basado en escribir las pruebas primero nos da el \'animo para ir r\'apido, porque no tenemos miedo de estar olvid\'andonos algo importante.
 
 
 % \on{I cannot understand this without some explanation!}
@@ -219,16 +222,16 @@ olvidandonos algo importante.
 Antes de adentrarnos en detalles de \SUnit, mostraremos un ejemplo
 paso a paso.
 
-Usaremos un ejemplo que prueba la calse \ct{Set}. Intenta copiar el código como sigue.
+Usaremos un ejemplo que prueba la clase \ct{Set}. Intenta copiar el c\'odigo como sigue.
 
 %---------------------------------------------------------
 \subsection{Paso 1: crear la clase de prueba}
 
 \dothis{ Primero debes crear una nueva subclase de \clsind{TestCase} llamada 
 \ct{ExampleSetTest}.  Agrega dos variables de instancia de forma tal
-que la clase  luzca así: }
+que la clase  luzca as\'i: }
 
-%%%%%%Codigo fuente a traducir
+%%%%%%c\'odigo fuente a traducir
 \begin{classdef}[exampleSetTest]{An Example Set Test class}
 TestCase subclass: #ExampleSetTest
 	instanceVariableNames: 'full empty'
@@ -240,28 +243,28 @@ TestCase subclass: #ExampleSetTest
 
 Usaremos la clase \ct{ExampleSetTest} para agrupar todas las pruebas relacionadas con
 la clase \ct{Set}.  La misma define el contexto en el cual las pruebas
-correrán. Aquí el contexto es descripto por las dos variables de instancia \ct{full} and \ct{empty}
-que ussaremos para representar el set lleno y el set vacío.
+correr\'an. Aqu\'i el contexto es descripto por las dos variables de instancia \ct{full} and \ct{empty}
+que ussaremos para representar el set lleno y el set vac\'io.
 
-El nombre de la clase no es crítico, pero por convención debería terminar con \ct{Test}.
+El nombre de la clase no es cr\'itico, pero por convenci\'on deber\'ia terminar con \ct{Test}.
 Si defines una clase llamada \ct{Pattern} y nombras a la correspondiente clase de pruebas \ct{PatternTest},
-las dos clases serán indexadas alfabéticamente en forma conjunta en el browser (asumiendo
-que ambas se encuentran en la misma categoría).  Es de \emph{suma importancia} que tu clase 
+las dos clases ser\'an indexadas alfab\'eticamente en forma conjunta en el browser (asumiendo
+que ambas se encuentran en la misma categor\'ia).  Es de \emph{suma importancia} que tu clase 
 sea una subclase de \ct{TestCase}.
 
 %---------------------------------------------------------
 \subsection{Paso 2: inicializar el contexto de prueba}
 
-El método \mthind{TestCase}{setUp} define el contexto en el cual las
-pruebas correrán, es una especie de método de inicialización.
-\ct{setUp} es invocado antes de la ejecución de cada método de  prueba definido
+El m\'etodo \mthind{TestCase}{setUp} define el contexto en el cual las
+pruebas correr\'an, es una especie de m\'etodo de inicializaci\'on.
+\ct{setUp} es invocado antes de la ejecuci\'on de cada m\'etodo de  prueba definido
 en la clase de pruebas.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%% codigo a traducir
+%%%%%% c\'odigo a traducir
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\index{SUnit!método set up}
+\index{SUnit!m\'etodo set up}
 \seeindex{testing}{SUnit}
 
 \dothis{Define the \ct{setUp} method as follows, to initialize the \ct{empty} variable to refer to an empty set and the \ct{full} variable to
@@ -275,28 +278,26 @@ ExampleSetTest>>>setUp
 \end{method}
 
 \noindent
-In testing jargon the context is called the \emph{fixture} for the
-test.
+En la jerga del desarrollo de pruebas, el contexto es llamado el \emph{fixture} para la prueba.
+
 \index{SUnit!fixture}
 \seeindex{fixture}{SUnit, fixture}
 
 %---------------------------------------------------------
-\subsection{Paso 3: escribir algunos métodos de prueba}
+\subsection{Paso 3: escribir algunos m\'etodos de prueba}
 
-Vamos a crear algunas pruebas definiendo algunos métodos en
-la clase \ct{ExampleSetTest}.  
-Cada método representa una prueba: 
-el nombre del método debería comenzar con la cadena `\ct{test}' para que \sunit
+Vamos a crear algunas pruebas definiendo algunos m\'etodos en la clase \ct{ExampleSetTest}.  
+Cada m\'etodo representa una prueba: 
+el nombre del m\'etodo deber\'ia comenzar con la cadena `\ct{test}' para que \sunit
 las tome en su juego de pruebas.
 
-Los métodos de pruebas no tooman argumentos.
+Los m\'etodos de pruebas no toman argumentos.
 
-\dothis{Define the following test methods.}
-The first test, named \ct{testIncludes}, tests the
-\ct{includes:} method of \ct{Set}.  The test says that sending the
-message \ct{includes: 5} to a set containing 5 should return
-\ct{true}.  Clearly, this test relies on the fact
-that the \ct{setUp} method has already run.
+\dothis{Define los siguientes m\'etodos de prueba.}
+La primer prueba, llamada \ct{testIncludes}, prueba al m\'etodo
+\ct{includes:} de \ct{Set}.  la prueba dice que enviando el mensaje \ct{includes: 5} a un conjunto
+que contiene 5 elementos deber\'ia retornar \ct{verdadero -true}.  Claramente, esta prueba depende del que el
+m\'etodo \ct{setUp} ya haya sido corrido.
 
 \begin{method}[testIncludes]{Testing set membership}
 ExampleSetTest>>>testIncludes
@@ -304,8 +305,8 @@ ExampleSetTest>>>testIncludes
 	self assert: (full includes: 6)
 \end{method}
 
-La segunda prueba, llamada \ct{testOccurrences}, verifica que el número de ocurrencias
-de ~5 en el set \ct{lleno} es igual a uno, aún cuando agregamos otro elemento~5 al set.
+La segunda prueba, llamada \ct{testOccurrences}, verifica que el n\'umero de ocurrencias
+de ~5 en el conjunto \ct{lleno} es igual a uno, a\'un cuando agregamos otro elemento ~5 al set.
 
 \needlines{6}
 \begin{method}[testOccurrences]{Testing occurrences}
@@ -316,7 +317,7 @@ ExampleSetTest>>>testOccurrences
 	self assert: (full occurrencesOf: 5) = 1
 \end{method}
 
-Finalmente, probamos que el set ya no contiene al elemento 5 después de que lo hemos removido.
+Finalmente, probamos que el conjunto ya no contiene al elemento 5 despu\'es de que lo hemos removido.
 
 \begin{method}[testRemove]{Testing removal}
 ExampleSetTest>>>testRemove
@@ -326,17 +327,19 @@ ExampleSetTest>>>testRemove
 \end{method}
 
 \noindent
-Nota que el uso del método \mthind{TestCase}{deny:} para afirmar que algo no debería ser 
+
+Nota el uso del m\'etodo \mthind{TestCase}{deny:} para afirmar que algo no deber\'ia ser 
  verdadero.
-\ct{aTest deny: anExpression} es equivalente a \ct{aTest assert: anExpression not}, pero mucho más legible.
+
+\ct{aTest deny: anExpression} es equivalente a \ct{aTest assert: anExpression not}, pero mucho m\'as legible.
 %---------------------------------------------------------
 \subsection{Paso 4: correr las pruebas}
 
-La forma más fácil de correr las pruebas es directamente desde el browser.
-Simplemente \actclick sobre el paquete, nombre de clase o sobre un método de prueba individual, 
+La forma m\'as f\'acil de correr las pruebas es directamente desde el browser.
+Simplemente \actclick sobre el paquete, nombre de clase o sobre un m\'etodo de prueba individual, 
 y selecciona \menu{run the tests(t)}
 
-Los métodos de prueba serán marcados con rojo o verde, dependiendo si pasaron o no, y la clase será marcada completamente o parcialmente en verde o rojo dependiendo de si todas, algunas o ninguna prueba pasó.
+Los m\'etodos de prueba ser\'an marcados con rojo o verde, dependiendo si pasaron o no, y la clase ser\'a marcada completamente o parcialmente en verde o rojo dependiendo de si todas, algunas o ninguna prueba pas\'o.
 
 \begin{figure}[tbh]
   \begin{center}
@@ -346,18 +349,18 @@ Los métodos de prueba serán marcados con rojo o verde, dependiendo si pasaron 
   \end{center}
 \end{figure}
 
-También puedes elegir conjuntos de juegos de pruebas a correr, y obtener un log mas detallado de los resultados
+Tambi\'en puedes elegir conjuntos de juegos de pruebas a correr, y obtener un log mas detallado de los resultados
 usando \sunit \emphind{Test Runner}, el cual puedes abrir seleccionando \menu{World \go Test Runner}.
 
 
-El \emph{TestRunner}, mostrado en \figref{test-runner}, esta dise\~nado para hacer más
-fácil la ejecución de grupos de pruebas.
+El \emph{TestRunner}, mostrado en \figref{test-runner}, esta dise\~nado para hacer m\'as
+f\'acil la ejecuci\'on de grupos de pruebas.
 
-El panel más a la izquierda lista todas las categorías que contienenlas clases de pruebas
-(\ie  subclasses of \ct{TestCase}); cuando algunas de esttas categorías es seleccionada, las clases de pruebas
+El panel m\'as a la izquierda lista todas las categor\'ias que contienenlas clases de pruebas
+(\ie  subclasses of \ct{TestCase}); cuando algunas de esttas categor\'ias es seleccionada, las clases de pruebas
 que ellas contienenaparecen en el panel de la derecha.
-Las clases abstractas se muestran en letra itálica, y la jerarquía de clases de pruebas se muestra con indentación,
-así las subclases de \ct{ClassTestCase} estan indentadas más que las subclases de \ct{Testcase}.
+Las clases abstractas se muestran en letra it\'alica, y la jerarqu\'ia de clases de pruebas se muestra con indentaci\'on,
+as\'i las subclases de \ct{ClassTestCase} estan indentadas m\'as que las subclases de \ct{Testcase}.
 
 
 \begin{figure}[tbh]
@@ -368,7 +371,7 @@ así las subclases de \ct{ClassTestCase} estan indentadas más que las subclases
   \end{center}
 \end{figure}
 
-\dothis{Abre un Test Runner, selecciona la categoría \menu{MyTest}, y haz click en el botón \button{Run Selected}.}
+\dothis{Abre un Test Runner, selecciona la categor\'ia \menu{MyTest}, y haz click en el bot\'on \button{Run Selected}.}
 
 % ON: With OB, you don't need this.
 %You can also run a single test by executing a \menu{print it} on the following code: \ct{ExampleSetTest run: #testRemove}.  
@@ -388,7 +391,7 @@ así las subclases de \ct{ClassTestCase} estan indentadas más que las subclases
 cambia \ct{5} por \ct{4}.}
 
 Las pruebas que no pasaron (si es que hay alguna) son listadas a las ventanas de la derecha del \emph{Test Runner};
-si quieres debugguear una, para ver por qué falló, sólo haz click sobre el nombre.
+si quieres debugguear una, para ver por qu\'e fall\'o, s\'olo haz click sobre el nombre.
 
 %Alternatively, you can execute the following expressions:
 %\begin{code}{}
@@ -402,7 +405,7 @@ si quieres debugguear una, para ver por qué falló, sólo haz click sobre el no
 %---------------------------------------------------------
 \subsection{Paso 5: interpretar los resultados}
 
-El método \mthind{TestCase}{assert:}\,, el cual está definido en la clase
+El m\'etodo \mthind{TestCase}{assert:}\,, el cual est\'a definido en la clase
 \ct{TestCase}, espera un argumento de valor booleano, usualmente el valor de 
 una expresion evaluada. Cuando el argumento es verdadero (true), la prueba pasa;
 cuando el argumento es falso (false), la prueba falla.
@@ -412,13 +415,13 @@ La salida que esperamos es que todas aseveraciones en la prueba sean verdaderas,
 En el test runner, cuando todas las pruebas pasan, la barra de arriba se vuelve verde.
 Sin embargo, hay dos tipos de cosas que pueden ir mal cuando corres una prueba.
 
-Como es lógico, una se las afirmaciones puede ser falsa, causando que la prueba \emph{fail}. 
+Como es l\'ogico, una se las afirmaciones puede ser falsa, causando que la prueba \emph{fail}. 
 
-No obstante, es posible que algun otro tipo de error ocurra durante la ejecución de una prrueba,
+No obstante, es posible que algun otro tipo de error ocurra durante la ejecuci\'on de una prrueba,
 como un error de \emph{message not understood} o un error de \emph{index out of bounds}.
 
 Si un error ocurre, las assertions afirmaciones en la prueba puede que no se hayan ejecutado del todo, 
-por lo que no podemos decir que la prueba ha fallado; no obstante, algo está claramente mal!
+por lo que no podemos decir que la prueba ha fallado; no obstante, algo est\'a claramente mal!
 
 El el \emph{test runner}, las pruebas que fallan causan que la barra superior se vuelva amarilla, 
 y son listadas en la ventana del medio sobre la derecha, mientras que
@@ -429,7 +432,7 @@ las pruebas erroneas causan que la barra se ponga roja, y son listadas en la ven
 %=================================================================
 \section{El libro de recetas de \SUnit }
 
-Esta sección te dará mas detalles sobre cómo usar \SUnit.  Si has usado
+Esta secci\'on te dar\'a mas detalles sobre c\'omo usar \SUnit.  Si has usado
 otro framework para hacer pruebas como \Junit\footnote{\url{http://junit.org}},
 gran parte de todo esto te resultar\'a familiar, desde ya que todos estos frameworks tienen
 sus raices en \SUnit.
