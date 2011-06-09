@@ -11,6 +11,7 @@
 % 2007-07-26 - Stef review
 % 2007-08-23 - Oscar review
 % 2007-08-29 - Andrew corrections
+% 2011-06    - Maxi Sarno translation to Spanish
 
 %=================================================================
 \ifx\wholebook\relax\else
@@ -894,54 +895,55 @@ Antes de ejecutar \menu{do it}, abre un transcript seleccionando \menu{World \go
 \hint{Escribir en el Transcript es lento, en especial cuando la ventana de transcript est\'a abierta. 
 Asi que, si experimentas algo de lentitud y estas escribiendo en el Transcript, considera cerrarlo.}
 
-\subsubsection{Other useful global variables}
+\subsubsection{Otras variables globales \'utiles}
 
 \begin{itemize}
 \item
-\ct{Smalltalk} is the instance of \ct{SystemDictionary} that defines all of the globals\,---\,including \ct{Smalltalk} itself.   
-The keys to this dictionary are the symbols that name the global objects in \st code.
-So, for example,
+\ct{Smalltalk} es la instancia de \ct{SystemDictionary} que define todas las variables globales\,---\,incluyendo al mismo \ct{Smalltalk}.   
+Las claves para este diccionario son los s\'imbolos que dan nombre a los objetos globales en el codigo \st.
+Asi que, por ejemplo,
 \begin{code}{@TEST}
 Smalltalk at: #Boolean --> Boolean
 \end{code}
-Since \ct{Smalltalk} is itself a global variable,
+Dado que \ct{Smalltalk} en si mismo es una variable global,
 \begin{code}{}
 Smalltalk at: #Smalltalk-->a SystemDictionary(lots of globals)}
 \end{code} 
-and
+y
 \begin{code}{@TEST}
 (Smalltalk at: #Smalltalk) == Smalltalk --> true
 \end{code}
 
-\item \clsind{Sensor} is an instance of \clsind{EventSensor}, and represents input to \pharo.
-For example, \lct{Sensor keyboard} answers the next character input on the keyboard, and \ct{Sensor leftShiftDown} answers \ct{true} if the left shift key is being held down, while \ct{Sensor mousePoint} answers a \ct{Point} indicating the current mouse location.
+\item \clsind{Sensor} es una instancia de \clsind{EventSensor}, y representa la entrada de informaci\'on a \pharo.
+Por ejemplo, el \lct{Sensor keyboard} responde con el siguiente input de un caracter en el teclado, y \ct{Sensor leftShiftDown} responde \ct{true} si la tecla shift izquierda est\'a siendo oprimida, mientras que \ct{Sensor mousePoint} responde un \ct{Point} indicando la locaci\'on actual del rat\'on.
 
-\item \glbind{World} is an instance of \clsind{PasteUpMorph} that represents the screen.
-\ct{World bounds} answers a rectangle that defines the whole screen space; all Morphs on the screen are submorphs of \ct{World}.
+\item \glbind{World} es una instancia de \clsind{PasteUpMorph} que representa la pantalla.
+\ct{World bounds} responde un rectangulo que define todo el espacio de la pantalla; todos los Morphs en la pantalla son submorphs de \ct{World}.
 \index{Morphic}
 
 \item 
-\glbind{ActiveHand} is the current instance of \clsind{HandMorph}, the graphical representation of the cursor.  \ct{ActiveHand}'s submorphs hold anything being dragged by the mouse.
+\glbind{ActiveHand} es la instancia actual de \clsind{HandMorph}, la representacion gr\'afica del cursor.  Los submorphs de \ct{ActiveHand} contienen cualquier cosa que est\'e siendo arrastrada por el rat\'on.
 \ab{I have never used this, and had to browse the image to see what it is!  What do you use it for?}
 
 \item
-\glbind{Undeclared} is another dictionary\,---\,it contains all the undeclared variables.
-If you write a method that references an undeclared variable, the browser will normally
-prompt you to declare it, for example, as a global or as an instance variable of the class.
-However, if you later delete the declaration, the code will then reference an undeclared variable.
-Inspecting \ct{Undeclared} can sometimes help explain strange behaviour!
+\glbind{Undeclared} es otro diccionario\,---\,contiene todas las variables no declaradas.
+Si escribes un m\'etodo que hace referencia a una variable no declarada, el navegador normalmente
+te sugerir\'a declararla, por ejemplo, como una variable global o como una variable de instancia de la clase.
+Sin embargo, si mas tarde borras la declaraci\'on, el c\'odigo referenciar\'a a una variable no declarada.
+
+Examinar a \ct{Undeclared} puede a veces ayudar a explicar este comportamiento extra\~no!
 
 \item
-\glbind{SystemOrganization} is an instance of \clsind{SystemOrganizer}: it records the organization of classes into packages.  More precisely, it categorizes the \emph{names} of classes, so
+\glbind{SystemOrganization} es una instancia de \clsind{SystemOrganizer}: registra la organizaci\'on de las clases en paquetes.  Mas precisamente, clasifica los \emph{nombres} de clases, por lo que
 \end{itemize}
 
 \begin{code}{@TEST}
 SystemOrganization categoryOfElement: #Magnitude --> #'Kernel-Numbers'
 \end{code}
 
-Current practice is to strictly limit the use of global variables; it is usually better to use class instance variables or class variables, and to provide class methods to access them.  Indeed, if \pharo were to be implemented from scratch today, most of the global variables that are not classes would be replaced by singletons.
+El procedimiento actual consiste en limitar estrictamente el uso de las variables globales; en general es mejor utilizar las variables de instancia de la clase o las variables de clase, y proveer m\'etodos de clase para acceder a ellas. En realidad, si \pharo hoy fuera a ser implementado desde cero, la mayoria de las variables globales que no son clases ser\'ian reemplazadas por singletons.
 
-The usual way to define a global is just to \menu{do it} on an assignment to a capitalized but undeclared identifier.  The parser will then offer to declare the global for you.  If you want to define a global programmatically, just execute \ct{Smalltalk at: #AGlobalName put: nil}.  To remove it, execute \ct{Smalltalk removeKey: #AGlobalName}.
+La manera habitual de definir una variable global es mediante el \menu{do it} en una asignacion a un identificador en mayusculas pero no declarado. The parser will then offer to declare the global for you.  If you want to define a global programmatically, just execute \ct{Smalltalk at: #AGlobalName put: nil}.  To remove it, execute \ct{Smalltalk removeKey: #AGlobalName}.
 \glbindex{Smalltalk}
 
 %---------------------------------------------------------
