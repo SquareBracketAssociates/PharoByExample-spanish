@@ -978,47 +978,62 @@ Recuerda de \charef{quick} que la manera de hacer \ind{return} de un \subind{met
 A menudo puedes arreglar el c\'odigo directamente en la ventaba del debugger y hacer click en \menu{Proceed} para continuar corriendo la aplicaci\'on.
 En nuestro caso, como el bug estaba en la inicializaci\'on de un objeto, y no en el m\'etodo que fall\'o, lo m\'as f\'acil
 es cerrar la ventana de debug, destruir la intancia del juego ejecut\'andose (con el \subind{Morphic}{halo}), y crear una nueva.
-%%%------------HASTA ACA LLEGUE---------------%%%
+
 %Indeed, even in this case it would be possible to \menu{do} \ct{self initialize} and then \menu{Proceed} the \ct{toggleNeighboursOfCellAt:at:} method.
 %\ab{St\'eph, did you try this?  It seems to me that it ought to work, but when I tried it, it messed up my image.}
 % ON : It messed me up too!  Better not propose this.
 
 \dothis{Do: \ct{LOGame new openInWorld} again.}
 
-Now the game should work properly ... or nearly so.  If we happen to move the mouse between clicking and releasing, then the cell the mouse is over will also be toggled.  This turns out to be behavior that we inherit from \ct{SimpleSwitchMorph}. We can fix this simply by overriding \ct{mouseMove:} to do nothing:
+% Now the game should work properly ... or nearly so.  If we happen to move the mouse between clicking and releasing, then the cell the mouse is over will also be toggled.  This turns out to be behavior that we inherit from \ct{SimpleSwitchMorph}. We can fix this simply by overriding \ct{mouseMove:} to do nothing:
+Ahora el juego deber\'ia funcionar correctamente... o casi. Si hacemos click, y luego movemos el rat\'on antes de soltar el bot\'on, la celda sobre la que esta el rat\'o tambi\'en cambiar\'a. Resulta que esto es comportamiento que heredamos de \ct{SimpleSwitchMorph}. Podemos arreglar esto simplemente sobreescribiendo \ct{moseMove:} para que no haga nada:
 
 % \needlines{6}
 \begin{method}[mouseMove:]{Overriding mouse move actions.}
 LOGame>>>mouseMove: anEvent
 \end{method}
 
-Finally we are done!
+% Finally we are done!
+'!Finalmente terminamos!
 
 %\sd{It would be good to have a word about the debugger buttons into, step.... Or to have a separate chapter, we would use the material I wrote for my turtle book, please check it.}
 %\on{I think that is too much for this chapter. It will come soon enough.}
 
 %=================================================================
-\section{Saving and sharing Smalltalk code}
+% \section{Saving and sharing Smalltalk code}
+\section{Guardando y compartiendo c\'odigo Samalltalk}
 \seclabel{Monticello}
 
-Now that you have the Lights Out game working, you probably want to save it somewhere so that you can share it with your friends. Of course, you can save your whole \pharo image, and show off your first program by running it, but your friends probably have their own code in their images, and don't want to give that up to use your image.
-What you need is a way of getting source code out of your \pharo image so that other programmers can bring it into theirs.
+% Now that you have the Lights Out game working, you probably want to save it somewhere so that you can share it with your friends. Of course, you can save your whole \pharo image, and show off your first program by running it, but your friends probably have their own code in their images, and don't want to give that up to use your image.
+% What you need is a way of getting source code out of your \pharo image so that other programmers can bring it into theirs.
+Ahora que tienes el juego Lights Out funcionando, probablemente quieras guardarlo en alg\'un lugar para poder compartirlo con tus amigos. Por supuesto, puedes guardar tu im\'agen de \pharo completa, y mostrar tu primer programa ejecut\'andola, pero tus amigos probablemente tengan su propio c\'odigo en sus im\'agenes, y no quieran renunciar a eso para usar tu im\'agen. 
+Lo que necesitas es una manera de sacar tu c\'odigo fuente fuera de tu im\'agen \pharo para que otros programadores puedan introducirla en las suyas. 
 
-The simplest way of doing this is by \emph{filing out} the code.  The \actclick menu in the Package pane will give you the option to \menu{various \go{} file out} the whole of package \scat{PBE-LightsOut}.
-The resulting file is more or less human readable, but is really intended for computers, not humans.
-You can email this file to your friends, and they can file it into their own \pharo images using the file list browser.
+% The simplest way of doing this is by \emph{filing out} the code.  The \actclick menu in the Package pane will give you the option to \menu{various \go{} file out} the whole of package \scat{PBE-LightsOut}.
+% The resulting file is more or less human readable, but is really intended for computers, not humans.
+% You can email this file to your friends, and they can file it into their own \pharo images using the file list browser.
+La manera m\'as sencilla de hacer esto es haciendo \emph{filing out} a nuestro c\'odigo. El men\'u \actclick en el panel de Paquete te dar\'a la opci\'on \menu{various \go{} file out} de todo el paquete \scat{PBE-LightsOut}.
+El archivo resultante es mas o menos humanamente legible, pero est\'a realmente pensado para computadoras, no humanos. 
+Puedes enviar este archivo via email a tus amigos, y ellos pueden archivarlo dentro de sus propias im\'agenes \pharo, usando el explorador de archivos.
 \seeindex{saving code}{categories}
 \seeindex{category!filing out}{file, filing out}
 \seeindex{class!filing out}{file, filing out}
 \seeindex{method!filing out}{file, filing out}
 \index{file!filing out}
+%Ver si esto se traduce
+%%%------------HASTA ACA LLEGUE---------------%%%
 
-\dothis{\Actclick on the \scat{PBE-LightsOut} package and \menu{various \go{} file out} the contents.}
-You should now find a file called ``PBE-LightsOut.st'' in the same folder on disk where your image is saved.
-Have a look at this file with a text editor.
+% \dothis{\Actclick on the \scat{PBE-LightsOut} package and \menu{various \go{} file out} the contents.}
+% You should now find a file called ``PBE-LightsOut.st'' in the same folder on disk where your image is saved.
+% Have a look at this file with a text editor.
+\dothis{\Actclick en el paquete \scat{PBE-LightsOut} y has \menu{various \go{} file out} de los contenidos.}
+Ahora deber\'ias encontrar un archivo llamado ``PBE-LightsOut.st'' en el mismo directorio del disco donde se encuentra tu im\'agen.
+Da una mirada a este archivo con un editor de texto.
 
-\dothis{Open a fresh \pharo image and use the File Browser tool (\menu{Tools \ldots {\go} File Browser}) to \menu{file in} the PBE-LightsOut.st fileout.
-Verify that the game now works in the new image.}
+% \dothis{Open a fresh \pharo image and use the File Browser tool (\menu{Tools \ldots {\go} File Browser}) to \menu{file in} the PBE-LightsOut.st fileout.
+% Verify that the game now works in the new image.}
+\dothis{Abre una nueva im\'agen de \pharo y usa la herramienta File Browser (\menu{Tools \ldots {\go} File Browser}) para hacer \menu{file in} al PBE-LightsOut.st fileout.
+Verifica que el juego ahora funciona en la nueva im\'agen.}
 \seeindex{category!filing in}{file, filing in}
 \seeindex{class!filing in}{file, filing in}
 \seeindex{method!filing in}{file, filing in}
@@ -1026,22 +1041,33 @@ Verify that the game now works in the new image.}
 
 \begin{figure}[ht]
 \centerline {\includegraphics[width=\textwidth]{FileIn}}
-\caption{Filing in \pharo source code.
+% \caption{Filing in \pharo source code.
+\caption{Filing in c\'odigo fuente \pharo.
 \figlabel{filein}}
 \end{figure}
 
-\subsection{Monticello packages}
-Although fileouts are a convenient way of making a snapshot of the code you have written, they are decidedly ``old school''.
-Just as most open-source projects find it much more convenient to maintain their code in a repository using \ind{CVS}\footnote{\url{http://www.nongnu.org/cvs}} or \ind{Subversion}\footnote{\url{http://subversion.tigris.org}},
-so \pharo programmers find it more convenient to manage their code using \ind{Monticello} packages. 
-These packages are represented as files with names ending in \ct{.mcz}; they are actually zip-compressed bundles that contain the complete code of your \ind{package}.
+% \subsection{Monticello packages}
+% Although fileouts are a convenient way of making a snapshot of the code you have written, they are decidedly ``old school''.
+% Just as most open-source projects find it much more convenient to maintain their code in a repository using \ind{CVS}\footnote{\url{http://www.nongnu.org/cvs}} or \ind{Subversion}\footnote{\url{http://subversion.tigris.org}},
+% so \pharo programmers find it more convenient to manage their code using \ind{Monticello} packages. 
+% These packages are represented as files with names ending in \ct{.mcz}; they are actually zip-compressed bundles that contain the complete code of your \ind{package}.
+\subsection{Paquetes Monticello}
+Por m\'as que los fileouts son una manera conveniente de tomar una fotograf\'ia del c\'odigo que has escrito, son definitivamente de ``la vieja escuela''.
+As\'i como muchos projectos open-source hallan mucho mas conveniente mantener su c\'odigo en un repositorio usando \ind{CVS\footnote{\url{http://www.nongnu.org/cvs}} o \ind{Subversion}\footnote{\url{http://subversion.tigris.org}}, los programadores \pharo encuentran mas conveniente manejar su c\'odigo usando paquetes \ind{Monticello}.
+Estos paquetes se representan como archivos con nombres terminados en \ct{.mcz}; son en realidad paquetes comprimidos en formato zip que contienen el c\'odigo completo de tu \ind{paquete}.
 
-Using the Monticello package browser, you can save packages to repositories on various types of server, including FTP and HTTP servers; you can also just write the packages to a repository in a local file system directory.
-A copy of your package is also always cached on your local hard-disk in the \emph{package-cache} folder. 
-Monticello lets you save multiple versions of your program, merge versions, go back to an old version, and browse the differences between versions. 
-In fact, Monticello is a distributed revision control system; this means it allows developers to save their work on different places, not on a single repository as it is the case with CVS or Subversion.\damien{Mercurial, Git are examples of distributed revision control system; not sure it's worth mentioning them.}
+% Using the Monticello package browser, you can save packages to repositories on various types of server, including FTP and HTTP servers; you can also just write the packages to a repository in a local file system directory.
+% A copy of your package is also always cached on your local hard-disk in the \emph{package-cache} folder. 
+% Monticello lets you save multiple versions of your program, merge versions, go back to an old version, and browse the differences between versions. 
+Usando el navegador de paquetes Monticello, puedes guardar paquetes en repositorios en varios tipos de servidores, incluyendo servidores FTP y HTTP; tambi\'en puedes escribir paquetes en un repositorio en un sistema de archivos local. 
+Una copia de tu paquete se cachea siempre en tu disco duro local, en el directorio \emph{package-cache}.
+Monticello te permite guardar m\'ultiples versiones de tu programa, mezclar versiones, volver a una versi\'on vieja, y ver las diferencias entre las versiones.
+
+% In fact, Monticello is a distributed revision control system; this means it allows developers to save their work on different places, not on a single repository as it is the case with CVS or Subversion.\damien{Mercurial, Git are examples of distributed revision control system; not sure it's worth mentioning them.}
+% \seeindex{package browser}{Monticello}
+De hecho, Monticello es un sistema de control de versiones distribuido; esto significa que permite a los desarrolladores guardar su trabajo en diferentes lugares, no en un solo repositorio como es el caso de CVS o Subversion. 
 \seeindex{package browser}{Monticello}
-
+ 
 You can also send a \ct{.mcz} file by email. 
 The recipient will have to place it in her \emph{package-cache} folder; she will then be able to use Monticello to browse and load it. 
 %(It is also possible to load it using the file list, but there is a difference between loading a \ct{.mcz} file using a file list and using Monticello \sd{check}.)
