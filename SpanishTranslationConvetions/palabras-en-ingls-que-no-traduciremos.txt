@@ -13,6 +13,7 @@ Palabras que NO traduciremos
 - Keyword (cuando se refiere al tipo de mensaje
 - Liveness
 - Method lookup
+- Pixel
 - Transcript
 - Toolkit, en el contexto de Morphic
 - Wrapper

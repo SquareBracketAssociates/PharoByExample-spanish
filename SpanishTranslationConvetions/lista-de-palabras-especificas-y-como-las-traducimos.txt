@@ -1,5 +1,6 @@
 Lista de palabras especificas y como las traducimos
 
+bounding box = caja delimitadora
 browser = navegador
 click = hacer clic
 first-class objects and second-class objets = objetos de primer orden y objetos de segundo orden. 
