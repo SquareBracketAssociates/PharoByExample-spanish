@@ -39,10 +39,10 @@
 	\sloppy
 \fi
 %=================================================================
-\chapter{Seaside con Ejemplos}
+\chapter{Seaside en Ejemplos}
 \chalabel{seaside}
 
-\luq{Otras opción posible para el título podría ser: Seaside en Ejemplos}
+\luq{Otras opción posible para el título podría ser: 'Seaside con Ejemplos'}
 
 %=================================================================
 
@@ -55,7 +55,7 @@ Seaside es poco común ya que está rigurosamente orientado a objetos: no hay pl
 
 Las aplicaciones web modernas tratan de interactuar con el usuario de la misma manera que las aplicaciones de escritorio: realizan al usuario preguntas y el usuario responde, normalmente rellenando un formulario o pulsando un botón. Pero la web funciona en sentido inverso: el navegador del usuario realiza una petición al servidor y el servidor responde con una nueva página web.
 
-Por lo tanto los marcos de \ind{desarrollo de aplicaciones web} tienen que tratar con un montón de problemas, siendo el principal entre ellos la gestión de este control de flujo ``invertido''.
+Por lo tanto, los marcos de \ind{desarrollo de aplicaciones web} tienen que tratar con un montón de problemas, siendo el principal de ellos la gestión de este control de flujo ``invertido''.
 Por esto, muchas aplicaciones intentan prohibir el uso del botón ``volver atrás'' del navegador, debido a la dificultad de mantener el seguimiento del estado de una sesión.
 Expresar un control de flujo no trivial a través de varias páginas normalmente es engorroso y varios flujos de control pueden ser difíciles o imposibles de expresar.
 
@@ -75,7 +75,7 @@ Si no, puedes usar el soporte de transacciones incluído en Seaside para evitar 
 No tienes que codificar la información de estado en la URL\,---\,esto también es gestionado automáticamente por ti
 
 Tercero, las páginas web son construídas a partir de componentes anidados, cada uno de los cuales soporta su propio control de flujo independiente.
-No hay plantillas XHTML\,---\,en cambio, se genera XHTML válido programadamente, usando un sencillo protocolo Smalltalk.
+No hay plantillas XHTML\,---\,sino que se genera XHTML válido programadamente, usando un sencillo protocolo Smalltalk.
 Seaside soporta Hojas de Estilo en Cascada (\ind{CSS}), de forma que el contenido y disposición estén claramente separados.
 \seeindex{Hojas de Estilo en Cascada}{CSS}
 
@@ -87,7 +87,7 @@ Finalmente, Seaside proporciona una práctica interfaz de desarrollo basada en w
 La forma más sencilla de comenzar es descargar ``Seaside \subind{Seaside}{Experiencia en Un Click}'' desde el \subind{Seaside}{sitio web} de Seaside\footnote{\url{http://seaside.st}}.
 Esta es una versión preempaquetada de Seaside 2.8 para \ind{Mac OSX}, \ind{Linux} y \ind{Windows}.
 El mismo sitio web lista muchas referencias a recursos adicionales, incluyendo documentación y tutoriales.
-Ten advertimos, sin embargo, de que Seaside ha evolucionado considerablemente con los años y no todo el material disponible se refiere a la última versión de Seaside.
+Te advertimos, sin embargo, de que Seaside ha evolucionado considerablemente con los años y no todo el material disponible se refiere a la última versión de Seaside.
 
 
 % If you are feeling more adventurous, an alternative to the ``one-click'' image is to start with the latest \ind{\pharo web image}\footnote{\url{http://pharo-project.org/download}}, and install Seaside yourself by following the manual \subind{Seaside}{installation} instructions on the Seaside web site.
@@ -109,7 +109,7 @@ Esto te solicitará un nuevo nombre y contraseña.
 \dothis{Inicia el servidor Seaside y dirige un navegador web a \url{http://localhost:8080/seaside/}.}
 
 \noindent
-Deberías ver una página web como la de \figref{seasideStartup}.
+Deberías ver una página web como la de la \figref{seasideStartup}.
 
 \noindent
 \dothis{Navega a la página \lct{examples{\go}counter} page. (\figref{counter})}
@@ -130,7 +130,7 @@ Esta página es una pequeña aplicación Seaside: muestra un \subind{Seaside}{co
 Usa el botón ``atrás'' de tu navegador para volver a un estado previo y entonces haz cllick en \link{++} otra vez.
 Fíjate cómo el contador se incrementa correctamente con respecto al estado mostrado en ese momento, en lugar del estado en que estaba cuando usaste el botón ``volver''.} 
 
-Fíjate en la \subind{Seaside}{barra de herramientas} al final de la página web en \figref{seasideStartup}.
+Fíjate en la \subind{Seaside}{barra de herramientas} al final de la página web en la \figref{seasideStartup}.
 Seaside soporta una noción de ``sesiones'' para realizar el seguimiento del estado de la aplicación para diferentes usuarios.
 \button{New Session} comenzará una nueva sesión en la aplicación contador.
 \button{Configure} permite configurar los ajustes de tu aplicación a través de una cómoda interfaz web.
@@ -153,16 +153,16 @@ Podemos explorar los componentes y sus clases desde la imagen \pharo o directame
 \end{center}
 \end{figure}
 
-\dothis{Seleccion \button{Toggle Halos}. Deberías ver una página web como \figref{counterHalos}.
+\dothis{Selecciona \button{Toggle Halos}. Deberías ver una página web como la de la \figref{counterHalos}.
 En la esquina superior izquierda el texto \ct{WACounter} indica la clase del componente Seaside que implementa el comportamiento de esta página web.
-Junto a este hay tres iconos que puedes pulsar.
+Junto a este, hay tres iconos que puedes pulsar.
 El primero, con el lápiz, activa el navegador de clases de Seaside sobre esta clase.
 El segundo, con la lupa, abre un inspector de objetos sobre la instancia \ct{WACounter} actualmente activa.
-El tercero, con los circulos de color, muestra la hoja de estilo \ind{CSS} para este componente.
-En la esquena superior derecha, la \link{R} y \link{S} te permiten conmutar entre las vistas renderizadas y fuente de la página web.
+El tercero, con los circulos de color, muestra la hoja de estilos \ind{CSS} para este componente.
+En la esquina superior derecha, la \link{R} y \link{S} te permiten conmutar entre las vistas renderizadas y fuente de la página web.
 Experimenta con todos estos enlaces.
 Ten en cuenta que los vínculos \link{++} y \link{--} también están activos en la vista fuente.
-Compara la vista fuente correctamente formateada que proporciona los Halos con la vista fuente sin formato ofrecido por tu navegador.}
+Compara la vista fuente correctamente formateada que proporciona los Halos con la vista fuente sin formato ofrecida por tu navegador.}
 
 El navegador de clases y el inspector de objetos de Seaside pueden ser muy útiles cuando el servidor está ejecutándose en otro ordenador, especialmente cuando el servidor no tiene pantalla o está en un lugar remoto.
 Sin embargo, cuando desarrollas una aplicación Seaside por vez primera, el servidor estará ejecutándose localmente y es fácil usar las herramientas de desarrollo normales de \pharo en la imagen del servidor.
@@ -198,8 +198,8 @@ Incrementa y decrementa varios de los contadores.
 Verifica que se comportan correctamente incluso si usas el botón ``atrás''.
 Activa los halos para ver cómo la aplicación está formada por componentes anidados.
 Usa el navegador de clases de Seaside para ver la implementación de  \ct{WAMultiCounter}.
-Deberías ver tres métodos en el lado de clase (\ct{canBeRoot}, \ct{description} y \ct{initialize}) y tres en el lado de instancia (\ct{children}, \ct{initialize} y \ct{renderContentOn:}).
-Observa que una aplicación es simplemente un componente dispuesto a estar en la raíz de la jerarquía de componentes; esta predisposición se indica definiendo un método de clase \ct{canBeRoot} para responder \ct{true}.}
+Deberías ver tres métodos en el lado de clase (\ct{canBeRoot}, \ct{description} e \ct{initialize}) y tres en el lado de instancia (\ct{children}, \ct{initialize} y \ct{renderContentOn:}).
+Observa que una aplicación es simplemente un componente dispuesto a ser la raíz de la jerarquía de componentes; esta predisposición se indica definiendo un método de clase \ct{canBeRoot} que responda \ct{true}.}
 \index{Seaside!multi contador}
 
 Puedes usar la interfaz web de Seaside para configurar, copiar o eliminar aplicaciones individuales (es decir, componentes del nivel raíz). Inteta realizar el siguiente cambio de configuración.
@@ -209,7 +209,7 @@ Introduce el login y contraseña (\ct{admin} y \ct{seaside} por defecto).
 Selecciona \link{Configure} junto a ``examples.''
 Bajo la cabecera ``Add entry point'', introduce el nuevo nombre ``counter2'' para el tipo \emph{Application} y pulsa sobre \button{Add} (ver \figref{counter2}).
 En la siguiente pantalla, cambia \emph{Root Component} a \clsind{WACounter}, entonces haz click en \button{Save} y \button{Close}.
-Ahora tenemos un nuevo contador instalada en  \url{http://localhost:8080/seaside/examples/counter2}.
+Ahora tenemos un nuevo contador instalado en  \url{http://localhost:8080/seaside/examples/counter2}.
 Usa la misma interfaz de configuración para eliminar este punto de entrada.
 }
 \index{Seaside!configuración}
@@ -218,12 +218,12 @@ Usa la misma interfaz de configuración para eliminar este punto de entrada.
 \begin{figure}[ht]
 \begin{center}
 \includegraphics[width=\textwidth]{counter2}
-\caption{Configurando una nueva aplicación}
+\caption{Configuración de una nueva aplicación}
 \figlabel{counter2}
 \end{center}
 \end{figure}
 
-Seaside opera en dos modos: el modo \emph{desarrollo}, que es el que hemos visto hasta ahora, y el modo \emph{despliegue}, enn el que la barra de herramientas no está disponible.
+Seaside opera en dos modos: el modo \emph{desarrollo}, que es el que hemos visto hasta ahora, y el modo \emph{despliegue}, en el que la barra de herramientas no está disponible.
 \index{Seaside!modo desarrollo}
 \index{Seaside!modo despliegue}
 Puedes poner Seaside en el modo despliegue usando la página de configuración (navega a la entrada para la aplicación y haz click en el enlace \link{Configure})
@@ -239,27 +239,28 @@ o
 \index{Seaside!modo despliegue}
 
 La página web de configuración sólo es otra aplicación Seaside por lo que también puede ser controlada desde la página de configuración.
-Si eliminar la aplicación ``config'', puedes recuperarla evaluando
+Si eliminas la aplicación ``config'', puedes recuperarla evaluando
 \clsind{WADispatcherEditor} \ct{initialize}.
 
 %=================================================================
-\section{Seaside components}
-\seclabel{components}
+\section{Componentes Seaside}
+\seclabel{componentes}
 
 %\ab{This section was too long\,---\,18 pages.  It also contained several self-references (``see section 1.3''). So I broke into smaller sections, by promoting some of the subsections and subsubsections.}
 
-As we mentioned in the previous section, Seaside applications are built out of \emph{\subind{Seaside}{components}.}
-Let's take a closer look at how Seaside works by implementing the \emph{Hello World} component.
+Como hemos mencionado en la sección anterior, las aplicaciones Seaside se construyen con \emph{\subind{Seaside}{componentes}}.
+Vamos a estudiar detenidamente cómo funciona Seaside implementando el componente \emph{Hello World}.
 
-Every Seaside component should inherit directly or indirectly from \clsind{WAComponent}, as shown in \figref{WACounter}.
+Todo componente Seaside debe heredar directa o indirectamente de \clsind{WAComponent}, como muestra la figura \figref{WACounter}.
 
-\dothis{Define a subclass of \ct{WAComponent} called \ct{WAHelloWorld}.}
+\dothis{Define una subclase de \ct{WAComponent} llamada \ct{WAHelloWorld}.}
 
-Components must know how to render themselves.
-Usually this is done by implementing the method \mthind{WAPresenter}{renderContentOn:}, which gets as its argument an instance of \clsind{WAHtmlCanvas}, which knows how to render XHTML.
-\index{Seaside!rendering}
+Los componentes deben saber cómo representarse a sí mismos.
+Normalmente esto se hace implementando el método \mthind{WAPresenter}{renderContentOn:}, que recibe como argumento una instancia de \clsind{WAHtmlCanvas}, que sabe cómo generar XHTML.
+\index{Seaside!representación}
 
-\dothis{Implement the following method, and put it in a protocol called \prot{rendering}:}
+\dothis{Implementa el siguiente método y ponlo en un protocolo llamado \prot{rendering}:}
+
 \needlines{2}
 \begin{code}{}
 WAHelloWorld>>>renderContentOn: html
@@ -267,9 +268,9 @@ WAHelloWorld>>>renderContentOn: html
 \end{code}
 
 \noindent
-Now we must inform Seaside that this component is willing to be a standalone application. 
+Ahora debemos informar a Seaside de que este componente está dispuesto a ser una aplicación independiente.
 
-\dothis{Implement the following method on the class side of \ct{WAHelloWorld}.}
+\dothis{Implementa el siguiente método de clase de \ct{WAHelloWorld}.}
 
 \begin{code}{}
 WAHelloWorld class>>>canBeRoot
@@ -277,86 +278,89 @@ WAHelloWorld class>>>canBeRoot
 \end{code}
 
 \noindent
-We are almost done!
+¡Estamos a punto de acabar!
 
-\dothis{Point your web browser at \url{http://localhost:8080/seaside/config}, add a new entry point called ``hello'', and set its root component to be \ct{WAHelloWorld}.
-Now point your browser to \url{http://localhost:8080/seaside/hello}.
-That's it!  You should see a web page like \figref{WAHelloWorld}.}
+\dothis{Dirige tu navegador web a \url{http://localhost:8080/seaside/config}, añade un nuevo punto de entrada llamado ``hello'' y pon como su componente raíz \ct{WAHelloWorld}.
+Ahora dirige tu navegador a \url{http://localhost:8080/seaside/hello}.
+!Ya está! Deberías ver una página web como la de la figura \figref{WAHelloWorld}.}
+
 
 \begin{figure}[htb]
 \begin{center}
 \includegraphics[width=\textwidth]{WAHelloWorld}
-\caption{``Hello World'' in Seaside}
+\caption{``Hello World'' en Seaside}
 \figlabel{WAHelloWorld}
 \end{center}
 \end{figure}
 
 %-----------------------------------------------------------------
-\subsection{State backtracking and the ``Counter'' Application}
+\subsection{Marcha atrás de estado y la aplicación ``Counter''}
 %{Simple and nested components}
 
-The ``counter'' application is only slightly more complex than the ``hello world'' application.
+La aplicación ``counter'' es sólo ligeramente más compleja que la aplicación ``hello world''.
 \seclabel{backtracking}
 
 \begin{figure}[ht]
 \begin{center}
 \includegraphics[width=\textwidth]{WACounter}
-\caption{The \ct{WACounter} class, which implements the \emph{counter} application.  Methods with underlined names are on the class-side; those with plain-text names are on the instance side.}
+\caption{La clase \ct{WACounter}, que implementa la aplicación \emph{counter}. Los métodos con nombres subrayados son de clase; aquellos con nombres en texto normal son de instancia.}
 \figlabel{WACounter}
 \end{center}
 \end{figure}
 
-The class \clsind{WACounter} is a standalone application, so \ct{WACounter class} must answer \ct{true} to the  \mthind{WAComponent class}{canBeRoot} message.
-It must also register itself as an application; this is done in its class-side \ct{initialize} method, as shown in \figref{WACounter}.
+La clase \clsind{WACounter} es una aplicación independiente, con lo que la clase \ct{WACounter} debe responder \ct{true} al mensaje \mthind{WAComponent class}{canBeRoot}.
+También debe registrarse como una aplicación; esto se hace en su método de clase \ct{initialize}, como muestra la figura \figref{WACounter}.
+\ct{WACounter} define dos métodoso, \ct{increase} y \ct{decrease}, que serán disparados desde los vínculos \link{++} y \link{--\,--} de la página web.
+También define una variable de instancia \ct{count} para registrar el estado del contador.
+Sin embargo, también queremos que Seaside sincronice el contador con la página del navegador: cuando el usuario hace click en el botón ``atrás'' del navegador, queremos que Seaside ``retroceda'' el estado del objeto \ct{WACounter}.
+Seaside incluye un mecaniso general de vuelta a atrás, pero cada aplicación tiene que decirle a Seaside qué partes de su estado tiene que seguir.
 
-\ct{WACounter} defines two methods, \ct{increase} and \ct{decrease}, which will be triggered from the \link{++} and \link{--\,--} links on the web page.  
-It also defines an instance variable \ct{count} to record the state of the counter.
-However, we also want Seaside to synchronize the counter with the browser page:
-when the user clicks on the browser's ``back'' button, we want seaside to ``backtrack'' the state of the \ct{WACounter} object.
-Seaside includes a general mechanism for backtracking, but each application has to tell Seaside which parts of its state to track.  
-
-A component enables backtracking by implementing the \ct{states} method on the instance side: 
+Un componente habilita la vuelta a atrás implementando el método \ct{states} en el lado de instancia:
 % \ab{note that xspace messes up again, by inserting a space at the start of this line}
-\ct{states} should answer an array containing all the objects to be tracked.
-In this case, the \ct{WACounter} object adds itself to Seaside's table of backtrackable objects by returning \ct{Array with: self}.
+\ct{states} debería devolver un array que contenga todos los objetos a seguir.
+En este caso, el objeto \ct{WACounter} se añade él mismo a la tabla de objetos que pueden retrocederse de Seaside Seaside devolviendo \ct{Array with: self}.
 
-\paragraph{\emph{Caveat.}}
-There is a subtle but important point to watch for when declaring objects for backtracking.
-Seaside tracks state by making a \emph{copy} of all the objects declared in the \ct{states} array.
-It does this using a \clsind{WASnapshot} object; \ct{WASnapshot} is a subclass of \clsind{IdentityDictionary} that records the objects to be tracked as keys and shallow copies of their state as values.
-If the state of an application is backtracked to a particular snapshot, the state of each object entered into the snapshot dictionary is overwritten by the copy saved in the snapshot.
+\paragraph{\emph{Advertencia.}}
+Hay un punto sutil pero importante al que estar atento cuando se declaran objetos para retroceder.
+Seaside sigue el estado haciendo una \emph{copia} de todos los objetos declarados en el array \ct{states}.
+Hace esto usando un objeto \clsind{WASnapshot}; \ct{WASnapshot} es una subclase de \clsind{IdentityDictionary} que registra los objetos a seguir como claves y copias superficiales de su estado como valores.
+\luq{\emph{shallow copy} como copia superficial}
 
-Here is the point to watch out for:
-In the case of \ct{WACounter}, you might think that the state to be tracked is a number\,---\,the value of the \ct{count} instance variable.
-However, having the \ct{states} method answer \ct{Array with: count} won't work.  
-This is because the object named by \ct{count} is an integer, and integers are immutable.
-The \ct{increase} and \ct{decrease} methods don't change the state of the object \ct{0} into \ct{1} or the object \ct{3} into \ct{2}.
-Instead, they make \ct{count} name a different integer: 
-every time the count is incremented or decremented, the object named by \ct{count} is \emph{replaced} by another.
-This is why \ct{WACounter>>>states} must return \ct{Array with: self}.
-When the state of a \mbox{\ct{WACounter}} object is replaced by a previous state, the \emph{value} of each of the instance variable in the object is replaced by a previous value; this correctly replaces the current value of \ct{count} by a prior value. 
-\index{Seaside!backtracking state}
+Si el estado de una aplicación da marcha atrás a una instantánea particular, el estado de cada objeto que se añadió al diccionario de instantáneas se sobreescribe por la copia guardada en la instantánea. 
+\luq{\emph{snapshot} traducido como instantánea}
+
+El aspecto al que hay que estar atento es el siguiente:
+En el caso de \ct{WACounter}, podrías pensar que el estado a seguir es un número\,---\,el valor de la variable de instancia \ct{count}.
+Sin embargo, hacer que el método \ct{states} retorne \ct{Array with: count} no funcionará.  
+Esto es así porque el objeto nombrado por \ct{count} es un entero y los enteros son inmutables.
+Los métodos \ct{increase} y \ct{decrease} no cambian el estado del objeto \ct{0} a \ct{1} o el objeto \ct{3} a \ct{2}.
+En cambio, \ct{count} nombra un entero diferente: 
+cada vez que count se incrementa o decrementa, el objeto nombrado por \ct{count} es \emph{reemplazado} por otro.
+Por esto es por lo que \ct{WACounter>>>states} debe retornar \ct{Array with: self}.
+Cuando el estado de un objeto \mbox{\ct{WACounter}} es reemplazado por un estado previo, el \emph{valor} de cada una de las variables de instancia en el objeto es reemplazado por un valor previo; este reemplaza correctamente el valor actual de \ct{count} por un valor anterior. 
+\index{Seaside!vuelta atrás del esstado}
 \index{WAPresenter!states@\ct{states}}
 
-\section{Rendering XHTML}
+\section{Generando XHTML}
 
-The purpose of a web application is to create, or ``render'', web pages.  As we mentioned in \secref{components}, each Seaside component is responsible for rendering itself.  
-So, lets start our exploration of rendering by seeing how the counter component renders itself.
+El propósito de una aplicación web es crear o ``presentar'' páginas web.  Como mencionamos en \secref{components}, cada componente Seaside es responsable de presentarse a sí mismo.  
+Así pues, vamos a comenzar nuestra exploración de la presentación viendo cómo el componente contador se presenta a sí mismo.
 
-\subsection{Rendering the Counter}
+\subsection{Presentando el Contador}
 
-The rendering of the counter is relatively straightforward; the code is shown in \figref{WACounter}.
-The current value of the counter is displayed as an XHTML heading, and the increment and decrement operations are implemented as html anchors (that is, links) with callbacks to blocks that will send \ct{increase} and \ct{decrease} to the counter object.
+La presentación del contador es relativamente directa; el código se muestra en la figura \figref{WACounter}.
+El valor actual del contador se muestra como una cabecera XHTML, y las operaciones de incrementar y decrementar se implementan como anclas html (es decir, vínculos) con retrollamadas a bloques que enviarán \ct{increase} y \ct{decrease} al objeto contador.
+\luq{\emph{callback} como retrollamada}
 
-We will have a closer look at the rendering protocol in a moment.
-But before we do, let's have a quick look at the \subind{Seaside}{multi-counter}.
+Echaremos un vistazo más de cerca al protocolo de presentación en un momento.
+Pero antes de hacerlo, echemos un vistazo rápido al \subind{Seaside}{multi-contador}.
 
-\subsection{From Counter to MultiCounter}
+\subsection{De Contador a Multicontador}
 
-\ct{WAMultiCounter}, shown in \figref{WAMultiCounter} is also a standalone application, so it overrides \mthind{WAComponent class}{canBeRoot} to answer \ct{true}.
-In addition, it is a \emph{composite} component, so Seaside requires it to declare its children by implementing a method \ct{children} that answers an array of all the components it contains.
-It renders itself by rendering each of its subcomponents, separated by a horizontal rule.
-Aside from instance and class-side initialization methods, there is nothing else to the multi-counter!
+\ct{WAMultiCounter} que se muestra en la figura \figref{WAMultiCounter} también es una aplicación independiente, con lo que sobreescribe \mthind{WAComponent class}{canBeRoot} para responder \ct{true}.
+Además, es un componente \emph{compuesto}, con lo que Seaside requiere que declare sus hijos implementando un método \ct{children} que responda con un array con todos los componentes que contiene.
+Se presenta a sí mismo presentando cada uno de sus subcomponentes, separados por una línea horizontal.
+Además de los métodos de inicialización de instancia y estáticos, no hay nada más en el multicontador.
 
 \begin{figure}[bht]
 \begin{center}
@@ -367,34 +371,34 @@ Aside from instance and class-side initialization methods, there is nothing else
 \end{figure}
 
 %-----------------------------------------------------------------
-\subsection{More about Rendering XHTML}
+\subsection{Más sobre la Presentación XHTML}
 
-As you can see from these examples, Seaside does not use templates to generate web pages.
-Instead it generates XTHML programmatically.
-The basic idea is that every Seaside component should override the method \mthind{WAPresenter}{renderContentOn:}; this message will be sent by the framework to each component that needs to be rendered.
-This \ct{renderContentOn:} message will have argument that is an \seeindex{canvas}{html canvas} \emphind{html canvas} onto which the component should render itself.  By convention, the html canvas parameter is called \ct{html}.
-An html canvas is analogous to the graphics canvas used by Morphic (and most other drawing frameworks) to abstract away from the device-dependent details of drawing.
+Como puedes ver en estos ejemplos, Seaside no usa plantillas para generar páginas web.
+En su lugar, genera XHTML programadamente.
+La idea básica es que cada componente Seaside debería sobreescribir el método \mthind{WAPresenter}{renderContentOn:}; este mensaje será enviado por el marco de trabajo a cada componente que necesita ser presentado.
+Este mensaje \ct{renderContentOn:} tendrá un argumento que es un \seeindex{lienzo}{lienzo html} \emphind{lienzo html} sobre el que el componente debe presentarse a sí mismo. Por convenio, el parámetro del lienzo html se llama \ct{html}.
+
+Un lienzo html es análogo al lienzo gráfico usado por Morphic (y la mayoría de otros marcos de trabajo de dibujo) para abstraerse de los detalles dependientes del dispositivo de dibujo.
  
-
-Here are some of the most basic rendering methods:
+Estos son algunos de los métodos de presentación más básicos:
 \begin{code}{}
-html text: 'hello world'.  "render a plain text string"
-html html: '&ndash;'.     "render an XHTML incantation"
-html render: 1.              "render any object"
+html text: 'hello world'.  "presenta una cada de texto plano"
+html html: '&ndash;'.     "presenta un conjuro XHTML"
+html render: 1.              "presenta cualquier objeto"
 \end{code}
 
-The message \ct{render: anyObject} can be sent to an html canvas to render \ct{anyObject}; it is normally used to render subcomponents.  \lct{anyObject} will itself be sent the message \ct{renderContentOn:}
-this is what happens in the multi-counter (see \figref{WAMultiCounter}).
+El mensaje \ct{render: anyObject} se puede enviar a un lienzo html para presentar \ct{anyObject}; se utiliza normalmente para presentar subcomponentes. A \lct{anyObject} se le enviará el mensaje \ct{renderContentOn:}
+esto es lo que ocurre en el multi-contador (ver la \figref{WAMultiCounter}).
 
-\subsection{Using Brushes}
+\subsection{Usando Pinceles}
 \seclabel{brushes}
 
-A canvas provides a number of \emphind{brushes} that can be used to render (\ie ``paint'') content on the canvas.
-There are brushes for every kind of XHTML element\,---\,paragraphs, tables, lists, and so on.
-To see the full protocol of brushes and convenience methods, you should browse the class \clsind{WACanvas} and its subclasses.
-The argument to \ct{renderContentOn:} is actually an instance of the subclass \clsind{WARenderCanvas}.
+Un lienzo proporciona un número de \emphind{pinceles} que pueden usarse para presentar (\ie ``pintar) contenido en el lienzo.
+Hay lienzos para cada tipo de elemento XHTML \,---\,párrafos, tablas, listas y demás.
+Para ver el protocolo completo de lienzos y métodos de utilidad, deberías navegar por la clase \clsind{WACanvas} y sus subclases.
+El argumento para \ct{renderContentOn:} es realmente una instancia de la subclase \clsind{WARenderCanvas}.
 
-We have already seen the following brush used in the counter and multi-counter examples:
+Ya hemos visto el siguiente pincel utilizado en los ejemplos contador y multi-contador:
 \needlines{2}
 \begin{code}{}
 html horizontalRule.
@@ -408,11 +412,11 @@ html horizontalRule.
 \end{center}
 \end{figure}
 
-In \figref{RenderingDemo} we can see the output of many of the basic brushes offered by Seaside.\footnote{The source code for \mthref{renderdemo} is in the package \ct{PBE-SeasideDemo} in the project \url{http://www.squeaksource.com/PharoByExample}.}
-The root component \ct{SeasideDemo} simply renders its subcomponents, which are instances of \ct{SeasideHtmlDemo}, \ct{SeasideFormDemo}, \ct{SeasideEditCallDemo} and \ct{SeasideDialogDemo}, as shown in \mthref{renderdemo}.
+En la figura \figref{RenderingDemo} podemo ver la salida de muchos de los pinceles básicos ofrecidos por Seaside.\footnote{El código fuente para \mthref{renderdemo} está en el paquete \ct{PBE-SeasideDemo} en el proyecto \url{http://www.squeaksource.com/PharoByExample}.}
+El componente raíz \ct{SeasideDemo} simplemente presenta sus subcomponentes, que son instancias de \ct{SeasideHtmlDemo}, \ct{SeasideFormDemo}, \ct{SeasideEditCallDemo} y \ct{SeasideDialogDemo}, como se muestra en \mthref{renderdemo}.
 
 \needspace{7ex}
-\begin{method}[renderdemo]{\lct{SeasideDemo>>renderContentOn:}}
+\begin{code}[renderdemo]{\lct{SeasideDemo>>renderContentOn:}}
 SeasideDemo>>>renderContentOn: html
 	html heading: 'Rendering Demo'.
 	html heading
@@ -422,32 +426,32 @@ SeasideDemo>>>renderContentOn: html
 		class: 'subcomponent';
 		with: htmlDemo.
 	"render the remaining components ..."
-\end{method}
+\end{code}
 
 \noindent
-Recall that a root component must always declare its children, or Seaside will refuse to render them.
+Recuerda que un componente raíz debe siempre declarar sus hijos o Seaside rechazará presentarlos.
 \begin{code}{}
 SeasideDemo>>>children
 	^ { htmlDemo . formDemo . editDemo . dialogDemo }
 \end{code}
 
-Notice that there are two different ways of instantiating the \ct{heading} brush.
-The first way is to set the text directly by sending the message \ct{heading:}.
-The second way is instantiate the brush by sending \ct{heading}, and then to send a cascade of messages to the brush to set its properties and render it.
-Many of the available brushes can be used in these two ways.
+Ten en cuenta que hay dos formas distintas de instanciar el pincel \ct{heading}.
+La primera forma es establecer el texto directamente enviando el mensaje \ct{heading:}.
+La segunda forma es instanciar el pincel enviando \ct{heading} y entonces enviar una cascada de mensajes al pincel para establecer sus propiedades y presentarlo.
 
-\important{If you send a \ind{cascade} of messages to a brush including the message \mthind{WABrush}{with:}, then \ct{with:} should be the \emph{final} message.
-\ct{with:}  both sets the content and renders the result.}
+Muchos de los pinceles disponibles pueden usarse de estas dos formas.
 
+\important{Si envías una \ind{cascada} de mensajes al pincel, incluyendo el mensaje \mthind{WABrush}{with:}, entonces \ct{with:} debería ser el mensaje \emph{final}.
+\ct{with:} establece el contenido y presenta el resultado.}
 
-In \mthref{renderdemo}, the first heading is at level 1, since this is the default.
-We explicitly set the level of the second heading to 2.
-The subcomponent is rendered as an XHTML \emph{div} with the \ind{CSS} class ``subcomponent''.
-(More on CSS in \secref{css}.)
-Also note that the argument to the \ct{with:} keyword message need not be a literal string: it can be another component, or even\,---\,as in the next example\,---\,a block containing further rendering actions.
+En \mthref{renderdemo}, la primera cabecera está al nivel 1, ya que este es el valor por defecto.
+Explícitamente ponemos el nivel de la segunda cabecera a 2.
+El subcomponente es presentado como un \emph{div} XHTML con la clase \ind{CSS} ``subcomponent''.
+(Más sobre CSS en \secref{css}.)
+También ten en cuenta que es necesario que el argumento para el mensaje de palabra clave \ct{with:} no sea una cadena literal: puede ser otro componente, o incluso\,---\,como en el siguiente ejemplo\,---\,un bloque conteniendo más acciones de presentación.
 
-The \ct{SeasideHtmlDemo} component demonstrates many of the most basic brushes.
-Most of the code should be self-explanatory.
+El componente \ct{SeasideHtmlDemo} demuestra muchos de los pinceles más básicos.
+La mayoría del código debería explicarse por sí solo.
 
 \begin{code}{}
 SeasideHtmlDemo>>>renderContentOn: html 
@@ -457,97 +461,97 @@ SeasideHtmlDemo>>>renderContentOn: html
 	self renderLinkWithCallbackOn: html
 \end{code}
 
-It is common practice to break up long rendering methods into many helper methods, as we have done here.
+Es una práctica común dividir métodos de presentación largos en muchos métodos auxiliares, como hemos hecho aquí.
 
-\important{Don't put all your rendering code into a single method. 
-Split it into helper methods named using the pattern \ct{render*On:}.
-All rendering methods go in the \prot{rendering} protocol.
-Don't send \ct{renderContentOn:} from your own code, use \ct{render:} instead.}
+\important{No pongas todo tu código de presentación en un único método.
+Divídelo en métodos auxiliares nombrados usando el patrón \ct{render*On:}.
+Todos los métodos de presentación van en el protocolo \prot{rendering}.
+No envíes \ct{renderContentOn:} desde tu propio código, usa \ct{render:} en su lugar.}
 
-Look at the following code.  
-The first helper method, \ct{SeasideHtmlDemo>>>renderParagraphsOn:}, shows you how to generate XHTML paragraphs, plain and emphasized text, and images.
-Note that in Seaside simple elements are rendered by specifying the text they contain directly, whereas complex elements are specified using blocks.
-This is a simple convention to help you structure your rendering code.
+Mira el siguiente código.
+El primer método auxiliar, \ct{SeasideHtmlDemo>>>renderParagraphsOn:}, muestra cómo generar párrafos XHTML, texto plano y enfatizado e imágenes.
+Ten en cuenta que en Seaside los elementos sencillos son presentados especificando el texto que contienen directamente, mientras que los elementos complejos se especifican usando bloques.
+Este es un convenio sencillo para ayudatte a estructurar tu código de presentación.
 
 \begin{code}{}
 SeasideHtmlDemo>>>renderParagraphsOn: html 
-	html paragraph: 'A plain text paragraph.'.
+	html paragraph: 'Un parrafo con texto plano.'.
 	html paragraph: [
 		html
-			text: 'A paragraph with plain text followed by a line break. ';
+			text: 'Un parrafo con texto plano seguido por una nueva linea. ';
 			break;
-			emphasis: 'Emphasized text ';
-			text: 'followed by a horizontal rule.';
+			emphasis: 'Texto con enfasis ';
+			text: 'seguido por una linea horizontal.';
 			horizontalRule;
-			text: 'An image URI: '.
+			text: 'Una URI de imagen: '.
 		html image
 			url: self squeakImageUrl;
 			width: '50']
 \end{code}
 
-The next helper method, \ct{SeasideHtmlDemo>>>renderListsAndTablesOn:}, shows you how to generate lists and tables.
-A table uses two levels of blocks to display each of its rows and the cells within the rows.
+El siguiente método auxiliar, \ct{SeasideHtmlDemo>>>renderListsAndTablesOn:}, muestra cómo generar listas y tablas.
+Una tabla usa dos niveles de bloques para mostrar cada una de sus filas y las celdas dentro de las filas.
 
 \begin{code}{}
 SeasideHtmlDemo>>>renderListsAndTablesOn: html 
 	html orderedList: [
-		html listItem: 'An ordered list item'].
+		html listItem: 'Un elemento de una lista ordenada'].
 	html unorderedList: [
-		html listItem: 'An unordered list item'].
+		html listItem: 'Un elemento de una lista desordenada'].
 	html table: [
 		html tableRow: [
-			html tableData: 'A table with one data cell.']]
+			html tableData: 'Una tabla con una celda de datos.']]
 \end{code}
 
-The next example shows how we can specify CSS \emph{div}s and \emph{span}s with \emph{class} or \emph{id} attributes.
-Of course, the messages \ct{class:} and \ct{id:} can also be sent to the other brushes, not just to \emph{div}s and \emph{span}s.
-The method \ct{SeasideDemoWidget>>>style} defines how these XHTML elements should be displayed (see \secref{css}).
+El siguiente ejemplo muestra cómo podemos especificar \emph{div}s y \emph{span}s con atributos CSS \emph{class} o \emph{id}.
+Por supuesto, los mensajes \ct{class:} e \ct{id:} también pueden enviarse a los otros pinceles, no sólo a \emph{div}s y \emph{span}s.
+El método \ct{SeasideDemoWidget>>>style} define cómo deberían ser mostrados estos elementos XHTML (ver \secref{css}).
 
 \begin{code}{}
 SeasideHtmlDemo>>>renderDivsAndSpansOn: html 
 	html div
 		id: 'author';
 		with: [
-			html text: 'Raw text within a div with id ''author''. '.
+			html text: 'Texto plano con un div con id ''author''. '.
 			html span
 				class: 'highlight';
-				with: 'A span with class ''highlight''.']
+				with: 'Un span con class ''highlight''.']
 \end{code}
 
-Finally we see a simple example of a link, created by binding a simple \subind{Seaside}{callback} to an ``anchor'' (\ie a link).
-Clicking on the link will cause the subsequent text to toggle between ``true'' and ``false'' by toggling the instance variable \ct{toggleValue}.
+Finalmente vemos un sencillo ejemplo de un vínculo, creado asociando una sencilla \subind{Seaside}{retrollamada} con un ``ancla'' (\ie un vínculo).
+Hacer click en el vínculo causará que el texto a continuación cambie entre ``true'' y ``false'' cambiando la variable de instancia \ct{toggleValue}.
 
 \needlines{3}
 \begin{code}{}
 SeasideHtmlDemo>>>renderLinkWithCallbackOn: html 
 	html paragraph: [
-		html text: 'An anchor with a local action: '.
+		html text: 'Un ancla con una accion local: '.
 		html span with: [
 			html anchor
 				callback: [toggleValue := toggleValue not];
-				with: 'toggle boolean:'].
+				with: 'cambia el booleano:'].
 		html space.
 		html span
 			class: 'boolean';
 			with: toggleValue ]
 \end{code}
 
-\important{Note that actions should appear only in callbacks.
-The code executed while rendering should not change the state of the application!}
+\important{Ten en cuenta que las acciones deberían aparecer sólo en retrollamadas.
+¡El código ejecutado durante la presentación no debería cambiar el estado de la aplicación!}
 
 %-----------------------------------------------------------------
-\subsection{Forms}
+\subsection{Formularios}
 
-Forms are rendered just like the other examples that we have already seen.
-Here is the code for the \ct{SeasideFormDemo} component in \figref{RenderingDemo}.
-\index{Seaside!XHTML forms}
+Los formularios se presentan igual que los otros ejemplos que ya hemos visto.
+Este es el código para el componente \ct{SeasideFormDemo} de la figura \figref{RenderingDemo}.
+\index{Seaside!formularios XHTML}
 
 \begin{code}{}
 SeasideFormDemo>>>renderContentOn: html
 	| radioGroup |
 	html heading: heading.
 	html form: [
-		html span: 'Heading: '.
+		html span: 'Cabecera: '.
 		html textInput on: #heading of: self.
 		html select
 			list: self colors;
@@ -563,26 +567,26 @@ SeasideFormDemo>>>renderContentOn: html
 			callback: [radioOn := false].
 		html checkbox on: #checked of: self.
 		html submitButton
-			text: 'done' ]
+			text: 'hecho' ]
 \end{code}{}
 
-Since a form is a complex entity, it is rendered using a block.
-Note that all the state changes happen in the callbacks, not as part of the rendering.
+Puesto que un formulario es una entidad compleja, se presenta usando un bloque.
+Ten en cuenta que todos los cambios de estado ocurren en las retrollamadas, no como parte de la presentación.
 
-There is one Seaside feature used here that is worth special mention, namely the message \mthind{WAAnchorTag}{on:of:}.
-In the example, this message is used to bind a text input field to the variable \ct{heading}.
-Anchors and buttons also support this message.
-The first argument is the name of an instance variable for which accessors have been defined;  the second argument is the object to which this instance variable belongs.
-Both observer (\ct{heading}) and mutator (\ct{heading:}) accessor messages must be understood by the object, with the usual naming convention.
-In the case here of a text input field, this saves us the trouble of having to define a callback that updates the field as well as having to bind the default contents of the html input field to the current value of the instance variable.
-Using \ct{on: #heading of: self}, the \ct{heading} variable is updated automatically whenever the user updates the text input field.
+Hay una característica de Seaside utilizada aquí que merece una mención especial, que es el mensaje \mthind{WAAnchorTag}{on:of:}.
+En el ejemplo, este mensaje se usa para asociar un campo de entrada de texto con la variable \ct{heading}.
+Anclas y botones también soportan este mensaje.
+El primer argumento es el nombre de una variable de instancia para la que se han definido métodos de acceso; el segundo argumento es el argumento al que esta variable de instancia pertenece.
+Ambos métodos de acceso, observador (\ct{heading}) y modificador (\ct{heading:}) son comprendidos por el objeto con el convenio de nombre habitual.
+En este caso de un campo de entrada de texto, esto nos ahorra el problema de tener que definir una retrollamada que actualice el campo además de tener que asociar los contenidos por defecto del campo de entrada html con el valor actual de la variable de instancia.
+Usando \ct{on: #heading of: self}, la variable \ct{heading} se actualiza automáticamente cuando el usuario actualiza el campo de entrada de texto.
 
-The same message is used twice more in this example, to cause the selection of a colour on the html form to update the \ct{color} variable, and to bind the result of the checkbox to the \ct{checked} variable.
-Many other examples can be found in the functional tests for Seaside.
-Have a look at the category \scat{Seaside-Tests-Functional}, or just point your browser to \url{http://localhost:8080/seaside/tests/alltests}.
-Select \menu{WAInputTest} and click on the \button{Restart} button to see most of the features of forms.
+El mismo mensaje se usa dos veces más en este ejemplo, para causar que la selección de un color en el formulario html actualice la variable \ct{color}, y para asociar el resultado del checkbox con la variable \ct{checked}.
+Muchos otros ejemplos pueden encontrarse en los tests funcionales de Seaside.
+Echa un vistazo a la categoría \scat{Seaside-Tests-Functional}, o simplemente dirige tu navegador a \url{http://localhost:8080/seaside/tests/alltests}.
+Selecciona \menu{WAInputTest} y haz click en el botón \button{Restart} para ver la mayoría de las características de los formularios.
 
-Don't forget, if you \button{Toggle Halos}, you can browse the source code of the examples directly using the Seaside class browser.
+No olvides que si activas \button{Toggle Halos}, puedes navegar directamente por el código fuente de los ejemplos usando el navegador de clases de Seaside.
 
 %-----------------------------------------------------------------
 \section{CSS: Cascading style sheets}
