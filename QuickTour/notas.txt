@@ -9,3 +9,10 @@ L169: revisar
 L170: no se si hay que traducir [\click:] y \click{ing} y (\figref{threeButtons:click})
 L171: no está traducido [\actclick:] ni \figref{threeButtons:actclick}
 L172: no treduje \item [\metaclick:] ``morphic \subind{Morphic}{halo}'' 
+L219: ¿pin? => ¿clavo?  ¿chinche? ¿tachuela?
+L252: ¿Smalltalkers?
+L294: 1970s
+L298: software
+L303: no estoy seguro si hay que traducir \emph{handle}
+L351: (control, alt, command, o meta)
+L355: \index{keyboard shortcut!do it}

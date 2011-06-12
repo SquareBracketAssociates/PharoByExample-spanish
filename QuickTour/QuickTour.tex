@@ -169,16 +169,16 @@ Dado que muchos usuarios usaran teclas modificadoras (\emph{control}, \emph{ALT}
 \begin{description}
 \item [\click:] este es el botón del reatón mas usado, y es quivalente a \click{ing} un ratón de un solo botón sin ninguna tecla modificadora; \click{} en la imagen para para que aparezca el menú ``World'' (\figref{threeButtons:click}).
 \item [\actclick:] este es el segundo botón mas usado; es usado para que aparezca el menú contextual, eso es, un menú que ofrece diferentes conjuntos de acciones dependiendo en donde está apuntando el ratón; vea \figref{threeButtons:actclick}. Si no tienes un ratón multi-botones, normalmente configurarás la tecla modificadora \emph{control} para \actclick con el botón del ratón.
-\item [\metaclick:] Finalmente, puedes \metaclick on any object displayed in the image to activate the ``morphic \subind{Morphic}{halo}'', an array of handles that are used to perform operations on the on-screen objects themselves, such as rotating them or resizing them; see \figref{threeButtons:metaclick}.\footnote{Note that the morphic handles are inactive by default in \pharo, but you can turn them on using the Preferences Browser, which we will see shortly.}
-If you let the mouse linger over a handle, a help balloon will explain its function.
-In \pharo, how you \metaclick depends on your operating system:
-either you must hold {\sc shift} \emph{ctrl} or {\sc shift} \emph{option} while clicking.
+\item [\metaclick:] Finalmente, puedes \metaclick en cualquier objeto mostrado en la imagen para activar el ``morphic \subind{Morphic}{halo}'', un vector de manejadores que son usados para realizar operaciones en los objetos en pantalla, como por ejemplo rotarlos o cambiarles el tamaño; vea \figref{threeButtons:metaclick}.\footnote{Notar que manejadores morphic estan inactivos por defecto en \pharo, pero puedes activarlos usando el Navegador de Preferencias, el cual veremos pronto.}
+Si dejas el ratón sobre un manejador, un globo de ayuda te explicará su función.
+En \pharo, como \metaclick depende de tu sistema operativo:
+o bien debes mantener las teclas {\sc shift} + \emph{ctrl} o bien {\sc shift} + \emph{option} mientras haces clic.
 % \ab{This makes it sound like either {\sc shift} \emph{ctrl} or {\sc shift} \emph{alt} will work.  On my (Mac OS) system, only the latter works.  Perhaps we want to say: In \pharo, how you meta-click depends on your operating system. On Linux \ldots}
 % Typically you will use a third modifier key, such as \emph{command} or \emph{meta} to \metaclick.
 \end{description}
 
 \dothis{Escribe \ct{Time now} en el workspace.
-Ahora \actclick en el workspace.
+Ahora \actclick en area de trabajo.
 Selecciona \menu{print it}.}
 
 %Now we will activate \metaclick{ing}.
@@ -196,178 +196,178 @@ Selecciona \menu{print it}.}
 Recomendamos a las personas diestras configurar sus ratones para hacer \click con el botón izquierdo, \actclick con el botón derecho, y \metaclick con la rueda de desplazamiento si está disponible.
 % If you don't have a clickable scroll wheel, then you can get the Morphic halo by holding down the \ct{alt} or \ct{option} key while \click{ing}. 
 % \ab{This doesn't work any more.  This sentence either repeats or contradicts the meta-click item above; neither is a good idea.}
-If you are using a Macintosh without a second mouse button, you can simulate one by holding down the \clover{} key while \click{ing} the mouse.  However, if you are going to be using \pharo at all often, we recommend investing in a mouse with at least two buttons.
+Si estás usando Macintosh sin un ratón con segundo botón, puedes simularlo manteniendo presionada la tecla \clover{} mientras \click{ing} el ratón. Sin embargo, si vas a usar \pharo a menudo, te recomendamos invertir en un ratón con al menos dos botones.
 
-You can configure your mouse to work the way you want by using the preferences of your operating system and mouse driver.
-\ab{How can I get meta-click without a three-finger salute?  Is this a secret?}
-\pharo has some preferences for customising the mouse and the meta keys on your keyboard.
-In the preference browser (\menu{System {\ldots\go} Preferences {\ldots\go} Preference Browser\ldots}), the \menu{keyboard} category contains an option \menu{swapControlAndAltKeys} that switches the \actclick and \metaclick functions.
-There are also options to duplicate the various command keys.   
+Puedes configurar tu ratón para trabajar de la manera que quieras uasndo las preferencias de tu sistema operativo y el controlador del ratón.
+\ab{Como puedo obtener meta-clic sin un saludo de tres dedos? Es un secreto?}
+\pharo tiene algunas preferencias para personalizar el ratón y las teclas meta en tu teclado.
+En el navegador de preferencias (\menu{System {\ldots\go} Preferences {\ldots\go} Preference Browser\ldots}), la categoría \menu{keyboard} contiene una opción \menu{swapControlAndAltKeys} que cambia las funciones \actclick y \metaclick.
+También hay opciones para duplicar las diferentes teclas de comando.   
 
 \begin{figure}[htb]
 \centerline{\includegraphics[width=\textwidth]{PreferenceBrowser}}
-\caption{The Preference Browser.\figlabel{prefBrowser}}
+\caption{El navegador de preferencias.\figlabel{prefBrowser}}
 \end{figure}
 
 
 %=================================================================
-\section{The World menu}
+\section{El menú World}
 \index{world menu}
 
-\dothis{\Click again on the \pharo background.}
-You will see the \menu{World} menu again.
-Most \pharo menus are not modal; you can leave them on the screen for as long as you wish by \click{ing} the push pin icon in the top-right corner. Do this.
+\dothis{\Click nuevamente en el fondo de la ventana principal de \pharo.}
+Verás el menú \menu{World} nuevamente.
+La mayoría de los menues de \pharo son modales; puedes dejarlos en la pantalla todo el tiempo que desees haciendo \click{ing} el icono de pin en la esquina superior derecha. Hazlo.
 % Also, notice that menus appear when you click the mouse, but do not disappear when you release it; they stay visible until you make a selection, or until you click outside of the menu. You can even move the menu around by grabbing its title bar.
 
-The world menu provides you a simple means to access many of the tools that \pharo offers.
+El menú world menu te provee una forma simple para acceder a muchas de las herramientas que \pharo ofrece.
 
-\dothis{Have a closer look at the \menu{World} and \menu{{}Tools \ldots} menus. (\figref{threeButtons:click})}
+\dothis{Hecha una mirada a los menues \menu{World} y \menu{{}Tools \ldots}. (\figref{threeButtons:click})}
 
-You will see a list of several of the core tools in \pharo, including the browser and the workspace.
-We will encounter most of them in the coming chapters.
+Verás una lista de varias herramientas principales en \pharo, incluyendo el navegador y el workspace.
+Encontraremos la mayoría de ellos en los siguientes capítulos.
 
 %=================================================================
-\section{Sending messages}
+\section{Enviando mensajes}
 
-\dothis{Open a workspace. Type in the following text:}
+\dothis{Abre un workspace. Escribe el siguiente texto:}
 
 \begin{code}{}
 BouncingAtomsMorph new openInWorld
 \end{code}
 
-\dothis{Now \actclick. A menu should appear. Select \menu{do it (d)}. (See \figref{doit}.)}
+\dothis{Ahora \actclick. Debería aparecer un menú. Selecciona \menu{do it (d)}. (See \figref{doit}.)}
 
 \begin{figure}[htb]
 \centerline {\includegraphics[width=0.8\textwidth]{Doit}}
-\caption{``Doing'' an expression\figlabel{doit}}
+\caption{``Haciendo'' una expresión\figlabel{doit}}
 \end{figure}
 
-A window containing a large number of bouncing atoms should open in the top left of the \pharo image.
+Una ventana conteniendo un gran nnúmero de átomos deberían abrirse arriba a la izquierda en \pharo.
 
-You have just evaluated your first \st expression!
-You just sent the message \ct{new} to the \bam class, resulting in a new \bam instance, followed by the message \ct{openInWorld} to this instance.
-The \bam class decided what to do with the \ct{new} message, that is, it looked up its \emph{methods} for handling \ct{new} message and reacted appropriately.
-Similarly the \bam instance looked up its method for responding to \ct{openInWorld} and took appropriate action.
+¡Acabas de evaluar tu primera expresión \st!
+Has enviado el mensaje \ct{new} a la clase \bam, resultando en una nueva instancia de \bam, seguido del mensaje \ct{openInWorld} a esta instancia.
+La clase \bam decidió que hacer con el mensaje \ct{new}, esto es, buscó en sus \emph{métodos} cómo manejar el mensaje \ct{new} y reaccionó apropiadamante.
+De forma similar la instancia de \bam buscó en sus métodos cómo responder a \ct{openInWorld} y tomó la acción apropiada.
 
-If you talk to Smalltalkers for a while, you will quickly notice that they generally do not use expressions like ``call an operation'' or ``invoke a method'', but instead they will say ``send a message''.
-This reflects the idea that objects are responsible for their own actions. 
-You never \emph{tell} an object what to do\,---\,instead you politely \emph{ask} it to do something by sending it a message. 
-The object, not you, selects the appropriate method for responding to your message.
+Si hablas con Smalltalkers por un tiempos, rápidamente notarás que ellos generalmente no usan expresiones como ``llamar a una operación'' or ``invoke a method'', en su lugar dicen ``enviar un mensaje''.
+Esto refleja la idea de que los objetos son responsables por sus propias acciones. 
+Nunca le \emph{dices} a un objeto que hacer\,---\,en su lugar políticamente le \emph{pides} que haga algo enviándole un mensaje.
+El objeto, no tú, selecciona el método apropiado para responder a tu mensaje.
 
 %=================================================================
-\section{Saving, quitting and restarting a \pharo session}
+\section{Guardando, terminando y reiniciando una sesión de \pharo}
 
-\dothis{Now \click on the bouncing atoms window and drag it anywhere you like. You now have the demo ``in hand''. Put it down by \click{ing} anywhere.}
+\dothis{Ahora haz \click en la ventana de átomos y arrastrala dónde quieras. Ahora tienes la demostración ``en tu mano''. Sueltala haciendo \click{ing} en cualquier parte.}
 
 \begin{figure}[htb]
 \begin{minipage}[b]{0.48\textwidth}
 \centerline {\includegraphics[width=0.7\textwidth]{atoms}}
-\caption{A \bam.\figlabel{atoms}}
+\caption{Un \bam.\figlabel{atoms}}
 \end{minipage}
 \hfill
 \begin{minipage}[b]{0.48\textwidth}
 \centerline {\includegraphics[width=0.7\textwidth]{saveAs}}
-\caption{The \menu{save as \ldots} dialogue.\figlabel{saveas}}
+\caption{El cuadro de díalogo \menu{save as \ldots}.\figlabel{saveas}}
 \end{minipage}
 \end{figure}
 
-\dothis{Select \menu{World\go{}Save as \ldots}, enter the name ``myPharo'', and \click on the \button{OK} button.
-Now select \menu{World\go{}Save and quit}.}
+\dothis{Selecciona \menu{World\go{}Save as \ldots}, ingresa el nombre ``myPharo'', y haz \click en el botón \button{OK}.
+Ahora selecciona \menu{World\go{}Save and quit}.}
 
-Now if you go to the location where the original image and changes files were, you will find two new files called ``myPharo.\ind{image}'' and ``myPharo.\ind{changes}'' that represent the working state of the \pharo image at the moment before you told \pharo to \menu{Save and quit}.
-If you wish, you can move these two files anywhere that you like on your disk, but if you do so you may (depending on your operating system) need to also move, copy or link to the virtual machine and the \emph{sources} file.
+Ahora si vas a la ubicación donde lso archivos originales image y changes estaban, encontrarás dos nuevos archivos llamados``myPharo.\ind{image}'' y ``myPharo.\ind{changes}'' que representan el estado de trabajo de la imagen de \pharo en el momento anterior que dijeras a \pharo \menu{Save and quit}.
+Si lo deseas, puedes mover estos dos archivos a cualquier lugar que gustes en tu disco, pero si lo haces puedes (dependiendo de tu sistema operativo) necesitar tambien mover, copiar o enlazar a la máquina virtual y el archivo \emph{sources}.
 
-\dothis{Start up \pharo from the newly created ``myPharo.image'' file.}
+\dothis{Inicia \pharo desde el archivo ``myPharo.image'' recientemente creado.}
 
-Now you should find yourself in precisely the state you were when you quit \pharo. The \bam is there again and the atoms continue to bounce from where they were when you quit.
+Ahora deberías encontrarte precisamente en el estado que estabas cuando terminaste \pharo. El \bam está allí nuevamente y los átomos continuan rebotando donde ellos estaban cuando tú terminaste.
 
-When you start \pharo for the first time, the \pharo \ind{virtual machine} loads the image file that you provide. This file contains a snapshot of a large number of objects, including a vast amount of pre-existing code and a large number of programming tools (all of which are objects). As you work with \pharo, you will send messages to these objects, you will create new objects, and some of these objects will die and their memory will be reclaimed (\ie garbage-collected).
+Cuando inicias \pharo por pimera vez, la \ind{máquina virtual} de \pharo carga la imagen que le sumistres. El archivo que contiene una instantanea de un gran número de objetos, incluyendo una vasta cantidad de código preexistente y un gran número de herramientas de programación (los cuales son objetos). Trabajando con \pharo, enviarás mensajes a esos objetos, crearás nuevos objetos, y algunos de esos objetos norirán y su memoria será reclamada (\ie recolección de basura).
 
-When you quit \pharo, you will normally save a snapshot that contains all of your objects.  If you save normally, you will overwrite your old image file with the new snapshot. Alternatively, you may save the image under a new name, as we just did.
+Cuando temines con \pharo, normalmente guradarás una instantaneaque contiene todos tus objetos. Si guardas normalmente, sobreescribirás tu viejo archivo de imagen con la nueva instantanea. Alternativamente, puedes gurdar la imagen con otro nombre, como acabamos de hacer.
 
-In addition to the \emph{.image} file, there is also a \emph{.changes} file.
-This file contains a log of all the changes to the source code that you have made using the standard tools.
-Most of the time you do not need to worry about this file at all.
-As we shall see, however, the \emph{.changes} file can be very useful for recovering from errors, or replaying lost changes.
-More about this later!
+Junto al archivo \emph{.image}, hay también un archivo \emph{.changes}.
+Este archivo contiene una vitácora de todos los cambios del código fuente que has hecho usando usando las herramientas.
+La mayor parte de las veces no necesitas preocuparte por este archivo para nada.
+Como podemos ver, sin embargo, el archivo \emph{.changes} puede ser muy útil para recuperación de errores, o rehacer cambios perdidos.
+¡Mas sobre esto luego!
 
-The image that you have been working with is a descendant of the original \st-80 image created in the late 1970s.
-Some of these objects have been around for decades!
+La imagen con la que has estado trabajando es un descendiente de la imagen original de \st-80 creada a finales de los '70.
+¡Algunos de esos objetos han estado allí por decadas!
 
-You might think that the image is the key mechanism for storing and managing software projects, but you would be wrong.
-As we shall see very soon, there are much better tools for managing code and sharing software developed by teams.
-Images are very useful, but you should learn to be very cavalier about creating and throwing away images, since tools like Monticello offer much better ways to manage versions and share code amongst developers.
+Podrías pensar que la imagen es el mecanismo principal para almacenar proyectos de software, pero estrías equivocado.
+Como veremos pronto, hay muchas mejores herramientas para administar código y compartir software desarrollado por equipos.
+Las imagenes son muy útiles, pero deberías aprender a ser muy caballero acerca de crear y tirar imagenes, dado que herramientas como Monticello ofrecen una mejor forma de administrar versiones y compartir código entre desarrolladores.
 
-\dothis{Using the mouse (and the appropriate modifier keys), \metaclick on the \bam.\footnote{Remember, you may have to set the \ct{halosEnabled} option in the Preferences Browser.}}
-You will see a collection of colored circles that are collectively called the \bam's morphic \subind{Morphic}{halo}.
-Each circle is called a \emph{handle}.
-Click in the pink handle containing the cross; the \bam should go away. 
+\dothis{Usando el ratón (y la tecla modificadora apropiada), \metaclick en el \bam.\footnote{Recuerda, quizás tengas que activar la opción \ct{halosEnabled} en el Navegador de Preferencias.}}
+Verás una colección de círculos coloridos que colectivamente son llamados el morphic \subind{Morphic}{halo} de \bam.
+Cada círculo es llamado un \emph{manejador}.
+Haz click en el manejador rosa conteniendo la cruz; el \bam debería haberse ido. 
 
 %=================================================================
-\section{Workspaces and Transcripts}
+\section{Workspaces y Transcripts}
 \seclabel{transcript}
 
-\dothis{Close all open windows. Open a \ind{transcript} and a \ind{workspace}. (The transcript can be opened from the \menu{World{\go}Tools ...} submenu.)}
+\dothis{Cierra todas las ventanas abiertas. Abre un \ind{transcript} y un \ind{workspace}. (El transcript puede ser abierto desde \menu{World{\go}Tools ...} submenú.)}
 
-\dothis{Position and resize the transcript and workspace windows so that the workspace just overlaps the transcript.}
-You can resize windows either by dragging one of the corners, or by \metaclick{ing} the window to bring up the morphic halo, and dragging the yellow (bottom right) handle.
+\dothis{Posiciona y cambia el tamaño de la ventana transcript y de al ventana workspace para que el workspace se superponga al transcript.}
+Puedes cambiar el tamaño de las ventanas arrstarndo una de sus esquinas, o \metaclick{ing} la ventana para hacer aparecer el morphic halo, y arrastrando el manejador amarillo (abajo a la derecha).
 
-At any time only one window is active; it is in front and has its border highlighted.
+Al mismo tiempo sólo una venta está activa; está en el frente y tiene sus bordes iluminados.
 % The mouse cursor must be in the window in which you wish to type.
 
-The transcript is an object that is often used for logging system messages.
-It is a kind of ``system console''.
+El transcript es un objeto que a menudo es usado para emitir mensajes de sistema.
+Es una clase de ``consola de sistema''.
 %Note that the transcript is terribly slow, so if you keep it open and write to it certain operations can become 10 times slower.
 %In addition the transcript is not thread-safe so you may experience strange problems if multiple objects write concurrently to the transcript.
 % ON: I think the transcript has been made thread-safe now, right?
 
-Workspaces are useful for typing snippets of \st code that you would like to experiment with.
-You can also use workspaces simply for typing arbitrarily text that you would like to remember, such as to-do lists or instructions for anyone who will use your image.
-Workspaces are often used to hold documentation about a captured image, as is the case with the standard image that we downloaded earlier (see \figref{startup}).
+Workspaces son útiles para escribir porciones de código \st con las que te gustaría experimentar.
+Puedes tambien usar workspaces simplemente para escribir texto arbitrario que te gustaría recordar, como una lista de tareas o instrucciones para alguien q ue usará tu imagen.
+Workspaces son a menudo usados para mantener documentación acerca de una imagen capturada, como es el caso de la imagen estandar que descargamos anteriormente (see \figref{startup}).
 
-\dothis{Type the following text into the workspace:}
+\dothis{Escribe el siguiente texto en el workspace:}
 \begin{code}{}
 Transcript show: 'hello world'; cr.
 \end{code}
 
-Try double-\click{ing} in the workspace at various points in the text you have just typed.
-Notice how an entire word, entire string, or the whole text is selected, depending on whether you \click within a word, at the end of the string, or at the end of the entire expression.
+Intenta hacer doble-\click{ing} en el workspace en varios puntos en el texto que acabas de escribir.
+Notarás como una palabra entera, una cadena de caracteres entera, o el texto completo es seleccionado, dependiendo si haces \click en una palabra, al final de una cadena de caractere, o al final de toda la expresión.
 
-\dothis{Select the text you have typed and \actclick.
-Select \menu{do it (d)}.}
-Notice how the text ``hello world'' appears in the transcript window
+\dothis{Selecciona el texto que acabas de escribir y haz \actclick.
+Selecciona \menu{do it (d)}.}
+Notarás como el texto ``hello world'' aparece en la ventana transcript
 (\figref{helloworld}).
-Do it again.
-(The \menu{(d)} in the menu item \menu{do it (d)} tells you that the keyboard shortcut to \emph{do it} is \short{d}. More on this in the next section!)
+Hazlo nuevamente.
+(La \menu{(d)} en el item de menú \menu{do it (d)} dice que el atajo de teclado para \emph{do it} es \short{d}. ¡Mas sobre esto en la siguiente sección!)
 
 \begin{figure}[htb]
 \centerline {\includegraphics[width=\textwidth]{HelloWorld}}
-\caption{Overlapping windows. The workspace is active.\figlabel{helloworld}}
+\caption{Superponiendo ventanas. El workspace está activo.\figlabel{helloworld}}
 \end{figure}
 
 %=================================================================
-\section{Keyboard shortcuts}
+\section{Atajos de teclado}
 
-If you want  to evaluate an expression, you do not always have to \actclick. Instead, you can use \ind{keyboard shortcuts}. These are the parenthesized expressions in the menu.  Depending on your platform, you may have to press one of the modifier keys (control, alt, command, or meta).
-(We will indicate these generically as \short{\emph{key}}.)
+Si quieres evaluar una expresión, no siempre tienes que hacer \actclick. En su lugar, puedes usar \ind{atajos de teclado}. Estos son las expresiones entre paréntesis en el menú. Dependiendo de la plataforma, puedes tener que presionar una de las teclas modificadoras (control, alt, command, o meta).
+(Indicaremos estas genéricamten como \short{\emph{tecla}}.)
 
-\dothis{Evaluate the expression in the workspace again, but using the keyboard shortcut: \short{d}.}
+\dothis{Evalua la expresión en el workspace nuevamente, pero usando el atajo de teclado: \short{d}.}
 \index{keyboard shortcut!do it}
 
-In addition to \menu{do it}, you will have noticed \menu{print it}, \menu{inspect it} and \menu{explore it}. Let's have a quick look at each of these.
+Además de \menu{do it}, habrás notado \menu{print it}, \menu{inspect it} y \menu{explore it}. Hechemos una rápida mirada a cada una de estas
 
-\dothis{Type the expression \ct{3 + 4} into the workspace. Now \menu{do it} with the keyboard shortcut.}
+\dothis{Escribe \ct{3 + 4} en el workspace. Ahora \menu{do it} con el atajo de teclado.}
 
-Do not be surprised if you saw nothing happen! What you just did is send the message \ct{+} with argument \ct{4} to the number \ct{3}. Normally the result \ct{7} will have been computed and returned to you, but since the workspace did not know what to do with this answer, it simply threw the answer away.  If you want to see the result, you should \menu{print it} instead. \menu{print it} actually compiles the expression, executes it, sends the message \ct{printString} to the result, and displays the resulting string.
+¡No te sorprendas si no viste nada ocurrir! Lo que acabas de hacer es enviar el mensaje \ct{+} con el argumento \ct{4} al número \ct{3}. Normalmente el resultado \ct{7} habrá sido sido computedo y retornado a ti, pero dado que el workspace sabía que hacer con la respuesta, simplemente se deshizo de la respuesta. Si queires ver el resultado, deberías elejir en su lugar \menu{print it}. \menu{print it} realmente compila la expresión, la ejecuta, envia el mensaje \ct{printString} al resultado, y muestra la cadena de caracteres resultante.
 
-\dothis{Select \ct{3+4} and \menu{print it} (\short{p}).}
-This time we see the result we expect (\figref{printit}).
+\dothis{selecciona \ct{3+4} y selecciona \menu{print it} (\short{p}).}
+Esta vez vemos el resultado esperado (\figref{printit}).
 \index{keyboard shortcut!print it}
 
 \begin{figure}[htb]
 % \centerline {\includegraphics[width=0.4\textwidth]{PrintIt}}
 \centerline {\includegraphics[width=0.8\textwidth]{PrintIt}}
-\caption{``Print it'' rather than ``do it''. \figlabel{printit}}
+\caption{``print it'' en lugar de ``do it''. \figlabel{printit}}
 \end{figure}
 
 \needlines{3}
@@ -375,45 +375,45 @@ This time we see the result we expect (\figref{printit}).
 3 + 4 --> 7
 \end{code}
 \noindent
-We use the notation \ct{-->} as a convention in this book to indicate that a particular \pharo expression yields a given result when you \menu{print it}.
+Usamos la notación \ct{-->} como una convención en este libro para indicar que una expresión particular en \pharo devuelve un resultado dado cuando usas \menu{print it}.
 
-\dothis{Delete the highlighted text ``\ct{7}'' (\pharo should have selected it for you, so you can just press the delete key). Select \ct{3+4} again and this time \menu{inspect it} (\short{i}).}
+\dothis{Borra el texto iluminado ``\ct{7}'' (\pharo debería haberlo seleccionado, entonces simplemente puedes presionar la tecla delete). Selecciona \ct{3+4} nuevamente y esta vez usa \menu{inspect it} (\short{i}).}
 \noindent
-Now you should see a new window, called an \emphind{inspector}, with the heading \ct{SmallInteger: 7} (\figref{inspectit}).
-The inspector is an extremely useful tool that will allow you to browse and interact with any object in the system.
-The title tells us that \ct{7} is an instance of the class \clsind{SmallInteger}.
-The left panel allows us to browse the instance variables of an object, the values of which are shown in the right panel.
-The bottom panel can be used to write expressions to send messages to the object.
+Ahora deberías ver una nueva ventana, llamada un \emphind{inspector}, con el encabezado \ct{SmallInteger: 7} (\figref{inspectit}).
+El inspector es una herramienta extremadamente útil que te permitirá navegar e interactuar con cualquier objeto en el sistema.
+El título nos dice que \ct{7} es una instancia de la clase \clsind{SmallInteger}.
+El panel izquierdo nos permite navegar variables de instancia del objeto, los valores de los cuales son mostrados en el panel derecho.
+El panel inferior puede ser usado para escribir expresiones para enviar mensajes al objeto.
 
 \begin{figure}[htb]
 \centerline {\includegraphics[width=\textwidth]{InspectIt}}
-\caption{Inspecting an object. \figlabel{inspectit}}
+\caption{Inspeccionando un objeto. \figlabel{inspectit}}
 \end{figure}
 
-\dothis{Type \ct{self squared} in the bottom panel of the inspector on \ct{7} and \menu{print it}.}
+\dothis{Escribe \ct{self squared} en el panel inferior del inspector en \ct{7} y usa \menu{print it}.}
 
 \needlines{2}
-\dothis{Close the inspector. Type the expression \ct{Object} in a workspace and this time \menu{explore it} (\short{I}, uppercased i).}
+\dothis{Cierra el inspector. Escribe la expresión \ct{Object} en un workspace y esta vez usa \menu{explore it} (\short{I}, mayúscula de i).}
 \index{keyboard shortcut!explore it}
 \index{explorer}
 
-This time you should see a window labelled \clsind{Object} containing the text
+Esta vez deberías ver una ventana llamada \clsind{Object} conteninedo el texto
 \mbox{$\triangleright$ \ct{root: Object}}.
-Click on the triangle to open it up (\figref{exploreit}).
+Haz clic en el triángulo para abrirla (\figref{exploreit}).
 
 \begin{figure}[htb]
 \centerline {\includegraphics[width=0.7\textwidth]{ExploreIt}}
-\caption{Exploring \ct{Object}. \figlabel{exploreit}}
+\caption{Explorando \ct{Object}. \figlabel{exploreit}}
 \end{figure}
 
-The explorer is similar to the inspector, but it offers a tree view of a complex object.
-In this case the object we are looking at is the \ct{Object} class.
-We can see directly all the information stored in this class, and we can easily navigate to all its parts.
+El explorador es similar al inspector, pero este ofrece una vista de arbol de un objeto complejo.
+En este caso el objeto que estamos mirando es la clase \ct{Object}.
+Podemos ver directamente toda la información almacenada en la clase, y podemos facilmente navegar todas sus partes.
 
 %=================================================================
-\section{The Class Browser}
+\section{El navegador de clases}
 
-The class \ind{browser}\footnote{Confusingly, this is variously referred to as the ``system browser'' or the ``code browser''. \pharo uses the \ind{OmniBrowser} implementation of the browser, which may also be variously known as ``OB'' or the ``Package browser''.
+El \ind{browser} de clases\footnote{Confusingly, this is variously referred to as the ``system browser'' or the ``code browser''. \pharo uses the \ind{OmniBrowser} implementation of the browser, which may also be variously known as ``OB'' or the ``Package browser''.
 In this book we will simply use the term ``browser'', or, in case of ambiguity, the ``class browser''.} is one of the key tools used for programming.
 As we shall see, there are several interesting browsers available for \pharo, but this is the basic one you will find in any image.
 \seeindex{class browser}{browser}
