@@ -731,9 +731,9 @@ Se trata de un lenguaje com\'un en \st, al cual Kent Beck denomina ``Valor de re
 \important{Devuelve un valor solo cuando es tu intenci\'on que el emisor use el valor.}
 
 %---------------------------------------------------------
-\subsection{Overriding and extension}
+\subsection{Sobreescribiendo una extensi\'on}
 
-If we look again at the \ct{EllipseMorph} class hierarchy in \figref{openInWorldLookup}, we see that the classes \ct{Morph} and \mbox{\ct{EllipseMorph}} both implement \ct{defaultColor}.
+Si miramos nuevamente la herencia de clase de \ct{EllipseMorph} en \figref{openInWorldLookup}, observamos que las clases \ct{Morph} y \mbox{\ct{EllipseMorph}} implementan \ct{defaultColor}.
 De hecho, si abrimos un nuevo morph (\ct{Morph new openInWorld}) observamos que obtenemos un morph azul, mientras que una elipse ser\'a por defecto de color amarillo.
 \index{method!overriding}
 \index{method!extension}
@@ -765,20 +765,20 @@ BorderedMorph>>>initialize
 \important{Un m\'etodo \ct{initialize} siempre deber\'ia comenzar enviando \ct{super initialize}.}
 
 %---------------------------------------------------------
-\subsection{Self sends and super sends}
+\subsection{Env\'io de mensajes a self y super}
 
 We need \super \subind{super}{send}{}s to compose inherited behaviour that would otherwise be overridden.
-The usual way to compose methods, whether inherited or not, however, is by means of \self \subind{self}{send}{}s.
+Sin embargo la forma habitual de escribir m\'etodos, ya sea heredados o no, es por medio de env\'ios a \self \subind{self}.
 
-How do \self sends differ from \super sends?
+¿C\'omo es que los env\'ios de mensajes a \self difieren de los env\'ios a \super ?
 As\'i como \self, \super representa al receptor del mensaje.
 Lo \'unico que cambia es el \ind{method lookup}.
-En lugar de que la busqueda del method lookup empiece en la clase del receptor, comienza en la in the superclass of the class of the method where the \super send occurs.
+En lugar de que la busqueda del method lookup empiece en la clase del receptor, comienza en la superclase de la clase del m\'etodo donde el env\'io a \super toma lugar.
 
-Note that \super is \emph{not} the superclass!
-It is a common and natural mistake to think this.
-It is also a mistake to think that lookup starts in the superclass of the receiver.
-We shall see with the following example precisely how this works.
+Note que \super \emph{no} es la superclase!
+Es un error com\'un y natural el pensar esto.
+Tambi\'en es un error pensar que la b\'usqueda del method lookup comienza en la superclase del receptor.
+Veremos con el siguiente ejemplo con precisi\'on c\'omo funciona esto.
 
 Consider the message \ct{constructorString}, which we can send to any morph:
 \begin{code}{@TEST | anEllipse | anEllipse := EllipseMorph new.}
