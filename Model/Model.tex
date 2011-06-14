@@ -133,7 +133,6 @@ Las variables de instancia en \st son privadas a la instancia en si misma.
 Esto es un contraste con \ind{Java} y \ind{C++}, que permiten que las variables de instancia (tambi\'en conocidas como ``campos'', ``atributos'' o incluso ``colaboradores internos'') sean accedidas por otras instancias de la misma clase.  
 Decimos que el \emphind{l\'\i{}mite del encapsulamiento} de los objetos en Java y C++ es la clase, mientras que en \st es la instancia.
 
-%QUE HAGO CON ESTO? LO TRADUZCO ?
 \seeindex{variable!instance}{instance variable}
 \seeindex{field}{instance variable}
 \seeindex{attribute}{instance variable}
@@ -147,7 +146,6 @@ En \st dos instancias de la misma clase no pueden acceder a las variables de ins
 
 No existe sintaxis alguna del lenguaje que provea acceso directo a las variables de instancia de cualquier otro objeto. 
 (En realidad, un mecanismo llamado reflexi\'on s\'\i{} 
-% pongo reflextion en inges?
 provee una forma de pedirle a otro objeto el valor de sus variables de instancia; la meta-programaci\'on es usada para escribir herramientas como el inspector de objetos,
 %Menciono el Object inspector en ingles?
  cuyo \'unico prop\'osito es mirar internamente otros objetos.) 
@@ -218,10 +216,9 @@ Una clase y su \ind{metaclase} son dos clases separadas, a pesar de que la prime
 \end{center}
 \end{figure}
 
-For esta raz\'on, el navegador \index{browser}  te ayuda a navegar ambas, la clase y su metaclase, como si fueran una sola cosa con dos pesta\~nas: ``\subind{browser}{del lado de instancia}'' y ``\subind{browser}{del lado de clase}'', como se muestra en \figref{Buttons}. 
+Por esta raz\'on, el navegador \index{browser}  te ayuda a navegar ambas, la clase y su metaclase, como si fueran una sola cosa con dos pesta\~nas: ``\subind{browser}{del lado de instancia}'' y ``\subind{browser}{del lado de clase}'', como se muestra en \figref{Buttons}. 
 
-%Como traduzco clicking ?
-Clickeando en el bot\'on \button{instance} navegamos la clase \ct{Color}, \ie puedes navegar los m\'etodos que son ejecutados cuando se le env\'\i{}an mensajes a una instancia de \ct{Color}, como por ejemplo el color azul. Presionando el bot\'on  \button{class} navegamos la clase \ct{Color class}, \ie se pueden ver los m\'etodos que ser\'an ejecutados cuando se le envien mensajes a la clase \ct{Color}  propiamente dicha.
+Haciendo clic en el bot\'on \button{instance} navegamos la clase \ct{Color}, \ie puedes navegar los m\'etodos que son ejecutados cuando se le env\'\i{}an mensajes a una instancia de \ct{Color}, como por ejemplo el color azul. Presionando el bot\'on  \button{class} navegamos la clase \ct{Color class}, \ie se pueden ver los m\'etodos que ser\'an ejecutados cuando se le envien mensajes a la clase \ct{Color}  propiamente dicha.
 Por ejemplo, \ct{Color blue} env\'\i{}a el mesaje \ct{blue} a la clase \clsind{Color}. Por lo tanto, encontrar\'as el m\'etodo  \ct{blue} definido en el lado de clase de  \ct{Color}, no del lado de instancia. 
 \seeindex{class side}{browser!class side}
 \seeindex{instance side}{browser!instance side}
@@ -240,10 +237,10 @@ aColor blue --> 1.0        "Instance side accessor method blue"
 Una clase se define completando el esqueleto propuesto en el  \subind{browser}{lado de instancia}. 
 Cuando se acepta esta plantilla, el sistema crea no s\'olo la clase definida, pero tambi\'en la metaclase asociada.
 
-Puede navegar la metaclase clickeando en el bot\'on \button{class}.
+Puede navegar la metaclase haciendo clic en el bot\'on \button{class}.
 La \'unica parte de la plantilla de creaci\'on de la metaclase que tiene sentido editar directamente es la lista de nombres de variables de instancia.
 
-Una vez que una clase fue creada, clickeando en el bot\'on \button{instance} podemos editar y navegar los m\'etodos  que ser\'an pose\'\i{}dos por instancias de esa clase (y de sus subclases). Por ejemplo, podemos ver en la \figref{Buttons} que el m\'etodo \ct{hue} est\'a definido en el lado de instancia de la clase  \ct{Color}.
+Una vez que una clase fue creada, haciendo clic en el bot\'on \button{instance} podemos editar y navegar los m\'etodos  que ser\'an pose\'\i{}dos por instancias de esa clase (y de sus subclases). Por ejemplo, podemos ver en la \figref{Buttons} que el m\'etodo \ct{hue} est\'a definido en el lado de instancia de la clase  \ct{Color}.
 Por el contrario, el b\'oton  \button{class} permite navegar y editar la metaclase (en este caso \ct{Color class}).
 
 %---------------------------------------------------------
@@ -256,7 +253,7 @@ Esto es lo t\'\i{}pico, aunque ocasionalmente encontrar\'as m\'etodos de clase u
 Es conveniente poner los m\'etodos de utilidad \subind{browser}{del lado de clase} porque pueden ser ejecutados sin tener que crear ning\'un objeto primero.
 De hecho, la mayor\'\i{}a de ellos tendr\'an un comentario cuyo objetivo es hacer m\'as f\'acil su ejecuci\'on.
 
-\dothis{Navegue el m\'etodo  \ct{Color class>>>showColorCube}, doble click justo adentro de las comillas del comentario  \ct{"Color showColorCube"} y tipee \short{d}.}
+\dothis{Navegue el m\'etodo  \ct{Color class>>>showColorCube}, doble clic justo adentro de las comillas del comentario  \ct{"Color showColorCube"} y tipee \short{d}.}
 Ver\'as el efecto de ejecutar este m\'etodo. (Seleccione \menu{World \go \ind{restore display}~(r)} para deshacer los cambios.)
 
 
@@ -334,7 +331,7 @@ Dado que las clases y sus instancias son diferentes objetos, existen las siguien
 \important{Una instancia de una clase no tiene acceso a las variables de instancia de clase de su propia clase.}
 %No se como poner el subind aca
 Por esta raz\'on, los m\'etodos de inicializaci\'on de instancia deber ser definidos siempre en el lado de instancia del navegador
-\,---\,el lado de clase del navegador no tiene acceso a las variables de instancia, por lo tanto no las puede inicializar! 
+\,---\,el lado de clase del navegador no tiene acceso a las variables de instancia !`por lo tanto no las puede inicializar! 
 
 De manera similar, las instancias puede acceder a las variables de instancia de clase solamente de forma indirecta, enviando un mensaje de acceso a sus clases. 
 
@@ -347,7 +344,7 @@ Las variables est\'aticas de Java y \ind{C++} son m\'as parecidas a las variable
 El \ind{patr\'on Singleton}~\cite{Alpe98a} provee un t\'\i{}pico ejemplo del uso de variables de instancia de clase y de m\'etodos de clase.
 Imagine que quisi\'eramos implementar la clase \ct{WebServer} y usar el patr\'on Singleton para asegurarnos que tenga una \'unica instancia. 
 
-Clickeando en el bot\'on \button{instance} del navegador, definimos la clase \clsind{WebServer} como sigue (\clsref{singleton}). 
+haciendo clic en el bot\'on \button{instance} del navegador, definimos la clase \clsind{WebServer} como sigue (\clsref{singleton}). 
 
 \begin{classdef}[singleton]{Una clase singleton}
 Object subclass: #WebServer
@@ -573,7 +570,7 @@ Support for traits is currently being added to the browsers.
 
 Esta regla captura la escencia de programar en \st.
 
-En la programaci\'on procedural, la elecci\'on de que pieza del c\'odigo se ejecutará cuando un procedimiento se llama es hecha por quien llama.
+En la programaci\'on procedural, la elecci\'on de que pieza del c\'odigo se ejecutar\'a cuando un procedimiento se llama es hecha por quien llama.
 El que llama elige el procedimiento o funci\'on se ejecutar\'a \emph{de forma est\'atica}, por nombre.  
 
 En la programaci\'on orientada a objetos, nosotros \emph{no} ``llamamos m\'etodos'': nosotros ``\subind{message}{enviamos} mensajes.''
@@ -594,7 +591,7 @@ Como consecuencia, podemos enviarle el \emph{mismo mensaje} a diferentes objetos
 No le decimos al \ct{SmallInteger} \ct{3} o al \ct{Point} \ct{1@2} como responder al mensaje \ct{+ 4}.
 Cada uno tiene su propio m\'etodo para \ct{+}, y responde a \ct{+ 4} como corresponde.
 
-Una de las consecuencias del modelo de env\'io de mensajes de \st's es que fomenta un estilo en el cual los objetos tienden a tener m\'etodos muy pequeños y delegan tareas a otros objetos, en lugar de implementar m\'etodos procedurales enormes que asumen demasiada responsabilidad.
+Una de las consecuencias del modelo de env\'io de mensajes de \st's es que fomenta un estilo en el cual los objetos tienden a tener m\'etodos muy peque\~nos y delegan tareas a otros objetos, en lugar de implementar m\'etodos procedurales enormes que asumen demasiada responsabilidad.
 Joseph Pelrine
 \ab{Citation?}
 \on{sorry, just personal communication and my own lecture notes!}
@@ -632,7 +629,7 @@ Joseph Pelrine tambi\'en establece esta muy bien:
 
 %\ruleref{lookup}
 
-Que sucede exactamente cuando un objeto recibe un mensaje?
+?`Que sucede exactamente cuando un objeto recibe un mensaje?
 
 El proceso es bastante sencillo:
 La clase del receptor busca el m\'etodo a usar para encargarse del mensaje.
@@ -644,10 +641,10 @@ En esencia es tan simple como esto
 Sin embargo hay algunas cuestiones que necesitan ser respondidas con cuidado:
 
 \begin{itemize}
-  \item \emph{¿Qu\'e sucede cu\'ando un m\'etodo no devuelve explicitamente un valor?}
-  \item \emph{¿Qu\'e sucede cu\'ando una clase reimplementa un metodo de superclase?}
-  \item \emph{¿Cu\'al es la diferencia entre enviar mensajes a \pvind{self} y \pvind{super}?}
-  \item \emph{¿Qu\'e sucede cuando no se encuentra ning\'un m\'etodo?}
+  \item \emph{?`Qu\'e sucede cu\'ando un m\'etodo no devuelve explicitamente un valor?}
+  \item \emph{?`Qu\'e sucede cu\'ando una clase reimplementa un metodo de superclase?}
+  \item \emph{?`Cu\'al es la diferencia entre enviar mensajes a \pvind{self} y \pvind{super}?}
+  \item \emph{?`Qu\'e sucede cuando no se encuentra ning\'un m\'etodo?}
 \end{itemize}
 
 Las reglas que aqui presentamos para el method lookup son conceptuales: las implementaciones de la maquina virtual usan todo tipo de trucos y optimizaciones para acelerar el method lookup. 
@@ -682,7 +679,7 @@ La busqueda por lo tamto continua en la superclase, \lct{BorderedMorph}, y asu s
 
 \begin{method}[openInWorld]{An inherited method}
 Morph>>>openInWorld
-	"añadir este morph al mundo."
+	"a\~nadir este morph al mundo."
 
 	self openInWorld: self currentWorld
 \end{method}
@@ -713,14 +710,13 @@ Esto sugiere que \mthref{openInWorld} es equivalente a \mthref{openInWorldReturn
 \needlines{5}
 \begin{method}[openInWorldReturnSelf]{Explicitly returning self}
 Morph>>>openInWorld
-	"Añade este morph al mundo."
+	"A\~nade este morph al mundo."
 	
     self openInWorld: self currentWorld
 	^ self		"No hagas esto a menos que sea tu intenci\'on!"
 \end{method}
 
-Por qu\'e no es bueno escribir \ct{^ self} explicitamente?
-Why is writing \ct{^ self} explicitly not a good thing to do?
+?`Por qu\'e no es bueno escribir \ct{^ self} explicitamente?
 Bueno, cuando devuelves algo explicitamente, estas comunicando que devuelves algo de inter\'es para el emisor.
 Cuando expresamente devuelves \self, estas diciendo que esperas que el emisor utilice el valor devuelto.
 Aqu\'i este no es el caso, as\'i que es mejor no retornar explicitamente \self.
@@ -749,9 +745,9 @@ En \st, como en  muchos lenguajes orientados a objetos que soportan herencia sim
 La aplicaci\'on mas importante de este mecanismo est\'a en el m\'etodo \ct{initialize}.
 Siempre que una nueva instancia de una clase se inicializa, es fundamental tambi\'en inicializar las variables de instancia heredadas.
 Sin embargo, el conocimiento de c\'omo hacer esto ya est\'a capturado en los m\'etodos \ct{initialize} de cada una de las superclases de la cadena de herencia.
-La subclase nada tiene que hacer tratando de inicializar las variables de instancia heredadas!
+!`La subclase nada tiene que hacer tratando de inicializar las variables de instancia heredadas!
 
-Por tanto es una buena práctica siempre que implementamos un m\'etodo initialize enviar \ct{super initialize} antes de realizar cualquier ulterior \ind{initialization}:
+Por tanto es una buena pr\'actica siempre que implementamos un m\'etodo initialize enviar \ct{super initialize} antes de realizar cualquier ulterior \ind{initialization}:
 \index{super!initialize}
 
 \needlines{6}
@@ -770,12 +766,12 @@ BorderedMorph>>>initialize
 We need \super \subind{super}{send}{}s to compose inherited behaviour that would otherwise be overridden.
 Sin embargo la forma habitual de escribir m\'etodos, ya sea heredados o no, es por medio de env\'ios a \self \subind{self}.
 
-¿C\'omo es que los env\'ios de mensajes a \self difieren de los env\'ios a \super ?
+?`C\'omo es que los env\'ios de mensajes a \self difieren de los env\'ios a \super ?
 As\'i como \self, \super representa al receptor del mensaje.
 Lo \'unico que cambia es el \ind{method lookup}.
 En lugar de que la busqueda del method lookup empiece en la clase del receptor, comienza en la superclase de la clase del m\'etodo donde el env\'io a \super toma lugar.
 
-Note que \super \emph{no} es la superclase!
+!`Note que \super \emph{no} es la superclase!
 Es un error com\'un y natural el pensar esto.
 Tambi\'en es un error pensar que la b\'usqueda del method lookup comienza en la superclase del receptor.
 Veremos con el siguiente ejemplo con precisi\'on c\'omo funciona esto.
@@ -836,11 +832,11 @@ By contrast, the meaning of \self is dynamic: it always represents the receiver 
 %---------------------------------------------------------
 \subsection{Mensaje no comprendido}
 
-¿Qu\'e sucede si el m\'etodo que estamos buscando no se encuentra?
+?`Qu\'e sucede si el m\'etodo que estamos buscando no se encuentra?
 \index{message!not understood}
 
 Supongamos que enviamos el mensaje \ct{foo} a nuestra elipse.
-En primer lugar el method lookup normal subir\'a por la cadena de herencia todo el camino hasta \clsind{Object} (o m\'as bien \clsind{ProtoObject}) en busca de este método.
+En primer lugar el method lookup normal subir\'a por la cadena de herencia todo el camino hasta \clsind{Object} (o m\'as bien \clsind{ProtoObject}) en busca de este m\'etodo.
 Cuando este m\'etodo no se encuentra, la ind \ind{m\'aquina virtual} har\'a que el objeto envie \ct{self doesNotUnderstand: #foo}.
 (See \figref{fooNotFound}.)
 
@@ -853,16 +849,16 @@ Cuando este m\'etodo no se encuentra, la ind \ind{m\'aquina virtual} har\'a que 
 \end{center}
 \end{figure}
 
-Ahora, este es un envio de mensaje din\'amico perfectamente ordinario, por lo que la búsqueda se inicia de nuevo desde la clase \ct{EllipseMorph}, pero esta vez buscando el m\'etodo \ct{doesNotUnderstand:}.
+Ahora, este es un envio de mensaje din\'amico perfectamente ordinario, por lo que la b\'usqueda se inicia de nuevo desde la clase \ct{EllipseMorph}, pero esta vez buscando el m\'etodo \ct{doesNotUnderstand:}.
 Como resultado, \ct{Object} implementa \ct{doesNotUnderstand:}.
 Este m\'etodo crear\'a un nuevo objeto \ct{MessageNotUnderstood} que sea capaz de iniciar un depurador en el contexto de ejecuci\'on actual.
 
-¿Por qu\'e tomar este camino complicado de manejar como un error evidente?
+?`Por qu\'e tomar este camino complicado de manejar como un error evidente?
 Bueno, esto ofrece a los desarrolladores una manera f\'acil de interceptar estos errores y tomar las medidas alternativas.
 Uno podr\'ia f\'acilmente reemplazar el m\'etodo \mthind{Object}{doesNotUnderstand:} en cualquier subclase de \ct{Object} y proporcionar una forma diferente de manejar el error.
 
 De hecho, esta puede ser una manera f\'acil de implementar delegaci\'on autom\'atica de mensajes de un objeto a otro.
-Un objeto \ct{Delegador} simplemente podr\'ia delegar todos los mensajes que no entiende a otro objeto cuya responsabilidad es manejarlos, o arrojar un error mismo!
+Un objeto \ct{Delegador} simplemente podr\'ia delegar todos los mensajes que no entiende a otro objeto cuya responsabilidad es manejarlos !`o arrojar un error mismo!
 
 %=========================================================
 \section{Variables compartidas}
@@ -931,7 +927,7 @@ Si escribes un m\'etodo que hace referencia a una variable no declarada, el nave
 te sugerir\'a declararla, por ejemplo, como una variable global o como una variable de instancia de la clase.
 Sin embargo, si mas tarde borras la declaraci\'on, el c\'odigo referenciar\'a a una variable no declarada.
 
-Examinar a \ct{Undeclared} puede a veces ayudar a explicar este comportamiento extra\~no!
+!`Examinar a \ct{Undeclared} puede a veces ayudar a explicar este comportamiento extra\~no!
 
 \item
 \glbind{SystemOrganization} es una instancia de \clsind{SystemOrganizer}: registra la organizaci\'on de las clases en paquetes.  Mas precisamente, clasifica los \emph{nombres} de clases, por lo que
