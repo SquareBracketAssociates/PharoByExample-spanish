@@ -823,14 +823,14 @@ TestCase>>>runCase
 \subsection{Corriendo un \lct{TestSuite}}
 
 Para correr mas de una prueba, enviamos el mensaje \ct{run} a un \ct{TestSuite} que contenga
-llas pruebas relevantes.
+las pruebas relevantes.
 
 La \ct{clase TestCase} provee algunas funcionalidades para construir un juego de pruebas desde sus m\'etodos.
-la expresi\'on \ct{MyTestCase buildSuiteFromSelectors} retirna un set que contiene todas las 
+La expresi\'on \ct{MyTestCase buildSuiteFromSelectors} retorna un set que contiene todas las 
 pruebas definidas en la clase  \ct{MyTestCase}.
 
 El n\'ucleo de este proceso es
-\begin{method}[testcasetestselectors]{Auto-building the test suite}
+\begin{method}[testcasetestselectors]{Contrucci\'on autom\'atica del conjunto de pruebas}
 TestCase class>>>testSelectors 
 	^self selectors asSortedCollection asOrderedCollection select: [:each | 
 		('test*' match: each) and: [each numArgs isZero]]
@@ -841,7 +841,7 @@ El m\'etodo \cmind{TestSuite}{run} crea una instancia de \ct{TestResult}, verifi
 recursos est\'en disponibles, y luego se env\'ia a s\'i mismo el mensaje \mthind{TestSuite}{run:}, 
 el cual corre todas las pruebas en el set. Todos los recursos son liberados luego.
 
-\begin{method}[testsuiterun]{Running a test suite}
+\begin{method}[testsuiterun]{Ejecutando el conjunto de pruebas}
 TestSuite>>>run
 	| result |
  	result := TestResult new.
@@ -851,7 +851,7 @@ TestSuite>>>run
 	^result
 \end{method}
 
-\begin{method}[testsuiterun:]{Passing the test result to the test suite}
+\begin{method}[testsuiterun:]{Pasaje del resultado de la prueba al conjunto de pruebas}
 TestSuite>>>run: aResult
 	self tests do: [:each | 
 		self changed: each.
@@ -860,9 +860,9 @@ TestSuite>>>run: aResult
 
 
 La clase \clsind{TestResource} y sus subclases mantienen un registro de sus instancias
-actualmente creadas (uno por clase) que puede ser accedido y creado usando el m\'etod de clase
+actualmente creadas (uno por clase) que puede ser accedido y creado usando el m\'etodo de clase
 \mthind{TestResource class}{current}. Esta instancia se limpia cuando laas pruebas
-han temrinado de correr y los recursos son restaurados.
+han terminado de correr y los recursos son restaurados.
 
 La comprobaci\'on de disponibilidad de recursos hace posible que el recurso sea creado de vuelta si es necesario,
 como se muestra en el m\'etodo de clase \cmind{TestResource class}{isAvailable}. Durante la
@@ -876,16 +876,16 @@ es invocado.
 %\ct{class>>>new} calls the method \ct{initialize}).
 
 \needlines{4}
-\begin{method}[testresourceisavailable]{Test resource availability}
+\begin{method}[testresourceisavailable]{Disponibilidad del recurso de pruebas}
 TestResource class>>>isAvailable
 	^self current notNil and: [self current isAvailable]
 \end{method}
-\begin{method}[testresourcecurrent]{Test resource creation}
+\begin{method}[testresourcecurrent]{Creaci\'on del recurso de prueba}
 TestResource class>>>current
 	current isNil ifTrue: [current := self new].
 	^current
 \end{method}
-\begin{method}[restresourceinitialize]{Test resource initialization}
+\begin{method}[restresourceinitialize]{inicializaci\'on de Test resource }
 TestResource>>>initialize
 	super initialize.
 	self setUp
@@ -928,21 +928,21 @@ Aqu\'i hay algunos consejos sobre c\'omo dise\~nar pruebas.
 
 Las pruebas que hacen estas cosas son malas. Usualmente son valiosas de escribir, y pueden ser escritas
 en una unit test harness.
-Sin embargo, es importante ser capaz de separarlas dde las verdaderas prruebas unitarias para poder
-guardar un conjuntos de pruebas que puedan correrse r\'apidamente en cualquier momento que hagamos nuestros
+Sin embargo, es importante ser capaz de separarlas de las verdaderas pruebas unitarias para poder
+guardar un conjunto de pruebas que puedan correrse r\'apidamente en cualquier momento que hagamos nuestros
 cambios.
  }
   \end{quotation}
 
-Nunca llegues a una situaci\'on donde no quieres correr tus pruebas unitarias porque
-lleva demasiado tiempo.
+Nunca llegues a una situaci\'on donde no quieres correr tus pruebas unitarias porque lleva demasiado tiempo.
 
-
-\item[Pruebas Unitarias \textit{vs.}\ Pruebas de Aceptaci\'on.] La sprubas unitaarias capturan una parte de la funcionaliudad, y por tal motico hacen f\'acil identificar los bugs en esa funcionalidad.
-	Siempre que sea posible, trata de tener pruebas unitarias por cada m\'etodo que puede llegar a fallar, y agr\'upalas por clase. No obstante, para ciertas situaciones, como inicializaciones sumamente recursivas o complicadas, es m\'as f\'acil escribir pruebas que representen un escenario en toda la aplicaci\'on; estos son llamados pruebas de aceptaci\'on o pruebas funcionales. 
+\item[Pruebas Unitarias \textit{vs.}\ Pruebas de Aceptaci\'on.] Las pruebas unitarias capturan una parte de la funcionalidad, y por tal motivo hacen f\'acil identificar los bugs en esa funcionalidad.
+	
+Siempre que sea posible, trata de tener pruebas unitarias por cada m\'etodo que puede llegar a fallar, y agr\'upalas por clase. No obstante, para ciertas situaciones, como inicializaciones sumamente recursivas o complicadas, es m\'as f\'acil escribir pruebas que representen un escenario en toda la aplicaci\'on; estos son llamados pruebas de aceptaci\'on o pruebas funcionales. 
 
 Las pruebas que rompen las reglas de  Feathers podr\'ian ser buenas pruebas de aceptaci\'on.
-	Agrupa las pruebas de aceptaci\'on de acuerdo a la funcionalidad que ellas ensayan.
+	
+Agrupa las pruebas de aceptaci\'on de acuerdo a la funcionalidad que ellas ensayan.
 Por ejemplo, si est\'as escribiendo un compilador, podr\'ias escribir pruebas de aceptaci\'on que haga aserciones
 sobre el c\'odigo generado para cada posible sentencia del lenguaje fuente. 
 
@@ -950,20 +950,20 @@ Tales pruebas podr\'ian hacer uso de muchas clases, y podr\'ia llevar un largo t
 manipulan el sistema de archivos.
 
 Puedes escribirlas usando \sunit, pero no querr\'as correrlas cada vez que hagas un cambio peque\~no, 
-as\'i que deber\'iamos separalas de las verdaderas pruebas unitarias.
+as\'i que deber\'iamos separarlas de las verdaderas pruebas unitarias.
  
 \item[La regla de Black para el Testing.]
 
-  Para cada prueba en el sistema, tienes que ser capaz de identificar alguna propiedad a la cual tu prueba incrementa tu confianza.
+Para cada prueba en el sistema, tienes que ser capaz de identificar alguna propiedad a la cual tu prueba incrementa tu confianza.
 
 Es obvio que habr\'an propiedades no importantes que no estas comprobando.
-Esta regla plantea el hecho menos obvio de que no deber\'ia haber pruebas que no agreguen valor al sistema incrmeentando tu confianza que una \'util propiedad tiene.
+Esta regla plantea el hecho menos obvio de que no deber\'ia haber pruebas que no agreguen valor al sistema incrementando tu confianza en alguna propiedad del mismo.
 
 Por ejemplo, muchas pruebas del mismo atributo no hacen bien.
 De hecho, dan\~nan en dos formas.
 
-Primero, hacen m\'as dificil inferir el comportamiento de la  clase leyendo solamente la prueba.
-Segundo, como un bug en el c\'odigo podr\'ia romper muchas pruebas, hace m\'as dificil estimmar cuantos bugs
+Primero, hacen m\'as dificil inferir el comportamiento de la clase leyendo solamente la prueba.
+Segundo, como un bug en el c\'odigo podr\'ia romper muchas pruebas, hace m\'as dificil estimar cu\'antos bugs
 a\'un restan en el c\'odigo.
 
 Entonces, ten un atributo en mente cuando escribes una prueba.
@@ -1320,22 +1320,20 @@ Entonces, ten un atributo en mente cuando escribes una prueba.
 %=================================================================
 \section{Resumen del cap\'itulo}
 
-Este cap\'itulo explic\'o por qu\'e las pruebas son una importante inversi\'on
+En este cap\'itulo se ha explicado por qu\'e las pruebas son una importante inversi\'on
 en el futuro de tu c\'odigo.
 
 Explicamos en un modo paso a paso c\'omo definimos unas cuantas pruebas para la clase \ct{Set}.
-Luegi hicimos un recorrido por el n\'ucleo del framework \sunit presentando
-las clases  \ct{TestCase}, \ct{TestResult}, \ct{TestSuite}
-y \lct{TestResources}. Por \'ultimo, profundizamos en \sunit siguiendo la ejecuci\'on de una prueba y de un
-conjunto de pruebas.
+Luego hicimos un recorrido por el n\'ucleo del framework \sunit presentando
+las clases  \ct{TestCase}, \ct{TestResult}, \ct{TestSuite} y \lct{TestResources}. Por \'ultimo, profundizamos en \sunit siguiendo la ejecuci\'on de una prueba y de un conjunto de pruebas.
 
 \begin{itemize}
-  \item Para maximixar su potencia, las pruebas unitarias ddeber\'ian ser r''apidas, repetibles, independientes de cualquier interacci\'on humana y cubrir una \'unica funcionalidad.
+  \item Para maximixar su potencia, las pruebas unitarias deber\'ian ser r\'apidas, repetibles, independientes de cualquier interacci\'on humana y cubrir una \'unica funcionalidad.
 
   \item Las pruebas para una clase llamada \ct{MyClass} pertencen a una clase clasificada como \ct{MyClassTest}, la cual deber\'ia ser presentada como una subclase de \lct{TestCase}.
   \item Inicializar tus datos de prueba en un m\'etodo \ct{setUp}.
   \item Cada m\'etodo de prueba deber\'ia empezar con la palabra ``test''.
-  \item Ussa los m\'etodos de \ct{TestCase} :  \ct{assert:}, \ct{deny:} y otros para hacer aserciones.
+  \item Usa los m\'etodos de \ct{TestCase} :  \ct{assert:}, \ct{deny:} y otros para hacer aserciones.
   \item Corre las pruebas usando la herramienta test runner de SUnit (en la barra de herramientas).
 \end{itemize}
 
