@@ -98,8 +98,7 @@ Adem\'as, las clases no son objetos de segundo orden: realmente son objetos de p
 Esto significa que \pharo es un sistema verdaderamente reflectivo, lo que da un gran poder de expresi\'on a los desarrolladores.
 
 M\'as produndo en la implementaci\'on, hay tres tipos diferentes de objetos. Existen (1) objetos ordinarios con variables de instancia que son pasadas por referencia, existen (2) \emph{small integers} %VER COMO TRADUZCO ESTO
-que son pasados por valor, y existen objetos indexables como arrays % VER COMO TRADUZCO
- que contienen una porci\'on continua de memoria. La belleza de \st es que normalmente no tienes que preocuparte por las diferencias de estos tres tipos de objetos. 
+que son pasados por valor, y existen objetos indexables como arrays que contienen una porci\'on continua de memoria. La belleza de \st es que normalmente no tienes que preocuparte por las diferencias de estos tres tipos de objetos. 
 
 
 %=========================================================
@@ -152,7 +151,6 @@ provee una forma de pedirle a otro objeto el valor de sus variables de instancia
 
 
 Las variables de instancia pueden ser accedidas por nombre desde cualquier m\'etodo de instancia de la clase que las define y tambi\'en desde los m\'etodos definidos en sus subclases. Esto significa que las variables de instancia de \st son similares a las variables  \emph{protegidas} de C++ y Java.      
-%Tengo que traducir el protected variabes
 No obstante, preferimos decir que son privadas, pues en \st es considerado un mal estilo acceder directamente a las variables de instancia desde una subclase.  
 
 
@@ -233,7 +231,6 @@ aColor blue --> 1.0        "Instance side accessor method blue"
 \end{code}
 
 
-%como traduzco template ?
 Una clase se define completando el esqueleto propuesto en el  \subind{browser}{lado de instancia}. 
 Cuando se acepta esta plantilla, el sistema crea no s\'olo la clase definida, pero tambi\'en la metaclase asociada.
 
@@ -259,7 +256,6 @@ Ver\'as el efecto de ejecutar este m\'etodo. (Seleccione \menu{World \go \ind{re
 
 Para aquellos familiarizados con \ind{Java} y \ind{C++}, los m\'etodos de clase parecieran ser similares a los m\'etodos est\'aticos.
 Sin embargo, la uniformidad de \st implica que de alguna forma son distintos: mientras que los m\'etodos est\'aticos de Java son realmente simples procedimientos resueltos est\'aticamente, los m\'etodos de clase de \st son m\'etodos despachados dinamicamente. 
-%como traduzco dynamic-dispatteched methods?
 Esto significa que la herencia, sobre-escritura y mensajes enviados con super funcionan en los m\'etdos de clase en \st, mientras que no funcionan con los m\'etodos est\'aticos de Java.
 
 
@@ -763,7 +759,7 @@ BorderedMorph>>>initialize
 %---------------------------------------------------------
 \subsection{Env\'io de mensajes a self y super}
 
-We need \super \subind{super}{send}{}s to compose inherited behaviour that would otherwise be overridden.
+Necesitamos que los env\'ios de mensajes a \super \subind{super}{send}{}s compongan el comportamiento heredado que de otra manera ser\'ia sobreescrito.
 Sin embargo la forma habitual de escribir m\'etodos, ya sea heredados o no, es por medio de env\'ios a \self \subind{self}.
 
 ?`C\'omo es que los env\'ios de mensajes a \self difieren de los env\'ios a \super ?
@@ -776,15 +772,15 @@ Es un error com\'un y natural el pensar esto.
 Tambi\'en es un error pensar que la b\'usqueda del method lookup comienza en la superclase del receptor.
 Veremos con el siguiente ejemplo con precisi\'on c\'omo funciona esto.
 
-Consider the message \ct{constructorString}, which we can send to any morph:
+Considere el mensaje \ct{constructorString}, que podemos enviarle a cualquier morph:
 \begin{code}{@TEST | anEllipse | anEllipse := EllipseMorph new.}
 anEllipse constructorString --> '((EllipseMorph newBounds: (0@0 corner: 50@40) color: Color yellow) setBorderWidth: 1 borderColor: Color black)'
 \end{code}
-The return value is a string that can be evaluated to recreate the morph.
+El valor de retorno es una cadena de caracteres que puede ser evaluada para recrear el morph.
 
-How exactly is this result obtained through a combination of \self and \super sends?
-First, \ct{anEllipse constructorString} will cause the method \ct{constructorString} to be found in the class \ct{Morph},
-as shown in \figref{constructorStringLookup}.
+?`C\'omo es obtenido exactamente este resultado a trav\'es de una combinación de env\'io de mensajes a \self y a \super ?
+Primero, \ct{anEllipse constructorString} provocara que el m\'etodo \ct{constructorString} sea encontrado en la clase \ct{Morph},
+como se muestra en \figref{constructorStringLookup}.
 
 \begin{figure}[htb]
 \begin{center}
@@ -806,7 +802,7 @@ This method in turn does a \self send of \lct{printConstructorOn:indent:nodeDict
 Once again, \ct{fullPrintOn:} is looked up starting in the class \ct{EllipseMorph}, and \mthind{BorderedMorph}{fullPrintOn:} is found in \ct{BorderedMorph} (see \figref{constructorStringLookup} once again).
 What is critical to notice is that the \self send causes the method lookup to start again in the class of the receiver, namely the class of \ct{anEllipse}.
 
-\important{A \self send triggers a \emph{dynamic} method lookup starting in the class of the receiver.}
+\important{Un env\'io a \self dispara un method lookup \emph{din\'amico} comenzando en la clase del receptor.}
 
 \needlines{4}
 \begin{method}[fullPrintOn]{Combining \super and \self sends}
@@ -826,7 +822,7 @@ This would have caused lookup to start from \ct{BorderedMorph}, resulting in an 
 
 \important{A \super send triggers a \emph{static} method lookup starting in the superclass of the class of the method performing the \super send.}
 
-If you think carefully about \super send and \figref{constructorStringLookup}, you will realize that \super bindings are static: all that matters is the class in which the text of the \super send is found.
+Si piensas cuidadosamente acerca delos env\'ios a \super y \figref{constructorStringLookup}, te daras cuenta que \super bindings are static: lo \'unico que importa es la clase en la cual se encuentra el texto del env\'io a \super.
 By contrast, the meaning of \self is dynamic: it always represents the receiver of the currently executing message. This means that  \emph{all}  messages sent to \self are looked-up by starting in the receiver's class.
 
 %---------------------------------------------------------
