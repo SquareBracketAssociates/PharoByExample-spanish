@@ -461,7 +461,7 @@ Primero necesitamos ser notificados cuando el rat\'on est\'a sobre el morph.
 Esto suceder\'a si nuestro morph responde \ct{true} al mensaje \mthind{Morph}{handlesMouseOver:}
 
 \dothis{Declara que \ct{CrossMorph} reaccionar\'a cuando este bajo el puntero del rat\'on.}
-\begin{method}{We want to handle ``mouse over'' events.} 
+\begin{method}{Queremos manejar los eventos de ``mouse over''.} 
 CrossMorph>>>handlesMouseOver: anEvent
 	^true
 \end{method}
@@ -524,8 +524,8 @@ CrossMorph>>>step
 \end{method}
 \noindent
 
-Para comenzar, puedes abrir un inspector en un \ct{CrossMorph}  (usando el manejador de debug \debugHandle{} en una halo de morphic), tipea \ct{self startStepping} en el pequeño workspace de abajo, y \menu{do it}.
-Alternativamente, puedes modificar el m\'edtodo \ct{handleKeystroke:}  para que puedas usar las teclas $+$ and $-$  para comenzar y deterner eel paso a paso.
+Para comenzar, puedes abrir un inspector en un \ct{CrossMorph}  (usando el manejador de debug \debugHandle{} en una halo de morphic), tipea \ct{self startStepping} en el peque\~no workspace de abajo, y \menu{do it}.
+Alternativamente, puedes modificar el m\'edtodo \ct{handleKeystroke:}  para que puedas usar las teclas $+$ and $-$  para comenzar y deterner el paso a paso.
 
 
 \dothis{Agregar el siguiente c\'odigo a \mthref{handleKeystroke}:}
@@ -540,7 +540,7 @@ Alternativamente, puedes modificar el m\'edtodo \ct{handleKeystroke:}  para que 
 % \on{You can also \menu{debug \go inspect morph} and evaluate: \ct{self currentWorld startStepping: self}.}
 
 %=================================================================
-\section{Interactors}
+\section{Interactores}
 
 Para pedirle al usuario una entrada, la clase \clsind{UIManager} provee una gran n\'umero de  cajas de di\'alogo listas para usar.
 Por ejemplo, el m\'etodo \mthind{UIManager}{request:initialAnswer:} revuelve un cadena ingresada por le usuario (\figref{dialogName}).
@@ -552,7 +552,7 @@ UIManager default request: 'What''s your name?' initialAnswer: 'no name'
 \begin{figure}[htb]
 \begin{minipage}{0.48\textwidth}
 	\centerline{\includegraphics[width=0.8\textwidth]{dialog}}
-	\caption{An input dialog.}\figlabel{dialogName}
+	\caption{Un di\'alogo de entrada.}\figlabel{dialogName}
 \end{minipage}
 \hfill
 \begin{minipage}{0.48\textwidth}
@@ -560,11 +560,11 @@ UIManager default request: 'What''s your name?' initialAnswer: 'no name'
 	\centerline{\includegraphics [width=0.8\textwidth]{popup}}
 	\vfill
 	\vspace{4ex}
-	\caption{Pop-up menu.}\figlabel{popup}
+	\caption{Men\'u emergente.}\figlabel{popup}
 \end{minipage}
 \end{figure}
 
-Para desplegar un men\'e emergente, usa uno de los variso m\'etodos \ct{chooseFrom:} (\figref{popup}):
+Para desplegar un men\'u emergente, usa uno de los varios m\'etodos \ct{chooseFrom:} (\figref{popup}):
 \begin{code}{}
 UIManager default
 	chooseFrom: #('circle' 'oval' 'square' 'rectangle' 'triangle')
@@ -590,12 +590,12 @@ UIManager default
 %\end{figure}
 
 %=================================================================
-\section{Arrastrar y Soltar}
-Morphic tambi\'en soporta drag-and-drop. Examinemos un simple ejemplo con dos morphs, un morph receptor y un morph dropped. 
-El receptor aceptar\'a un morph solo si el morph arrastrado coincide con una condici\on dada: en nuestro ejemplo, el morph debe ser azul. Si es rechazado el  morph arrastrado decide que hacer.
+\section{Drag-And-Drop}
+Morphic tambi\'en soporta drag-and-drop. Examinemos un simple ejemplo con dos morphs, un morph receptor y un morph arrojado. 
+El receptor aceptar\'a un morph solo si el morph arrastrado coincide con una condici\'on dada: en nuestro ejemplo, el morph debe ser azul. Si es rechazado el  morph arrastrado decide que hacer.
 
 \dothis{Primero definamos el morph receptor:}
-\begin{classdef}{Defining a morph on which we can drop other morphs}
+\begin{classdef}{Definiendo un morph en el que podamos arrastrar otros morphs}
 Morph subclass: #ReceiverMorph
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -604,20 +604,20 @@ Morph subclass: #ReceiverMorph
 \end{classdef}
 
 \dothis{Ahora define el m\'etodo de inicializaci\'on de la manera usual:}
-\begin{method}{Initializing \ct{ReceiverMorph}.}
+\begin{method}{Inicializando \ct{ReceiverMorph}.}
 ReceiverMorph>>>initialize
 	super initialize.
 	color := Color red.
 	bounds := 0 @ 0 extent: 200 @ 200
 \end{method}
 
-Como dedicir si el receptor aceptar\'a o rechazar\'a el morph arrastrado?
+?`Como dedicir si el receptor aceptar\'a o rechazar\'a el morph arrastrado?
 En general ambos morphs tendr\'an que acordar en la interacci\'on.
 
-El receptor hace esto respondiendo a \mthind{Morph}{wantsDroppedMorph:event:}; al primer argumento es el morph arrastrado, y el segundo es el evento del mouse, de esta forma el receptor puede por ejemplo ver si alguna tecla modificador fue presionada al momento del arrastre.
+El receptor hace esto respondiendo a \mthind{Morph}{wantsDroppedMorph:event:}; el primer argumento es el morph arrastrado, y el segundo es el evento del rat\'on, de esta forma el receptor puede por ejemplo ver si alguna tecla modificadora fue presionada al momento del arrastre.
 El morph arrastrado tambi\'en tiene la oportunidad de chequear y ver si le gusta el morph sobre el que está siendo arrojado; se le env\'ia el mensaje \ct{wantsToBeDroppedInto:}. La implementaci\'on por defecto de este m\'etodo (en la clase \ct{Morph}) responde \ct{true}.
 
-\begin{method}{Accept dropped morphs based on their color.}
+\begin{method}{Aceptar el morph arrojado en base a su color.}
 ReceiverMorph>>>wantsDroppedMorph: aMorph event: anEvent
 	^ aMorph color = Color blue
 \end{method}
@@ -644,9 +644,9 @@ Intenta hacer drag-and-drop  el \ct{EllipseMorph}  amarillo sobre el receptor. E
 \dothis{Para cambiar este comportamiento, cambia el color de la morph elipse a \ct{Color blue} usando un inspector. Los morphs azules deben ser aceptado por el \ct{ReceiverMorph}.}
 
 
-Creemos una subclasse de \ct{Morph}, llamada \ct{DroppedMorph}, para que podamos experimentar un poco m\'as:
+Creemos una subclase de \ct{Morph}, llamada \ct{DroppedMorph}, para que podamos experimentar un poco m\'as:
 
-\begin{classdef}{Defining a morph we can drag-and-drop onto \ct{ReceiverMorph}}
+\begin{classdef}{Definiendo un morph que podamos arrastrar y soltar sobre el \ct{ReceiverMorph}}
 Morph subclass: #DroppedMorph
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -655,16 +655,16 @@ Morph subclass: #DroppedMorph
 \end{classdef}
 
 \needlines{5}
-\begin{method}{Initializing \ct{DroppedMorph}.}
+\begin{method}{Inicializando \ct{DroppedMorph}.}
 DroppedMorph>>>initialize
 	super initialize.
 	color := Color blue.
 	self position: 250@100
 \end{method}
 
-Ahora podemos especificar que debe hacer el morph arrastrado cuando es rechazado por el receptor; aqui este permanecer\'a adjunto al puntero del rat\'on.:
+Ahora podemos especificar qu\'e debe hacer el morph arrastrado cuando es rechazado por el receptor; aqui este permanecer\'a adjunto al puntero del rat\'on:
 
-\begin{method}{Reacting when the morph was dropped but rejected.}
+\begin{method}{Reaccionando cuando el morph fue arrojado pero rechazado.}
 DroppedMorph>>>rejectDropMorphEvent: anEvent
 	| h |
 	h := anEvent hand.
@@ -673,7 +673,7 @@ DroppedMorph>>>rejectDropMorphEvent: anEvent
 	anEvent wasHandled: true
 \end{method}
 
-Enviar el mensaje \mthind{MorphicEvent}{hand} a un evento, responde la \emph{hand}, una instancia de \ct{HandMorph} que representa el puntero del rat\'on y lo que sea que sostenga.
+Enviar el mensaje \mthind{MorphicEvent}{hand} a un evento, responde una \emph{hand}, que es una instancia de \ct{HandMorph} que representa el puntero del rat\'on y lo que sea que sostenga.
 
 Aqui le decimos al \ct{World} que la mano debe agarrar \ct{self}, el morph rechazado.
 
@@ -684,24 +684,23 @@ ReceiverMorph new openInWorld.
 (DroppedMorph new color: Color green) openInWorld.
 \end{code}
 \noindent
-The green morph is rejected and therefore stays attached to the mouse pointer.
-El morph verde is rechazado y por lo tanto permanece adjunto a puntero del rat\'on.
+El morph verde es rechazado y por lo tanto se mantiene adjunto al puntero del rat\'on.
 
 %=================================================================
 \section{Un ejmeplo completo}
 
-Deseñemos un moprh para tirar un dado. Haciendo click en el, mostrar\'a los valores de todas las caras del dado en un ciclo, y otro click detendr\'a la animaci\'on.
+Dese\~nemos un morph para tirar un dado. Haciendo clic en el, se mostrar\'an los valores de todas sus caras en un ciclo, y otro clic detendr\'a la animaci\'on.
 
 \begin{figure}[ht]
 	\centerline{\includegraphics[scale=0.65]{die}}
-	\caption{The die in Morphic.
+	\caption{El dado en Morphic.
 		\figlabel{dialogDie}}
 \end{figure}
 
 \dothis{Define un dado como una subclase de \clsind{BorderedMorph} en lugar de \ct{Morph}, porque haremos uso del borde.}
 
 \needlines{6}
-\begin{classdef}{Defining the die morph}
+\begin{classdef}{Definiendo un dado morph}
 BorderedMorph subclass: #DieMorph
 	instanceVariableNames: 'faces dieValue isStopped'
 	classVariableNames: ''
@@ -709,17 +708,17 @@ BorderedMorph subclass: #DieMorph
 	category: 'PBE-Morphic'
 \end{classdef}
 
-La variable de instancia \ct{faces} registra el n\'umero de caras del dado; nos permitir\'a dados con hasta 9 caras! \ct{dieValue} registra los valores de la cara que est\'a actualmente mostrada, y \ct{isStopped} is verdadero si la animaci\'on est\'a detenida.
+La variable de instancia \ct{faces} registra el n\'umero de caras del dado; !`nos permitir\'a dados con hasta 9 caras! \ct{dieValue} registra los valores de la cara que est\'a actualmente mostrada, y \ct{isStopped} es verdadero si la animaci\'on est\'a detenida.
 
 Para crear una instancia de dado, definimos el m\'etodo caras en el lado \emph{class}  de \clsind{DieMorph} para crear un nuevo dado con \ct{n} caras.
 
-\begin{method}{Creating a new die with the number of faces we like.}
+\begin{method}{Creado un new dado con el n\'umero de caras que nos gusta.}
 DieMorph class>>>faces: aNumber
 	^ self new faces: aNumber
 \end{method}
 
-El m\'etodo \ct{initialize} est\'a es definido en la instancia como de costumbre; recuerda que \ct{new} env\'ia \ct{initialize} a la nueva instancia creada.
-\begin{method}{Initializing instances of \ct{DieMorph}.}
+El m\'etodo \ct{initialize} est\'a definido en la instancia como de costumbre; recuerda que \ct{new} env\'ia \ct{initialize} a la nueva instancia creada.
+\begin{method}{Inicializando instancias de \ct{DieMorph}.}
 DieMorph>>>initialize
 	super initialize.
 	self extent: 50 @ 50.
@@ -732,11 +731,11 @@ DieMorph>>>initialize
 	isStopped := false
 \end{method}
 
-Usamos unos pocos m\'etodos de \ct{BorderedMorph}  para dar una apariencia agradable al dado: un borde grueso con una efecto raised, esquinas redondeadas, y un color gradiente en la cara visible.
+Usamos unos pocos m\'etodos de \ct{BorderedMorph}  para dar una apariencia agradable al dado: un borde grueso con una efecto elevado, esquinas redondeadas, y un color gradiente en la cara visible.
 
-Definimos el m\'etodo de instancia \ct{faces:} to chequear par\'ametros v\'alidos como sigue:
+Definimos el m\'etodo de instancia \ct{faces:} para chequear par\'ametros v\'alidos como sigue:
 
-\begin{method}{Setting the number of faces of the die.}
+\begin{method}{Seteando el n\'umero de caras del dado.}
 DieMorph>>>faces: aNumber
 	"Set the number of faces"
 	(aNumber isInteger
@@ -749,15 +748,15 @@ DieMorph>>>faces: aNumber
 Podr\'ia ser bueno reveer el orden en que se envian los mensajes cuando un dado es creado. Por ejemplo, si comenzamos por
 evaluar \ct{DieMorph faces: 9}:
 \begin{enumerate}
-	\item The class method \ct{DieMorph class>>>faces:} sends \ct{new} to \ct{DieMorph class}.
-	\item The method for \ct{new} (inherited by \ct{DieMorph class} from \ct{Behavior}) creates the new instance and sends it the \ct{initialize} message.
-	\item The \ct{initialize} method in \ct{DieMorph} sets \ct{faces} to an initial value of 6.
-	\item \ct{DieMorph class>>>new} returns to the class method \ct{DieMorph class>>>faces:}, which then sends the message \ct{faces: 9} to the new instance.
-	\item The instance method \ct{DieMorph>>>faces:} now executes, setting the \ct{faces} instance variable to 9.
+	\item El m\'etodo de clase \ct{DieMorph class>>>faces:} envia \ct{new} a \ct{DieMorph class}.
+	\item El m\'etodo para \ct{new} (heredado por \ct{DieMorph class} de \ct{Behavior}) crea la nueva instacia y le env\'ia el mensaje \ct{initialize}.
+	\item El m\'etodo  \ct{initialize} en \ct{DieMorph} establece \ct{faces} al valor inicial 6.
+	\item \ct{DieMorph class>>>new} retorna el m\'etodo de clase \ct{DieMorph class>>>faces:}, que env\'ia el mensaje \ct{faces: 9} a la nueva instancia.
+	\item El m\'etodo de instancia \ct{DieMorph>>>faces:} ahora se ejecuta, estableciendo la variable de instancia \ct{faces} en 9.
 \end{enumerate}
 
 Antes de definir \ct{drawOn:}, necesitamos unos pocos m\'etodos para poner los puntos en la cara mostrada:
-\begin{methods}{Nine methods for placing points on the faces of the die.}
+\begin{methods}{Nueve m\'etodos para ubicar los puntos en las caras del dado.}
 DieMorph>>>face1
 	^{0.5@0.5}
 DieMorph>>>face2
@@ -779,10 +778,10 @@ DieMorph >>>face9
 \end{methods}
 \on{kind of ugly boilerplate code -- should be a nice way to map these more elegantly to coordinates.}
 
-Estos m\'etodos definen colecciones de coordenadas de puntos para cada cara. Las coordenadas estan en un cuadrado de tamaño $1\times1$; simplemente necesitaremos escalarlas para ubicar los verdaderos puntos.
+Estos m\'etodos definen colecciones de coordenadas de puntos para cada cara. Las coordenadas estan en un cuadrado de tama\~no $1\times1$; simplemente necesitaremos escalarlas para ubicar los verdaderos puntos.
 
-El m\'etodo \ct{drawOn:} hace dos cosas: dibuja el fondo del dado con la \ct{super}-send, y luego dibuja los puntos.
-\begin{method}{Drawing the die morph.}
+El m\'etodo \ct{drawOn:} hace dos cosas: dibuja el fondo del dado con \ct{super}-send, y luego dibuja los puntos.
+\begin{method}{Dibujando el dado morph.}
 DieMorph>>>drawOn: aCanvas
 	super drawOn: aCanvas.
 	(self perform: ('face' , dieValue asString) asSymbol)
@@ -790,9 +789,9 @@ DieMorph>>>drawOn: aCanvas
 \end{method}
 
 La segunda parte de este m\'etodo usa las capacidades refletivas de \st.
-Dibujar los puntos de una cara es una simple cuesti\'on de iterar sobre la colecci\'on dada por el m\'etodo \ct{faceX} para esa cara, envienado el mensaje \ct{drawDotOn:at:} para cada coordenada. Para llamar el correcto m'etodo \ct{faceX}, usamos el m\'etodo \mthind{Object}{perform:} que envia un mensaje creado desde un string, aqu\'i \lct{('face', dieValue asString) asSymbol}. Encotraras este uso de este \ct{perform:} bastante regularmente.
+Dibujar los puntos de una cara es una simple cuesti\'on de iterar sobre la colecci\'on dada por el m\'etodo \ct{faceX} para esa cara, enviando el mensaje \ct{drawDotOn:at:} para cada coordenada. Para llamar al correcto m'etodo \ct{faceX}, usamos el m\'etodo \mthind{Object}{perform:} que envia un mensaje a partir de una cadena, aqu\'i \lct{('face', dieValue asString) asSymbol}. Encotrar\'as este uso de \ct{perform:} bastante seguido.
 \index{reflection}
-\begin{method}{Drawing a single dot on a face.}
+\begin{method}{Dibujando un punto en una cara.}
 DieMorph>>>drawDotOn: aCanvas at: aPoint
 	aCanvas
 		fillOval: (Rectangle
@@ -802,15 +801,15 @@ DieMorph>>>drawDotOn: aCanvas at: aPoint
 \end{method}
 \ew{I would not use reflection to call faceX on p.234. A statically filled Dictionary would be more appropriate. Get the point set with "MyDict at: X".}
 
-Como las coordenadas est\'an normalizadas al inervalo $[0{:}1]$, podemos escalarlas a las dimensiones de nuestro dado: \ct{self extent * aPoint}.
+Como las coordenadas est\'an normalizadas al intervalo $[0{:}1]$, podemos escalarlas a las dimensiones de nuestro dado: \ct{self extent * aPoint}.
 
 \dothis{Ya podemos crear una instancia de dado desde un workspace:}
 \begin{code}{}
 (DieMorph faces: 6) openInWorld.
 \end{code}
 
-Para cambiar la cara mostrada, creamos un accessor que podemos usar como \ct{myDie dieValue: 4}:
-\begin{method}{Setting the current value of the die.}
+Para cambiar la cara mostrada, creamos un accesor que podemos usar como \ct{myDie dieValue: 4}:
+\begin{method}{Estableciendo el valor del dado.}
 DieMorph>>>dieValue: aNumber
 	(aNumber isInteger
 			and: [aNumber > 0]
@@ -823,19 +822,19 @@ DieMorph>>>dieValue: aNumber
 Ahora vamos usar el sistema de animaci\'on para mostrar r\'apidamente todas las caras:
 \needlines{3}
 \index{Morphic!animation}
-\begin{methods}{Animating the die.}
+\begin{methods}{Animando el dado.}
 DieMorph>>>stepTime
 	^ 100
 
 DieMorph>>>step
 	isStopped ifFalse: [self dieValue: (1 to: faces) atRandom]
 \end{methods}
-¡Ahora el dado est\'a rodando!
+!`Ahora el dado est\'a rodando!
 
-Para comenzar o deterner la animaci\'on haciendo click, usaremos lo que hemos aprendido previamente sobre los eventos del  rat\'on.
+Para comenzar o deterner la animaci\'on haciendo clic, usaremos lo que hemos aprendido previamente sobre los eventos del  rat\'on.
 Primero, activamos la recepci\'on de los eventos del rat\'on:
 
-\begin{methods}{Handling mouse clicks to start and stop the animation.}
+\begin{methods}{Manejando clics del rat\'on para iniciar y detenar la animaci\'on.}
 DieMorph>>>handlesMouseDown: anEvent
 	^ true
 
@@ -843,14 +842,14 @@ DieMorph>>>mouseDown: anEvent
 	anEvent redButtonPressed
 		ifTrue: [isStopped := isStopped not]
 \end{methods}
-Now the die will roll or stop rolling when we click on it.
+Ahora el dado rodar\'a o se detendr\'a hagamos clic en \'el.
 
 % That's all for the essentials of Morphic!
 
 % Most of the work on \ct{DieMorph} was done with an instance of it living in the environment; this is quite nice when to tweak programs.
 
 %=================================================================
-\section{More about the canvas}
+\section{M\'as acerca del canvas}
 
 El método \ct{drawOn:} tiene una instancia de \clsindmain{Canvas} como su \'unico argumento;
 el canvas es un \'area en donde el morph se dibuja asimismo.
@@ -860,16 +859,16 @@ Si navegas la jerarqu\'ia de herencia de la clase \ct{Canvas}, ver\'as que tiene
 La variante por defecto de \ct{Canvas} es \clsind{FormCanvas}; encontrar\'as los m\'etodos gr\'aficos clave en \ct{Canvas} y \ct{FormCanvas}.
 Estos m\'etodos pueden dibujar puntos, l\'ineas, pol\'igonos, rect\'angulos, elipses, textos e im\'agenes con rotaci\'on y escalamiento.
 
-Tambi\'en es posible user otras clases de canvas, para obtener morphs transparentes, m\'as m\'etodos gr\'aficos, antialising, y otros.
+Tambi\'en es posible usar otras clases de canvas, para obtener morphs transparentes, m\'as m\'etodos gr\'aficos, antialising, y otros.
 
 Para usar estas funcionalidades necesitar\'as un \clsind{AlphaBlendingCanvas} o un \clsind{BalloonCanvas}.
 
-Pero, ¿como puedes obtener un canvas as\'i en un m\'etodo \ct{drawOn:} cuando \ct{drawOn:} recibe una instancia de \ct{FormCanvas} como argumento?
+Pero, ?`como puedes obtener un canvas as\'i en un m\'etodo \ct{drawOn:} cuando \ct{drawOn:} recibe una instancia de \ct{FormCanvas} como argumento?
 Afortunadamente, puedes transformar un tipo de canvas en otro.
 
 \dothis{Para usar un canvas con alpha-transparency 0.5 en \ct{DieMorph}, redefine \ct{drawOn:} de esta forma:}
 \needlines{7}
-\begin{method}{Drawing a translucent die.}
+\begin{method}{Dibujando un dado translucido.}
 DieMorph>>>drawOn: aCanvas
 	| theCanvas |
 	theCanvas := aCanvas asAlphaBlendingCanvas: 0.5.
@@ -878,11 +877,11 @@ DieMorph>>>drawOn: aCanvas
 		do: [:aPoint | self drawDotOn: theCanvas at: aPoint]
 \end{method}
 \noindent
-¡Eso es todo lo que necesitas hacer!
+!`Eso es todo lo que necesitas hacer!
 
 \begin{figure}[ht]
 	\centerline{\includegraphics[scale=0.7]{multiMorphs}}
-	\caption{The die displayed with alpha-transparency.
+	\caption{El dado mostrado con alpha-transparency.
 		\figlabel{multiMorphs}}
 \end{figure}
 
