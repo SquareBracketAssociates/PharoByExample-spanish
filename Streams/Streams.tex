@@ -10,6 +10,7 @@
 % 2007-08-21 - Oscar edit
 % 2007-08-21 - Cassou review
 % 2009-07-07 - Oscar migrate to Pharo; fixed broken tests
+% 2011-06-16 - NicoPaez started spanish translation
 
 %=================================================================
 \ifx\wholebook\relax\else
@@ -45,45 +46,48 @@
 Only few streams have random access capability.}
 
 \clsindexmain{Stream}
-Streams are used to iterate over sequences of elements such as sequenced
-collections, files, and network streams.
-Streams may be either readable, or writeable, or both.
-Reading or writing is always relative to the current position in the stream.
-Streams can easily be converted to collections, and vice versa.
+Los Streams son usados para iterar sobre secuencias de elementos como colecciones secuenciadas, archivos y streams de red.
+Los Streams pueden ser de lectura, de escritura o de ambos.
+Leer o escribir es siempre relativo a la posici\'on en el stream.
+Los Streams pueden ser f\'acilmente convertidos en colecciones y vice versa.
+
 \lr{"Streams can easily be converted into collections." I wouldn't say it like this, because it is not true for all streams (infinite streams). According to Kent Beck we should only talk about conversion when the same protocol is supported. Collections and Streams do not support the same protocol. (p. 249)}
 
 %=============================================================
-\section{Two sequences of elements}
-A good metaphor to understand a stream is the following: A stream
-can be represented as two sequences of elements: a past element sequence
-and a future element sequence. The stream is positioned between the two
-sequences. Understanding this model is important since all stream
-operations in Smalltalk rely on it.
-For this reason, most of the \clsind{Stream} classes are subclasses of \clsind{PositionableStream}.
-\figref{_abcde} presents a stream which contains five characters. This stream is in its original position, \ie there is no element in the past. You can go back to this position using the message \mthind{PositionableStream}{reset}.
+\section{Dos secuencias de elementos}
+Una buena met\'afora para entender un stream es las siguiente: Un stream puede ser representado como dos secuencias de elementos: una secuencia de 
+elementos pasados y una secuencias de elementos futuros.
+El stream es posicionado entre las dos secuencias. Entender este modelo es importante ya que toda operaci\'on en \st se basa en el.
+The stream is positioned between the two
+
+Por esta raz\'on, la mayoria de las classes \clsind{Stream} son subclases de \clsind{PositionableStream}.
+\figref{_abcde} presenta un stream con cinco caracteres. Este stream est\'a es su posici\'on original, \ie no hay elementos anteriores. 
+Puedes volver a esta posici\'on usando el mensaje \mthind{PositionableStream}{reset}.
 
 \begin{figure}[ht]
 \centerline{\includegraphics[scale=0.5]{_abcdeStef}}
-\caption{A stream positioned at its beginning.}
+\caption{Un stream posicionado en su comienzo.}
 \figlabel{_abcde}
 \vspace{.2in}
 \end{figure}
 
-Reading an element conceptually means removing the first element of the future element sequence  and putting it after the last element in the past
-element sequence. After having read one element using the message \ct{next}, the state of your stream is that shown in \figref{a_bcde}.
+Leer un elemento conceptualmente significa sacar el primer elemento de la secuencia de elementos futuros y ponerlo despues del \'ultimo en
+la secuencia de elementos pasados. Luego de haber leido un elemento usando el mensaje \ct{next}, el estado de tu stream es el mostrado en \figref{a_bcde}.
 
 \begin{figure}[ht]
 \centerline{\includegraphics[scale=0.5]{a_bcdeStef}}
-\caption{The same stream after the execution of the method \ct{next}: the character \ct{a} is ``in the past'' whereas \ct{b}, \ct{c}, \ct{d} and \ct{e} are ``in the future''.}
+\caption{El mismo stream despues de la ejecuci\'on del m\'etodo \ct{next}: ell caracter \ct{a} est\'a ``en el pasado'' mientras \ct{b}, \ct{c}, \ct{d} y
+ \ct{e} estan ``en el futuro''.}
 \figlabel{a_bcde}
 \vspace{.2in}
 \end{figure}
 
-Writing an element means replacing the first element of the future sequence by the new one and moving it to the past. \figref{ax_cde} shows the state of the same stream after having written an \ct{x} using the message \mthind{Stream}{nextPut:} \ct{anElement}.
+Escribir un elemento significa reemplazar el primer elemento de la secuencia futura por el nuevo y moverlo hacia atras.
+ \figref{ax_cde} muestra el estado del mismo stream despues de haber escrito a \ct{x} usando el mensaje \mthind{Stream}{nextPut:} \ct{anElement}.
 
 \begin{figure}[h!t]
 \centerline{\includegraphics[scale=0.5]{ax_cdeStef}}
-\caption{The same stream after having written an \ct{x}.}
+\caption{El mismo stream despues de haber escrito una \ct{x}.}
 \figlabel{ax_cde}
 \vspace{.2in}
 \end{figure}

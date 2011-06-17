@@ -83,10 +83,7 @@ A veces una prueba puede ser incorporada como un comentario en la cabecera
 del m\'etodo sobre el cual se est\'a trabajando,
 o las pruebas que necesiten alguna configuraci\'on pueden ser inclu\'idas como m\'etodos de ejemplo en la clase.
 El problema con estas pr\'acticas es que estas pruebas no est\'an
-disponibles para otros programadores que modifiquen el c\'odigo; los comentarios y los m\'etodos de ejemplo son mejores 
-en ese sentido, pero a\'un no existe una manera f\'acil de hacer un seguimiento de ellos y de hacer que corran autom
-\'aticamente.
-\¡Las pruebas que no se ejecutan no ayudan a encontrar bugs!
+disponibles para otros programadores que modifiquen el c\'odigo; los comentarios y los m\'etodos de ejemplo son mejores en ese sentido, pero a\'un no existe una manera f\'acil de hacer un seguimiento de ellos y de hacer que corran autom\'aticamente. \¡Las pruebas que no se ejecutan no ayudan a encontrar bugs!
 
 M\'as a\'un, un m\'etodo de ejemplo no informa al lector sobre el resultado esperado:
 puedes correr un ejemplo y ver \,---\,quiz\'as con gran sorpresa\,---\,el resultado, 
@@ -96,15 +93,15 @@ pero no sabr\'as si el comportamiento observado es el correcto.
 la prueba misma define cu\'al deber\'ia ser el resultado correcto.
 Tambi\'en nos ayuda a organizar pruebas en grupo, para describir el contexto en el cual las pruebas deben correrse,
  y a correrlas en conjunto autom\'aticamente.
-En menos de dos minutos puedes escribir pruebas usando \sunit, as\'i que en lugar de escribir peque\~nos fragmentos de c\'odigo en un workspace,
-te animamos a usar \sunit y obtener todas las ventajas de las pruebas acumulables y autom\'aticamente ejecutables.
 
-En este cap\'itulo comenzaremos debatiendo por qu\'e hacemos pruebas y qu\'e es lo que hace a un buen desarrollo de pruebas. Luego presentamos una serie de 
-peque\~nos ejemplos mostrando c\'omo usar \sunit.
+En menos de dos minutos puedes escribir pruebas usando \sunit, as\'i que en lugar de escribir peque\~nos fragmentos de c\'odigo en un workspace, te alentamos a usar \sunit y obtener todas las ventajas de las pruebas acumulables y autom\'aticamente ejecutables.
+
+En este cap\'itulo comenzaremos debatiendo por qu\'e hacemos pruebas y qu\'e es lo que hace a un buen desarrollo de pruebas. Luego presentamos una serie de peque\~nos ejemplos mostrando c\'omo usar \sunit.
+
 Por \'ultimo, miraremos la implementaci\'on de \sunit, y de esa forma entender c\'omo \st usa el poder de la \ind{reflexi\'on} en el soporte de sus herramientas.
 
 %=================================================================
-\section{Por qu\'e el desarrollo y ejecuci\'on de pruebas es importante}
+\section{Por qu\'e es importante el desarrollo y la ejecuci\'on de las pruebas}
 \seclabel{why}
 
 Desafortunadamente, muchos desarrolladores creen que el desarrollo de pruebas es una p\'erdida de tiempo.
@@ -118,7 +115,7 @@ Piensa en las pruebas como una inversi\'on para el futuro: tener un paquete de p
  pero ser\'a \emph{extremadamente} \'util cuando tu aplicaci\'on, o el entorno en el cual se ejecuta, cambie en el futuro.
 
 Las pruebas juegan muchos roles. Primero, proveen documentaci\'on sobre la funcionalidad que cubren.
-M\'as a\'un, la documentaci\'on es activa: ver que las pruebas pasan ok te dice que la documentaci\'on est\'a actualizada.
+M\'as a\'un, la documentaci\'on es activa: ver que las pruebas pasan correctamente te dice que la documentaci\'on est\'a actualizada.
 
 Segundo, las pruebas ayudan a los desarrolladores a confirmar que los cambios que le 
 acaban de hacer a un paquete no ha roto nada m\'as en el sistema\,---\,y a encontrar las partes que se rompen cuando la confianza resulta estar fuera de lugar.
@@ -152,7 +149,7 @@ Ahora puedes comenzar a arreglar el bug: la prueba te dir\'a cu\'ando has termin
 %\section{What makes a good test?}
 \section{\¿Qu\'e hace a una buena prueba?}
 
-Escribir buenas pruebas es una habilidad que puede ser aprendida m\'as facilmente con pr\'actica.
+Escribir buenas pruebas es una habilidad que puede ser aprendida facilmente con pr\'actica.
 Veamos las propiedades que las pruebas deber\'ian tener para obtener el m\'aximo beneficio: 
 
 
@@ -232,7 +229,7 @@ Usaremos un ejemplo que prueba la clase \ct{Set}. Intenta copiar el c\'odigo com
 que la clase  luzca as\'i: }
 
 %%%%%%c\'odigo fuente a traducir
-\begin{classdef}[exampleSetTest]{An Example Set Test class}
+\begin{classdef}[exampleSetTest]{Ejemplo de una clase de prueba de Set.}
 TestCase subclass: #ExampleSetTest
 	instanceVariableNames: 'full empty'
 	classVariableNames: ''
@@ -243,12 +240,12 @@ TestCase subclass: #ExampleSetTest
 
 Usaremos la clase \ct{ExampleSetTest} para agrupar todas las pruebas relacionadas con
 la clase \ct{Set}.  La misma define el contexto en el cual las pruebas
-correr\'an. Aqu\'i el contexto es descripto por las dos variables de instancia \ct{full} and \ct{empty}
-que ussaremos para representar el set lleno y el set vac\'io.
+correr\'an. Aqu\'i el contexto es descripto por las dos variables de instancia \ct{full} y \ct{empty}
+que usaremos para representar el set lleno y el set vac\'io.
 
 El nombre de la clase no es cr\'itico, pero por convenci\'on deber\'ia terminar con \ct{Test}.
 Si defines una clase llamada \ct{Pattern} y nombras a la correspondiente clase de pruebas \ct{PatternTest},
-las dos clases ser\'an indexadas alfab\'eticamente en forma conjunta en el browser (asumiendo
+las dos clases ser\'an indexadas alfab\'eticamente en forma conjunta en el navegador (asumiendo
 que ambas se encuentran en la misma categor\'ia).  Es de \emph{suma importancia} que tu clase 
 sea una subclase de \ct{TestCase}.
 
@@ -257,7 +254,7 @@ sea una subclase de \ct{TestCase}.
 
 El m\'etodo \mthind{TestCase}{setUp} define el contexto en el cual las
 pruebas correr\'an, es una especie de m\'etodo de inicializaci\'on.
-\ct{setUp} es invocado antes de la ejecuci\'on de cada m\'etodo de  prueba definido
+\ct{setUp} es invocado antes de la ejecuci\'on de cada m\'etodo de prueba definido
 en la clase de pruebas.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -267,8 +264,7 @@ en la clase de pruebas.
 \index{SUnit!m\'etodo set up}
 \seeindex{testing}{SUnit}
 
-\dothis{Define the \ct{setUp} method as follows, to initialize the \ct{empty} variable to refer to an empty set and the \ct{full} variable to
-refer to a set containing two elements. }
+\dothis{Define el m\'etodo \ct{setUp} como sigue, para inicializar la variable \ct{empty} que se refiere a un set vacio y a la variable \ct{full} para referirse a un set que contiene elementos. }
 
 \needlines{3}
 \begin{method}[setupExampleSetTest]{Setting up a fixture}
@@ -289,27 +285,27 @@ En la jerga del desarrollo de pruebas, el contexto es llamado el \emph{fixture} 
 Vamos a crear algunas pruebas definiendo algunos m\'etodos en la clase \ct{ExampleSetTest}.  
 Cada m\'etodo representa una prueba: 
 el nombre del m\'etodo deber\'ia comenzar con la cadena `\ct{test}' para que \sunit
-las tome en su juego de pruebas.
+la tome en su juego de pruebas.
 
 Los m\'etodos de pruebas no toman argumentos.
 
 \dothis{Define los siguientes m\'etodos de prueba.}
 La primer prueba, llamada \ct{testIncludes}, prueba al m\'etodo
-\ct{includes:} de \ct{Set}.  la prueba dice que enviando el mensaje \ct{includes: 5} a un conjunto
-que contiene 5 elementos deber\'ia retornar \ct{verdadero -true}.  Claramente, esta prueba depende del que el
+\ct{includes:} de \ct{Set}.  La prueba dice que enviando el mensaje \ct{includes: 5} a un conjunto
+que contiene 5 elementos deber\'ia retornar \ct{verdadero -true}.  Claramente, esta prueba depende de que el
 m\'etodo \ct{setUp} ya haya sido corrido.
 
-\begin{method}[testIncludes]{Testing set membership}
+\begin{method}[testIncludes]{Probando miembro de Set}
 ExampleSetTest>>>testIncludes
 	self assert: (full includes: 5).
 	self assert: (full includes: 6)
 \end{method}
 
 La segunda prueba, llamada \ct{testOccurrences}, verifica que el n\'umero de ocurrencias
-de ~5 en el conjunto \ct{lleno} es igual a uno, a\'un cuando agregamos otro elemento ~5 al set.
+de ~5 en el set \ct{full} es igual a uno, a\'un cuando agregamos otro elemento ~5 al set.
 
 \needlines{6}
-\begin{method}[testOccurrences]{Testing occurrences}
+\begin{method}[testOccurrences]{Probando ocurrencias}
 ExampleSetTest>>>testOccurrences
 	self assert: (empty occurrencesOf: 0) = 0.
 	self assert: (full occurrencesOf: 5) = 1.
@@ -319,7 +315,7 @@ ExampleSetTest>>>testOccurrences
 
 Finalmente, probamos que el conjunto ya no contiene al elemento 5 despu\'es de que lo hemos removido.
 
-\begin{method}[testRemove]{Testing removal}
+\begin{method}[testRemove]{Probando eliminar}
 ExampleSetTest>>>testRemove
 	full remove: 5.
 	self assert: (full includes: 6).
@@ -335,7 +331,7 @@ Nota el uso del m\'etodo \mthind{TestCase}{deny:} para afirmar que algo no deber
 %---------------------------------------------------------
 \subsection{Paso 4: correr las pruebas}
 
-La forma m\'as f\'acil de correr las pruebas es directamente desde el browser.
+La forma m\'as f\'acil de correr las pruebas es directamente desde el navegador.
 Simplemente \actclick sobre el paquete, nombre de clase o sobre un m\'etodo de prueba individual, 
 y selecciona \menu{run the tests(t)}
 
@@ -349,18 +345,17 @@ Los m\'etodos de prueba ser\'an marcados con rojo o verde, dependiendo si pasaro
   \end{center}
 \end{figure}
 
-Tambi\'en puedes elegir conjuntos de juegos de pruebas a correr, y obtener un log mas detallado de los resultados
+Tambi\'en puedes elegir varios juegos de pruebas a correr, y obtener un log mas detallado de los resultados
 usando \sunit \emphind{Test Runner}, el cual puedes abrir seleccionando \menu{World \go Test Runner}.
 
 
 El \emph{TestRunner}, mostrado en \figref{test-runner}, esta dise\~nado para hacer m\'as
 f\'acil la ejecuci\'on de grupos de pruebas.
 
-El panel m\'as a la izquierda lista todas las categor\'ias que contienenlas clases de pruebas
-(\ie  subclasses of \ct{TestCase}); cuando algunas de esttas categor\'ias es seleccionada, las clases de pruebas
-que ellas contienenaparecen en el panel de la derecha.
-Las clases abstractas se muestran en letra it\'alica, y la jerarqu\'ia de clases de pruebas se muestra con indentaci\'on,
-as\'i las subclases de \ct{ClassTestCase} estan indentadas m\'as que las subclases de \ct{Testcase}.
+El panel de m\'as a la izquierda lista todas las categor\'ias que contienen las clases de pruebas
+(\ie subclases de \ct{TestCase}); cuando algunas de estas categor\'ias es seleccionada, las clases de pruebas
+que ellas contienen aparecen en el panel de la derecha.
+Las clases abstractas se muestran en letra it\'alica, y la jerarqu\'ia de clases de pruebas se muestra con indentaci\'on, as\'i las subclases de \ct{ClassTestCase} estan indentadas m\'as que las subclases de \ct{Testcase}.
 
 
 \begin{figure}[tbh]
@@ -415,12 +410,12 @@ La salida que esperamos es que todas aseveraciones en la prueba sean verdaderas,
 En el test runner, cuando todas las pruebas pasan, la barra de arriba se vuelve verde.
 Sin embargo, hay dos tipos de cosas que pueden ir mal cuando corres una prueba.
 
-Como es l\'ogico, una se las afirmaciones puede ser falsa, causando que la prueba \emph{fail}. 
+Como es l\'ogico, una de las afirmaciones puede ser falsa, causando que la prueba \emph{falle}. 
 
-No obstante, es posible que algun otro tipo de error ocurra durante la ejecuci\'on de una prrueba,
+No obstante, es posible que algun otro tipo de error ocurra durante la ejecuci\'on de una prueba,
 como un error de \emph{message not understood} o un error de \emph{index out of bounds}.
 
-Si un error ocurre, las assertions afirmaciones en la prueba puede que no se hayan ejecutado del todo, 
+Si un error ocurre, las aserciones (asserts) en la prueba pueden que no se hayan ejecutado del todo, 
 por lo que no podemos decir que la prueba ha fallado; no obstante, algo est\'a claramente mal!
 
 El el \emph{test runner}, las pruebas que fallan causan que la barra superior se vuelva amarilla, 
@@ -452,7 +447,7 @@ si es que no es obvia desde la prueba misma.
 Estos m\'etodos estan definidos en~\secret{descriptionStrings}.
 
 Luego, \sunit provee dos m\'etodos adicionales, \mthind{TestCase}{should:raise:} y \mthind{TestCase}{shouldnt:raise:}
-para probar la propagaci\'on deuna excepci\'on. 
+para probar la propagaci\'on de una excepci\'on. 
 
 Por ejemplo, podr\'ias usar \ct {(self should: aBlock raise: anException)}
 para probar si una excepci\'on en particular es lanzada durante la
@@ -464,7 +459,7 @@ ejecuci\'on de \ct{aBlock}. \Mthref{ESTtestIllegal} ilustra el uso de \mbox{\ct{
 Nota que el primer argumento de los m\'etodos \ct{should:} y \ct{shouldnt:} es un
 \emphind{bloque} que \emph{contiene} la expresi\'on a ser evaluada.
 
-\begin{method}[ESTtestIllegal]{Testing error raising}
+\begin{method}[ESTtestIllegal]{Probando lanzamiento de un error}
 ExampleSetTest>>>testIllegal
 	self should: [empty at: 5] raise: Error.
 	self should: [empty at: 5 put: #zork] raise: Error
@@ -523,7 +518,7 @@ que contenga m\'etodos \ct{test*}. En \st puedes hacer lo mismo pero tendr\'as
 que crear un juego a mano y tu clase deber\'a implementar todos los m\'etodos esenciales de 
  \ct{TestCase} como por ejemplo, \ct{assert:}.
 
-Recomendamos que no intentes hacer esto. El framework est\'a ah\'i: \'usalo.
+Recomendamos que no intentes hacer esto. El framework ya est\'a ah\'i: \'usalo.
 
 %=================================================================
 
@@ -540,7 +535,7 @@ esto es para distinguir del m\'etodo \ct{TestCase>>>setUp}, el cual es ejecutado
 \begin{figure}[htb]
   \begin{center}
 		{\includegraphics[width=0.8\textwidth]{sunit-classes}}
-	\caption{The four classes representing the core of \SUnit}
+	\caption{Las cuatro clases que representan el coraz\'on de \SUnit}
 	\figlabel{sunit-classes}
   \end{center}
 \end{figure}
@@ -553,13 +548,13 @@ esto es para distinguir del m\'etodo \ct{TestCase>>>setUp}, el cual es ejecutado
 cada una de sus subclases representa un grupo de pruebas que comparten un contexto en com\'un (esto es, un set de pruebas).
 
 Cada prueba se corre creando una nueva instancia de una subclase de \ct{TestCase},
-corriendo \mthind{TestCase}{setUp}, corriendo el m\'etodo de prueba en si mismo, y luego
+corriendo \mthind{TestCase}{setUp}, corriendo el m\'etodo de prueba en s\'i mismo, y luego
 corriendo \mthind{TestCase}{tearDown}.
 
 
 El contexto esta especificado por las variables de instancia de la subclase y por la 
 especializaci\'on del m\'etodo \ct{setUp}, el cual inicializa esas variables
-de instancia. las subclases de \ct{TestCase} pueden tambi\'en sobreescribir el m\'etodo
+de instancia. Las subclases de \ct{TestCase} pueden tambi\'en sobreescribir el m\'etodo
 \ct{tearDown}, el cual es invocado luego de la ejecuci\'on de cada prueba, y puede ser usado para
 liberar cualquier objeto creado durante \ct{setUp}.
 
@@ -572,7 +567,7 @@ Una instancia de \ct{TestSuite} contiene pruebas, y otra sets de pruebas.
 
 Esto es, un set de pruebas contiene sub-instancias de \ct{TestCase} y \ct{TestSuite}.
 
-Individualmente, tanto \lct{TestCase}s como \lct{TestSuite}s entienden el mismo protocolo,
+Individualmente, tanto los \lct{TestCase}s como los \lct{TestSuite}s entienden el mismo protocolo,
 por lo que ambas pueden ser tratadas en la misma forma; por ejemplo, ambas pueden \ct{correrse}.
 
 Esto es de hecho una aplicaci\'on del patr\'on 'composite' en el cual \ct{TestSuite} es el compuesto
@@ -581,7 +576,7 @@ y las \ct{TestCase}s son las hojas\,---\,see \textit{Design Patterns} para m\'as
 %---------------------------------------------------------
 \subsection{TestResult}
 
-La clase \clsindmain{TestResult} representa los reseultados de la ejecuci\'on de un \ct{TestSuite}.
+La clase \clsindmain{TestResult} representa los resultados de la ejecuci\'on de un \ct{TestSuite}.
 Graba los n\'umeros de pruebas pasadas correctamente, el n\'umero de pruebas fallidas y el n\'umero
 de errores encontrados.
 
@@ -589,7 +584,7 @@ de errores encontrados.
 \subsection{TestResource}
 \seclabel{recurso}
 
-Una de las caracter\'isticas mas importantes de un set de prueebas es que 
+Una de las caracter\'isticas mas importantes de un set de pruebas es que 
 deber\'an ser independientes unas de otras: la falla de una prueba no deber\'ia causar una avalancha
 de fallas en las otras pruebas que dependen de ella, tampoco deber\'ia importar el orden en que se corren las
 pruebas.  
@@ -608,7 +603,7 @@ En esos casos, tendr\'ia sentido preparar la base de datos y abrir una conex\'io
 de c\'odigo, antes de que cualquier prueba comienze a correr.
 
 
-D\'onde deber\'iamos preservar estos recursos, as\'i pueden ser compartidos por un set de pruebas?
+\¿D\'onde deber\'iamos preservar estos recursos, as\'i pueden ser compartidos por un set de pruebas?
 Las variables de instancia de una subclase de \ct{TestCase} en particular no nos sirven, dado que una instancia
 existe s\'olo lo que dura una prueba.
 
@@ -625,7 +620,7 @@ recurso es inicializado y finalizado.
 
 Una cosa m\'as nos queda pendiente: de alguna forma, \sunit tiene que ser avisado sobre cu\'ales recursos
 estan asociados a determinado juego de pruebas.
-Un recurso es asociado a una sublcase en particular de \ct{TestCase}  sobreescribiendo el m\'etodo de \emph{clase}
+Un recurso es asociado a una subclcase en particular de \ct{TestCase} sobreescribiendo el m\'etodo de \emph{clase}
 \emph{resources}.
 
 \ab{El conjunto de recursos atribuidos a cada prueba es en realidad el cierre de
@@ -640,7 +635,7 @@ especializando el m\'etodo de clase \ct{resources} para retornar un vector de la
 a usar.
 
 \needlines{8}
-\begin{classdef}[mytestresource]{An example of a TestResource subclass}
+\begin{classdef}[mytestresource]{Ejemplo de una subclase de TestResource}
 TestResource subclass: #MyTestResource
 	instanceVariableNames: ''
 
@@ -669,6 +664,7 @@ MyTestCase class>>>resources
 
 %=================================================================
 \section{Cacter\'isticas avanzadas de SUnit}
+
 Adem\'as de \ct{TestResource}, la versi\'on actual de \sunit contiene cadenas de descripci\'on de aserciones,
 soporte para logging, y fallas de pruebas reanudables.
 %In addition to \ct{TestResource}, the current version of \sunit contains assertion
@@ -706,26 +702,24 @@ Los  m\'etodos relevantes en \ct{TestCase} son:
 \subsection{Soporte para logging}
 las cadenas de descripci\'on que arriba se detallaron tambi\'en pueden ser logueadas a un 
 \ct{Stream} como por ejemplo el \ct{Transcript}, o un archivo de caracteres.
-Puedes elegir cualquiera para reportar con s\'olo sobreescribir \cmind{TestCase}{isLogging} en tu clase de prueba;
-tambi\'en deber\'as elegir d\'onde reportar sobreescribiendo  \cmind{TestCase}{failureLog} para
+Puedes elegir hacer reportes con s\'olo sobreescribir \cmind{TestCase}{isLogging} en tu clase de prueba; tambi\'en deber\'as elegir d\'onde reportar sobreescribiendo  \cmind{TestCase}{failureLog} para
 responder a un stream apropiado.
 
 %---------------------------------------------------------
 \subsection{Continuar despu\'es de una falla}
 
 \sunit tambi\'en nos permite especificar si una prueba deber\'ia continuar luego de una falla, o no. 
-Esta es una poderosa ccaracter\'istica que usa los mecanismos de excepciones ofrecidos por \st.
-Para ver para qu\'e puede ser usado, echemos un vistazo a un ejemplo. Considera la siguiente expresi\'on:
+Esta es una poderosa caracter\'istica que usa los mecanismos de excepciones ofrecidos por \st.
+Para ver en qu\'e puede ser usado, echemos un vistazo a un ejemplo. Considera la siguiente expresi\'on:
 
 \begin{code}{}
 aCollection do: [ :each | self assert: each even]
 \end{code}
-In this case, as soon as the test finds the first element of the collection that isn't
-\ct{even}, the test stops. 
-However, we would usually like to
-continue, and see both how many elements, and which elements, aren't
-\ct{even}, and maybe also log this information.  You can do this
-as follows:
+
+En este caso , tan pronto como la prueba encuentra que primer elemento de la colecci\'on no es \ct{even}, la prueba se detiene.
+Sin embargo, usualmente nos gustar\'ia continuar, y ver tambi\'en cu\'antos elementos hay, y qu\'e elementos hay,
+no son \ct{even}, y tal vez reportar esta informaci\'on tambi\'en. Puedes hacer lo siguiente:
+
 \begin{code}{}
 aCollection do:
 	[:each |
@@ -736,9 +730,9 @@ aCollection do:
 \end{code}
 
 Esto imprimir\'a un mensaje en tu stream para logging para cada elemento que falle.
-No acumula fallas, \ir si la aserci\'on falla 10 veces en tu m\'etodo de prueba, ver\'as solamente una sola falla.
+No acumula fallas, \ie, si la aserci\'on falla 10 veces en tu m\'etodo de prueba, ver\'as solamente una sola falla.
 Todos los otros m\'etodos de aserci\'on que hemos visto no son reanudables;
-\ct{assert: p description: s} es quievalente a \ct{assert: p description: s resumable: false}.
+\ct{assert: p description: s} es equivalente a \ct{assert: p description: s resumable: false}.
 \cmindex{Collection}{do:}
 %=================================================================
 \section{La implementaci\'on de SUnit}
