@@ -413,86 +413,86 @@ Podemos ver directamente toda la información almacenada en la clase, y podemos f
 %=================================================================
 \section{El navegador de clases}
 
-El \ind{browser} de clases\footnote{Confusingly, this is variously referred to as the ``system browser'' or the ``code browser''. \pharo uses the \ind{OmniBrowser} implementation of the browser, which may also be variously known as ``OB'' or the ``Package browser''.
-In this book we will simply use the term ``browser'', or, in case of ambiguity, the ``class browser''.} is one of the key tools used for programming.
-As we shall see, there are several interesting browsers available for \pharo, but this is the basic one you will find in any image.
+El \ind{browser} de clases\footnote{Confusamente, esto es referido varias veces como el ``navegador del sistema'' o el ``navegador de código''. \pharo usa la implementación \ind{OmniBrowser} para el navegador, el cual puede ser también conocido como ``OB'' o el ``navegador de paquetes''.
+En este libro simplemente usaremos el término ``navegador'', o, en caso de ambiguedad, el ``navegador de clases''.} es una de las heramientas clave usada para programar.
+Como podemos ver, hay varios navegadores disponibles para \pharo, pero este es el navegador básico que buscarás en cualquier imagen.
 \seeindex{class browser}{browser}
 
-\dothis{Open a browser by selecting \menu{World \go Class browser}.\footnote{If the browser you get does not look like the one shown in \figref{classBrowser}, then you may need to change the default browser.  See \faqref{packagebrowser}.}}
+\dothis{Abre un navegador seleccionando \menu{World \go Class browser}.\footnote{Si el navegador browser que abres no luce como el mostrado en \figref{classBrowser}, necesitas cambiar el navegador por defecto. Vea \faqref{packagebrowser}.}}
 
 \begin{figure}[htb]
 \ifluluelse
 	{\centerline {\includegraphics[width=\textwidth]{ClassBrowser1}}}
 	{\centerline {\includegraphics[width=0.7\textwidth]{ClassBrowser1}}}
-\caption{The browser showing the \ct{printString} method of class object.
+\caption{El navegador mostrando el método \ct{printString} del objeto class.
 \figlabel{classBrowser}}
 \end{figure}
 
-We can see a browser in \figref{classBrowser}.
-The title bar indicates that we are browsing the class \clsind{Object}.
+Podemos ver un navegador en \figref{classBrowser}.
+La barra de título indica que estamos navegando la clase \clsind{Object}.
 %\footnote{If the browser you have seems to differ from the one described in this book, you may be using an image with a different default browser. See \faqref{omnibrowser}.}
 
-When the browser first opens, all panes are empty but the leftmost one.
-This first pane lists all known \emph{packages}, which contain groups of related classes.
+Cuando el navegador se abre por primera vez, todos los paneles están vacios menos el mas izquierdo.
+El primer panel lista todo los \emph{paquetes} conocidos, los cuales contienen grupos de clases relacionadas.
 \index{category}
 
-\dothis{Click on the \scatind{Kernel} package.}
-This causes the second pane to show a list of all of the classes in the selected package.
+\dothis{Haz clic en el paquete \scatind{Kernel}.}
+Esto causa que el segundo panel muestre una lista de todas las clases en el paquete seleccionado.
 
-\dothis{Select the class \clsind{Object}.}
-Now the remaining two panes will be filled with text.
-The third pane displays the \emph{protocols} of the currently selected class.
-These are convenient groupings of related methods.
-If no \ind{protocol} is selected you should see all methods in the fourth pane.
+\dothis{Selecciona la clase \clsind{Object}.}
+Ahora los dos paneles restantes se completarán con texto.
+El tercer panel muestra los \emph{protocolos} de la clase actualmente seleccionada.
+Estos son agrupaciones convenientes de métodos relacionados.
+Si ningún \ind{protocolo} es seleccionado deberías ver todos los métodos en el cuarto panel.
 
-\dothis{Select the \protind{printing} protocol.}
-You may have to scroll down to find it.
-Now you will see in the fourth pane only methods related to printing.
+\dothis{Selecciona el protocolo \protind{printing}.}
+Quizás necesites desplazarte hacia abajo para encontrarlo.
+Verás en el cuarto panel sólo métodos relacionado con impresión.
 
-\dothis{Select the \mthind{Object}{printString} method.}
-Now we see in the bottom pane the source code of the \ct{printString} method, shared by all objects in the system (except those that override it).
+\dothis{Selecciona el método \mthind{Object}{printString}.}
+Vemos en el panel inferior el código fuente del método \ct{printString}, compartido por todos los objetos en el sistema (excepto por aquellos que los sobreescriben).
 
 %=================================================================
-\section{Finding classes}
+\section{Encontrando clases}
 
-There are several ways to find a class in \pharo.  The first, as we have just seen above, is to know (or guess) what category it is in, and to navigate to it using the browser.
+Hay varias formas de encontrar una clase en \pharo. La primera, como acabamos de ver, es conocer (o adivinar) en qué categoría está, y navegar hacia ella usando el navegador.
 \index{browser}
 \seeindex{browser!finding classes}{class, finding}
 \index{class!finding}
 
-A second way is to send the \ct{browse} message to the class, asking it to open a browser on itself.  Suppose we want to browse the class \clsind{Boolean}.
+Una segunda forma es enviar el mensaje \ct{browse} a la clase, pidiéndole que abra un navegador en ella misma. Supongamos que queremos navegar la clase \clsind{Boolean}.
 
-\dothis{Type \ct{Boolean browse} into a workspace and \menu{do it}.}
-A browser will open on the Boolean class (\figref{browseBoolean}).
-There is also a \ind{keyboard shortcut} \short{b} (browse) that you can use in any tool where you find a class name;
+\dothis{Escribe \ct{Boolean browse} dentro de un workspace y \menu{do it}.}
+Se abrirá un navegador con la clase Boolean (\figref{browseBoolean}).
+Hay también un \ind{atajo de teclado} \short{b} (browse) que puedes usar en cualquier herramienta donde encuentres un nombre de clase;
 \index{keyboard shortcut!browse it}
-select the name and type \short{b}.
+Selecciona el nombre y escribe \short{b}.
 
-\dothis{Use the keyboard shortcut to browse the class \ct{Boolean}.}
+\dothis{Usa el atajo de teclado para navegar la clase \ct{Boolean}.}
 
 \begin{figure}[hbt]
 \centerline {\includegraphics[width=\textwidth]{Kernel-objects-boolean}}
-\caption{The browser showing the definition of class Boolean.
+\caption{El navegador mostrando la definición de la clase Boolean.
 \figlabel{browseBoolean}}
 \end{figure}
 
-Notice that when the \ct{Boolean} class is selected but no protocol or method is selected, instead of the source code of a method, we see a \emph{class definition} (\figref{browseBoolean}).
-This is nothing more than an ordinary \st message that is sent to the parent class, asking it to create a subclass.
-Here we see that the class \ct{Object} is being asked to create a subclass named \ct{Boolean} with no instance variables, class variables or ``pool dictionaries'', and to put the class \ct{Boolean} in the \scatind{Kernel-Objects} category.
+Cuando la clase \ct{Boolean} es seleccionada pero ningún protocolo o método es seleccionado, en lugar del código fuente de un método, vemos una \emph{definición de clase} (\figref{browseBoolean}).
+Esto no es mas que un mensaje \st ordinario que es enviado a la clase padre, pidiéndolea crear una subclase.
+Aquí vemos que a la clase \ct{Object} se le pide crear una subclase llamada \ct{Boolean} sin variables de instancia, variables de clase o ``pool dictionaries'', y poner la clase \ct{Boolean} en la categoría \scatind{Kernel-Objects}.
 % The lower pane shows the \emph{class comment} --- a piece of plain text describing the class.
-If you \click on the \button{?} at the bottom of the class pane, you can see the class \subind{class}{comment} in a dedicated pane (see \figref{classComment}).
+Si haces \click en el \button{?} al pie del panel de clase, puedes ver \subind{class}{comment} en un panel dedicado (ver \figref{classComment}).
 
 \begin{figure}[hbt]
 \centerline {\includegraphics[width=\textwidth]{classComment}}
-\caption{The class comment for \ct{Boolean}.
+\caption{Los comentarios de la clase \ct{Boolean}.
 \figlabel{classComment}}
 \end{figure}
 
-Often, the fastest way to find a class is to search for it by name.  For example, suppose that you are looking for some unknown class that represents dates and times.
+A menudo, la forma mas rápida de encontrar una clase es buscarla por nombre. Por ejemplo, supongamo que estás buscando una clase que represente fechas y horas.
 
-\dothis{Put the mouse in the package pane of the browser and type \short{f}, or select \menu{find class \ldots (f)} by \actclick{ing}.  Type ``time'' in the dialog box and accept it.} 
+\dothis{Pon el ratón en el panel de paquete del navegador y escribe \short{f}, o selecciona \menu{find class \ldots (f)} haciendo \actclick{ing}. Escribe ``time'' en el cuadro de diálogo y acéptalo.} 
 \noindent
-You will be presented with a list of classes whose names contain ``time'' (see \figref{findit}).  Choose one, say, \ct{Time}, and the browser will show it, along with a class comment that suggests other classes that might be useful.  If you want to browse one of the others, select its name (in any text pane), and type \short{b}.
+Se presentará una lista de clases cuyos nombre contienen ``time'' (ver \figref{findit}). Elige una, digamos, \ct{Time}, y el navegador la mostrará, junto con comentario de clase que sugiere otras clases que pueden ser útiles. Si quieres navegar una de las otras, selecciona su nombre (en caulquier panel), y escribe \short{b}.
 \index{keyboard shortcut!find ...}
 \index{keyboard shortcut!browse it}
 
@@ -502,42 +502,42 @@ You will be presented with a list of classes whose names contain ``time'' (see \
 	\hspace{1cm}
 	\includegraphics[width=0.45\textwidth]{TimeClasses}
 }
-\caption{Searching for a class by name.
+\caption{Buscando una clase por nombre.
 \figlabel{findit}}
 \end{figure}
 
-Note that if you type the complete (and correctly capitalized) name of a class in the find dialog, the browser will go directly to that class without showing you the list of options.
+Si escribes el nombre completo (respetando mayúsculas y minúsculas) de una clase en el cuadro de diálogo de búsqueda, el navegador irá directamente a esa clase sin mostrarle la lista de opciones.
 
 %=================================================================
-\section{Finding methods}
+\section{Encontrando métodos}
 \seclabel{quick:methodFinder}
 
-Sometimes you can guess the name of a method, or at least part of the name of a method, more easily than the name of a class.  For example, if you are interested in the current time, you might expect that there would be a method called ``now'', or containing ``now'' as a substring.   But where might it be?
-The \emphind{method finder} can help you.
+Algunas veces puedes adivinar el nombre de un método, o al menos parte del nombre de un método, mas facilmente que el nombre de una clase. Por ejemplo, si estás interesado en la hora actual, quizás esperas que haya un método llamado ``now'', o conteniendo ``now'' como parte de su nombre. Pero ¿dónde podría estar?
+El \emphind{buscador de métodos} puede ayudarte.
 \seeindex{browser!finding methods}{method, finding}
 \index{method!finding}
 
-\dothis{Select \menu{World \go Tools ... \go Method finder}.
-Type ``now'' in the top left pane, and \menu{accept} it (or just press the \textsc{return} key).}
-The method finder will display a list of all the method names that contain the substring ``now''.  
-To scroll to \ct{now} itself, move the cursor to the list and type ``\ct{n}''; this trick works in all scrolling windows.  Select ``now'' and the right-hand pane shows you the classes that define a method with this name, as shown in \figref{MethodFinder}.  Selecting any one of them will open a browser on it.
+\dothis{Selecciona \menu{World \go Tools ... \go Method finder}.
+Escribe ``now'' en el panel superior izquierdo, y luego \menu{accept} (o simplemente presiona la tecla \textsc{return}).}
+El buscador de métodos mostrará una lista de todos los nombres de los métodos que contienen la palabra ``now''.
+Para desplazar hasta \ct{now}, mueve el cursor en la lista y escribe ``\ct{n}''; este truco funciona en todas las ventanas con desplazamiento. Selecciona ``now'' y el panel derecho mostrará las clases que definen un método con este nombre, como se muestra en \figref{MethodFinder}. Seleccionando cualquiera de ellas se abrirá un navegador en ella.
 
 \begin{figure}[hbt]
 \centerline {\includegraphics[width=0.7\textwidth]{methodFinder-now}}
-\caption{The method finder showing all classes defining a method named \ct{now}.
+\caption{El buscador de métodos mostrando todas las clases que definen un método llamado \ct{now}.
 \figlabel{MethodFinder}}
 \end{figure}
 
-At other times you may have a good idea that a method exists, but will have no idea what it might be called.
-The method finder can still help!  For example, suppose that you would like to find a method that turns a string into upper case, for example, it would translate \ct{'eureka'} into \ct{'EUREKA'}.
+Otras veces quizás tienes idea que un métod existe, pero no tendrás idea cuál es su nombre.
+¡El buscador de métodos aún puede ayudar! Por ejemplo, supongamos que te gustaría encontrar un método que transforme una cadena de caracteres en mayúsculas, por ejemplo, traduciría \ct{'eureka'} en \ct{'EUREKA'}.
 
-\dothis{Type \ct{'eureka' . 'EUREKA'} into the method finder and press
-  the \textsc{return} key, as shown in
+\dothis{Escribe \ct{'eureka' . 'EUREKA'} en el búscador de métodos y presiona 
+  la tecla \textsc{return}, como se muestra en 
   \figref{methodFinder-example1}.}
 \noindent
-The method finder will suggest a method that does what you want.\footnote{If a window pops up with a warning about a deprecated method, don't panic --- the method finder is simply trying out all likely candidates, including deprecated methods. Just \click ~\button{Proceed}.}
+El buscador de métodos sugerirá un método que hace lo que quieres.\footnote{Si una ventana es desplegada con una advertencia aerca de una método deprecado, no tengas miedo --- el buscador de métodos está simplemente está probando todos los posibles candidatos, incluyendo métodos deprecados. Simplemente \click ~\button{Proceed}.}
 
-An asterisk at the beginning of a line in the right pane of the method finder indicates that this method is the one that was actually used to obtain the requested result. 
+Un asterico al comienzo de una linea en el panel derecho del buscador de métodos indica que este método de los que fué realmente usado para obtener el resultado solicitado. 
 So, the asterisk in front of \ct{String asUppercase} lets us know that the method \mthind{String}{asUppercase} defined on the class \clsind{String} was executed and returned the result we wanted. The methods that do not have an asterisk are just the other methods that have the same name as the ones that returned the expected result. So \cmind{Character}{asUppercase} was not executed on our example, because \ct{'eureka'} is not a \clsind{Character} object.
 
 \begin{figure}[hbt]
