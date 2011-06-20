@@ -589,33 +589,33 @@ Selecciona \menu{WAInputTest} y haz click en el botón \button{Restart} para ver
 No olvides que si activas \button{Toggle Halos}, puedes navegar directamente por el código fuente de los ejemplos usando el navegador de clases de Seaside.
 
 %-----------------------------------------------------------------
-\section{CSS: Cascading style sheets}
+\section{CSS: Hojas de estilo en cascada}
 \seclabel{css}
 
 %\ab{I think that it just needs a few paragraphs telling the reader the key ideas behind CSS, and the new terminology that the CSS folks introduce, before going in to the details of how you define their "thingies".  Now I have forgotten what they call their "thingies" --- I know that there are effectively paragraph styles (divs) and character styles (spans), but I've forgotten what they call them.  So, I think that the text needs to tell the reader, for each thingie, (1) the CSS concept behind the thingie, (2) what it looks like in a CSS style sheet , (3) what it looks like in html, and (4) how to do it in Seaside.   Maybe (3) can be omitted, because it's not needed to use Seaside.}
 % \on{I think we do most of that already.}
 
-Cascading Style Sheets\footnote{\url{http://www.w3.org/Style/CSS/}}, or \ind{CSS} for short, have emerged as a standard way for web applications to separate style from content.
-Seaside relies on CSS to avoid cluttering your rendering code with layout considerations.
+Las hojas de estilo en cascada\footnote{\url{http://www.w3.org/Style/CSS/}}, o \ind{CSS} para abreviar, han surgido como una forma estándar de separar el estilo del contenido para las aplicaciones web.
+Seaside se basa en CSS para evitar llenar tu código de presentación con consideraciones de diseño.
 
-You can set the CSS style sheet for your web components by defining the method \ct{style}, which should return a string containing the CSS rules for that component.
-The styles of all the components displayed on a web page are joined together, so each component can have its own style.
-A better approach can be to define an abstract class for your web application that defines a common style for all its subclasses.
+Puedes establecer la hoja de estilos CSS para tus componentes web definiendo el método \ct{style}, que debería devolver una cadena conteniendo las reglas CSS para ese componente.
+Los estilos de todos los componentes mostrados en una página web se unen entre sí, con lo que cada componente puede tener su propio estilo.
+Una mejor aproximación puede ser definir una clase abstracta para tu aplicación web que defina un estilo común para todas sus subclases.
 
-Actually, for deployed applications, it is more common to define style sheets as external files.
-This way the look and feel of the component is completely separate from its functionality.
-(Have a look at \clsind{WAFileLibrary}, which provides a way to serve static files without the need for a standalone server.)
+En realidad, para las aplicaciones desplegadas, es más habitual definir las hojas de estilos como archivos externos.
+De esta forma el aspecto del componente está completamente separado de su funcionalidad.
+(Echa un vistazo a \clsind{WAFileLibrary}, que proporciona un modo de servir archivos estáticos sin la necesidad de un servidor independiente.)
 
-If you already are familiar with CSS, then that's all you need to know.
-Otherwise, read on for a very brief introduction to CSS.
+Si ya estás familiarizado con CSS, esto es todo lo que necesitas saber.
+En caso contrario, continúa leyendo una breve descripción de CSS.
 
-Instead of directly encoding display attributes in the paragraph and text elements of your web pages, with CSS you will define different classes of elements and place all display considerations in a separate style sheet.
-Paragraph-like entities are called \emph{div}s and text-like entities are \emph{span}s.
-You would then define symbolic names, like ``highlight'' (see example below) for text to be highlighted, and specify how highlighted text is to be displayed in your style sheet.
+En lugar de codificar directamente los atributos de presentación en los elementos de texto y párrafos de tus páginas web, con CSS definirás diferentes clases de elementos y colocarás todas las consideraciones de presentación en una hoja de estilos separada.
+Las entidades de tipo párrafo se llaman \emph{div}s y las entidades de tipo texto son \emph{span}s. 
+Entonces se definen nombres simbólicos, como ``highlight'' (ver ejemplo de abajo), para el texto resaltado y se especifica en la hoja de estilos cómo se va a presentar el texto resaltado.
 
-Basically a CSS style sheet consists of a set of rules that specify how to format given XHTML elements.
-Each rule consists of two parts.
-There is a \emph{selector} that specifies which XHTML elements the rule applies to, and there is a \emph{declaration} which sets a number of attributes for that element.
+Fundamentalmente una hoja de estilos CSS consiste en un conjunto de reglas que especifican cómo formatear los elementos XHTML dados.
+Cada regla consta de dos partes.
+Existe un \emph{selector} que especifica a qué elementos XHTML aplica la regla y una \emph{declaración} que define un número de atributos para esos elementos.
 
 \begin{figure}[tb]
 \begin{code}{}
@@ -649,45 +649,46 @@ td {
 .field { background-color: lightgrey; }
 '
 \end{code}
-\caption{\lct{SeasideDemoWidget} common style sheet.
+\caption{Hoja de estilo común de \lct{SeasideDemoWidget}.
 \figlabel{democss}}
 \end{figure}
-\figref{democss} illustrates a simple style sheet for the rendering demo shown earlier in \figref{RenderingDemo}.
-The first rule specifies a preference for the fonts to use for the \ct{body} of the web page.
-The next few rules specify properties of second-level headings (\ct{h2}), tables (\ct{table}), and table data (\ct{td}).
 
-The remaining rules have selectors that will match XHTML elements that have the given ``class'' or ``id'' attributes.
-CSS selectors for class attributes start with a ``\ct{.}'' and those for id attributes with ``\ct{#}''.
-The main difference between class and id attributes is that many elements may have the same class, but only one element may have a given id (\ie an \emph{identifier}). 
-So, whereas a class attribute, such as \ct{highlight}, may occur multiple times on any page, an id must identify a \emph{unique} element on the page, such as a particular menu, the modified date, or author.
-Note that a particular XHTML element may have multiple classes, in which case all the applicable display attributes will be applied in sequence.
+La \figref{democss} representa una hoja de estilo sencilla para la demo de presentación mostrada anteriormente en la \figref{RenderingDemo}.
+La primera regla especifica una preferencia para la tipografía a utilizar por el \ct{body} de la página web.
+Las siguientes reglas especifican propiedas de las cabeceras de segundo nivel (\ct{h2}), tablas (\ct{table}) y datos de las tablas (\ct{td}).
+
+El resto de reglas tienen selectores que corresponden con los elementos XHTML que tengan los atributos ``class'' o``id''.
+Los selectores CSS para los atributos clase comienzan con un ``\ct{.}'' y aquellos para los atributos id con ``\ct{#}''.
+La principal diferencia entre los atributos clase e id es que muchos elementos pueden tenir la misma clase, pero sólo un elemento muy tener un id dado (\ie un \emph{identificador}). 
+Así que, mientras un atributo clase, como \ct{highlight}, puede aparecer varias veces en cualquier página, un id debe identificar un elemento \emph{único} en la página, como un menú particular, la fecha de modificación o el autor.
+Ten en cuanta que un elemento XHTML concreto puede tener varias clases, en cuyo caso todos los atributos de presentación se aplicarán en secuencia.
 
 % This style sheet expects at most one element to specify the \emph{author} of the web page.
 
-Selector conditions may be combined, so the selector \ct{div.subcomponent} will only match an XHTML element if it is both a div \emph{and} it has a class attribute equal to ``subcomponent''.
+Las condiciones de los selectores pueden combinarse, con lo que el selector \ct{div.subcomponent} sólo se aplicará a aquellos elementos XHTML que sean un div \emph{y} tengan una atributo clave igual a ``subcomponent''.
 
-It is also possible to specify nested elements, though this is seldom necessary.
-For example, the selector ``\ct{p span}'' will match a span within a paragraph but not within a div.
+También es posible especificar elementos anidados, aunque rara vez es necesario.
+Por ejemplo, el selector ``\ct{p span}'' aplicará a un span dentro de un párrafo, pero no dentro de un div.
 
-There are numerous books and web sites to help you learn CSS.
-For a dramatic demonstration of the power of CSS, we recommend you to have a look at the CSS Zen Garden\footnote{\url{http://www.csszengarden.com/}}, which shows how the same content can be rendered in radically different ways simply by changing the CSS style sheet.
+Existen muchos libros y sitios web que pueden ayudarte a aprender CSS.
+Para una espectacular demostración del poder de CSS, te recomendamos que eches un vistazo al Jardín Zen CSS\footnote{\url{http://www.csszengarden.com/}}, que muestra cómo el mismo contenido puede presentarse de maneras radicalmente diferentes simplemente cambiando la hoja de estilos CSS.
 
 %-----------------------------------------------------------------
-\section{Managing control flow}
+\section{Gestión del control del flujo}
 
-Seaside makes it particularly easy to design web applications with non-trivial control flow.
-There are basically two mechanisms that you can use:
+Seaside hace especialmente fácil diseñar aplicaciones web con un control de flujo no trivial.
+Fundamentalmente existen dos mecanismos que puedes utilizar:
 
 \begin{enumerate}
-  \item A component can \emph{call} another component by sending \ct{caller call: callee}.
-  The caller is temporarily replaced by the callee, until the callee returns control by sending \ct{answer:}.
-  The caller is usually \ct{self}, but could also be any other currently visible component.
+  \item Un componente puede \emph{llamar} a otro componente enviando \ct{visitante call: visitado}.
+El visitante es reemplazado temporalmente por el visitado, hasta que el visitado devuelve el control enviando \ct{answer:}.
+El visitante normalmente es \ct{self}, pero también podría ser cualquier otro componente visible actualmente.
 
-  \item A workflow can be defined as a \emphsubind{Seaside}{task}.
-  This is a special kind of component that subclasses \clsind{WATask} (instead of \clsind{WAComponent}). \seclabel{task}
-  Instead of defining \ct{renderContentOn:}, it defines no content of its own, but rather defines a \ct{go} method that sends a series of \ct{call:} messages to activate various subcomponents in turn.
+  \item Un flujo de trabajo puede definirse como una \emphsubind{Seaside}{tarea}.
+  Esta es un caso especial de componente que hereda de \clsind{WATask} (en lugar de \clsind{WAComponent}). \seclabel{tarea}
+  En lugar de definir \ct{renderContentOn:}, no define ningún contenido, sino que define un método \ct{go} que envía una serie de mensajes \ct{call:} para activar varios subcomponentes.
 \end{enumerate}
-\index{Seaside!control flow}
+\index{Seaside!control de flujo}
 
 %-----------------------------------------------------------------
 \subsection{Call and answer}
