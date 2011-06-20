@@ -13,6 +13,7 @@
 % 2007-09-06 - Cassou corrections
 % 2007-09-24 - Cassou review
 % 2009-07-01 - Oscar migrated to Pharo
+% 2011-06-20 - Federico Rodriguez translated to Spanish
 
 %=================================================================
 \ifx\wholebook\relax\else
@@ -1117,14 +1118,21 @@ Pensamos que la mejor manera de guardar tu c\'odigo y compartirlo es creando una
 Hay un servidor \sqsrc p\'ublico en \url{http://www.squeaksource.com}, y hay una copia del c\'odigo en este libro en \url{http://www.squeaksource.com/PharoByExample.html}. Puedes mirar este projecto con un navegador web, pero es m\'as productivo hacerlo desde dentro de \pharo, usando el navegador Monticello, que te permite manejar tus paquetes.
 
 
-\dothis{Open a web browser to \url{http://www.squeaksource.com}.
-Create an account for yourself and then create (\ie ``register'') a project for the Lights Out game.}
-\sqsrc will show you the information that you should use when adding a repository using the Monticello browser. 
+% \dothis{Open a web browser to \url{http://www.squeaksource.com}.
+% Create an account for yourself and then create (\ie ``register'') a project for the Lights Out game.}
+% \sqsrc will show you the information that you should use when adding a repository using the Monticello browser. 
+\dothis{Abre \url{http://www.squeaksource.com} en un navegador web.
+Crea una cuenta y luego crea ("registra") un proyecto para el juego Lights Out.}
+\sqsrc te mostrar\'a la informaci\'on que deber\'ias usar para agregar un repositorio usando Monticello.
 
-Once your project has been created on \sqsrc, you have to tell your \pharo system to use it. 
+% Once your project has been created on \sqsrc, you have to tell your \pharo system to use it. 
+Una vez que tu proyecto haya sido creado en \sqsrc, tienes que indicarle a tu sistema \pharo que lo use. 
 
-\dothis{With the \ct{PBE-LightsOut} package selected, click the \button{+Repository} button in the Monticello browser.}  You will see a list of the different types of Repository that are available; to add a \sqsrc repository select \menu{HTTP}. You will be presented with a dialog in which you can provide the necessary information about the server.
-You should copy the presented template to identify your \sqsrc project, paste it into Monticello and supply your initials and password:
+%\dothis{With the \ct{PBE-LightsOut} package selected, click the \button{+Repository} button in the Monticello browser.}  You will see a list of the different types of Repository that are available; to add a \sqsrc repository select \menu{HTTP}. You will be presented with a dialog in which you can provide the necessary information about the server.
+% You should copy the presented template to identify your \sqsrc project, paste it into Monticello and supply your initials and password:
+\dothis{Con el paquete \ct{PBE-LightsOut} seleccionado, haz click en el bot\'on \button{+Repository} en el navegador Monticello.}
+Ver\'as una lista con los diferentes tipos de repositorios que est\'an disponibles; para agregar un reposotorio \sqsrc selecciona \menu{HTTP}. Podr\'as proveer la informaci\'on necesaria sobre el servidor. 
+Debes copiar el template mostrado para identificar tu proyecto \sqsrc, pegarlo en Monticello y proveer tus iniciales y contrase\~na:
 
 \needlines{5}
 \begin{code}{}
@@ -1135,7 +1143,8 @@ MCHttpRepository
 \end{code}   
 
 \noindent
-If you provide empty initials and password strings, you can still load the project, but you will not be able to update it:
+% If you provide empty initials and password strings, you can still load the project, but you will not be able to update it:
+Si provees iniciales y contrase\~na vac\'ias, tambi\'en puedes cargar el proyecto, pero no podr\'as actualizarlo:
 
 \needlines{5}
 \begin{code}{}
@@ -1146,40 +1155,59 @@ MCHttpRepository
 \end{code}   
 
 %You can then load the code in your image by selecting the version you want. You can browse the code without loading it, using the \button{Browse} button.
-Once you have accepted this template, your new repository should be listed on the right-hand side of the Monticello browser.
+% Once you have accepted this template, your new repository should be listed on the right-hand side of the Monticello browser.
+Una vez que hayas aceptado este template, tu nuevo repositorio deber\'ia ser listado en el lado derecho del navegador Monticello. 
 
 \begin{figure}[hbt]
 \ifluluelse
 	{\centerline {\includegraphics[width=\textwidth]{BrowseRepository}}}
 	{\centerline {\includegraphics[scale=0.7]{BrowseRepository}}}
-\caption{Browsing a Monticello Repository
+%\caption{Browsing a Monticello Repository
+\caption{Navegando en un reposotorio Monticello
 \figlabel{monticello3}}
 \end{figure}
 
-\dothis{Click on the \button{Save} button to save a first version of your Lights Out game on \sqsrc.}
+% \dothis{Click on the \button{Save} button to save a first version of your Lights Out game on \sqsrc.}
+\dothis{Haz clic en el bont\'on \button{Save} para guardar una primera versi\'on de tu juego Lights Out en \sqsrc.}
 
-To load a package into your image, you must first select a particular version.  You can do this in the repository browser, which you can open using the \button{Open} button or the \actclick menu.  Once you have selected a version, you can load it onto your image.
+% To load a package into your image, you must first select a particular version.  You can do this in the repository browser, which you can open using the \button{Open} button or the \actclick menu.  Once you have selected a version, you can load it onto your image.
+Para cargar el paquete en tu im\'agen, primero debes seleccionar una versi\on particular. Puedes hacer esto en el navegador del reposotorio, que puedes abrir usando el bot\'on \button{Open} o el men\'u \actclick. Una vez que hayas seleccionado una versi\'on, podr\'as cargarla en tu im\'agen.
 
-\dothis{Open the \ct{PBE-LightsOut} repository you have just saved.}
+% \dothis{Open the \ct{PBE-LightsOut} repository you have just saved.}
+\dothis{Abre el reposotorio \ct{PBE-LightsOut} que acabas de guardar.}
 
-Monticello has many more capabilities, which will be discussed in depth in \charef{env}.
-You can also look at the on-line documentation for Monticello at \url{http://www.wiresong.ca/Monticello/}.
+% Monticello has many more capabilities, which will be discussed in depth in \charef{env}.
+% You can also look at the on-line documentation for Monticello at \url{http://www.wiresong.ca/Monticello/}.
+Monticello tiene muchas mas capacidades, que ser\'an abordadas con m\'as profundidad en \charef{env}.
+Tambi\'en puedes mirar la documentaci\'on en l\'inea de Monticello en \url{http://www.wiresong.ca/Monticello/}.
 
 %=================================================================
-\section{Chapter summary}
-In this chapter you have seen how to create categories, classes and methods.  You have see how to use the browser, the inspector, the debugger and the Monticello browser.
+% \section{Chapter summary}
+\section{Res\'umen del cap\'itulo}
+% In this chapter you have seen how to create categories, classes and methods.  You have see how to use the browser, the inspector, the debugger and the Monticello browser.
+En este cap\'itulo has visto como crear categor\'ias, clases y m\'etodos. Has visto como usarel navegador, el inspector, el debugger y el navegador Monticello.
 
 \begin{itemize}
-  \item Categories are groups of related classes.
-  \item A new class is created by sending a message to its superclass.
-  \item Protocols are groups of related methods.
-  \item A new method is created or modified by editing its definition in the browser and then \emph{accepting} the changes.
-  \item The inspector offers a simple, general-purpose GUI for inspecting and interacting with arbitrary objects.
-  \item The browser detects usage of undeclared methods and variables, and offers possible corrections.
-  \item The \ct{initialize} method is automatically executed after an object is created in \pharo. You can put any initialization code there.
-  \item The debugger provides a high-level GUI to inspect and modify the state of a running program.
-  \item You can share source code \emph{filing out} a category.
-  \item A better way to share code is to use Monticello to manage an external repository, for example defined as a \sqsrc project.
+%  \item Categories are groups of related classes.
+  \item Las categor\'ias son grupos de clases relacionadas entre s\'i.
+%  \item A new class is created by sending a message to its superclass.
+  \item Una nueva clase se crea enviando un mensaje a su superclase.
+%  \item Protocols are groups of related methods.
+  \item Los protocolos son grupos de m\'etodos relacionados entre s\'i.
+%  \item A new method is created or modified by editing its definition in the browser and then \emph{accepting} the changes.
+  \item Un nuevo m\'etodo se crea o modifica editando su definici\'on en el navegador y luego los cambios \emph{aceptando}.
+%  \item The inspector offers a simple, general-purpose GUI for inspecting and interacting with arbitrary objects.
+  \item El inspector ofrece una GUI simple y multi-prop\'osito para inspeccionar e interactuar con objetos arbitrarios-
+%  \item The browser detects usage of undeclared methods and variables, and offers possible corrections.
+  \item El navegador detecta el uso de m\'etodos y variables no declarados, y ofrece posibles correcciones.
+%  \item The \ct{initialize} method is automatically executed after an object is created in \pharo. You can put any initialization code there.
+  \item El m\'etodo \ct{initialize} se ejecuta autom\'aticamente despu\'es de que un objeto es creado en \pharo. Puedesponer cualquier c\'odigo de inicializaci\'on ah\'i.
+%  \item The debugger provides a high-level GUI to inspect and modify the state of a running program.
+  \item El debugger provee una GUI de alto nivel para inspeccionar y modificar el estado de un programa en tiempo de ejecuci\'on.
+%  \item You can share source code \emph{filing out} a category.
+  \item Puedes compartir c\'odigo fuente haciendo \emph{file out} de una categor\'ia.
+%  \item A better way to share code is to use Monticello to manage an external repository, for example defined as a \sqsrc project.
+  \item Una mejor manera de compartir c\'odigo es usando Monticello para manejar un reposotorio externo, por ejemplo definido como un projecto \sqsrc.
 \end{itemize}
 
 %=================================================================
