@@ -3,8 +3,8 @@
 087: ¿Hay que traducir esta linea?
 111: ¿Hay que traducir workspace?
 125: ¿Hay que traducir world menu?
-138-L148: sin traducir
-165-L167: sin tarducir
+138-148: sin traducir
+165-167: sin tarducir
 169: revisar
 170: no se si hay que traducir [\click:] y \click{ing} y (\figref{threeButtons:click})
 171: no está traducido [\actclick:] ni \figref{threeButtons:actclick}
@@ -30,3 +30,5 @@
 497: \index{keyboard shortcut!browse it}
 517: \seeindex{browser!finding methods}{method, finding}
 521: \textsc{return}
+554: \ind{Test Driven Development}\cite{Beck03a}
+557: \seeindex{Behavior Driven Development}{Test Driven Development}

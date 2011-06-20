@@ -538,61 +538,61 @@ Otras veces quizás tienes idea que un métod existe, pero no tendrás idea cuál es
 El buscador de métodos sugerirá un método que hace lo que quieres.\footnote{Si una ventana es desplegada con una advertencia aerca de una método deprecado, no tengas miedo --- el buscador de métodos está simplemente está probando todos los posibles candidatos, incluyendo métodos deprecados. Simplemente \click ~\button{Proceed}.}
 
 Un asterico al comienzo de una linea en el panel derecho del buscador de métodos indica que este método de los que fué realmente usado para obtener el resultado solicitado. 
-So, the asterisk in front of \ct{String asUppercase} lets us know that the method \mthind{String}{asUppercase} defined on the class \clsind{String} was executed and returned the result we wanted. The methods that do not have an asterisk are just the other methods that have the same name as the ones that returned the expected result. So \cmind{Character}{asUppercase} was not executed on our example, because \ct{'eureka'} is not a \clsind{Character} object.
+El asterisco delante de \ct{String asUppercase} nos permite saber que el métodous \mthind{String}{asUppercase} definido en la clase \clsind{String} fue executado y retornó el resultado buscado. Los métodpós que no tiene un asterisco son los otros métodos que tiene el mismo nombre que los métodos que retornaron el resultado esperado. \cmind{Character}{asUppercase} no fue ejecutado en nuestro ejemplo, porque \ct{'eureka'} no es un objeto \clsind{Character}.
 
 \begin{figure}[hbt]
 \centerline {\includegraphics[width=\textwidth]{MethodFinder-example1}}
-\caption{Finding a method by example.
+\caption{Encontrando un método mediante un ejemplo.
 \figlabel{methodFinder-example1}}
 \end{figure}
 
-You can also use the method finder for methods with arguments; for example, if you are looking for a method that will find the greatest common factor of two integers, you might try \ct{25. 35. 5} as an example.  You can also give the method finder multiple examples to narrow the search space; the help text in the bottom pane explains how.
+Puede también usar el nuscador de métodos con argumentos; por ejemplo, si estás buscando un métod que encuentre el máximo factor común entre dos enteros, puedes probar \ct{25. 35. 5} como ejemplo. Puedes darle al buscador de métodos múltiples ejemplos para reducir el espacio de búsqueda; el texto de ayuda en el panel inferior explica cómo.
 
 %=================================================================
-\section{Defining a new method}
+\section{Definiendo un nuevo método}
 
-The advent of \ind{Test Driven Development}\cite{Beck03a} (TDD) has changed the way that we write code.  
-The idea behind TDD is that we write a test that defines the desired behaviour of our code \emph{before} we write the code itself.
-Only then do we write the code that satisfies the test.
+El advenimiento de \ind{Test Driven Development}\cite{Beck03a} (TDD) ha cambiado la forma que escribimos código.
+La idea detrás de TDD es que escribimos una prueba que define el comportamiento deseado de nuestro código \emph{antes} de escribir el propio código.
+Sólo entonces escribimos el código que satisface la prueba.
 \seeindex{Behavior Driven Development}{Test Driven Development}
 % \orla{describe the technique where we write a test hat ... subsequently we write ...}
 
-Suppose that our assignment is to write a method that ``says something loudly and with emphasis''.  What exactly could that mean?  What would be a good name for such a method?  How can we make sure  that programmers who may have to maintain our method in the future have an unambiguous description of what it should do?   We can answer all of these questions by giving an example:
+Supongamos que nuestra tarea es ecribir un método que ``decir algo fuerte y con énfasis''. ¿Qué podría significar esto exactamente? ¿Cuál sería un buen nombre para el método? ¿Cómo podemos estar seguros que los programadores quienes quizás tengan que mantener nuestro método en el futuro tendrán una descripción unívoca de lo que el método debería hacer? Podemos responder todas estas preguntas dando un ejemplo:
 
 \begin{quote}
-When we send the message \ct{shout} to the string ``Don't panic'' the result should be ``DON'T PANIC!''.
+Cuando enviamos el mensaje \ct{shout} a la cadena de caracteres ``Don't panic'' el resultado debería ser ``DON'T PANIC!''.
 \end{quote}
 
 \noindent
-To make this example into something that the system can use, we turn it into a test method:
+Para hacer de este ejemplo en algo que el sistema pueda usar, lo ponemos dentro de un método de prueba:
 \index{testing}
 \index{SUnit}
 
 \needlines{3}
-\begin{method}[testShout]{A test for a shout method}
+\begin{method}[testShout]{Una prueba para un método gritar}
 testShout
 	self assert: ('Don''t panic' shout = 'DON''T PANICBANG')
 \end{method} % BANG is the escape for !
 
-How do we create a new method in \pharo?   First, we have to decide which class the method should belong to.
-In this case, the \ct{shout} method that we are testing will go in class \clsind{String}, so the corresponding test will, by convention, go in a class called \clsind{StringTest}.
+¿Cómo creamos un nuevo método en \pharo? Primero, tenemos que decidir a que clase debería pertencer el métodoto.
+En este caso, el método \ct{shout} que estamos probando irá en la clase \clsind{String}, por lo que la prueba correspondiente irá, por convención, en una clase llamada \clsind{StringTest}.
 
 \begin{figure}[hbt]
 \centerline {\includegraphics[width=\textwidth]{StringTest-newMethodTemplate}}
-\caption{The new method template in class \ct{StringTest}.
+\caption{El nuevo método en la clase \ct{StringTest}.
 \figlabel{newMethodTemplate}}
 \end{figure}
 
-\dothis{Open a browser on the class \ct{StringTest}, and select an appropriate protocol for our method, in this case \menu{tests - converting}, as shown in \figref{newMethodTemplate}.
-The highlighted text in the bottom pane is a template that reminds you what a \st method looks like.
-Delete this and enter the code from  \mthref{testShout}.}
-Once you have typed the text into the browser, notice that the bottom pane is outlined in red.  This is a reminder that the pane contains unsaved changes.
-So select \menu{accept (s)} by \actclick{ing} in the bottom pane, or just type \short{s}, to compile and save your method.
+\dothis{Abre un navegador en la clase \ct{StringTest}, y selecciona el protocolo apropiado para nuestro método, en este caso \menu{tests - converting}, como se muestra en \figref{newMethodTemplate}.
+El texto seleccionado en el panel inferior es una plantilla que te recuerda cómo luce un método \st.
+Borralo y escribe el código del método \mthref{testShout}.}
+Una vez que hayas escrito el texto en el navegador, notarás que el panel inferior se torna rojo. Esto es un recordatorio de que el panel contien cambios sin guardar.
+Selecciona \menu{accept (s)} haciendo \actclick{ing} en el panel inferior, o simpelmente escribe \short{s}, para compilar y guardar el método.
 \index{keyboard shortcuts}
 \index{keyboard shortcut!accept}
 \seeindex{accept it}{keyboard shortcut, accept}
 
-If this is the first time you have accepted any code in your image, you will likely be prompted to enter your name. Since many people have contributed code to the image, it is important to keep track of everyone who creates or modifies methods. Simply enter your first and last names, without any spaces, or separated by a dot.
+Si este es la priera vez que has guardado código en tu imagen, probablemente te pedirá que ingreses tu nombre. Dado que mucha gente ha contribuido con código a la imagen, es importante mantener un seguimiento de cualquiera que cree o modifique métodos. Simpelmente ingresa tu nombre y apellido, sin espacios, o separados por un punto.
 
 %\begin{figure}[hbt]
 %\centerline {\includegraphics[width=0.35\textwidth]{initials}}
