@@ -350,7 +350,7 @@ Object subclass: #WebServer
 	category: 'Web'
 \end{classdef}
 
-Luego, clieckeando en el bot\'on \button{class}, agregamos la variable de instancia \ct{uniqueInstance} \subind{browser}{del lado de clase}
+Luego, haciendo clic en el bot\'on \button{class}, agregamos la variable de instancia \ct{uniqueInstance} \subind{browser}{del lado de clase}
 
 \begin{classdef}[webserver]{El lado de clase de la clase singleton}
 WebServer class 	
@@ -533,18 +533,18 @@ BorderedMorph subclass: #LOGame
 	category: 'PBE-LightsOut'
 \end{classdef}
 
-Como es esperado, si ahora instanciamos un \ct{LOGame}, dicho objeto reponder\'a al mensaje  \ct{author}  de forma correcta.
+Como es de esperarse, si ahora instanciamos un \ct{LOGame}, dicho objeto reponder\'a al mensaje  \ct{author}  de forma correcta.
 
 \begin{code}{}
 LOGame new author --> 'on'
 \end{code}
 
-Trait composition expressions may combine multiple traits using the \ct{+} operator.
-In case of conflicts (\ie if multiple traits define methods with the same name), these conflicts can be resolved by explicitly removing these methods (with \ct{-}), or by redefining these methods in the class or trait that you are defining.
-It is also possible to \emph{alias} methods (with \ct{@}), providing a new name for them.
+Las expresiones de composici\'on de Trait pueden combinar m\'ultiples traits usando el operador \ct{+}.
+En caso de conflictos (\ie m\'ultiples traits definen m\'etodos con el mismo nombre), estos pueden resolverse removiendo expl\'icitamente estos m\'etodos (con \ct{-}), o redefiniendo or by redefining estos m\'etodos en la clase o trait que estes definiendo.
+Tambi\'en es posible darle un \emph{alias} a los m\'etodos (con \ct{@}), proporcionandoles as\'i un nuevo nombre.
 
-Traits are used in the system kernel.
-One good example is the class \mbox{\clsind{Behavior}.}
+Los Traits son usados en el n\'ucleo del sistema.
+Un buen ejemplo es la clase \mbox{\clsind{Behavior}.}
 
 \needlines{8}
 \begin{classdef}[behaviorwithtraits]{\ct{Behavior} defined using traits}
@@ -556,8 +556,8 @@ Object subclass: #Behavior
 	category: 'Kernel-Classes'
 \end{classdef}
 \noindent
-Here we see that the method \ct{addTraitSelector:withMethod:} defined in the trait \ct{TPureBehavior} has been aliased to \ct{basicAddTraitSelector:withMethod:}.
-Support for traits is currently being added to the browsers.
+Aqu\'i vemos que al m\'etodo \ct{addTraitSelector:withMethod:} definido en el trait \ct{TPureBehavior} se le ha dado el alias \ct{basicAddTraitSelector:withMethod:}.
+Actualmente se esta agregando a los navegadores el soporte para traits.
 
 %=========================================================
 \section{Todo ocurre mediante el env\'io de mensajes}
@@ -822,7 +822,7 @@ This would have caused lookup to start from \ct{BorderedMorph}, resulting in an 
 
 \important{A \super send triggers a \emph{static} method lookup starting in the superclass of the class of the method performing the \super send.}
 
-Si piensas cuidadosamente acerca delos env\'ios a \super y \figref{constructorStringLookup}, te daras cuenta que \super bindings are static: lo \'unico que importa es la clase en la cual se encuentra el texto del env\'io a \super.
+Si piensas cuidadosamente acerca de los env\'ios a \super y \figref{constructorStringLookup}, te dar\'as cuenta que \super bindings are static: lo \'unico que importa es la clase en la cual se encuentra el texto del env\'io a \super.
 By contrast, the meaning of \self is dynamic: it always represents the receiver of the currently executing message. This means that  \emph{all}  messages sent to \self are looked-up by starting in the receiver's class.
 
 %---------------------------------------------------------
