@@ -1,11 +1,34 @@
-L072: ¿Hay que traducir VM?
-L081: ¿Cómo se llama la página de la que hay que descargar Pharo?
-L087: ¿Hay que traducir esta linea?
-L111: ¿Hay que traducir workspace?
-L125: ¿Hay que traducir world menu?
-L138-L148: sin traducir
-L165-L167: sin tarducir
-L169: revisar
-L170: no se si hay que traducir [\click:] y \click{ing} y (\figref{threeButtons:click})
-L171: no está traducido [\actclick:] ni \figref{threeButtons:actclick}
-L172: no treduje \item [\metaclick:] ``morphic \subind{Morphic}{halo}'' 
+072: ¿Hay que traducir VM?
+081: ¿Cómo se llama la página de la que hay que descargar Pharo?
+087: ¿Hay que traducir esta linea?
+111: ¿Hay que traducir workspace?
+125: ¿Hay que traducir world menu?
+138-148: sin traducir
+165-167: sin tarducir
+169: revisar
+170: no se si hay que traducir [\click:] y \click{ing} y (\figref{threeButtons:click})
+171: no está traducido [\actclick:] ni \figref{threeButtons:actclick}
+172: no treduje \item [\metaclick:] ``morphic \subind{Morphic}{halo}'' 
+219: ¿pin? => ¿clavo?  ¿chinche? ¿tachuela?
+252: ¿Smalltalkers?
+294: 1970s
+298: software
+303: no estoy seguro si hay que traducir \emph{handle}
+351: (control, alt, command, o meta)
+355: \index{keyboard shortcut!do it}
+416: \ind{browser}
+419: sin traducir
+421: \faqref{packagebrowser}
+437: \index{category}
+459: \index{browser}
+460: \seeindex{browser!finding classes}{class, finding}
+461: \index{class!finding}
+468: \index{keyboard shortcut!browse it}
+481: pool dictionaries
+483: \subind{class}{comment}
+496: \index{keyboard shortcut!find ...}
+497: \index{keyboard shortcut!browse it}
+517: \seeindex{browser!finding methods}{method, finding}
+521: \textsc{return}
+554: \ind{Test Driven Development}\cite{Beck03a}
+557: \seeindex{Behavior Driven Development}{Test Driven Development}
