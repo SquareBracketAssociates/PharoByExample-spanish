@@ -943,8 +943,8 @@ La manera habitual de definir una variable global es mediante el \menu{do it} en
 \subsection{Variables de clase}
 \seclabel{classVars}
 
-En ocasiones nos es necesario ,compartir informaci\'{o}n entre todas las instancias de una clase y la clase en si. Esto es posible utilizando \emph{variables de clase}. El termino \subind{class}{variable de clase} indica que el tiempo de vida de la variable es el mismo que el de la clase. Sin embargo, lo que este termino no expresa es que estas variables son compartidas entre todas las instancias de una clase, as\'{i} como tambi\'{e}n por la clase en si, como se muestra en \figref{privateSharedVar}.
-En efecto, un mejor nombre hubiera sido \emph{variables compartidas}, ya que este expresa m\'{a}s claramente su rol, y adem\'s advierte del peligro de utilizarlas, en especial si son modificadas.
+En ocasiones nos es necesario ,compartir informaci\'on entre todas las instancias de una clase y la clase en si. Esto es posible utilizando \emph{variables de clase}. El termino \subind{class}{variable de clase} indica que el tiempo de vida de la variable es el mismo que el de la clase. Sin embargo, lo que este termino no expresa es que estas variables son compartidas entre todas las instancias de una clase, as\'i como tambi\'en por la clase en s\'i, como se muestra en \figref{privateSharedVar}.
+En efecto, un mejor nombre hubiera sido \emph{variables compartidas}, ya que este expresa m\'as claramente su rol, y adem\'as advierte del peligro de utilizarlas, en especial si son modificadas.
 
 \begin{figure}[htb]
 \begin{center}
@@ -955,17 +955,17 @@ En efecto, un mejor nombre hubiera sido \emph{variables compartidas}, ya que est
 \end{center}
 \end{figure}
 
-En \figref{privateSharedVar} podemos ver que \ct{rgb} y \ct{cachedDepth} son variables de instancia de \ct{Color}, y por tanto, solo accesibles a instancias de \clsind{Color}. Tambi\'{e}n vemos que \lct{superclass}, \lct{subclass}, \lct{methodDict}, etc. son variables de instancia de clase, \ie variables de instancia solo accesibles por la clase \lct{Color}.
+En \figref{privateSharedVar} podemos ver que \ct{rgb} y \ct{cachedDepth} son variables de instancia de \ct{Color}, y por tanto, solo accesibles a instancias de \clsind{Color}. Tambi\'en vemos que \lct{superclass}, \lct{subclass}, \lct{methodDict}, etc. son variables de instancia de clase, \ie variables de instancia solo accesibles por la clase \lct{Color}.
 
-Pero tambi\'{e}n podemos ver algo nuevo: \ct{ColorNames} y \ct{CachedColormaps} son \emph{variables de clase} definidas por \ct{Color}.
-La capitalizaci\'{o}n de estas variables nos da una pista acerca de que son compartidas. De hecho, no solo pueden todas las instancias de \ct{Color} acceder estas variables compartidas, sino tambi\'{e}n la clase \ct{Color} en s\'{i}, \emph{y cualquiera de sus subclases}.
-Tanto los m\'{e}tods de instancia como de clase pueden acceder estas variables compartidas.
+Pero tambi\'en podemos ver algo nuevo: \ct{ColorNames} y \ct{CachedColormaps} son \emph{variables de clase} definidas por \ct{Color}.
+La capitalizaci\'on de estas variables nos da una pista acerca de que son compartidas. De hecho, no solo pueden todas las instancias de \ct{Color} acceder estas variables compartidas, sino tambi\'en la clase \ct{Color} en s\'i, \emph{y cualquiera de sus subclases}.
+Tanto los m\'etods de instancia como de clase pueden acceder estas variables compartidas.
 
 %\begin{figure}
 %\begin{center}\includegraphics[width=6cm]{dateToday}\caption{A date is an object that  represents only anumber of days; all the information about month names, day names, etc.\ is shared among all the instances \figlabel{dateToday}}\end{center}.
 %\end{figure}
 
-Una \subind{clase}{variable de clase} es definida en la plantilla de definici\'{o}n de la clase. Por ejemplo, la clase \ct{Color} define un gran numero de variables de clase para acelerar la creaci\'{o}n de colores; su definici\'{o}n se muestra debajo.
+Una \subind{clase}{variable de clase} es definida en la plantilla de definici\'on de la clase. Por ejemplo, la clase \ct{Color} define un gran numero de variables de clase para acelerar la creaci\'on de colores; su definici\'on se muestra debajo.
 A class \subind{class}{variable} is declared in the class definition template.
 For example, the class \ct{Color} defines a large number of class variables to speed up color creation; its definition is shown below (\clsref{Color}).
 \needlines{5}
@@ -977,19 +977,19 @@ Object subclass: #Color
         category: 'Graphics-Primitives'
 \end{classdef}
 
-La variable de clase \cvind{ColorNames} es un array que contiene los nombres de colores usados frecuentemente. Este array es compartido por todas las instancias de \ct{Color} y su subclase \clsind{TranslucentColor}. Es accesible desde todos los m\'{e}todos de instancia y de clase.
+La variable de clase \cvind{ColorNames} es un array que contiene los nombres de colores usados frecuentemente. Este array es compartido por todas las instancias de \ct{Color} y su subclase \clsind{TranslucentColor}. Es accesible desde todos los m\'etodos de instancia y de clase.
 % (see \figref{ClassVarAccess2}).
 
 \ct{ColorNames} es inicializada una vez en \cmind{Color class}{initializeNames}, pero es accedido por instancias de \ct{Color}.
-El m\'{e}todo \cmind{Color}{name} utiliza la variable para averiguar el nombre de un color.
-Ya que la mayoria de los colores no tienen nombres, se pens\'{o} inapropiado a\~nadir una variable de instancia \ct{name} a cada color.
+El m\'etodo \cmind{Color}{name} utiliza la variable para averiguar el nombre de un color.
+Ya que la mayoria de los colores no tienen nombres, se pens\'o inapropiado a\~nadir una variable de instancia \ct{name} a cada color.
 
-\subsubsection{Inicializaci\'{o}n de clases}
+\subsubsection{Inicializaci\'on de clases}
 
 %---- accessors ?? getters?? como les llamamos
-La presencia de variables de clase hace surgir la pregunta: ¿C\'{o}mo las inicializamos? Una soluci\'{o}n es la \subind{class}{inicializaci\'{o}n} perezosa. Esta se puede lograr introduciendo un m\'{e}todo accessor el cual, cuando  es ejecutado inicializa la variable si esta no ha sido inicializada previamente. Esto implica que debemos utilizar el accessor todo el tiempo y nunca utilizar la variable directamente.
-A\'{u}n m\'{a}s, impone el costo del env\'{i}o del accessor y la prueba de inicializaci\'{o}n.
-Tambi\'{e}n podr\'{a} decirse que desestima la idea de usar una variable de clase, ya que de hecho esta ya no es mas compartida.
+La presencia de variables de clase hace surgir la pregunta: ?`C\'omo las inicializamos? Una soluci\'on es la \subind{class}{inicializaci\'on} perezosa. Esta se puede lograr introduciendo un m\'etodo accessor el cual, cuando  es ejecutado inicializa la variable si esta no ha sido inicializada previamente. Esto implica que debemos utilizar el accessor todo el tiempo y nunca utilizar la variable directamente.
+A\'un m\'as, impone el costo del env\'io del accessor y la prueba de inicializaci\'on.
+Tambi\'en podr\'ia decirse que desestima la idea de usar una variable de clase, ya que de hecho esta ya no es mas compartida.
 
 \begin{method}[colorclasscolornames]{Color class>>colorNames}
 Color class>>>colorNames	
@@ -998,7 +998,7 @@ Color class>>>colorNames
 \end{method}	
 \cmindex{Color class}{colorNames}
 
-Otra soluci\'{o}n es sobrescribir el m\'{e}todo de clase \ct{initialize}.
+Otra soluci\'on es sobrescribir el m\'etodo de clase \ct{initialize}.
 
 \needlines{3}
 \begin{method}[colorclassinit]{Color class>>initialize}
@@ -1009,16 +1009,16 @@ Color class>>>initialize
 \cmindex{Color class}{initialize}
 
 \noindent
-Si adoptas esta soluci'on, necesitas recordar invocar el m\'{e}todo \ct{initialize} luego de definirlo, \eg evaluando \ct{Color initialize}.
+Si adoptas esta soluci\'on, necesitas recordar invocar el m\'etodo \ct{initialize} luego de definirlo, \eg evaluando \ct{Color initialize}.
 Aunque los metodos \ct{initialize} del \subind{browser}{lado de clase} son ejecutados autom\'{a}ticamente cuando el codigo es cargado en la memoria, \emph{no} son ejecutados autom\'{a}ticamente cuando son escritos la primera vez en el navegador y compilados, o cuando son editados y re-compilados.
 %---------------------------------------------------------
 
 %%---- Pool variables? lo dejo como
 \subsection{Variables de agrupamiento}
 Las variables de agrupamiento son variables que se comparten entre varias clases que pueden no estar relacionadas por herencia.
-Las variables de agrupamiento fueron originalmente almacenadas en diccionarios de agrupamiento; ahora deber\'{i}an ser definidas como variables de clase de clases dedicadas (subclases de SharedPool). Nuestro concejo es evitarlas; las necesitar\'{a}s solo en circunstancias raras y especificas. Nuestro objetivo aqu\'{i} es por lo tanto explicar variables de \subind{variable}{agrupamiento} solo lo suficiente para que puedas comprenderlas cuando te encuentres leyendo codigo.
+Las variables de agrupamiento fueron originalmente almacenadas en diccionarios de agrupamiento; ahora deber\'ian ser definidas como variables de clase de clases dedicadas (subclases de SharedPool). Nuestro consejo es evitarlas; las necesitar\'as solo en circunstancias raras y especificas. Nuestro objetivo aqu\'i es por lo tanto explicar variables de \subind{variable}{agrupamiento} solo lo suficiente para que puedas comprenderlas cuando te encuentres leyendo c\'odigo.
 
-Una clase que accede a una variable de agrupamiento debe mencionarla en su definici\'{o}n de clase. Por ejemplo, la clase \clsind{Text} indica que esta usando el diccionario de agrupamiento \ct{TextConstants}, el cual contiene todas las constantes de texto, tales como \glbind{CR} y \glbind{LF}.
+Una clase que accede a una variable de agrupamiento debe mencionarla en su definici\'on de clase. Por ejemplo, la clase \clsind{Text} indica que esta usando el diccionario de agrupamiento \ct{TextConstants}, el cual contiene todas las constantes de texto, tales como \glbind{CR} y \glbind{LF}.
 Este diccionario tiene una clave \ct{#CR} la cual esta ligada al valor \ct{Character cr}, \ie el caracter de retorno de carro.
 
 \cmindex{Character class}{cr}
@@ -1031,50 +1031,50 @@ ArrayedCollection subclass: #Text
         category: 'Collections-Text'
 \end{classdef}
    
-Esto permite a los m\'{e}todos de la clase \ct{Text} acceder a las claves del diccionario en el cuerpo del m\'{e}todo \emph{directamente}, \ie utilizando sintaxis de variable en lugar de una b\'{u}squeda explicita en un diccionario.
-Por ejemplo, podemos escribir el siguiente m\'{e}todo.
+Esto permite a los m\'etodos de la clase \ct{Text} acceder a las claves del diccionario en el cuerpo del m\'etodo \emph{directamente}, \ie utilizando sintaxis de variable en lugar de una b\'usqueda explicita en un diccionario.
+Por ejemplo, podemos escribir el siguiente m\'etodo.
   
 \begin{method}[texttestcr]{Text>>testCR}
 Text>>>testCR 	
       ^ CR == Character cr
 \end{method}
 
-Una vez m\'{a}s, recomendamos que evites el uso de variables y diccionarios de agrupamiento.
+Una vez m\'as, recomendamos que evites el uso de variables y diccionarios de agrupamiento.
 
 %=========================================================
-\section{Resumen del cap\'{i}tulo}
+\section{Resumen del cap\'itulo}
 
 El modelo de objetos de \pharo es tanto simple como uniforme.
 Todo es un objeto, y practicamente todo sucede mediante el envio de mensajes.
 
 \begin{itemize}
   \item Todo es un objeto.
-  Entidades primitivas como los enteros son objetos, pero tambi\'{e}n las clases son objetos de primer orden.
+  Entidades primitivas como los enteros son objetos, pero tambi\'en las clases son objetos de primer orden.
 
   \item Todo objeto es instancia de una clase.
-  Las clases definen la estructura de sus instancias a trav\'{e}s de variables de instancia \emph{privadas} y su comportamiento mediante m\'{e}todos \emph{p\'{u}blicos}. Cada clase es la \'{u}nica instancia de su metaclase. Las variables de clase son variables privadas compartidas entre la clase y todas sus instancias.
-Las clases no pueden acceder directamente a las variables de instancia de sus instancias, y las instancias no pueden acceder a las variables de instancia de su clase. Se deben definir accessors si esto fuera necesario.
+  Las clases definen la estructura de sus instancias a trav\'es de variables de instancia \emph{privadas} y su comportamiento mediante m\'etodos \emph{p\'ublicos}. Cada clase es la \'unica instancia de su metaclase. Las variables de clase son variables privadas compartidas entre la clase y todas sus instancias.
+  Las clases no pueden acceder directamente a las variables de instancia de sus instancias, y las instancias no pueden acceder a las variables de instancia de su clase. Se deben definir accessors si esto fuera necesario.
 
   \item Toda clase tiene una superclase.
-  La ra\'{i}z de la jerarqu\'{i}a de herencia es \lct{ProtoObject}.
-  Las clases que definas, sin embargo, deber\'{i}an normalmente heredar de \ct{Object} o sus subclases.
+  La ra\'iz de la jerarqu\'ia de herencia es \lct{ProtoObject}.
+  Las clases que definas, sin embargo, deber\'ian normalmente heredar de \ct{Object} o sus subclases.
   No hay una sintaxis para definir clases abstractas.
-  Una clase abstracta es simplemente una clase con un m\'{e}todo abstracto\,---\,uno cuya implementaci\'{o}on consiste en la expresi\'{o}n \ct{self subclassResponsibility}.
-  Aunque \pharo soporta solo herencia simple, es f\'{a}cil compartir implementaciones de m\'{e}todos agrup\'{a}ndolos como \emph{traits}.
+  Una clase abstracta es simplemente una clase con un m\'etodo abstracto\,---\,uno cuya implementaci\'oon consiste en la expresi\'on \ct{self subclassResponsibility}.
+  Aunque \pharo soporta solo herencia simple, es f\'acil compartir implementaciones de m\'etodos agrup\'andolos como \emph{traits}.
 
-  \item Todo sucede mediante el env\'{i}o de mensajes
-	No ``llamamos m\'{e}todos'', ``enviamos mensajes''.
-	El receptor luego elije su propio m\'{e}todo para responder al mensaje.
+  \item Todo sucede mediante el env\'io de mensajes
+	No ``llamamos m\'etodos'', ``enviamos mensajes''.
+	El receptor luego elije su propio m\'etodo para responder al mensaje.
 
   \item El method lookup sigue la cadena de herencia;
-  Los env\'{i}os a \self son din\'{a}micos y comienzan el method lookup nuevamente desde la clase del receptor, mientras que
-  los env\'{i}os a \super son est\'{a}ticos, y comienzan en la superclase de la clase en la cual el env\'{i}o a super fue escrito.
+  Los env\'ios a \self son din\'amicos y comienzan el method lookup nuevamente desde la clase del receptor, mientras que
+  los env\'ios a \super son est\'aticos, y comienzan en la superclase de la clase en la cual el env\'io a super fue escrito.
   
   \item Hay tres tipos de variables compartidas.
 		Las variables globales son accesibles desde cualquier lugar del sistema.
 		Las variables de clase son compartidas por una clase y sus subclases e instancias.
 		Las variables de agrupamiento son compartidas por un grupo seleccionado de clases.
-		Deber\'{i}as evitar las variables compartidas tanto como te sea posible.
+		Deber\'ias evitar las variables compartidas tanto como te sea posible.
 
 \end{itemize}
 
