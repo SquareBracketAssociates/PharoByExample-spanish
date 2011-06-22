@@ -1,12 +1,13 @@
 ﻿Gabriel Falcone		- Chapter 1: A Quick Tour			-> 16/5/11 - En curso
-Federico Rodriguez 	- Chapter 2: A first application		-> Traducción en curso: 3/22 (tira error al generar el PDF)
+Federico Rodriguez 	- Chapter 2: A first application		-> Traducción en curso: 15/22 (tira error al generar el PDF)
 Rafael Luque	        - Chapter 3: Syntax in a Nutshell		-> Traducción completa y revisado por nicopaez
 Pablo Lalloni		- Chapter 4: Understanding Message Syntax	-> Traducción completa
-Max Sarno y Alan Rodas	- Chapter 5: The Smalltalk object model	-> Traducción en curso, tira error al generar el pdf
+Max Sarno y Alan Rodas	- Chapter 5: The Smalltalk object model		-> Traducción en curso, (tira error al generar el PDF)
 Patricio Plaza		- Chapter 6: Environment			-> Traducción en curso: 7/44, tira error al generar el pdf
-Mirian Quinteros	- Chapter 7: SUnit				-> Traducción en curso: 3/18
+Mirian Quinteros	- Chapter 7: SUnit				-> Traducción completa, tira error al generar el pdf
 Carlos Rodriguez	- Chapter 8: Basic Classes			-> En curso
 Pablo Barrientos	- Chapter 9: Collections			-> Traducción completa, tira error al generar el pdf	
+????			- Chapter 10: Streams				-> Traducción no comenzada
 Nicolas Paez		- Chapter 11: Morphic				-> Traducción completa	
 Rafael Luque		- Chapter 12: Seaside by Example		-> Traducción en curso: 7/36 pages.
 Jordi Delgado	        - Chapter 13: Classes and Metaclasses		-> Traducción completa, tira error al generar el pdf
