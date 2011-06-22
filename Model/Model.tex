@@ -796,11 +796,11 @@ como se muestra en \figref{constructorStringLookup}.
 Morph>>>constructorString
 	^ String streamContents: [:s | self printConstructorOn: s indent: 0].
 \end{method}
-The method \cmind{Morph}{constructorString} performs a \self send of \lct{printConstructorOn:indent:}.
-This message is also looked up, starting in the class \lct{EllipseMorph}, and found in \ct{Morph}.
-This method in turn does a \self send of \lct{printConstructorOn:indent:nodeDict:}, which does a \self send of \ct{fullPrintOn:}.
-Once again, \ct{fullPrintOn:} is looked up starting in the class \ct{EllipseMorph}, and \mthind{BorderedMorph}{fullPrintOn:} is found in \ct{BorderedMorph} (see \figref{constructorStringLookup} once again).
-What is critical to notice is that the \self send causes the method lookup to start again in the class of the receiver, namely the class of \ct{anEllipse}.
+El m\'etodo \cmind{Morph}{constructorString} lleva a cabo un env\'io a \self de \lct{printConstructorOn:indent:}.
+Este mensaje tambi\'en se busca subiendo en la cadena de herencia, comenzando en la clase \lct{EllipseMorph}, y siendo encontrado en la clase \ct{Morph}.
+Este m\'etodo, a su vez hace un env\'io a \self de \lct{printConstructorOn:indent:nodeDict:}, que hace un env\'io a \self de \ct{fullPrintOn:}.
+Una vez m\'as, \ct{fullPrintOn:} se busca subiendo en la cadena de herencia comenzando por la clase \ct{EllipseMorph}, y \mthind{BorderedMorph}{fullPrintOn:} es encontrado en \ct{BorderedMorph} (v\'ea \figref{constructorStringLookup} otra vez).
+Lo que es fundamental tener en cuenta es que el env\'io a \self provoca que el method lookup comience nuevamente en la clase del receptor, es decir, la clase de \ct{anEllipse}.
 
 \important{Un env\'io a \self dispara un method lookup \emph{din\'amico} comenzando en la clase del receptor.}
 
