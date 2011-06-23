@@ -455,19 +455,19 @@ Adicionales ejemplos de navegaci\'on pueden ser encontrados en las preguntas fre
 %=========================================================
 \section{Monticello}
 
-We gave you a quick overview of \ind{Monticello}, \pharo's packaging tool, in \secref{Monticello}.
-However, Monticello has many more features than were discussed there.
-Because Monticello manages \emph{packages}, before telling you more about Monticello, it's important that we first explain exactly what a \ind{package} is.
+Hemos dado un r\'apido repaso de \ind{Monticello}, el paquete de herramientas de \pharo, en \secref{Monticello}.
+Sin embargo, Monticello tiene muchas mas caracter\'isticas que se han discutido.
+Debido a que Monticello administra \emph{paquetes}, Antes de hablarles más acerca de Monticello, es importante que expliquemos primero exactamente lo que es un \ind{paquete} .
 
 %---------------------------------------------------------
 \subsection{Packages: declarative categorization of \pharo code}\seclabel{packages}
 
-We have pointed out earlier, in \secref{categoriesPackages} that packages are more or less equivalent to categories. Now we will see exactly what the relationship is.
-The package system is a simple, lightweight way of organizing Smalltalk source code that exploits a simple naming convention for categories and protocols.
+Hemos señalado anteriormente, en \secref{categoriesPackages} los paquetes que son m\'as o menos equivalentes a las categor\'ias. Ahora vamos a ver exactamente cu\'al es la relaci\'on.
+El sistema de paquetes es un sencilla y simple manera de organizar el c\'odigo fuente smalltalk que explota una simple convenci\'on de nombres para las categor\'ias y protocolos.
 
-Let's explain this using an example.
-Suppose that you are developing a framework named to facilitate the use of relational databases from \pharo. You have decided to call your framework \ct{PharoLink}, and have created a series of categories to contain all of the classes that you have written, \eg
-category \ct{'PharoLink-Connections'} contains \ct{OracleConnection MySQLConnection PostgresConnection} and category \ct{'PharoLink-Model'} contains \ct{DBTable DBRow DBQuery}, and so on. However, not all of your code will reside in these classes. For example, you may also have a series of methods to convert objects into an SQL-friendly format:
+Veamos esto utilizando un ejemplo.
+Suponga que est\'a desarrollando un framework denominado con el fin de facilitar la utilización de bases de datos relacionales de \pharo. Han decidido llamar al framework \ct{PharoLink}, y han creado una serie de categor\'ias que contienen todad las clases que se han escrito, \ej
+categor\'ia \ct{'PharoLink-Connections'} contiene \ct{OracleConnection MySQLConnection PostgresConnection} y categor\'ia \ct{'PharoLink-Model'} contiene \ct{DBTable DBRow DBQuery}, etc. Sin embargo, no todo el c\'odigo residir\'a en estas clases. Por ejemplo, tambi\'en puede tener una serie de m\'etodos para convertir objetos en un formato amistoso de SQL:
 
 \begin{code}{}
 Object>>>asSQL
@@ -476,52 +476,52 @@ Date>>>asSQL
 \end{code}
 
 \noindent
-These methods belong in
+Estos paquetes pertenecen a
 % \damien{don't we say 'belong to'?}
 % \on{no -- belong in = they should be there; belong to = they are there}
-the same package as the classes in the
-categories \ct{PharoLink-Connections} and \ct{PharoLink-Model}.
-But clearly the whole of class \ct{Object} does not belong in your package!
-So you need a way of putting certain \emph{methods} in a package, even though the rest of the class is in another package.
+los mismos paquetes como las clases en las
+categor\'ias \ct{PharoLink-Connections} y \ct{PharoLink-Model}.
+Pero es evidente que el conjunto completo de la clase \ct{Object} no pertenece a tu paquete!
+Por lo tanto necesitas una manera de poner ciertos \emph{m\'etodos} en un paquete, aunque el resto de la clase est\'a en otro paquete.
 \index{package!extension}
 \seeindex{extension package}{package, extension}
 
-The way that you do this is by placing those methods in a protocol (of \ct{Object}, \ct{String}, \ct{Date}, and so on) named \prot{*PharoLink} (note the initial asterisk). The combination of the \scat{PharoLink-\ldots} categories and the \prot{*PharoLink} protocols form a package named \ct{PharoLink}.
-To be precise, the rules for what goes in a package are as follows.
+La manera en que lo haces es poniendo esos m\'etodos en un protocolo  (of \ct{Object}, \ct{String}, \ct{Date}, y as\'i sucesivamente) llamado \prot{*PharoLink} (nota el primer asterisco). La combinaci\'on de las categor\'ias \scat{PharoLink-\ldots} y los protocolos \prot{*PharoLink} forman un paquete denominado \ct{PharoLink}.
+Para ser más precisos, las normas de lo que va en un paquete son de la siguiente manera.
 
-A package named \ct{Foo} contains:
+Un paquete llamado \ct{Foo} contiene:
 
 \begin{enumerate}		\seclabel{packageRules}
-	\item{} all \emph{class definitions} of classes in the category \scat{Foo}, or in categories with names starting with \scat{Foo-}, and
-	\item{} \label{env:extensions} all \emph{methods} in \emph{any class} in protocols named \prot{*Foo} or \prot{*foo}\footnote{When performing this comparison, the case of the letters in the names is ignored.}, or whose name starts with \prot{*Foo-} or \prot{*foo-}, and
-	\item{} all \emph{methods} in classes in the category \scat{Foo}, or in a category whose name starts with \scat{Foo-}, \emph{except} for those methods in protocols whose names start with \prot{*}.
+	\item{} todas las \emph{definiciones de la clase} de las clases en la categor\'ia \scat{Foo}, o en las categor\'ias que comienzan con \scat{Foo-}, y
+	\item{} \label{env:extensions} todos los \emph{m\'etodos} en \emph{cualquier clase} en los protocolos llamados \prot{*Foo} o \prot{*foo}\footnote{Al realizar esta comparaci\'on, el tamaño de las letras en los nombres es ignorado.}, o cuyo nombre comience con \prot{*Foo-} or \prot{*foo-}, y
+	\item{} todos los \emph{m\'etodos} en las clases de la categor\'ia \scat{Foo}, o en la categor\'ia cuyo nombre comience con \scat{Foo-}, \emph{excepto} para esos nombres en los protocolos cuyos nombres comienzan con \prot{*}.
 	
 \end{enumerate}
 \noindent
-A consequence of these rules is that each class definition and each method belongs to exactly one package. The \emph{except} in the last rule has to be there because those methods must belong to other packages.   The reason for ignoring case in rule \ref{env:extensions} is that, by convention, protocol names are typically (but not necessarily) lower case (and may include spaces), while category names use CamelCase (and don't include spaces).
+Una consecuencia de estas reglas es que cada definici\'on de clase y cada método pertenece a exactamente un paquete. La \emph{excepci\'on} en la \'ultima regla ha de estar all\'i porque esos m\'etodos deben pertenecer a otros paquetes. La raz\'on para ignorar el tamaño en la regla \ref{env:extensions} es que, por convenci\'on, los nombres de los protocolos son normalmente (pero no necesariamente) nim\'usculas (y puede incluir espacios), mientras los nombres de las categor\'ias usan CamelCase (y no incluyen espacios).
 \index{camelCase}
 
-The class \ct{PackageInfo} implements these rules, and one way to get a feel for them is to experiment with this class.
+La clase \ct{PackageInfo} implementa estas reglas, y una manera de tener una sensaci\'on de ellos es experimentar con esta clase.
 
-\dothis{Evalute the following expression in a workspace:}
+\dothis{Eval\'ue la siguiente expresi\'on en un workspace:}
 
 \begin{code}{}
 mc := PackageInfo named: 'Monticello'
 \end{code}
 
-It is now possible to introspect on this package.
-For example, printing \ct{mc classes} in the workspace pane will return the long list of classes that make up the Monticello package.
+Ahora es posible mirar al interior de este paquete.
+Por ejemplo, imprimiendo \ct{mc classes} en el panel del workspace pane devolver\'a una larga lista de clases que componen el paquete de Monticello.
 \ct{mc coreMethods}
-will return a list of \ct{MethodReference}s for all of the methods in those classes. \ct{mc extensionMethods} is perhaps one of the most interesting queries: it will return a list of all methods contained in the \ct{Monticello} package but not contained within a \lct{Monticello} class.
+devolver\'a una lista de \ct{MethodReference}s para todos los m\'etodos en esas clases. \ct{mc extensionMethods} es quiz\'as una de las m\'as interesantes consultas: esta devolver\'a una lista de todos los m\'etodos contenidos en el paquete \ct{Monticello} pero no contenido dentro de una clase \lct{Monticello}.
 
-Packages are a relatively new addition to \pharo, but since the package naming conventions were based on those already in use, it is possible to use \ct{PackageInfo} to analyze older code that has not been explicitly adapted to work with it.
+Los paquetes son una adici\'on relativamente nueva a \pharo, pero ya que las convenciones de nombres de paquetes se basaron en los que estaban en uso, es posible usar \ct{PackageInfo} para analizar c\'odigo m\'as antiguo que no ha sido expl\'icitamente adaptado para trabajar con \'el.
 
-\dothis{Print \ct{(PackageInfo named: 'Collections') externalSubclasses}; this expression will answer a list of all subclasses of  \ct{Collection} that are \emph{not} in the \ct{Collections} package. }
+\dothis{Print \ct{(PackageInfo named: 'Collections') externalSubclasses}; esta expresi\'on responder\'a con una lista de todas las subclases de  \ct{Collection} que \emph{no} est\'an en el paquete \ct{Collections}. }
 
 %---------------------------------------------------------
-\subsection{Basic Monticello}
+\subsection{Monticello b\'asicos}
 
-\ind{Monticello} is named after the mountaintop home of Thomas Jefferson, third president of the United States and author of the Statute of Virginia for Religious Freedom.  The name means ``little mountain'' in Italian, and so it is always pronounced with an Italian ``c'', which sounds like the ``ch'' in chair: Mont-y'-che-llo.
+\ind{Monticello} debe su nombre al hogar de Thomas Jefferson, una mansi\'on neocl\'asica constru\'iada en la cima de una montaña, tercer presidente de los Estados Unidos y autor del Estatuto de libertad Religiosa de Virginia. El nombre significa ``mont\'iculo'' en Italiano, y por lo tanto, se pronuncia siempre con una ``c'' italiana, que suena como el ``ch'' en chair: Mont-y'-che-llo.
 
 
 \begin{figure}[btp]
@@ -530,23 +530,23 @@ Packages are a relatively new addition to \pharo, but since the package naming c
 		{\includegraphics[width=\textwidth]{freshMonticello}}
 		{\includegraphics[width=0.7\textwidth]{freshMonticello}}
 	\end{center}
-	\caption{The Monticello browser.}
+	\caption{El navegador de Monticello.}
 	\figlabel{freshMonticello}
 \end{figure}
 
-When you open the Monticello browser, you will see two list panes and a row of buttons, as shown in \figref{freshMonticello}.
-The left-hand pane lists all of the packages that have been loaded into the image that you are running; the particular version of the package is shown in parentheses after the name.
+Al abrir el navegador de Monticello, ver\'as dos paneles de lista y una fila de botones, como se muestra en \figref{freshMonticello}.
+El panel de la izquierda muestra una lista de todos los paquetes que han sido cargados en la imagen que est\'as ejecutando; la versi\'on particular del paquete se muestra entre par\'entesis despu\'es del nombre.
 
-The right-hand pane lists all of the source-code repositories that Monticello knows about, usually because it has loaded code from them.  If you select a package in the left pane, the right pane is filtered to show only those repositories that contain versions of the selected package.
+El panel de la derecha muestra una lista de todos los repositorios de c\'odigo fuente que Monticello tiene conocimiento, usualmente porque se ha cargado el c\'odigo desde ellos.  Si seleccionas un paquete en el panel de la izquierda, el panel de la derecha se filtra para mostrar \'unicamente los repositorios que contienen las versiones del paquete seleccionado.
 
-One of the repositories is a directory named \emph{package-cache}, which is a sub-directory of the directory in which your image is running.
-When you load code from or write code to a remote repository, a copy is also saved in the package cache.  This can be useful if the network is not available and you need to access a package.  Also, if you are given a Monticello (.mcz) file directly, for example as an email attachment, the most convenient way to access it is to place it in the package-cache directory.
+Uno de los repositorios es un directorio llamado \emph{package-cache}, el cual es un subdirectorio del directorio en el cual est\'as corriendo la imagen.
+Cuando cargas el c\'odigo desde o escribes c\'odigo a un repositorio remoto, una copia es guardada en el cache del paquete. Esto puede ser \'util si la red no esta disponible y necesitas acceder a un paquete.  Tambi\'en, si le das un archivo Monticello (.mcz) directamente, por ejemplo como un archivo adjunto al correo electrónico, la forma m\'as conveniente de acceder a este es colocarlo en el directorio del package-cache.
 \index{package!cache}
 
-To add a new repository to the list, click the \button{+Repository}, and choose the kind of repository from the pop-up menu.  Let's add an HTTP repository.
+Para agregar un nuevo repositorio a la lista, clic en el \button{+Repository}, y elegir el tipo de repositorio en el men\'u emergente.  Vamos a agregar un repositorio HTTP.
 
 \dothis{Open Monticello, click on \button{+Repository}, and select \menu{HTTP}.
-Edit the dialog to read:}
+Editar el di\'alogo para leer:}
 %\ab{How does one continue the $\backslash$dothis to include the code?}
 %\on{Don't.  Just close the \dothis{} and follow with the code.}
 \needlines{4}
@@ -563,19 +563,19 @@ MCHttpRepository
 		{\includegraphics[width=0.7\textwidth]{SqueakSource-PBE}}
 		{\includegraphics[width=0.7\textwidth]{SqueakSource-PBE}}
 	\end{center}
-	\caption{A Repository browser.}
+	\caption{Un navegador de Repositorio.}
 	\figlabel{SqueakSource:PBE}
 \end{figure}
 \noindent
-Then click on \button{Open} to open a repository browser on this repository.  You should see something like \figref{SqueakSource:PBE}.  On the left is a list of all of the packages in the repository; if you select one, then the pane on the right will show all of the versions of the selected package in this repository.
+Entonces cic en \button{Open} para abrir el navegador de repositorios en este directorio.  Dever\'ias ver algo como \figref{SqueakSource:PBE}.  A la izquierda hay una lista de todos los paquetes en el repositorio; si seleccionas uno, y luego el panel de la derecha se mostrar\'an todas las versiones del paquete seleccionado en este repositorio.
 
-If you select one of the versions, you can \button{Browse} it (without loading it into your image), \button{Load} it, or look at the \button{Changes} that will be made to your image by loading the selected version.  You can also make a \button{Copy} of a version of a package, which you can then write to another repository.
+Si haz seleccionado una de las versiones, puedes usar el bot\'on \button{Browse} (sin cargarlo en tu imagen), bot\'on \button{Load} , o buscar con el bot\'on \button{Changes} que se har\'an a su imagen por la carga de la versión seleccionada. Puedes tambi\'en hacer una \button{Copy} de la versión del paquete, que luego puedes escribir en otro repositorio.
 
-As you can see, the names of versions contain the name of the package, the initials of the author of the version, and a version number.  The version name is also the name of the file in the repository.  Never change these names; correct operation of Monticello depends on them!   Monticello version files are just zip archives, and if you are curious you can unpack them with a zip tool, but the best way to look at their contents is using Monticello itself.
+Como puedes ver, los nombres de las versiones contienen el nombre del paquete, las iniciales del autor de la versión, y un n\'umero de versi\'on.  El nombre de la versi\'on es tambi\'en el nombre del archivo en el repositorio.  Nunca se deben cambiar estos nombres; la correcta operaci\'on de Monticello depende de ellos!   Los archivos de versiones Monticello son solo archivos zip, y si eres curioso puedes descomprimirlos con una herramienta zip, pero la mejor manera de mirar su contenido es usando el mismo Monticello.
 
-To create a package with Monticello, you have to do two things: write some code, and tell Monticello about it.
+Para crear un paquete con Monticello, tienes que hacer dos cosas: escribir alg\'un c\'odigo, y decile a Monticello acerca de esto.
 
-\dothis{Create a package called \scat{PBE-Monticello}, and put a couple of classes in it, as shown in \figref{MCnewcategory}.  Also, create a method in an existing class, such as \ct{Object}, and put it in the same package as your classes, using the rules from page \pageref{sec:packageRules}\,---\,see \figref{MCnewmethod}.}
+\dothis{Crear un paquete llamado \scat{PBE-Monticello}, y poner un par de clases en este, como se muestra en \figref{MCnewcategory}.  Tambi\'en, crear un m\'etodo en una existente clase, tal como \ct{Object}, y ponerlo en el mismo paquete como sus clases, usando las reglas de la p\'agina \pageref{sec:packageRules}\,---\,ver \figref{MCnewmethod}.}
 
 \begin{figure}[btp]
 	\begin{center}
@@ -583,7 +583,7 @@ To create a package with Monticello, you have to do two things: write some code,
 		{\includegraphics[width=\textwidth]{MCnewcategory}}
 		{\includegraphics[width=0.7\textwidth]{MCnewcategory}}
 	\end{center}
-	\caption{Two classes in the ``PBE'' package.}
+	\caption{Dos clases en el paquete ``PBE''.}
 	\figlabel{MCnewcategory}
 \end{figure}
 
@@ -593,25 +593,25 @@ To create a package with Monticello, you have to do two things: write some code,
 		{\includegraphics[width=\textwidth]{MCnewmethod}}
 		{\includegraphics[width=0.7\textwidth]{MCnewmethod}}
 	\end{center}
-	\caption{An extension method that will also be in the ``PBE'' package.}
+	\caption{Una extensi\'on del m\'etodo que tambi\'en est\'a en el paquete ``PBE''.}
 	\figlabel{MCnewmethod}
 \end{figure}
 
-To tell Monticello about your package, click on \button{+Package}, and type the name of the package, in this case ``PBE''.  Monticello will add \ct{PBE} to its list of packages; the package entry will be marked with an asterisk to show that the version in the image has not yet been written to any repository. Note that you now should have two packages in Monticello, one called \ct{PBE} and another called \ct{PBE-Monticello}. That's alright because \ct{PBE} will contain \ct{PBE-Monticello}, and any other packages starting with \ct{PBE-}.
+Para decirle a Monticello acerca de tus paquetes, clic en el bot\'on \button{+Package}, y escriba el nombre del paquete, en este caso ``PBE''.  Monticello agregar\'a \ct{PBE} a su lista de paquetes; la entrada del paquete ser\'a marcada con un asterisco para mostrar que la versi\'on en la imagen todav\'ia no se ha escrito a cualquier repositorio. Tenga en cuenta que ahora deber\'as tener dos paquetes en Monticello, uno llamado \ct{PBE} y el otro llamado \ct{PBE-Monticello}. Esto esta bien, porque \ct{PBE} contendr\'a \ct{PBE-Monticello}, y otros paquetes a partir de \ct{PBE-}.
 
-Initially, the only repository associated with this package will be your package cache, as shown in \figref{MC+PBE}.  That's OK: you can still save the code, which will cause it to be written to the package cache.
-Just click \button{Save} and you will be invited to provide a log message for the version of the package that you are about to save, as shown in \figref{PBE-on}; when you accept the message, Monticello will save your package.
-To indicate this, the asterisk decorating the name in Monticello's package pane will be removed, and the version number added.
+Inicialmente, el \'unico repositorio asociado con este paquete ser\'a su cache paquete, como se muestra en \figref{MC+PBE}.  Esto esta bien: todav\'ia puedes guardar el c\'odigo, lo que causar\'a que se escriba el la cach\'e del paquete.
+Simplemente haz clic en el bot\'on \button{Save} y ser\'as invitado a proporcionar un registro de la versión del paquete que est\'as a punto de guardar, como se muestra en \figref{PBE-on}; cuando aceptas el mensaje, Monticello guardar\'a tu paquete.
+Para indicar esto, el asterisco decorando el nombre en el paquete en el panel de Monticello ser\'a eliminado, y se agregar\'a el n\'umero de la versí\'on.
 
-If you then make a change to the package\,---\,say by adding a method to one of the classes\,---\,the asterisk will re-appear, showing that you have unsaved changes.  If you open a repository browser on the package cache, you can select the saved version, and use \button{Changes} and the other buttons.
-You can of course save the new version to the repository too; once you \button{Refresh} the repository view, it should look like \figref{package-cache-browser}.
+Si a continuación haces un cambio en el paquete\,---\, por ejemplo agregando un m\'etodo a una de las clases\,---\, el asterisco volver\'a a aparecer, mostrando que tienes cambios que no han sido guardados.  Si abres un navegador de repositorio en el cach\'e de paquetes, puedes seleccionar la versi\'on guardada, y usar el bot\'on \button{Changes} y otros botones.
+Tambi\'en puedes por su puesto guardar la nueva versión al respositorio; una vez que refrescada con el bot\'on \button{Refresh} la vista del repositorio, este deber\'ia verse como \figref{package-cache-browser}.
 \index{package!cache}
 
 \begin{figure}[tbp]
 	\begin{center}
 		\includegraphics[width=\textwidth]{MC+PBE}
 	\end{center}
-	\caption{The as-yet-unsaved PBE package in Monticello.}
+	\caption{El paquete PBE a\'un no guardado en Monticello.}
 	\figlabel{MC+PBE}
 \end{figure}
 
@@ -619,7 +619,7 @@ You can of course save the new version to the repository too; once you \button{R
 	\begin{center}
 	\includegraphics[width=0.8\textwidth]{PBE-on}
 	\end{center}
-	\caption{Providing a log message for a new version of a package.}
+	\caption{Entregando un registro de mensaje para una nueva versi\'on de un paquete.}
 	\figlabel{PBE-on}
 \end{figure}
 
@@ -627,29 +627,29 @@ You can of course save the new version to the repository too; once you \button{R
 	\begin{center}
 	\includegraphics[width=\textwidth]{package-cache-browser}
 	\end{center}
-	\caption{Two versions of our package are now in the package cache.}
+	\caption{Dos versiones de nuestro paquete est\'an ahora en el cach\'e del paquete.}
 	\figlabel{package-cache-browser}
 \end{figure}
 
-To save the new package to a repository other than the package cache, you need to first make sure that Monticello knows about the repository, adding it if necessary.
-Then you can use the \button{Copy} in the package-cache repository browser, and select the repository to which the package should be copied.
-You can also associate the desired repository with the package by \actclick{ing} on the repository and selecting \menu{add to package \ldots}, as shown in \figref{associateRepository}.
-Once the package knows about a repository, you can save a new version by selecting the repository and the package in the Monticello Browser, and clicking \button{Save}.
-Of course, you must have permission to write to a repository.
-The \ct{PharoByExample} repository on \emphind{\sqsrc} is world readable but not world writable, so if you try and save there, you will see an error message.
-However, you can create your own repository on \sqsrc by using the web interface at \url{http://www.squeaksource.com}, and use this to save your work.
-This is especially useful as a mechanism to share your code with friends, or if you use multiple computers.
+Para guardar el nuevo paquete de un repositorio que no sea el cach\'e de paquetes, es necesario que te asegures primero que Monticello sabe sobre repositorio, agrega\'andolo si es necesario.
+Entonces cuando usas el bot\'on \button{Copy} en el navegador de repositorio de paquetes-cach\'e, y seleccionas el repositorio al cual el paquete deber\'ia ser copiado.
+Tambi\'en puedes asociar el repositorio deseado con el paquete  \actclick{ing} en el repositorio y seleccionando \menu{add to package \ldots}, como se muestra en \figref{associateRepository}.
+Una vez que el paquete sabe acerca de un repositorio, puedes guardar una nueva versi\'on seleccionando el repositorio y el paquete en el navegador de Monticello, y dando un clic en el bot\'on \button{Save}.
+Por supuesto , debes tener permiso para escribir a un repositorio.
+El repositorio \ct{PharoByExample} en \emphind{\sqsrc} puede le\'ido por cualquier usuario pero no modificado, si tratas de guardar all\'i, recibir\'as un mensaje de error.
+Sin embargo, puedes crear tu propio repositorio en \sqsrc usando la interface web en \url{http://www.squeaksource.com}, y usar esta para guardar tu trabajo.
+Esto es especialmente \'util como un mecanismo para compartir tu c\'odigo con amigos, o si usas m\'ultiples computadores.
 
 \begin{figure}[tbp]
 	\begin{center}
 		\includegraphics[width=\textwidth]{MCaddToPackage}
 	\end{center}
-	\caption{Adding a repository to the set of repositories associated with a package.}
+	\caption{Agregando un repositorio al conjunto de repositorios asociados con el paquete.}
 	\figlabel{associateRepository}
 \end{figure}
 
-If you do try and save to a repository where you don't have write permission, a version will nevertheless be written to the package-cache.
-So you can recover by editing the repository information (\actclick in the Monticello Browser) or choosing a different repository, and then using \button{Copy} from the package-cache browser.
+Si tratas de guardar a un repositorio donde no tienes permiso de escritura, una versi\'on se escribir\'a al cach\'e-paquete de todas maneras.
+As\'i puedes recuperar mediante la edici\'on de la informaci\'on del repositorio (\actclick en el navegador Monticello ) o escogiendo un diferente repositorio, y entonces usando el bot\'on \button{Copy} desde el navegador cach\'e-paquete.
 
 %=========================================================
 \section{The Inspector and the Explorer}
