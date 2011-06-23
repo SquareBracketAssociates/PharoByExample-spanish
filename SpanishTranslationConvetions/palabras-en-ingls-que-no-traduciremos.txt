@@ -6,9 +6,15 @@ El general no traducimos:
 
 
 Palabras que NO traduciremos
-- Workspace
-- Transcript
+
 - Array
-- Method lookup
+- Callback
+- Directness
 - Keyword (cuando se refiere al tipo de mensaje
+- Liveness
+- Method lookup
+- Pixel
+- Transcript
 - Toolkit, en el contexto de Morphic
+- Wrapper
+- Workspace

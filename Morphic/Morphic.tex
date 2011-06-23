@@ -8,6 +8,7 @@
 % 2007-08-16 - Oscar edit
 % 2007-11-05 - Andrew edit
 % 2009-07-07 - Oscar migrate to Pharo
+% 2011 - NicoPaez translation to Spanish
 
 %=================================================================
 \ifx\wholebook\relax\else
@@ -112,14 +113,14 @@ Ahora ejecuta \ct{Color orange asMorph} \mthind{Morph}{openInWorld} en un worksp
 %=================================================================
 \section{Manipulando morphs}
 
-Los Morphs son objetos, por lo tanto podemos manipularlos como cualquier otro objeto en \st: envi\'andoles mensajes, podemos cambiar sus propiedades, creat nuevas subclases de Morph y demás.
+Los morphs son objetos, por lo tanto podemos manipularlos como cualquier otro objeto en \st: envi\'andoles mensajes, podemos cambiar sus propiedades, crear nuevas subclases de Morph y demás.
 
-Cada morph, incluso si no est\'a actualmente abierto en la pantalla, tiene una posición y un tamaño.
-Para conveniencia, todo morph es considerado ocupando un regi\'on rectangular de la pantalla; si son de forma irregular, su posici\'on y tamanio son aquellos de la ``caja'' rectangular de menor tamaño que los rodea, que es conocida como caja de delimitaci\'on del morph, o simplemente su ``delimitador''.
+Cada morph, incluso si no est\'a actualmente abierto en la pantalla, tiene una posición y un tama\~no.
+Para conveniencia, todo morph es considerado ocupando un regi\'on rectangular de la pantalla; si son de forma irregular, su posici\'on y tama\~no son aquellos de la ``caja'' rectangular de menor tama\~no que los rodea, que es conocida como caja de delimitaci\'on del morph, o simplemente su ``delimitador''.
 
 
 El método \mthind{Morph}{position} devuelve un \ct{Point} que describe la ubicaci\'on de la esquina superior izquierda del morph  (o la esquina superior izquierda de su caja delimitadora).
-El origen del sistema de coordenadas es la esquina superior izquierda de la pantalla, con la coordenada $y$  increment'nadose hacia abajo en la pantlla y con las coordenada $x$ increment\'andose hacia la derecha.
+El origen del sistema de coordenadas es la esquina superior izquierda de la pantalla, con la coordenada $y$  increment\'andose hacia abajo en la pantalla y con las coordenada $x$ increment\'andose hacia la derecha.
 
 El m\'etodo \ct{extent} tambi\'en devuelve un punto, pero este punto especifica el ancho y alto del morph en vez de su posici\'on.
 
@@ -135,7 +136,7 @@ bill openInWorld.
 Luego tipea \ct{joe position} y \menu{print it}.
 Para mover joe, ejecuta \ct{joe position: (joe position + (10@3))} repetidamente.
 
-Is posible hacer algo similar con el tamanio.
+Es posible hacer algo similar con el tama\~no.
 
 \ct{joe} \mthind{Morph}{extent} devuelve el tamanio de joe; para agrandar a joe, ejecuta \ct{joe extent: (joe extent * 1.1)}.
 Para cambiar el color de un morph, env\'iale el mensaje \mthind{Morph}{color:} con el objecto \ct{Color} deseado como argumento, por ejemplo, \ct{joe color: Color orange}.
@@ -181,28 +182,28 @@ para centrar la estrella dentro de joe, ejecuta \ct{star} \mthind{Morph}{center:
 
 \begin{figure}[ht]
 	\centerline{\includegraphics{joeStar}}
-	\caption{La estrella es contenido dentro de joe, el morph azul transl\'ucido.
+	\caption{La estrella es contenida dentro de joe, el morph azul transl\'ucido.
 		\figlabel{joeStar}}
 \end{figure}
 
-Si ahora intentas agarrar la estrella con el rat\'on, encontrar\'as que en realidad agarras a joe, y los dos morphs se mueven juntos: la estrella es \emph{embebida} en joe.
+Si ahora intentas agarrar la estrella con el rat\'on, encontrar\'as que en realidad agarras a joe, y los dos morphs se mueven juntos: la estrella est\'a \emph{embebida} en joe.
 Es posible embeber m\'as morphs dentro de joe.
-Adem\'as de poder hacer esto program\'aticamente, tambi\'en puede embeber morphs manipulandolos directamente.
+Adem\'as de poder hacer esto program\'aticamente, tambi\'en puedes embeber morphs manipulandolos directamente.
 
 %=================================================================
 \section{Creando y dibujando tus propios morphs}
 
-Mientras que es posible hacer muchas utilies e interesantes representaciones gr\'aficas componiendo morphs, en ocasiones necesitar\'as crear algo completamente diferente.
+Mientras que es posible hacer muchas representaciones gr\'aficas \'utilies e interesantes componiendo morphs, en ocasiones necesitar\'as crear algo completamente diferente.
 \index{Morph!subclassing}
 Para hacer esto define una subclase de \ct{Morph} y sobreescribe el m\'etodo \mthind{Morph}{drawOn:} para cambiar su apariencia.
 
-El framework morphic envia el mensaje \ct{drawOn:} a un morph cuando necesita volver a mostrar el morph en la pantalla. El par\'ametro pasado a \ct{drawOn:} es de tipo \clsind{Canvas}; el comportamiento experado es que el morph se dibuje en ese canvas, dentro de sus límites.
+El framework morphic envia el mensaje \ct{drawOn:} a un morph cuando necesita volver a mostrar el morph en la pantalla. El par\'ametro pasado a \ct{drawOn:} es de tipo \clsind{Canvas}; el comportamiento esperado es que el morph se dibuje en ese canvas, dentro de sus límites.
 
 Usemos este conocimiento para crear un morph con forma de cruz.
 \index{Morph!subclassing}
 
 \dothis{Usando el browser, define una nueva clase \clsind{CrossMorph} heredando de \ct{Morph}:}
-\begin{classdef}{Defining \ct{CrossMorph}}
+\begin{classdef}{Definiendo \ct{CrossMorph}}
 Morph subclass: #CrossMorph
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -211,7 +212,7 @@ Morph subclass: #CrossMorph
 \end{classdef}
 
 Podemos definir el m\'etodo \ct{drawOn:} de esta forma:
-\begin{method}[firstDrawOn]{Drawing a \ct{CrossMorph}.}
+\begin{method}[firstDrawOn]{Dibujando un \ct{CrossMorph}.}
 drawOn: aCanvas 
 	| crossHeight crossWidth horizontalBar verticalBar |
 	crossHeight := self height / 3.0 .
@@ -227,24 +228,24 @@ drawOn: aCanvas
 	\ifluluelse
 		{\centerline{\includegraphics[width=0.3\textwidth]{NewCross}}}
 		{\centerline{\includegraphics{NewCross}}}
-	\caption{A \ct{CrossMorph} with its halo; you can resize it as you wish.
+	\caption{Un \ct{CrossMorph} con su halo; puedes cambiarle el tama\~no a tu gusto.
 		\figlabel{cross}}
 \end{figure}
 
 
-Enviando el mensaje \mthind{Morph}{bounds} a un morph contesta su caja delimitadora, que es una instancia de \clsind{Rectangle}.  Rectangles entiende muchos mensajes que crean otros rect\'angulos de geometria relacionada; aqui usamos el mensaje \ct{insetBy:} con un punto como argumento para crear primero un  rect\'angulo con altura reducida, y luego otro con archo reducido.
+Enviando el mensaje \mthind{Morph}{bounds} a un morph, este contesta su caja delimitadora, que es una instancia de \clsind{Rectangle}.  Los rect\'angulos entiende muchos mensajes que crean otros rect\'angulos de geometria relacionada; aqui usamos el mensaje \ct{insetBy:} con un punto como argumento para crear primero un  rect\'angulo con altura reducida, y luego otro con archo reducido.
 
 \dothis{Para probar tu nuevo morph, ejecuta \ct{CrossMorph new} \mthind{Morph}{openInWorld}.}
-El resultado deberia verse similar a una \figref{cruz}.
+El resultado deber\'ia verse similar a la \figref{cross}.
 De todas formas, notar\'as que la zona sentiva\,---\,donde puedes hacer click para agarrar el morph\,---\,es a\'un la caja delimitadora completa.  Arreglemos esto.
 
-Cuando el framework Morphic necesita encontrar que morphs estan bajo el cursor, env\'ia el mensaje \ct{containsPoint:} a todos los morphs cuyas caja delimitadoras se encuentran bajo el puntero del rat\'on.
+Cuando el framework Morphic necesita encontrar qu\'e morphs estan bajo el cursor, env\'ia el mensaje \ct{containsPoint:} a todos los morphs cuyas cajas delimitadoras se encuentran bajo el puntero del rat\'on.
 Entonces, para limitar la zona sensitiva del morph a la forma de la cruz, necesitamos sobreescribir el m\'etodo \ct{containsPoint:}.
 
 \dothis{Define el siguiente m\'etodo en la clase \ct{CrossMorph}:}
 
 \needlines{4}
-\begin{method}[firstContains]{D\'Shaping the sensitive zone of the \ct{CrossMorph}.}
+\begin{method}[firstContains]{Ajustando la zona sensitiva de \ct{CrossMorph}.}
 containsPoint: aPoint
 	| crossHeight crossWidth horizontalBar verticalBar |
 	crossHeight := self height / 3.0.
@@ -256,10 +257,9 @@ containsPoint: aPoint
 \end{method}
 
 Este m\'etodo usa la misma l\'ogica que \ct{drawOn:}, entonces podemos estar seguros que los puntos para los cuales  \ct{containsPoint:} contesta \ct{true} son los mismos que ser\'an coloreados por \ct{drawOn}.
-Nota como 
-Notice how we aprovechamos el m\'etodo \mthind{Rectangle}{containsPoint:} en la clase \ct{Rectangle} para hacer el trabajo duro.
+Nota como aprovechamos el m\'etodo \mthind{Rectangle}{containsPoint:} en la clase \ct{Rectangle} para hacer el trabajo dif\'icil.
 
-Hay dos problemas con el c\'odigo en \mthsref{firstDrawOn} y \ref{mth:firstContains}.
+Hay dos problemas con el c\'odigo en los m\'etodos \ref{mth:firstDrawOn} y \ref{mth:firstContains}.
 El m\'as obvio es que hemos duplicado c\'odigo.
 Este es un error cardinal: si encontramos que necesitamos cambiar la forma en que \ct{horizonatalBar} o \ct{verticalBar} son calculadas, podriamos olvidarnos de cambiar una de las dos ocurrencias.
 La solución es factorizar estos c\'alculos en dos nuevos m\'etodos, que pondremos en el protocolo  \ct{private}:
@@ -306,7 +306,7 @@ Esto no importa cuando llenamos la cruz con un color opaco, pero el defecto se v
 	\ifluluelse
 		{\centerline{\includegraphics[scale=0.6]{overdrawBug}}}
 		{\centerline{\includegraphics{overdrawBug}}}
-	\caption{The center of the cross is filled twice with the colour.
+	\caption{El centro de la cruz es llenado dos veces con el color.
 		\figlabel{overdrawBug}}
 \end{minipage}
 \hfill
@@ -314,7 +314,7 @@ Esto no importa cuando llenamos la cruz con un color opaco, pero el defecto se v
 	\ifluluelse
 		{\centerline{\includegraphics[scale=0.6]{hairlineBug}}}
 		{\centerline{\includegraphics{bug}}}
-	\caption{The cross-shaped morph, showing a row of unfilled pixels.
+	\caption{El morph con forma de cruz, mostrando una fila de pixeles sin llenar.
 		\figlabel{bug}}
 \end{minipage}
 \end{figure}
@@ -329,11 +329,11 @@ m color: (Color blue alpha: 0.3).
 \end{code}
 
 \noindent
-La soluci\'on a esto es divider la barra vertical en 3 partes, y llenar solo la parte superior y la inferior.
-Una vez m\'as encontramos un m\'etodo en la clase  \ct{Rectangle} que hace el trabajo duro por nosotros: \ct{r1 areasOutside: r2} devuelve un arreglo de rect\'angulos con las parte de of \ct{r1} fuera de \ct{r2}. 
+La soluci\'on a esto es dividir la barra vertical en 3 partes, y llenar solo la parte superior y la inferior.
+Una vez m\'as encontramos un m\'etodo en la clase \ct{Rectangle} que hace el trabajo dif\'icil por nosotros: \ct{r1 areasOutside: r2} devuelve un arreglo de rect\'angulos con las partes de \ct{r1} fuera de \ct{r2}. 
 Aqu\'i est\'a el c\'odigo revisado:
 
-\begin{method}{The revised \ct{drawOn:} method, which fills the center of the cross once.}
+\begin{method}{El m\'etodo revisado \ct{drawOn:}, que llena el centro de la una vez.}
 drawOn: aCanvas 
 	| topAndBottom |
 	aCanvas fillRectangle: self horizontalBar color: self color.
@@ -341,13 +341,12 @@ drawOn: aCanvas
 	topAndBottom do: [ :each | aCanvas fillRectangle: each color: self color]
 \end{method}
 
-Este c\'odigo parece funcionar, pero si lo pruebas con algunas cruces y le cambias el tamanio, notar\'as que en ciertos tamanio, una l\'inea de un pixel separa la parte inferior de la cruz del resto, como se muestra en \figref{bug}.
-Esto es debido al redondeo: cuando el tamanio del rect\'angulo a ser llenado no es un entero, \ct{fillRectangle: color:}
-parece redondear consistentemente, dejando ona fila de pixeles sin llenar.
-Podemos trabajar sobre esto redondeando expl\'icitamente cuando calculamos los tamanio de las barras.
+Este c\'odigo parece funcionar, pero si lo pruebas con algunas cruces y le cambias el tama\~no, notar\'as que en ciertos tama\~nos, una l\'inea de un pixel separa la parte inferior de la cruz, del resto, como se muestra en \figref{bug}.
+Esto es debido al redondeo: cuando el tama\~no del rect\'angulo a ser llenado no es un entero, \ct{fillRectangle: color:} parece redondear consistentemente, dejando una fila de pixeles sin llenar.
+Podemos trabajar sobre esto redondeando expl\'icitamente cuando calculamos los taman\~os de las barras.
 
 \needlines{5}
-\begin{method}{\ct{CrossMorph>>>horizontalBar} with explicit rounding.}
+\begin{method}{\ct{CrossMorph>>>horizontalBar} con redondeo expl\'icito.}
 horizontalBar
 	| crossHeight |
 	crossHeight := (self height / 3.0) rounded.
@@ -355,7 +354,7 @@ horizontalBar
 \end{method}
 
 \needlines{5}
-\begin{method}{\ct{CrossMorph>>>verticalBar} with explicit rounding.}
+\begin{method}{\ct{CrossMorph>>>verticalBar} con redondeo expl\'icito.}
 verticalBar
 	| crossWidth |
 	crossWidth := (self width / 3.0) rounded.
@@ -412,24 +411,24 @@ Más aún, los morphs necesitan ser capaces de responder a la entrada del usuari
 
 \subsection{Eventos del rat\'on}
 
-Cuando in bot\'on del rat\'on es presionado, Morphic env\'ia el mensaje \mthind{Morph}{mouseDown:} a cada morph ubicado bajo el puntero del rat\'on y también envia el mensaje \mthind{Morph}{mouseUp:} cuando el suario libera el bot\'on del rat\'on.
+Cuando un bot\'on del rat\'on es presionado, Morphic env\'ia el mensaje \mthind{Morph}{mouseDown:} a cada morph ubicado bajo el puntero del rat\'on y también envia el mensaje \mthind{Morph}{mouseUp:} cuando el usuario libera el bot\'on del rat\'on.
 Si todos los morphs contestan \ct{false}, entonces Morphic inicia una operaci\'on drap-and-drop.
 Como discutiremos m\'as abajo, los mensajes \ct{mouseDown:} y \ct{mouseUp:} son enviados con el argumento\,---\,a \clsind{MouseEvent} \,---\,que codifica los detalles de la acci\'on del rat\'on.
 
 Extendamos el \ct{CrossMorph} para manejar eventos del rat\'on, 
-Comenzamos por asegurarnos que todos los crossMorphs contestan \ct{true} a el mensaje\mthind{Morph}{handlesMouseDown:}. 
+Comenzamos por asegurarnos que todos los crossMorphs contestan \ct{true} al mensaje\mthind{Morph}{handlesMouseDown:}. 
 
 \dothis{Agrega este método a \ct{CrossMorph}:}
-\begin{method}{Declaring that \ct{CrossMorph} will react to mouse clicks.}
+\begin{method}{Declarando que \ct{CrossMorph} reaccionar\'a clics del rat\'on.}
 CrossMorph>>>handlesMouseDown: anEvent
 	^true
 \end{method}
 
-Supongamos que cuando hacemos click en la cruz, queremos cambiar el color de la cruz a rojo, y que cuando \actclick en esta, queremos cambiar el color a amarillo.
+Supongamos que cuando hacemos clic en la cruz, queremos cambiar el color de la cruz a rojo, y que cuando \actclick en esta, queremos cambiar el color a amarillo.
 Esto se puede hacer con \mthref{mouseDown}.
 
 \needlines{7}
-\begin{method}[mouseDown]{Reacting to mouse clicks by changing the morph's color.}
+\begin{method}[mouseDown]{Reaccionando a clics del rat\'on para cambiar el color del morph.}
 CrossMorph>>>mouseDown: anEvent
 	anEvent redButtonPressed "click"
 		ifTrue: [self color: Color red].
@@ -439,30 +438,30 @@ CrossMorph>>>mouseDown: anEvent
 \end{method}
 
 \ab{I added this note:}
-Nota que adicionalmente a cambiar el color de un morph, este m\'etodo tambi\'en envia \ct{self changed}.
+Nota que adicionalmente al cambiar el color de un morph, este m\'etodo tambi\'en envia \ct{self changed}.
 Esto asegura que el morphic env\'ia \ct{drawOn:} de manera oportuna.
 
 \ab{De todas formas, el mensaje \ct{self changed} parece ser enteramente innecesario; el color cambia instantaneamente sin este.}
-Nota tambi\'en que una vez que el morph maneja el \ind{mouse events}, ya no puedes agarrarlo con el rat\'on y moverlo.
-En lugar de ello tienes que utilizar el halo: \metaclick en el morph para haccer aparecer el halo y agarrar el manejador marr\'on \moveHandle{}  o el manejador negro \grabHandle{} en la parte superior del morph,
+Nota tambi\'en que una vez que el morph maneja los eventos del rat\'on, ya no puedes agarrarlo con el rat\'on y moverlo.
+En lugar de ello tienes que utilizar el halo: \metaclick en el morph para hacer aparecer el halo y agarrar el manejador marr\'on \moveHandle{}  o el manejador negro \grabHandle{} en la parte superior del morph,
 
-El argumento \ct{anEvent} de \ct{mouseDown:} es una instancia de \mbox{\clsind{MouseEvent},} que es una subclase de  \lct{Mor\-phic\-Event}. \ct{MouseEvent} define los m\'etodos \mthind{MouseEvent}{redButtonPressed} y \mthind{MouseEvent}{yellowButtonPressed}. Navega esta clase para ver que otros m\'etodos provee para interrogar los eventos del rat\'on.
+El argumento \ct{anEvent} de \ct{mouseDown:} es una instancia de \mbox{\clsind{MouseEvent},} que es una subclase de  \lct{Mor\-phic\-Event}. \ct{MouseEvent} define los m\'etodos \mthind{MouseEvent}{redButtonPressed} y \mthind{MouseEvent}{yellowButtonPressed}. Navega esta clase para ver qu\'e otros m\'etodos provee para interrogar los eventos del rat\'on.
 
 \subsection{Eventos del teclado}
 
-To catch \ind{keyboard events}, we need to take three steps.
+Para atrapar \ind{eventos del teclado}, necesitamos hacer tres pasos.
 \begin{enumerate}
-	\item Give the ``keyboard focus'' to a specific morph: for instance we can give focus to our morph when the mouse is over it.
-	\item Handle the keyboard event itself with the \mthind{Morph}{handleKeystroke:} method: this message is sent to the morph that has keyboard focus when the user presses a key.
-	\item Release the keyboard focus when the mouse is no longer over our morph.
+	\item Dar el ``foco de teclado'' a un morph espec\'ifico: por ejemplo podemos dar el foco a nuestro morph cuando el rat\'on se mueve sobre \'el.
+	\item Manejar el evento del teclado con el \mthind{Morph}{handleKeystroke:} method: este mensaje es enviado al morph que tiene el foco de teclado cuando el usuario presiona una tecla.
+	\item Liberar el foco de teclado cuando el rat\'on ya no est\'a sobre nuestro morph.
 \end{enumerate}
 
 Extendamos el \ct{CrossMorph} para que reaccione a las pulsaciones de teclas.
 Primero necesitamos ser notificados cuando el rat\'on est\'a sobre el morph.
 Esto suceder\'a si nuestro morph responde \ct{true} al mensaje \mthind{Morph}{handlesMouseOver:}
 
-\dothis{Declare that \ct{CrossMorph} will react when it is under the mouse pointer.}
-\begin{method}{We want to handle ``mouse over'' events.} 
+\dothis{Declara que \ct{CrossMorph} reaccionar\'a cuando este bajo el puntero del rat\'on.}
+\begin{method}{Queremos manejar los eventos de ``mouse over''.} 
 CrossMorph>>>handlesMouseOver: anEvent
 	^true
 \end{method}
@@ -472,17 +471,17 @@ Este mensaje es el equivalente a \mthind{Morph}{handlesMouseDown:} para la posic
 Cuando el puntero del rat\'on entra o sale del morph, los mensajes \mthind{Morph}{mouseEnter:} y \mthind{Morph}{mouseLeave:} son enviados a este.
 
 \dothis{Define dos m\'etodos para que el \ct{CrossMorph} atrape y libere el foco del teclado, y un tercer m\'etodo para manejar las pulsaciones de teclado.}
-\begin{method}{Getting the keyboard focus when the mouse enters the morph.}
+\begin{method}{Obteniendo el foco de teclado cuando el rat\'on entra al morph.}
 CrossMorph>>>mouseEnter: anEvent
 	anEvent hand newKeyboardFocus: self
 \end{method}
 
-\begin{method}{Handing back the focus when the pointer goes away.}
+\begin{method}{Devolviendo el foco cuando el puntero se va.}
 CrossMorph>>>mouseLeave: anEvent
 	anEvent hand newKeyboardFocus: nil
 \end{method}
 
-\begin{method}[handleKeystroke]{Receiving and handling keyboard events.}
+\begin{method}[handleKeystroke]{Recibiendo y manejando eventos de teclado.}
 CrossMorph>>>handleKeystroke: anEvent
 	| keyValue |
 	keyValue := anEvent keyValue.
@@ -496,9 +495,9 @@ CrossMorph>>>handleKeystroke: anEvent
 		ifTrue: [self position: self position - (1 @ 0)]
 \end{method}
 
-Hemos escrito este m\'etodo  para poder mover el morph usando las teclas de flecha.
+Hemos escrito este m\'etodo  para poder mover el morph usando las teclas de flechas.
 Nota que cuando el rat\'on ya no est\'a sobre el morph, el mensaje \mthind{Morph}{handleKeystroke:} no es enviado, por lo que el morph deja de responder a los comandos del teclado.
-Para descubrir los valores de las teclas, pueden abrir un Transcript y agregar \glbind{Transcript} \ct{show: anEvent keyValue} al método \mthref{handleKeystroke} 
+Para descubrir los valores de las teclas, puedes abrir un Transcript y agregar \glbind{Transcript} \ct{show: anEvent keyValue} al método \mthref{handleKeystroke}. 
 
 El argumento \ct{anEvent} de \ct{handleKeystroke:} es una instancia de \clsind{KeyboardEvent}, otra subclase de \clsind{MorphicEvent}. Navega esta clase para aprender m\'as sobre los eventos de teclado. 
 
@@ -525,8 +524,8 @@ CrossMorph>>>step
 \end{method}
 \noindent
 
-Para comenzar, puedes abrir un inspector en un \ct{CrossMorph}  (usando el manejador de debug \debugHandle{} en una halo de morphic), tipea \ct{self startStepping} en el pequeño workspace de abajo, y \menu{do it}.
-Alternativamente, puedes modificar el m\'edtodo \ct{handleKeystroke:}  para que puedas usar las teclas $+$ and $-$  para comenzar y deterner eel paso a paso.
+Para comenzar, puedes abrir un inspector en un \ct{CrossMorph}  (usando el manejador de debug \debugHandle{} en una halo de morphic), tipea \ct{self startStepping} en el peque\~no workspace de abajo, y \menu{do it}.
+Alternativamente, puedes modificar el m\'edtodo \ct{handleKeystroke:}  para que puedas usar las teclas $+$ and $-$  para comenzar y deterner el paso a paso.
 
 
 \dothis{Agregar el siguiente c\'odigo a \mthref{handleKeystroke}:}
@@ -541,7 +540,7 @@ Alternativamente, puedes modificar el m\'edtodo \ct{handleKeystroke:}  para que 
 % \on{You can also \menu{debug \go inspect morph} and evaluate: \ct{self currentWorld startStepping: self}.}
 
 %=================================================================
-\section{Interactors}
+\section{Interactores}
 
 Para pedirle al usuario una entrada, la clase \clsind{UIManager} provee una gran n\'umero de  cajas de di\'alogo listas para usar.
 Por ejemplo, el m\'etodo \mthind{UIManager}{request:initialAnswer:} revuelve un cadena ingresada por le usuario (\figref{dialogName}).
@@ -553,7 +552,7 @@ UIManager default request: 'What''s your name?' initialAnswer: 'no name'
 \begin{figure}[htb]
 \begin{minipage}{0.48\textwidth}
 	\centerline{\includegraphics[width=0.8\textwidth]{dialog}}
-	\caption{An input dialog.}\figlabel{dialogName}
+	\caption{Un di\'alogo de entrada.}\figlabel{dialogName}
 \end{minipage}
 \hfill
 \begin{minipage}{0.48\textwidth}
@@ -561,11 +560,11 @@ UIManager default request: 'What''s your name?' initialAnswer: 'no name'
 	\centerline{\includegraphics [width=0.8\textwidth]{popup}}
 	\vfill
 	\vspace{4ex}
-	\caption{Pop-up menu.}\figlabel{popup}
+	\caption{Men\'u emergente.}\figlabel{popup}
 \end{minipage}
 \end{figure}
 
-Para desplegar un men\'e emergente, usa uno de los variso m\'etodos \ct{chooseFrom:} (\figref{popup}):
+Para desplegar un men\'u emergente, usa uno de los varios m\'etodos \ct{chooseFrom:} (\figref{popup}):
 \begin{code}{}
 UIManager default
 	chooseFrom: #('circle' 'oval' 'square' 'rectangle' 'triangle')
@@ -591,12 +590,12 @@ UIManager default
 %\end{figure}
 
 %=================================================================
-\section{Arrastrar y Soltar}
-Morphic tambi\'en soporta drag-and-drop. Examinemos un simple ejemplo con dos morphs, un morph receptor y un morph dropped. 
-El receptor aceptar\'a un morph solo si el morph arrastrado coincide con una condici\on dada: en nuestro ejemplo, el morph debe ser azul. Si es rechazado el  morph arrastrado decide que hacer.
+\section{Drag-And-Drop}
+Morphic tambi\'en soporta drag-and-drop. Examinemos un simple ejemplo con dos morphs, un morph receptor y un morph arrojado. 
+El receptor aceptar\'a un morph solo si el morph arrastrado coincide con una condici\'on dada: en nuestro ejemplo, el morph debe ser azul. Si es rechazado el  morph arrastrado decide que hacer.
 
 \dothis{Primero definamos el morph receptor:}
-\begin{classdef}{Defining a morph on which we can drop other morphs}
+\begin{classdef}{Definiendo un morph en el que podamos arrastrar otros morphs}
 Morph subclass: #ReceiverMorph
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -605,20 +604,20 @@ Morph subclass: #ReceiverMorph
 \end{classdef}
 
 \dothis{Ahora define el m\'etodo de inicializaci\'on de la manera usual:}
-\begin{method}{Initializing \ct{ReceiverMorph}.}
+\begin{method}{Inicializando \ct{ReceiverMorph}.}
 ReceiverMorph>>>initialize
 	super initialize.
 	color := Color red.
 	bounds := 0 @ 0 extent: 200 @ 200
 \end{method}
 
-Como dedicir si el receptor aceptar\'a o rechazar\'a el morph arrastrado?
+?`Como dedicir si el receptor aceptar\'a o rechazar\'a el morph arrastrado?
 En general ambos morphs tendr\'an que acordar en la interacci\'on.
 
-El receptor hace esto respondiendo a \mthind{Morph}{wantsDroppedMorph:event:}; al primer argumento es el morph arrastrado, y el segundo es el evento del mouse, de esta forma el receptor puede por ejemplo ver si alguna tecla modificador fue presionada al momento del arrastre.
+El receptor hace esto respondiendo a \mthind{Morph}{wantsDroppedMorph:event:}; el primer argumento es el morph arrastrado, y el segundo es el evento del rat\'on, de esta forma el receptor puede por ejemplo ver si alguna tecla modificadora fue presionada al momento del arrastre.
 El morph arrastrado tambi\'en tiene la oportunidad de chequear y ver si le gusta el morph sobre el que está siendo arrojado; se le env\'ia el mensaje \ct{wantsToBeDroppedInto:}. La implementaci\'on por defecto de este m\'etodo (en la clase \ct{Morph}) responde \ct{true}.
 
-\begin{method}{Accept dropped morphs based on their color.}
+\begin{method}{Aceptar el morph arrojado en base a su color.}
 ReceiverMorph>>>wantsDroppedMorph: aMorph event: anEvent
 	^ aMorph color = Color blue
 \end{method}
@@ -645,9 +644,9 @@ Intenta hacer drag-and-drop  el \ct{EllipseMorph}  amarillo sobre el receptor. E
 \dothis{Para cambiar este comportamiento, cambia el color de la morph elipse a \ct{Color blue} usando un inspector. Los morphs azules deben ser aceptado por el \ct{ReceiverMorph}.}
 
 
-Creemos una subclasse de \ct{Morph}, llamada \ct{DroppedMorph}, para que podamos experimentar un poco m\'as:
+Creemos una subclase de \ct{Morph}, llamada \ct{DroppedMorph}, para que podamos experimentar un poco m\'as:
 
-\begin{classdef}{Defining a morph we can drag-and-drop onto \ct{ReceiverMorph}}
+\begin{classdef}{Definiendo un morph que podamos arrastrar y soltar sobre el \ct{ReceiverMorph}}
 Morph subclass: #DroppedMorph
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -656,16 +655,16 @@ Morph subclass: #DroppedMorph
 \end{classdef}
 
 \needlines{5}
-\begin{method}{Initializing \ct{DroppedMorph}.}
+\begin{method}{Inicializando \ct{DroppedMorph}.}
 DroppedMorph>>>initialize
 	super initialize.
 	color := Color blue.
 	self position: 250@100
 \end{method}
 
-Ahora podemos especificar que debe hacer el morph arrastrado cuando es rechazado por el receptor; aqui este permanecer\'a adjunto al puntero del rat\'on.:
+Ahora podemos especificar qu\'e debe hacer el morph arrastrado cuando es rechazado por el receptor; aqui este permanecer\'a adjunto al puntero del rat\'on:
 
-\begin{method}{Reacting when the morph was dropped but rejected.}
+\begin{method}{Reaccionando cuando el morph fue arrojado pero rechazado.}
 DroppedMorph>>>rejectDropMorphEvent: anEvent
 	| h |
 	h := anEvent hand.
@@ -674,7 +673,7 @@ DroppedMorph>>>rejectDropMorphEvent: anEvent
 	anEvent wasHandled: true
 \end{method}
 
-Enviar el mensaje \mthind{MorphicEvent}{hand} a un evento, responde la \emph{hand}, una instancia de \ct{HandMorph} que representa el puntero del rat\'on y lo que sea que sostenga.
+Enviar el mensaje \mthind{MorphicEvent}{hand} a un evento, responde una \emph{hand}, que es una instancia de \ct{HandMorph} que representa el puntero del rat\'on y lo que sea que sostenga.
 
 Aqui le decimos al \ct{World} que la mano debe agarrar \ct{self}, el morph rechazado.
 
@@ -685,24 +684,23 @@ ReceiverMorph new openInWorld.
 (DroppedMorph new color: Color green) openInWorld.
 \end{code}
 \noindent
-The green morph is rejected and therefore stays attached to the mouse pointer.
-El morph verde is rechazado y por lo tanto permanece adjunto a puntero del rat\'on.
+El morph verde es rechazado y por lo tanto se mantiene adjunto al puntero del rat\'on.
 
 %=================================================================
 \section{Un ejmeplo completo}
 
-Deseñemos un moprh para tirar un dado. Haciendo click en el, mostrar\'a los valores de todas las caras del dado en un ciclo, y otro click detendr\'a la animaci\'on.
+Dese\~nemos un morph para tirar un dado. Haciendo clic en el, se mostrar\'an los valores de todas sus caras en un ciclo, y otro clic detendr\'a la animaci\'on.
 
 \begin{figure}[ht]
 	\centerline{\includegraphics[scale=0.65]{die}}
-	\caption{The die in Morphic.
+	\caption{El dado en Morphic.
 		\figlabel{dialogDie}}
 \end{figure}
 
 \dothis{Define un dado como una subclase de \clsind{BorderedMorph} en lugar de \ct{Morph}, porque haremos uso del borde.}
 
 \needlines{6}
-\begin{classdef}{Defining the die morph}
+\begin{classdef}{Definiendo un dado morph}
 BorderedMorph subclass: #DieMorph
 	instanceVariableNames: 'faces dieValue isStopped'
 	classVariableNames: ''
@@ -710,17 +708,17 @@ BorderedMorph subclass: #DieMorph
 	category: 'PBE-Morphic'
 \end{classdef}
 
-La variable de instancia \ct{faces} registra el n\'umero de caras del dado; nos permitir\'a dados con hasta 9 caras! \ct{dieValue} registra los valores de la cara que est\'a actualmente mostrada, y \ct{isStopped} is verdadero si la animaci\'on est\'a detenida.
+La variable de instancia \ct{faces} registra el n\'umero de caras del dado; !`nos permitir\'a dados con hasta 9 caras! \ct{dieValue} registra los valores de la cara que est\'a actualmente mostrada, y \ct{isStopped} es verdadero si la animaci\'on est\'a detenida.
 
 Para crear una instancia de dado, definimos el m\'etodo caras en el lado \emph{class}  de \clsind{DieMorph} para crear un nuevo dado con \ct{n} caras.
 
-\begin{method}{Creating a new die with the number of faces we like.}
+\begin{method}{Creado un new dado con el n\'umero de caras que nos gusta.}
 DieMorph class>>>faces: aNumber
 	^ self new faces: aNumber
 \end{method}
 
-El m\'etodo \ct{initialize} est\'a es definido en la instancia como de costumbre; recuerda que \ct{new} env\'ia \ct{initialize} a la nueva instancia creada.
-\begin{method}{Initializing instances of \ct{DieMorph}.}
+El m\'etodo \ct{initialize} est\'a definido en la instancia como de costumbre; recuerda que \ct{new} env\'ia \ct{initialize} a la nueva instancia creada.
+\begin{method}{Inicializando instancias de \ct{DieMorph}.}
 DieMorph>>>initialize
 	super initialize.
 	self extent: 50 @ 50.
@@ -733,11 +731,11 @@ DieMorph>>>initialize
 	isStopped := false
 \end{method}
 
-Usamos unos pocos m\'etodos de \ct{BorderedMorph}  para dar una apariencia agradable al dado: un borde grueso con una efecto raised, esquinas redondeadas, y un color gradiente en la cara visible.
+Usamos unos pocos m\'etodos de \ct{BorderedMorph}  para dar una apariencia agradable al dado: un borde grueso con una efecto elevado, esquinas redondeadas, y un color gradiente en la cara visible.
 
-Definimos el m\'etodo de instancia \ct{faces:} to chequear par\'ametros v\'alidos como sigue:
+Definimos el m\'etodo de instancia \ct{faces:} para chequear par\'ametros v\'alidos como sigue:
 
-\begin{method}{Setting the number of faces of the die.}
+\begin{method}{Seteando el n\'umero de caras del dado.}
 DieMorph>>>faces: aNumber
 	"Set the number of faces"
 	(aNumber isInteger
@@ -750,15 +748,15 @@ DieMorph>>>faces: aNumber
 Podr\'ia ser bueno reveer el orden en que se envian los mensajes cuando un dado es creado. Por ejemplo, si comenzamos por
 evaluar \ct{DieMorph faces: 9}:
 \begin{enumerate}
-	\item The class method \ct{DieMorph class>>>faces:} sends \ct{new} to \ct{DieMorph class}.
-	\item The method for \ct{new} (inherited by \ct{DieMorph class} from \ct{Behavior}) creates the new instance and sends it the \ct{initialize} message.
-	\item The \ct{initialize} method in \ct{DieMorph} sets \ct{faces} to an initial value of 6.
-	\item \ct{DieMorph class>>>new} returns to the class method \ct{DieMorph class>>>faces:}, which then sends the message \ct{faces: 9} to the new instance.
-	\item The instance method \ct{DieMorph>>>faces:} now executes, setting the \ct{faces} instance variable to 9.
+	\item El m\'etodo de clase \ct{DieMorph class>>>faces:} envia \ct{new} a \ct{DieMorph class}.
+	\item El m\'etodo para \ct{new} (heredado por \ct{DieMorph class} de \ct{Behavior}) crea la nueva instacia y le env\'ia el mensaje \ct{initialize}.
+	\item El m\'etodo  \ct{initialize} en \ct{DieMorph} establece \ct{faces} al valor inicial 6.
+	\item \ct{DieMorph class>>>new} retorna el m\'etodo de clase \ct{DieMorph class>>>faces:}, que env\'ia el mensaje \ct{faces: 9} a la nueva instancia.
+	\item El m\'etodo de instancia \ct{DieMorph>>>faces:} ahora se ejecuta, estableciendo la variable de instancia \ct{faces} en 9.
 \end{enumerate}
 
 Antes de definir \ct{drawOn:}, necesitamos unos pocos m\'etodos para poner los puntos en la cara mostrada:
-\begin{methods}{Nine methods for placing points on the faces of the die.}
+\begin{methods}{Nueve m\'etodos para ubicar los puntos en las caras del dado.}
 DieMorph>>>face1
 	^{0.5@0.5}
 DieMorph>>>face2
@@ -780,10 +778,10 @@ DieMorph >>>face9
 \end{methods}
 \on{kind of ugly boilerplate code -- should be a nice way to map these more elegantly to coordinates.}
 
-Estos m\'etodos definen colecciones de coordenadas de puntos para cada cara. Las coordenadas estan en un cuadrado de tamaño $1\times1$; simplemente necesitaremos escalarlas para ubicar los verdaderos puntos.
+Estos m\'etodos definen colecciones de coordenadas de puntos para cada cara. Las coordenadas estan en un cuadrado de tama\~no $1\times1$; simplemente necesitaremos escalarlas para ubicar los verdaderos puntos.
 
-El m\'etodo \ct{drawOn:} hace dos cosas: dibuja el fondo del dado con la \ct{super}-send, y luego dibuja los puntos.
-\begin{method}{Drawing the die morph.}
+El m\'etodo \ct{drawOn:} hace dos cosas: dibuja el fondo del dado con \ct{super}-send, y luego dibuja los puntos.
+\begin{method}{Dibujando el dado morph.}
 DieMorph>>>drawOn: aCanvas
 	super drawOn: aCanvas.
 	(self perform: ('face' , dieValue asString) asSymbol)
@@ -791,9 +789,9 @@ DieMorph>>>drawOn: aCanvas
 \end{method}
 
 La segunda parte de este m\'etodo usa las capacidades refletivas de \st.
-Dibujar los puntos de una cara es una simple cuesti\'on de iterar sobre la colecci\'on dada por el m\'etodo \ct{faceX} para esa cara, envienado el mensaje \ct{drawDotOn:at:} para cada coordenada. Para llamar el correcto m'etodo \ct{faceX}, usamos el m\'etodo \mthind{Object}{perform:} que envia un mensaje creado desde un string, aqu\'i \lct{('face', dieValue asString) asSymbol}. Encotraras este uso de este \ct{perform:} bastante regularmente.
+Dibujar los puntos de una cara es una simple cuesti\'on de iterar sobre la colecci\'on dada por el m\'etodo \ct{faceX} para esa cara, enviando el mensaje \ct{drawDotOn:at:} para cada coordenada. Para llamar al correcto m'etodo \ct{faceX}, usamos el m\'etodo \mthind{Object}{perform:} que envia un mensaje a partir de una cadena, aqu\'i \lct{('face', dieValue asString) asSymbol}. Encotrar\'as este uso de \ct{perform:} bastante seguido.
 \index{reflection}
-\begin{method}{Drawing a single dot on a face.}
+\begin{method}{Dibujando un punto en una cara.}
 DieMorph>>>drawDotOn: aCanvas at: aPoint
 	aCanvas
 		fillOval: (Rectangle
@@ -803,15 +801,15 @@ DieMorph>>>drawDotOn: aCanvas at: aPoint
 \end{method}
 \ew{I would not use reflection to call faceX on p.234. A statically filled Dictionary would be more appropriate. Get the point set with "MyDict at: X".}
 
-Como las coordenadas est\'an normalizadas al inervalo $[0{:}1]$, podemos escalarlas a las dimensiones de nuestro dado: \ct{self extent * aPoint}.
+Como las coordenadas est\'an normalizadas al intervalo $[0{:}1]$, podemos escalarlas a las dimensiones de nuestro dado: \ct{self extent * aPoint}.
 
 \dothis{Ya podemos crear una instancia de dado desde un workspace:}
 \begin{code}{}
 (DieMorph faces: 6) openInWorld.
 \end{code}
 
-Para cambiar la cara mostrada, creamos un accessor que podemos usar como \ct{myDie dieValue: 4}:
-\begin{method}{Setting the current value of the die.}
+Para cambiar la cara mostrada, creamos un accesor que podemos usar como \ct{myDie dieValue: 4}:
+\begin{method}{Estableciendo el valor del dado.}
 DieMorph>>>dieValue: aNumber
 	(aNumber isInteger
 			and: [aNumber > 0]
@@ -824,19 +822,19 @@ DieMorph>>>dieValue: aNumber
 Ahora vamos usar el sistema de animaci\'on para mostrar r\'apidamente todas las caras:
 \needlines{3}
 \index{Morphic!animation}
-\begin{methods}{Animating the die.}
+\begin{methods}{Animando el dado.}
 DieMorph>>>stepTime
 	^ 100
 
 DieMorph>>>step
 	isStopped ifFalse: [self dieValue: (1 to: faces) atRandom]
 \end{methods}
-¡Ahora el dado est\'a rodando!
+!`Ahora el dado est\'a rodando!
 
-Para comenzar o deterner la animaci\'on haciendo click, usaremos lo que hemos aprendido previamente sobre los eventos del  rat\'on.
+Para comenzar o deterner la animaci\'on haciendo clic, usaremos lo que hemos aprendido previamente sobre los eventos del  rat\'on.
 Primero, activamos la recepci\'on de los eventos del rat\'on:
 
-\begin{methods}{Handling mouse clicks to start and stop the animation.}
+\begin{methods}{Manejando clics del rat\'on para iniciar y detenar la animaci\'on.}
 DieMorph>>>handlesMouseDown: anEvent
 	^ true
 
@@ -844,14 +842,14 @@ DieMorph>>>mouseDown: anEvent
 	anEvent redButtonPressed
 		ifTrue: [isStopped := isStopped not]
 \end{methods}
-Now the die will roll or stop rolling when we click on it.
+Ahora el dado rodar\'a o se detendr\'a hagamos clic en \'el.
 
 % That's all for the essentials of Morphic!
 
 % Most of the work on \ct{DieMorph} was done with an instance of it living in the environment; this is quite nice when to tweak programs.
 
 %=================================================================
-\section{More about the canvas}
+\section{M\'as acerca del canvas}
 
 El método \ct{drawOn:} tiene una instancia de \clsindmain{Canvas} como su \'unico argumento;
 el canvas es un \'area en donde el morph se dibuja asimismo.
@@ -861,16 +859,16 @@ Si navegas la jerarqu\'ia de herencia de la clase \ct{Canvas}, ver\'as que tiene
 La variante por defecto de \ct{Canvas} es \clsind{FormCanvas}; encontrar\'as los m\'etodos gr\'aficos clave en \ct{Canvas} y \ct{FormCanvas}.
 Estos m\'etodos pueden dibujar puntos, l\'ineas, pol\'igonos, rect\'angulos, elipses, textos e im\'agenes con rotaci\'on y escalamiento.
 
-Tambi\'en es posible user otras clases de canvas, para obtener morphs transparentes, m\'as m\'etodos gr\'aficos, antialising, y otros.
+Tambi\'en es posible usar otras clases de canvas, para obtener morphs transparentes, m\'as m\'etodos gr\'aficos, antialising, y otros.
 
 Para usar estas funcionalidades necesitar\'as un \clsind{AlphaBlendingCanvas} o un \clsind{BalloonCanvas}.
 
-Pero, ¿como puedes obtener un canvas as\'i en un m\'etodo \ct{drawOn:} cuando \ct{drawOn:} recibe una instancia de \ct{FormCanvas} como argumento?
+Pero, ?`como puedes obtener un canvas as\'i en un m\'etodo \ct{drawOn:} cuando \ct{drawOn:} recibe una instancia de \ct{FormCanvas} como argumento?
 Afortunadamente, puedes transformar un tipo de canvas en otro.
 
 \dothis{Para usar un canvas con alpha-transparency 0.5 en \ct{DieMorph}, redefine \ct{drawOn:} de esta forma:}
 \needlines{7}
-\begin{method}{Drawing a translucent die.}
+\begin{method}{Dibujando un dado translucido.}
 DieMorph>>>drawOn: aCanvas
 	| theCanvas |
 	theCanvas := aCanvas asAlphaBlendingCanvas: 0.5.
@@ -879,11 +877,11 @@ DieMorph>>>drawOn: aCanvas
 		do: [:aPoint | self drawDotOn: theCanvas at: aPoint]
 \end{method}
 \noindent
-¡Eso es todo lo que necesitas hacer!
+!`Eso es todo lo que necesitas hacer!
 
 \begin{figure}[ht]
 	\centerline{\includegraphics[scale=0.7]{multiMorphs}}
-	\caption{The die displayed with alpha-transparency.
+	\caption{El dado mostrado con alpha-transparency.
 		\figlabel{multiMorphs}}
 \end{figure}
 

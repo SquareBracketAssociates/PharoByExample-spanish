@@ -13,6 +13,7 @@
 % 2007-09-06 - Cassou corrections
 % 2007-09-24 - Cassou review
 % 2009-07-01 - Oscar migrated to Pharo
+% 2011-06-20 - Federico Rodriguez translated to Spanish
 
 %=================================================================
 \ifx\wholebook\relax\else
@@ -479,7 +480,7 @@ El panel inferior del inspector es un mini-workspace. Es muy útil porque en est
 Selecciona LOCell en la raíz de la ventana del inspector.
 Tipea el texto \ct{self openInWorld} en el mini-workspace y \menu{do it}.}
 La celda debería aparecer cerca de la esquina superior izquierda de la pantalla, exactamente donde sus \ct{límites} dicen que debería aparecer. 
-\metaclick en la celda para que aparezca el halo de morphic \subind{Morphic}. %% <---verificar
+\metaclick en la celda para que aparezca el halo de Morphic \subind{Morphic}. %% <---verificar
 Mueve la celda con el asa marrón (esquina superior derecha) y redimensiónalo con el asa amarilla (abajo a la derecha).
 Nota como los límites reportados por el inspector también cambian. 
 (Tal vez tengas que \actclick{} \menu{refresh} para ver los nuevos valores de los límites.)
@@ -858,64 +859,96 @@ Recuerda que en \ct{LOGame>>>newCellAt: i at: j} asignamos el siguiente fragment
 \noindent
 % Sending the \ct{value} message causes this code fragment to be evaluated, and consequently the state of the cells will toggle.
 Enviar el mensaje \ct{value} provoca que este fragmento de c\'odigo sea evaluado, y consecuentemente el estado de las celdas cambiar\'a. 
-%%%------------HASTA ACA LLEGUE---------------%%%
+
 %=================================================================
-\section{Let's try our code}
+% \section{Let's try our code}
+\section{Probemos nuestro c\'odigo}
 
-That's it: the Lights Out game is complete!
+% That's it: the Lights Out game is complete!
+Eso es: el juego Lights Out est\'a completo!
 
-If you have followed all of the steps, you should be able to play the game, consisting of just 2 classes and 7 methods.
+% If you have followed all of the steps, you should be able to play the game, consisting of just 2 classes and 7 methods.
+Si has seguido todos los pasos, deber\'ias poder jugar el juego, que consiste en solo 2 clases y 7 m\'etodos.
 
-\dothis{In a workspace, type \ct{LOGame new openInWorld} and \menu{do it}.}
+% \dothis{In a workspace, type \ct{LOGame new openInWorld} and \menu{do it}.}
+\dothis{En un workspace, tipea \ct{LOGame new openInWorld} y \menu{do it}.}
 
-The game will open, and you should be able to click on the cells and see how it works.
+% The game will open, and you should be able to click on the cells and see how it works.
+El juego se abrir\'a, y deber\'ias poder hacer click en las celdas y ver como funciona. 
 
-Well, so much for theory\ldots{}
-When you click on a cell, a \emphind{notifier} window called the \clsind{PreDebugWindow}window appears with an error message!
-As depicted in \figref{lightsOutError}, it says \ct{MessageNotUnderstood: LOGame>>>toggleState}.
+% Well, so much for theory\ldots{}
+% When you click on a cell, a \emphind{notifier} window called the \clsind{PreDebugWindow}window appears with an error message!
+% As depicted in \figref{lightsOutError}, it says \ct{MessageNotUnderstood: LOGame>>>toggleState}.
+Bueno, demasiada teor\'ia\ldots{}
+Cuando haces click en una celda, una ventana de \emphind{notificaci\'on} llamada ventana \clsind{PreDebugWindow} aparece con un mensaje de error!
+Como se muestra en \figref{lightsOutError}, dice \ct{MessageNotUnderstood: LOGame>>>toggleState}.
 
 \begin{figure}[ht]
 \ifluluelse
 	{\centerline{\includegraphics[width=\textwidth]{Error}}}
 	{\centerline{\includegraphics[scale=0.7]{Error}}}
-\caption{There is a bug in our game when a cell is clicked!
+%\caption{There is a bug in our game when a cell is clicked!
+\caption{'!Hay un bug en nuestro juego cuando se hace click en nuestra celda!
 \figlabel{lightsOutError}}
 \end{figure}
 
 \noindent
-What happened? To find out, let's use one of Smalltalk's more powerful tools: the \ind{debugger}.
+% What happened? To find out, let's use one of Smalltalk's more powerful tools: the \ind{debugger}.
+'¿Qu\'e pas\'o? Para averiguarlo, usemos uno de las herramientas m\'as poderosas de Smalltalk: el \ind{debugger}.
 
-\dothis{Click on the \menu{debug} button in the notifer window.}
-The debugger will appear.
-In the upper part of the debugger window you can see the execution stack, showing all the active methods; selecting any one of them will show, in the middle pane, the Smalltalk code being executed in that method, with the part that triggered the error highlighted.
+% \dothis{Click on the \menu{debug} button in the notifer window.}
+% The debugger will appear.
+% In the upper part of the debugger window you can see the execution stack, showing all the active methods; selecting any one of them will show, in the middle pane, the Smalltalk code being executed in that method, with the part that triggered the error highlighted.
+\dothis{Haz click en el bot\'on \menu{debug} en la ventana de notificaci\'on.}
+El debugger aparecer\'a.
+En la parte superior de la ventana del debugger puedes ver la pila de ejecuci\'on, mostrando todos los m\'etodos activos; seleccionando alguno de ellos se mostrar\'a, en el panel del medio, el c\'odigo Smalltalk ejecut\'andose en ese m\'etodo, con la parte que dispar\'o el error resaltada. 
 
-\dothis{Click on the line labelled
+% \dothis{Click on the line labelled
+% \ct{LOGame>>>toggleNeighboursOfCellAt:at:} (near the top).}
+% The debugger will show you the \ind{execution context} within this method where the error occurred (\figref{debugToggle}).
+\dothis{Has click en la l\'inea etiquetada 
 \ct{LOGame>>>toggleNeighboursOfCellAt:at:} (near the top).}
-The debugger will show you the \ind{execution context} within this method where the error occurred (\figref{debugToggle}).
+El debugger te mostrar\'a el \ind{contexto de ejecuci\'on} de este m\'etodo donde ocurri\'o el error (\figref{debugToggle}).
 
 \begin{figure}[ht]
 \ifluluelse
 	{\centerline {\includegraphics[width=\textwidth]{Debugger}}}
 	{\centerline {\includegraphics[scale=0.7]{Debugger}}}
-\caption{The debugger, with the method \ct{toggleNeighboursOfCell:at:}  selected.
+% \caption{The debugger, with the method \ct{toggleNeighboursOfCell:at:}  selected.
+\caption{El debugger, con el m\'etodo \ct{toggleNeighboursOfCell:at:}  seleccionado.
 \figlabel{debugToggle}}
 \end{figure}
 
-At the bottom of the debugger are two small inspector windows.  On the left, you can inspect the object that is the receiver of the message that caused the selected method to execute, so you can look here to see the values of the instance variables.
-On the right you can inspect an object that represents the currently executing method itself, so you can look here to see the values of the method's parameters and temporary variables.
+% At the bottom of the debugger are two small inspector windows.  On the left, you can inspect the object that is the receiver of the message that caused the selected method to execute, so you can look here to see the values of the instance variables.
+% On the right you can inspect an object that represents the currently executing method itself, so you can look here to see the values of the method's parameters and temporary variables.
+En la parte inferior del debugger hay dos pequeñas ventanas de inspecci\'on. A la izquierda, puedes inspeccionar el objeto receptor del mensaje que caus\'o que el mensaje seleccionado se ejecute, asi que pudes mirar aqu\'i para ver los valores de las variables de instancia.
+A la derecha puedes inspeccionar un objeto que representa el m\'etodo que se est\'a ejecutando, asi que puedes mirar aqu\'i para ver los valores de los par\'ametros del m\'etodo y las variables temporales.
 
-Using the debugger, you can execute code step by step, inspect objects in parameters and local variables, evaluate code just as you can in a workspace, and, most surprisingly to those used to other debuggers, change the code while it is being debugged! Some Smalltalkers program in the debugger almost all the time, rather than in the browser.  The advantage of this is that you see the method that you are writing as it will be executed, with real parameters in the actual execution context.
 
-In this case we can see in the first line of the top panel that the \ct{toggleState} message has been sent to an instance of \ct{LOGame}, while it should clearly have been an instance of \lct{LOCell}.
-The problem is most likely with the initialization of the \ct{cells} matrix.
-Browsing the code of \cmind{LOGame}{initialize} shows that \ct{cells} is filled with the return values of \ct{newCellAt:at:}, but when we look at that method, we see that there is no return statement there!
-By default, a method returns \ct{self}, which in the case of \ct{newCellAt:at:} is indeed an instance of \ct{LOGame}.
+% Using the debugger, you can execute code step by step, inspect objects in parameters and local variables, evaluate code just as you can in a workspace, and, most surprisingly to those used to other debuggers, change the code while it is being debugged! Some Smalltalkers program in the debugger almost all the time, rather than in the browser.  The advantage of this is that you see the method that you are writing as it will be executed, with real parameters in the actual execution context.
+Usando el debugger, puedes ejecutar c\'odigo paso a paso, inspeccionar objetos en par\'ametros y variables locales, evaluar c\'odigo como lo puedes hacer en el workspace, y, m\'as sorprendente a\'un para los que est\'an acostumbrados a otros debuggers, '!cambiar el c\'odigo mientras est\'a siendo debuggeado! Algunos programadores Smalltalk programan en el debugger casi todo el tiempo, en lugar de usar el browser. La ventaja de esto es que puedes ver el m\'etodo que est\'as escribiendo como ser\'a ejecutado, con par\'ametros reales en el contexto de ejecuci\'on real.
+
+% In this case we can see in the first line of the top panel that the \ct{toggleState} message has been sent to an instance of \ct{LOGame}, while it should clearly have been an instance of \lct{LOCell}.
+% The problem is most likely with the initialization of the \ct{cells} matrix.
+% Browsing the code of \cmind{LOGame}{initialize} shows that \ct{cells} is filled with the return values of \ct{newCellAt:at:}, but when we look at that method, we see that there is no return statement there!
+% By default, a method returns \ct{self}, which in the case of \ct{newCellAt:at:} is indeed an instance of \ct{LOGame}.
+% \index{method!returning self}
+En este caso podemos ver en la primera l\'inea del panel superior que el mensaje \ct{toggleState} fu\'e enviado a una instancia de \ct{LOGame}, cuando, claramente, deber\'ia haber sido una instancia de \lct{LOCell}.
+El problema est\'a seguramente con la inicializaci\'on de la matriz \ct{cells}.
+Explorando el c\'odigo de \cmind{LOGame}{initialize} nos muestra que \ct{cells} se llena con el valor de retorno de \ct{newCellAt:at:}, pero cuand miramos ese m\'etodo, '!vemos que no hay sentencia de retorno!
+Por defecto, un m\'etodo retorna \ct{self}, que en el caso de \ct{newCellAt:at:} es de hecho una instancia de \ct{LOGame}.
 \index{method!returning self}
 
-\dothis{Close the debugger window.
-Add the expression ``\ct{^ c}'' to the end of the method \ct{LOGame>>>newCellAt:at:} so that it returns \ct{c}.
+% \dothis{Close the debugger window.
+% Add the expression ``\ct{^ c}'' to the end of the method \ct{LOGame>>>newCellAt:at:} so that it returns \ct{c}.
+%-- Codigo comentado en la version original --%
 % It should now look as shown in \mthref{newCellAt:at:nobug}.}
-(See \mthref{newCellAt:at:nobug}.)}
+%-- Fin codigo comentado en la version original --%
+% (See \mthref{newCellAt:at:nobug}.)}
+
+\dothis{Cierra la ventana del debugger.
+Agrega la expresi\'on ``\ct{^ c}'' al final del m\'etodo \ct{LOGame>>>newCellAt:at:} para que devuelva \ct{c}.
+(Ver \mthref{newCellAt:at:nobug}.)}
 
 % \needlines{6}
 \begin{method}[newCellAt:at:nobug]{Fixing the bug.}
@@ -932,13 +965,20 @@ LOGame>>>newCellAt: i at: j
 \end{method}
 \cmindex{LOGame}{newCellAt:at:}
 
-\noindent
-Recall from \charef{quick} that the construct to \ind{return} a \subind{method}{value} from a method in Smalltalk is \ct{^}, which you obtain by typing \verb|^|.
+% \noindent
+%Recall from \charef{quick} that the construct to \ind{return} a \subind{method}{value} from a method in Smalltalk is \ct{^}, which you obtain by typing \verb|^|.
 % \index{^@\verb|^|}
+% \index{^@{$\uparrow$}|see{return}}
+\noindent
+Recuerda de \charef{quick} que la manera de hacer \ind{return} de un \subind{method}{valor} de un m\'etodo en Smalltalk es \ct{^}, que obtienes tipeando \verb|^|.
 \index{^@{$\uparrow$}|see{return}}
+% Verificar si esta bien esto del subind... como se puede traducir?
 
-Often, you can fix the code directly in the debugger window and click \menu{Proceed} to continue running the application.
-In our case, because the bug was in the initialization of an object, rather than in the method that failed, the easiest thing to do is to close the debugger window, destroy the running instance of the game (with the \subind{Morphic}{halo}), and create a new one.
+% Often, you can fix the code directly in the debugger window and click \menu{Proceed} to continue running the application.
+% In our case, because the bug was in the initialization of an object, rather than in the method that failed, the easiest thing to do is to close the debugger window, destroy the running instance of the game (with the \subind{Morphic}{halo}), and create a new one.
+A menudo puedes arreglar el c\'odigo directamente en la ventaba del debugger y hacer click en \menu{Proceed} para continuar corriendo la aplicaci\'on.
+En nuestro caso, como el bug estaba en la inicializaci\'on de un objeto, y no en el m\'etodo que fall\'o, lo m\'as f\'acil
+es cerrar la ventana de debug, destruir la intancia del juego ejecut\'andose (con el \subind{Morphic}{halo}), y crear una nueva.
 
 %Indeed, even in this case it would be possible to \menu{do} \ct{self initialize} and then \menu{Proceed} the \ct{toggleNeighboursOfCellAt:at:} method.
 %\ab{St\'eph, did you try this?  It seems to me that it ought to work, but when I tried it, it messed up my image.}
@@ -946,40 +986,55 @@ In our case, because the bug was in the initialization of an object, rather than
 
 \dothis{Do: \ct{LOGame new openInWorld} again.}
 
-Now the game should work properly ... or nearly so.  If we happen to move the mouse between clicking and releasing, then the cell the mouse is over will also be toggled.  This turns out to be behavior that we inherit from \ct{SimpleSwitchMorph}. We can fix this simply by overriding \ct{mouseMove:} to do nothing:
+% Now the game should work properly ... or nearly so.  If we happen to move the mouse between clicking and releasing, then the cell the mouse is over will also be toggled.  This turns out to be behavior that we inherit from \ct{SimpleSwitchMorph}. We can fix this simply by overriding \ct{mouseMove:} to do nothing:
+Ahora el juego deber\'ia funcionar correctamente... o casi. Si hacemos click, y luego movemos el rat\'on antes de soltar el bot\'on, la celda sobre la que esta el rat\'o tambi\'en cambiar\'a. Resulta que esto es comportamiento que heredamos de \ct{SimpleSwitchMorph}. Podemos arreglar esto simplemente sobreescribiendo \ct{moseMove:} para que no haga nada:
 
 % \needlines{6}
 \begin{method}[mouseMove:]{Overriding mouse move actions.}
 LOGame>>>mouseMove: anEvent
 \end{method}
 
-Finally we are done!
+% Finally we are done!
+'!Finalmente terminamos!
 
 %\sd{It would be good to have a word about the debugger buttons into, step.... Or to have a separate chapter, we would use the material I wrote for my turtle book, please check it.}
 %\on{I think that is too much for this chapter. It will come soon enough.}
 
 %=================================================================
-\section{Saving and sharing Smalltalk code}
+% \section{Saving and sharing Smalltalk code}
+\section{Guardando y compartiendo c\'odigo Samalltalk}
 \seclabel{Monticello}
 
-Now that you have the Lights Out game working, you probably want to save it somewhere so that you can share it with your friends. Of course, you can save your whole \pharo image, and show off your first program by running it, but your friends probably have their own code in their images, and don't want to give that up to use your image.
-What you need is a way of getting source code out of your \pharo image so that other programmers can bring it into theirs.
+% Now that you have the Lights Out game working, you probably want to save it somewhere so that you can share it with your friends. Of course, you can save your whole \pharo image, and show off your first program by running it, but your friends probably have their own code in their images, and don't want to give that up to use your image.
+% What you need is a way of getting source code out of your \pharo image so that other programmers can bring it into theirs.
+Ahora que tienes el juego Lights Out funcionando, probablemente quieras guardarlo en alg\'un lugar para poder compartirlo con tus amigos. Por supuesto, puedes guardar tu im\'agen de \pharo completa, y mostrar tu primer programa ejecut\'andola, pero tus amigos probablemente tengan su propio c\'odigo en sus im\'agenes, y no quieran renunciar a eso para usar tu im\'agen. 
+Lo que necesitas es una manera de sacar tu c\'odigo fuente fuera de tu im\'agen \pharo para que otros programadores puedan introducirla en las suyas. 
 
-The simplest way of doing this is by \emph{filing out} the code.  The \actclick menu in the Package pane will give you the option to \menu{various \go{} file out} the whole of package \scat{PBE-LightsOut}.
-The resulting file is more or less human readable, but is really intended for computers, not humans.
-You can email this file to your friends, and they can file it into their own \pharo images using the file list browser.
+% The simplest way of doing this is by \emph{filing out} the code.  The \actclick menu in the Package pane will give you the option to \menu{various \go{} file out} the whole of package \scat{PBE-LightsOut}.
+% The resulting file is more or less human readable, but is really intended for computers, not humans.
+% You can email this file to your friends, and they can file it into their own \pharo images using the file list browser.
+La manera m\'as sencilla de hacer esto es haciendo \emph{filing out} a nuestro c\'odigo. El men\'u \actclick en el panel de Paquete te dar\'a la opci\'on \menu{various \go{} file out} de todo el paquete \scat{PBE-LightsOut}.
+El archivo resultante es mas o menos humanamente legible, pero est\'a realmente pensado para computadoras, no humanos. 
+Puedes enviar este archivo via email a tus amigos, y ellos pueden archivarlo dentro de sus propias im\'agenes \pharo, usando el explorador de archivos.
 \seeindex{saving code}{categories}
 \seeindex{category!filing out}{file, filing out}
 \seeindex{class!filing out}{file, filing out}
 \seeindex{method!filing out}{file, filing out}
 \index{file!filing out}
+%Ver si esto se traduce
+%%%------------HASTA ACA LLEGUE---------------%%%
 
-\dothis{\Actclick on the \scat{PBE-LightsOut} package and \menu{various \go{} file out} the contents.}
-You should now find a file called ``PBE-LightsOut.st'' in the same folder on disk where your image is saved.
-Have a look at this file with a text editor.
+% \dothis{\Actclick on the \scat{PBE-LightsOut} package and \menu{various \go{} file out} the contents.}
+% You should now find a file called ``PBE-LightsOut.st'' in the same folder on disk where your image is saved.
+% Have a look at this file with a text editor.
+\dothis{\Actclick en el paquete \scat{PBE-LightsOut} y has \menu{various \go{} file out} de los contenidos.}
+Ahora deber\'ias encontrar un archivo llamado ``PBE-LightsOut.st'' en el mismo directorio del disco donde se encuentra tu im\'agen.
+Da una mirada a este archivo con un editor de texto.
 
-\dothis{Open a fresh \pharo image and use the File Browser tool (\menu{Tools \ldots {\go} File Browser}) to \menu{file in} the PBE-LightsOut.st fileout.
-Verify that the game now works in the new image.}
+% \dothis{Open a fresh \pharo image and use the File Browser tool (\menu{Tools \ldots {\go} File Browser}) to \menu{file in} the PBE-LightsOut.st fileout.
+% Verify that the game now works in the new image.}
+\dothis{Abre una nueva im\'agen de \pharo y usa la herramienta File Browser (\menu{Tools \ldots {\go} File Browser}) para hacer \menu{file in} al PBE-LightsOut.st fileout.
+Verifica que el juego ahora funciona en la nueva im\'agen.}
 \seeindex{category!filing in}{file, filing in}
 \seeindex{class!filing in}{file, filing in}
 \seeindex{method!filing in}{file, filing in}
@@ -987,63 +1042,97 @@ Verify that the game now works in the new image.}
 
 \begin{figure}[ht]
 \centerline {\includegraphics[width=\textwidth]{FileIn}}
-\caption{Filing in \pharo source code.
+% \caption{Filing in \pharo source code.
+\caption{Filing in c\'odigo fuente \pharo.
 \figlabel{filein}}
 \end{figure}
 
-\subsection{Monticello packages}
-Although fileouts are a convenient way of making a snapshot of the code you have written, they are decidedly ``old school''.
-Just as most open-source projects find it much more convenient to maintain their code in a repository using \ind{CVS}\footnote{\url{http://www.nongnu.org/cvs}} or \ind{Subversion}\footnote{\url{http://subversion.tigris.org}},
-so \pharo programmers find it more convenient to manage their code using \ind{Monticello} packages. 
-These packages are represented as files with names ending in \ct{.mcz}; they are actually zip-compressed bundles that contain the complete code of your \ind{package}.
+% \subsection{Monticello packages}
+% Although fileouts are a convenient way of making a snapshot of the code you have written, they are decidedly ``old school''.
+% Just as most open-source projects find it much more convenient to maintain their code in a repository using \ind{CVS}\footnote{\url{http://www.nongnu.org/cvs}} or \ind{Subversion}\footnote{\url{http://subversion.tigris.org}},
+% so \pharo programmers find it more convenient to manage their code using \ind{Monticello} packages. 
+% These packages are represented as files with names ending in \ct{.mcz}; they are actually zip-compressed bundles that contain the complete code of your \ind{package}.
+\subsection{Paquetes Monticello}
+Por m\'as que los fileouts son una manera conveniente de tomar una fotograf\'ia del c\'odigo que has escrito, son definitivamente de ``la vieja escuela''.
+As\'i como muchos projectos open-source hallan mucho mas conveniente mantener su c\'odigo en un repositorio usando \ind{CVS\footnote{\url{http://www.nongnu.org/cvs}} o \ind{Subversion}\footnote{\url{http://subversion.tigris.org}}, los programadores \pharo encuentran mas conveniente manejar su c\'odigo usando paquetes \ind{Monticello}.
+Estos paquetes se representan como archivos con nombres terminados en \ct{.mcz}; son en realidad paquetes comprimidos en formato zip que contienen el c\'odigo completo de tu \ind{paquete}.
 
-Using the Monticello package browser, you can save packages to repositories on various types of server, including FTP and HTTP servers; you can also just write the packages to a repository in a local file system directory.
-A copy of your package is also always cached on your local hard-disk in the \emph{package-cache} folder. 
-Monticello lets you save multiple versions of your program, merge versions, go back to an old version, and browse the differences between versions. 
-In fact, Monticello is a distributed revision control system; this means it allows developers to save their work on different places, not on a single repository as it is the case with CVS or Subversion.\damien{Mercurial, Git are examples of distributed revision control system; not sure it's worth mentioning them.}
+% Using the Monticello package browser, you can save packages to repositories on various types of server, including FTP and HTTP servers; you can also just write the packages to a repository in a local file system directory.
+% A copy of your package is also always cached on your local hard-disk in the \emph{package-cache} folder. 
+% Monticello lets you save multiple versions of your program, merge versions, go back to an old version, and browse the differences between versions. 
+Usando el navegador de paquetes Monticello, puedes guardar paquetes en repositorios en varios tipos de servidores, incluyendo servidores FTP y HTTP; tambi\'en puedes escribir paquetes en un repositorio en un sistema de archivos local. 
+Una copia de tu paquete se cachea siempre en tu disco duro local, en el directorio \emph{package-cache}.
+Monticello te permite guardar m\'ultiples versiones de tu programa, mezclar versiones, volver a una versi\'on vieja, y ver las diferencias entre las versiones.
+
+% In fact, Monticello is a distributed revision control system; this means it allows developers to save their work on different places, not on a single repository as it is the case with CVS or Subversion.\damien{Mercurial, Git are examples of distributed revision control system; not sure it's worth mentioning them.}
+% \seeindex{package browser}{Monticello}
+De hecho, Monticello es un sistema de control de versiones distribuido; esto significa que permite a los desarrolladores guardar su trabajo en diferentes lugares, no en un solo repositorio como es el caso de CVS o Subversion. 
 \seeindex{package browser}{Monticello}
-
-You can also send a \ct{.mcz} file by email. 
-The recipient will have to place it in her \emph{package-cache} folder; she will then be able to use Monticello to browse and load it. 
+ 
+% You can also send a \ct{.mcz} file by email. 
+% The recipient will have to place it in her \emph{package-cache} folder; she will then be able to use Monticello to browse and load it. 
+Tambi\'en puedes enviar un archivo \ct{.mcz} por email.
+El receptor tendr\'a que ponerlo en su directorio \emph{package-cache}; Luego ser\'ra capaz de usar Monticello para navegar y cargarlo.
 %(It is also possible to load it using the file list, but there is a difference between loading a \ct{.mcz} file using a file list and using Monticello \sd{check}.)
 
-\dothis{Open the Monticello browser from the \menu{World} menu.}
-In the right-hand pane of the browser (see \figref{monticello1}) is a list of Monticello repositories, which will include all of the repositories from which code has been loaded into the image that you are using.  
+
+% \dothis{Open the Monticello browser from the \menu{World} menu.}
+% In the right-hand pane of the browser (see \figref{monticello1}) is a list of Monticello repositories, which will include % all of the repositories from which code has been loaded into the image that you are using.  
+\dothis{Abre el navegador Monticello desde el men\'u \menu{World}.}
+En el panel de la derecha del navegador (ver \figref{monticello1}) hay una lista de repositorios Monticello, que incluir\'a todos los repositorios desde los cuales fu\'e cargado c\'odigo en la im\'agen que est\'as usando.
+
 %In addition to \sqsrc servers, Monticello repositories can live in a variety of other places, the simplest being a directory on your local disk.
 
 \begin{figure}[hbt]
 \ifluluelse
 	{\centerline {\includegraphics[width=\textwidth]{MonticelloBrowser}}}
 	{\centerline {\includegraphics[scale=0.7]{MonticelloBrowser}}}
-\caption{The Monticello browser.
+%\caption{The Monticello browser.
+\caption{El navegador Monticello.
 \figlabel{monticello1}}
 \end{figure}
 
-At the top of the list in the Monticello browser is a repository in a local directory called the \emphind{package cache}, which caches copies of the packages that you have loaded or published over the network. This local cache is really handy because it lets you keep your own local history; it also allows you to work in places where you do not have internet access, or where access is slow enough that you do not want to save to a remote repository very frequently.
+% At the top of the list in the Monticello browser is a repository in a local directory called the \emphind{package cache}, which caches copies of the packages that you have loaded or published over the network. This local cache is really handy because it lets you keep your own local history; it also allows you to work in places where you do not have internet access, or where access is slow enough that you do not want to save to a remote repository very frequently.
+Al principio de la lista en el navegador Monticello hay un repositorio en un directorio local llamado \emphind{package cache}, que guarda en cache copias de los paquetes que has cargado o publicado en la red. Este cache local es realmente \'util porque te permite guardar tu propio historial; tambi\'en te permite trabajar en lugares donde no tienes acceso a internet, o cuando la conexi\'on es lo tan lenta que no quieres guardar en un repositorioremoto con mucha frecuencia. 
 
+% \subsection{Saving and loading code with Monticello.}
+\subsection{Guardando y cargando c\'odigo con Monticello.}
 
-\subsection{Saving and loading code with Monticello.}
-On the left-hand side of the Monticello browser is a list of packages that have a version loaded into the image; packages that have been modified since they were loaded are marked with an asterisk.  (These are sometimes referred to as \subind{package}{dirty} packages.)  If you select a package, the list of repositories is restricted to just those repositories that contain a copy of the selected package.
+% On the left-hand side of the Monticello browser is a list of packages that have a version loaded into the image; packages that have been modified since they were loaded are marked with an asterisk.  (These are sometimes referred to as \subind{package}{dirty} packages.)  If you select a package, the list of repositories is restricted to just those repositories that contain a copy of the selected package.
+A la izquierda del navegador Monticello hay una lista de paquetes que tienen una versi\'on cargada en la im\'agen; los paquetes que han sido modificados desde que han sido cargados est\'an marcados con un asterisco. (Estos algunas veces son nombrados como paquetes \subind{package}{sucios}.) Si seleccionas un pquete, la lista de repositorios se restringe a aquellos repositorios que contienen una copia del paquete seleccionado.
 \seeindex{*}{package, dirty}
 \seeindex{dirty package}{package, dirty}
 
 %What is a package?  For now, you can think of a package as a group of  class and method categories that share the same prefix.  Since we put all of the code for the Lights Out game into the category called \scat{PBE-LightsOut}, we can refer to it as the \ct{PBE-LightsOut} package.
 
-\dothis{Add the \ct{PBE-LightsOut} package to your Monticello browser using the \button{+Package} button and type \ct{PBE-LightsOut}.}
+% \dothis{Add the \ct{PBE-LightsOut} package to your Monticello browser using the \button{+Package} button and type \ct{PBE-LightsOut}.}
+\dothis{Agrega el paquete \ct{PBE-LightsOut} a tu navegador Monticello usando el bot\'on \button{+Package} y escribe \ct{PBE-LightsOut}.}
 
-\subsection{\ind{\sqsrc}: a \ind{SourceForge} for \pharo.} 
-We think that the best way to save your code and share it is to create an account for your project on a \sqsrc server. 
-\sqsrc is like SourceForge\footnote{\url{http://sourceforge.net}}: it is a web front-end to a HTTP Monticello server that lets you manage your projects.
-There is a public \sqsrc server at \url{http://www.squeaksource.com}, and a copy of the code related to this book is stored there at \url{http://www.squeaksource.com/PharoByExample.html}. You can look at this project with a web browser, but it's a lot more productive to do so from inside \pharo, using the Monticello browser, which lets you manage your packages.
+% \subsection{\ind{\sqsrc}: a \ind{SourceForge} for \pharo.} 
+\subsection{\ind{\sqsrc}: un \ind{SourceForge} para \pharo.} 
 
-\dothis{Open a web browser to \url{http://www.squeaksource.com}.
-Create an account for yourself and then create (\ie ``register'') a project for the Lights Out game.}
-\sqsrc will show you the information that you should use when adding a repository using the Monticello browser. 
+% We think that the best way to save your code and share it is to create an account for your project on a \sqsrc server. 
+% \sqsrc is like SourceForge\footnote{\url{http://sourceforge.net}}: it is a web front-end to a HTTP Monticello server that lets you manage your projects.
+% There is a public \sqsrc server at \url{http://www.squeaksource.com}, and a copy of the code related to this book is stored there at \url{http://www.squeaksource.com/PharoByExample.html}. You can look at this project with a web browser, but it's a lot more productive to do so from inside \pharo, using the Monticello browser, which lets you manage your packages.
+Pensamos que la mejor manera de guardar tu c\'odigo y compartirlo es creando una cuenta para tu proyecto en un servidor \sqsrc. \sqsrc es como SourceForge\footnote{\url{http://sourceforge.net}}: es un front-end web para un servidor Monticello HTTP que te permite manejar tus proyectos.
+Hay un servidor \sqsrc p\'ublico en \url{http://www.squeaksource.com}, y hay una copia del c\'odigo en este libro en \url{http://www.squeaksource.com/PharoByExample.html}. Puedes mirar este projecto con un navegador web, pero es m\'as productivo hacerlo desde dentro de \pharo, usando el navegador Monticello, que te permite manejar tus paquetes.
 
-Once your project has been created on \sqsrc, you have to tell your \pharo system to use it. 
 
-\dothis{With the \ct{PBE-LightsOut} package selected, click the \button{+Repository} button in the Monticello browser.}  You will see a list of the different types of Repository that are available; to add a \sqsrc repository select \menu{HTTP}. You will be presented with a dialog in which you can provide the necessary information about the server.
-You should copy the presented template to identify your \sqsrc project, paste it into Monticello and supply your initials and password:
+% \dothis{Open a web browser to \url{http://www.squeaksource.com}.
+% Create an account for yourself and then create (\ie ``register'') a project for the Lights Out game.}
+% \sqsrc will show you the information that you should use when adding a repository using the Monticello browser. 
+\dothis{Abre \url{http://www.squeaksource.com} en un navegador web.
+Crea una cuenta y luego crea ("registra") un proyecto para el juego Lights Out.}
+\sqsrc te mostrar\'a la informaci\'on que deber\'ias usar para agregar un repositorio usando Monticello.
+
+% Once your project has been created on \sqsrc, you have to tell your \pharo system to use it. 
+Una vez que tu proyecto haya sido creado en \sqsrc, tienes que indicarle a tu sistema \pharo que lo use. 
+
+%\dothis{With the \ct{PBE-LightsOut} package selected, click the \button{+Repository} button in the Monticello browser.}  You will see a list of the different types of Repository that are available; to add a \sqsrc repository select \menu{HTTP}. You will be presented with a dialog in which you can provide the necessary information about the server.
+% You should copy the presented template to identify your \sqsrc project, paste it into Monticello and supply your initials and password:
+\dothis{Con el paquete \ct{PBE-LightsOut} seleccionado, haz click en el bot\'on \button{+Repository} en el navegador Monticello.}
+Ver\'as una lista con los diferentes tipos de repositorios que est\'an disponibles; para agregar un reposotorio \sqsrc selecciona \menu{HTTP}. Podr\'as proveer la informaci\'on necesaria sobre el servidor. 
+Debes copiar el template mostrado para identificar tu proyecto \sqsrc, pegarlo en Monticello y proveer tus iniciales y contrase\~na:
 
 \needlines{5}
 \begin{code}{}
@@ -1054,7 +1143,8 @@ MCHttpRepository
 \end{code}   
 
 \noindent
-If you provide empty initials and password strings, you can still load the project, but you will not be able to update it:
+% If you provide empty initials and password strings, you can still load the project, but you will not be able to update it:
+Si provees iniciales y contrase\~na vac\'ias, tambi\'en puedes cargar el proyecto, pero no podr\'as actualizarlo:
 
 \needlines{5}
 \begin{code}{}
@@ -1065,40 +1155,59 @@ MCHttpRepository
 \end{code}   
 
 %You can then load the code in your image by selecting the version you want. You can browse the code without loading it, using the \button{Browse} button.
-Once you have accepted this template, your new repository should be listed on the right-hand side of the Monticello browser.
+% Once you have accepted this template, your new repository should be listed on the right-hand side of the Monticello browser.
+Una vez que hayas aceptado este template, tu nuevo repositorio deber\'ia ser listado en el lado derecho del navegador Monticello. 
 
 \begin{figure}[hbt]
 \ifluluelse
 	{\centerline {\includegraphics[width=\textwidth]{BrowseRepository}}}
 	{\centerline {\includegraphics[scale=0.7]{BrowseRepository}}}
-\caption{Browsing a Monticello Repository
+%\caption{Browsing a Monticello Repository
+\caption{Navegando en un reposotorio Monticello
 \figlabel{monticello3}}
 \end{figure}
 
-\dothis{Click on the \button{Save} button to save a first version of your Lights Out game on \sqsrc.}
+% \dothis{Click on the \button{Save} button to save a first version of your Lights Out game on \sqsrc.}
+\dothis{Haz clic en el bont\'on \button{Save} para guardar una primera versi\'on de tu juego Lights Out en \sqsrc.}
 
-To load a package into your image, you must first select a particular version.  You can do this in the repository browser, which you can open using the \button{Open} button or the \actclick menu.  Once you have selected a version, you can load it onto your image.
+% To load a package into your image, you must first select a particular version.  You can do this in the repository browser, which you can open using the \button{Open} button or the \actclick menu.  Once you have selected a version, you can load it onto your image.
+Para cargar el paquete en tu im\'agen, primero debes seleccionar una versi\on particular. Puedes hacer esto en el navegador del reposotorio, que puedes abrir usando el bot\'on \button{Open} o el men\'u \actclick. Una vez que hayas seleccionado una versi\'on, podr\'as cargarla en tu im\'agen.
 
-\dothis{Open the \ct{PBE-LightsOut} repository you have just saved.}
+% \dothis{Open the \ct{PBE-LightsOut} repository you have just saved.}
+\dothis{Abre el reposotorio \ct{PBE-LightsOut} que acabas de guardar.}
 
-Monticello has many more capabilities, which will be discussed in depth in \charef{env}.
-You can also look at the on-line documentation for Monticello at \url{http://www.wiresong.ca/Monticello/}.
+% Monticello has many more capabilities, which will be discussed in depth in \charef{env}.
+% You can also look at the on-line documentation for Monticello at \url{http://www.wiresong.ca/Monticello/}.
+Monticello tiene muchas mas capacidades, que ser\'an abordadas con m\'as profundidad en \charef{env}.
+Tambi\'en puedes mirar la documentaci\'on en l\'inea de Monticello en \url{http://www.wiresong.ca/Monticello/}.
 
 %=================================================================
-\section{Chapter summary}
-In this chapter you have seen how to create categories, classes and methods.  You have see how to use the browser, the inspector, the debugger and the Monticello browser.
+% \section{Chapter summary}
+\section{Res\'umen del cap\'itulo}
+% In this chapter you have seen how to create categories, classes and methods.  You have see how to use the browser, the inspector, the debugger and the Monticello browser.
+En este cap\'itulo has visto como crear categor\'ias, clases y m\'etodos. Has visto como usarel navegador, el inspector, el debugger y el navegador Monticello.
 
 \begin{itemize}
-  \item Categories are groups of related classes.
-  \item A new class is created by sending a message to its superclass.
-  \item Protocols are groups of related methods.
-  \item A new method is created or modified by editing its definition in the browser and then \emph{accepting} the changes.
-  \item The inspector offers a simple, general-purpose GUI for inspecting and interacting with arbitrary objects.
-  \item The browser detects usage of undeclared methods and variables, and offers possible corrections.
-  \item The \ct{initialize} method is automatically executed after an object is created in \pharo. You can put any initialization code there.
-  \item The debugger provides a high-level GUI to inspect and modify the state of a running program.
-  \item You can share source code \emph{filing out} a category.
-  \item A better way to share code is to use Monticello to manage an external repository, for example defined as a \sqsrc project.
+%  \item Categories are groups of related classes.
+  \item Las categor\'ias son grupos de clases relacionadas entre s\'i.
+%  \item A new class is created by sending a message to its superclass.
+  \item Una nueva clase se crea enviando un mensaje a su superclase.
+%  \item Protocols are groups of related methods.
+  \item Los protocolos son grupos de m\'etodos relacionados entre s\'i.
+%  \item A new method is created or modified by editing its definition in the browser and then \emph{accepting} the changes.
+  \item Un nuevo m\'etodo se crea o modifica editando su definici\'on en el navegador y luego los cambios \emph{aceptando}.
+%  \item The inspector offers a simple, general-purpose GUI for inspecting and interacting with arbitrary objects.
+  \item El inspector ofrece una GUI simple y multi-prop\'osito para inspeccionar e interactuar con objetos arbitrarios-
+%  \item The browser detects usage of undeclared methods and variables, and offers possible corrections.
+  \item El navegador detecta el uso de m\'etodos y variables no declarados, y ofrece posibles correcciones.
+%  \item The \ct{initialize} method is automatically executed after an object is created in \pharo. You can put any initialization code there.
+  \item El m\'etodo \ct{initialize} se ejecuta autom\'aticamente despu\'es de que un objeto es creado en \pharo. Puedesponer cualquier c\'odigo de inicializaci\'on ah\'i.
+%  \item The debugger provides a high-level GUI to inspect and modify the state of a running program.
+  \item El debugger provee una GUI de alto nivel para inspeccionar y modificar el estado de un programa en tiempo de ejecuci\'on.
+%  \item You can share source code \emph{filing out} a category.
+  \item Puedes compartir c\'odigo fuente haciendo \emph{file out} de una categor\'ia.
+%  \item A better way to share code is to use Monticello to manage an external repository, for example defined as a \sqsrc project.
+  \item Una mejor manera de compartir c\'odigo es usando Monticello para manejar un reposotorio externo, por ejemplo definido como un projecto \sqsrc.
 \end{itemize}
 
 %=================================================================
