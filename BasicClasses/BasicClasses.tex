@@ -42,6 +42,344 @@ La mayor\'ia de la magia de Smalltalk no est\'a tanto en el lenguaje como en las
 
 Nuestro objetivo no es presentar en un tedioso detalle toda la librer\'ia de clases de \pharo, pero si resaltar las clases clave y los m\'etodos que necesita conocer para usar o evitar al programar efectivamente. En este cap\'itulo cubriremos las cases b\'asicas que necesitar\'a en cualquier aplicaci\'on: \ct{Object}, \ct{Number} and its subclasses, \ct{Character}, \ct{String}, \ct{Symbol} and \ct{Boolean}.
 
+
+%=================================================================
+\section{Object}
+Para todos los usos y prop\'ositos, \clsindmain{Object} es la ra\'iz de toda la jerarqu\'ia. Actualmente, en \pharo la verdadera ra\'iz de la jerarqu\'ia es \clsind{ProtoObject}, la cual es usada para definir entidades m\'inimas que son tomadas como objetos, pero esto es un tema que podremos ignorar por el momento.
+% (more on this later in the chapter on reflection).
+
+\ct{Object}puede ser encontrado en la categor\'ia \scatind{Kernel-Objects}. Sorprendentemente, aqu\'i hay m\'as de 400  m\'etodos (incluyendo extensiones). en otras palabras, cada clase que defina autom\'aticamente proveer\'a esos 400 m\'etodos, independientemente lo sepa o no. Note que algunos de los m\'etodos deber\'an ser eliminados y las nuevas versiones de \pharo pueden remover algunos de los \'as superfluos.
+
+El comentario de la clase \ct{Object} dice:
+
+\needlines{4}
+\begin{quote}
+\textit{\ct{Object} es la clase ra\'iz para casi todas las otras clases de la jerarqu\'ia de lcases. Las excepciones son \ct{ProtoObject} (la superclase de  \ct{Object}) y sus subclases. 
+La clase \ct{Object} provee un comportamiento com\'un por defecto para todos los objetos normales, tal como acceso, copia, comparaci\'ion, manejo de errores, env\'io de errores y \ind{reflex\'ion}. Tambi\'en los mensajes \'utiles que todos los objetos deber\'ian responder est\'an definidos aqu\'i.
+\ct{Object} no tiene variables de instancia y no deber\'ian agreg\'arsele. Esto es gracias a varias clases de objetos que heredan de \ct{Object} y tienen implementaciones especiales (\ct{SmallInteger} y \ct{UndefinedObject} por ejemplo) o por la VM que conoce y depede de la estructura y diseño de ciertas clases estandar.}
+\end{quote}
+
+Si comenzamos a navegar en las categor\'ias de los m\'etodos del lado de la instancia de \ct{Object} comenzaremos a ver algunos de los comportamientos claves que provee.
+
+%-----------------------------------------------------------------
+\subsection{Imprimiendo}
+
+Cada objeto en Smalltalk puede retornar una forma impresa de si mismo. Puede elegir cualquier expresi\'on en un workspace y seleccionar la opci\'on \menu{print it} del men\'u: esto ejecuta la expresi\'on y le pide al objeto retornado que se imprima. En realidad, se env\'ia el mensaje \ct{printString} al objeto devuelto. El m\'etodo \mthind{Object}{printString}, el cual es un \ind{m\'etodo plantilla [template method]}, env\'ia de su n\'ucleo el mensaje \mthind{Object}{printOn:} a su receptor. El mensaje \ct{printOn:} es un gancho que puede ser modelado. 
+
+\ct{Object>>>printOn:} is por mucho el m\'etodo que m\'as frecuentemente se sobreescribir\'a. Este m\'etodo toma como argumento un \clsind{Stream} en el cual una representaci\'on \clsind{String} del objeto ser\'a escrito. La implementaci\'on por defecto simplemente escribre el nombre de la clase predecida por ``\ct{a}'' o ``\ct{an}''. \ct{Object>>>printString} devuelve el \ct{String} que est\'a escrito.
+
+Por ejemplo, la clase \clsind{Browser} no redefine el m\'etodo \ct{printOn:} y env\'ia el mensaje printString a una instanacia que ejecuta el m\'etodo definido en  \ct{Object}. 
+
+\begin{code}{@TEST}
+Browser new printString --> 'a Browser'
+\end{code}
+
+La clase \ct{Color} muestra un ejemplo de modelado de \mthind{Color}{printOn:}. Imprime el nombre de la clase seguida del m\'etodo usado para generar ese color.
+
+\needlines{7}
+\begin{method}[zork]{printOn: redefinici\'on.}
+Color>>>printOn: aStream
+	| name |
+	(name := self name) ifNotNil: 
+		[ ^ aStream
+			nextPutAll: 'Color ';
+			nextPutAll: name ].
+	self storeOn: aStream
+\end{method}\ignoredollar$
+
+\begin{code}{@TEST}
+Color red printString --> 'Color red'
+\end{code}
+
+Note que el mensaje \ct{printOn:} no es igual a \mthind{Object}{storeOn:}. El mensaje \ct{storeOn:} pone en sus argumentos una expresi\'on que puede ser usada para recrear el receptor. Esta expersi\'on es evaluada cuando el par\'ametro es le\'ido usando el mensaje \ct{readFrom:}. \ct{printOn:} solo retorna una versi\'on textual del receptor. Por supuesto, puede ocurrir que esta representaci\'on textual puedea representar al receptor como una epxresi\'on autoevaluada.
+
+\paragraph{Unas palabras sobe representaci\'on y representaci\'on autoevaluada.}
+En programaci\'on funcional, las expresiones retornar valores cuando son ejecutadas.En Smalltalk, los mensajes (expresiones) retornan objetos (valores). Algunos objetos tienen la simpt\'atica propiedad de que su valor son ellos mismos. Por ejemplo, el valor del objeto \ct{true} es s\'i mismo, el objeto \ct{true}. Podemos llamar a tales objetos, \emphind{objetos autoevaluables}. Puede ver una versi\'on impresa del objeto valor cuando imprima el objeto en un workspace. Aqu\'i hay algunos ejemplos de expresiones autoevaluadas.
+
+\begin{code}{@TEST}
+true         --> true
+3@4       --> 3@4
+$a           --> $a
+#(1 2 3)   --> #(1 2 3)
+Color red --> Color red
+\end{code}
+
+Notese que altunos objetos como los arrays son autoevaluados o no dependientes de los objetos que contengan. Por ejemplo, un array de booleanos es autoevaluado mientras que un array personas no. El siguiente ejemplo muestra que un  \subind{Array}{din\'amico} es autoevaluable solo si los objetos contenidos lo son:
+\begin{code}{@TEST}
+{10@10. 100@100}           --> {10@10. 100@100}
+{Browser new . 100@100} --> an Array(a Browser 100@100)
+\end{code}
+
+Recuerde que los \subind{Array}{literales} pueden contener solamente literales. Por lo tanto, el siguiente array no coniente dos puntos, sino m\'as bien seis elementos.
+\begin{code}{@TEST}
+#(10@10 100@100) --> #(10 #@ 10 100 #@ 100)
+\end{code}
+
+Muchas de las especializaciones de \ct{printOn:} implementan comportamientos autoevaluables. Las implementaciones de \cmind{Point}{printOn:} y \cmind{Interval}{printOn:} son autoevaluables.
+
+\begin{method}[Self-evaluating points]{Autoevaluaci\'on de \ct{Point}}
+Point>>>printOn: aStream 
+    "The receiver prints on aStream in terms of infix notation."
+    x printOn: aStream.
+    aStream nextPut: $@.
+    y printOn: aStream
+\end{method}\ignoredollar$
+
+\begin{method}[Self-evaluating intervals]{Autoevaluaci\'on de \ct{Interval}}
+Interval>>>printOn: aStream
+    aStream nextPut: $(;
+        print: start;
+        nextPutAll: ' to: ';
+        print: stop.
+    step ~= 1 ifTrue: [aStream nextPutAll: ' by: '; print: step].
+    aStream nextPut: $)
+\end{method}
+
+\begin{code}{@TEST}
+1 to: 10 --> (1 to: 10)    "intervals are self-evaluating"
+\end{code}
+
+
+%-----------------------------------------------------------------
+\subsection{Identidad e Igualdad}
+
+En Smalltalk, el mensaje \ct{=} comprueba la \emphsubindmain{Object}{igualdad} de los objetos (por ejemplo cuando dos objetos representan el mismo valor) Por otro lado, \ct{==} comprueba la \emphsubindmain{Object}{identidad} del objeto (por ejemplo, cuando dos expresiones representan al mismo objeto).
+\seeindex{\ct{=}}{Object, equality}
+\seeindex{\ct{==}}{Object, identity}
+\seeindex{equality}{Object, equality}
+\seeindex{identity}{Object, identity}
+
+La implementaci\'on por defecto de la igualdad de un objeto es para comprobar la identidad de un objeto:
+\begin{method}{Igualdad de objetos}
+Object>>>= anObject
+    "Answer whether the receiver and the argument represent the same object.
+    If = is redefined in any subclass, consider also redefining the message hash."
+    ^ self == anObject
+\end{method}
+\cmindex{Object}{=}
+
+Este es un m\'etodo que frecuentemente quiera sobreescribir. Considere el caso de os n\'umeros complejos:
+
+\begin{code}{@TEST}
+(1 + 2 i) = (1 + 2 i)   --> true     "same value"
+(1 + 2 i) == (1 + 2 i) --> false    "but different objects"
+\end{code}
+
+Esto funciona porque \ct{Complex} sobreescribe \ct{=} como se muestra a continuaci\'on:
+\cmindex{Complex}{=}
+\needlines{5}
+\begin{method}{Igualdad de n\'umeros complejos}
+Complex>>>= anObject
+    anObject isComplex
+        ifTrue: [^ (real = anObject real) & (imaginary = anObject imaginary)]
+        ifFalse: [^ anObject adaptToComplex: self andSend: #=]
+\end{method}
+
+La implementaci\'on por defecto de \ct{Object>>>~=} simplemente niega \ct{Object>>>=}, y no deber\'ia normalmente ser cambiado.
+%\cmindex{Object}{\~=}
+\index{Object!~=@\ct{~=}} % needs special treatment due to ~
+
+\begin{code}{@TEST}
+(1 + 2 i) ~= (1 + 4 i) --> true
+\end{code}
+
+Si sobreescribe \ct{=}, deber\'ia considerar sobreescriribr \mthind{Object}{hash}. Si las instancias de su clase son usadas como claves en un \clsind{Dictionary}, entonces deber\'ia asegurarse que las instancias consideradas a ser iguales tengan el mismo valor hash:
+\cmindex{Complex}{hash}
+\begin{method}{Hash debe ser reimplementado para n\'umeros complejos}
+Complex>>>hash
+    "Hash is reimplemented because = is implemented."
+    ^ real hash bitXor: imaginary hash.
+\end{method}
+
+De la misma forma que deber\'ia sobreescribir \ct{=} y \ct{hash} conjuntamente,  \emph{nunca} deber\'ia sobreescribir \ct{==} (la sem\'antica de la identidad de los objetos es la misma para todas las clases).  \ct{==} es un m\'etodo primitivo de \clsind{ProtoObject}.
+
+Note que \pharo tiene algunos comportamientos extraños comparado con otros Smalltalks. Por ejemplo, un s\'imbolo y una cadena pueden ser iguales (consideramos esto como un error y no como una ventaja)
+
+\begin{code}{@TEST}
+#'lulu' = 'lulu' --> true
+'lulu' = #'lulu' --> true
+\end{code}
+
+
+%-----------------------------------------------------------------
+\subsection{Membres\'ia de clases}
+Muchos m\'etodos permiten consultar la clase de un objeto.
+
+\paragraph{\mthind{Object}{class}.} Puede preguntar a cualquier objeto sobre su clase usando el mensaje \ct{class}.
+\begin{code}{@TEST}
+1 class --> SmallInteger
+\end{code}
+
+Por otro lado, puede preguntar si un objeto es una instancia de una clase espec\'ifica:
+\cmindex{Object}{isMemberOf:}
+\begin{code}{@TEST}
+1 isMemberOf: SmallInteger --> true    "must be precisely this class"
+1 isMemberOf: Integer          --> false
+1 isMemberOf: Number        --> false
+1 isMemberOf: Object           --> false
+\end{code}
+
+Dado que Smalltalk est\'a escrito en s\'i mismo, puede navegar realmente a trav\'es de su estructura usando la correcta combinaci\'on de mensajes de clases y superclases (vea \charef{metaclasses}). 
+
+\paragraph{\ct{isKindOf:}}
+\cmind{Object}{isKindOf:} Responde cuando la clase del receptor es de la misma clase o es una sublcase de la clase del agumento.
+
+\begin{code}{@TEST}
+1 isKindOf: SmallInteger --> true
+1 isKindOf: Integer          --> true
+1 isKindOf: Number         --> true
+1 isKindOf: Object           --> true
+1 isKindOf: String            --> false
+
+1/3 isKindOf: Number      --> true
+1/3 isKindOf: Integer        --> false
+\end{code}
+
+\ct{1/3} el cual es una  \clsind{Fraction} como un tipo de \clsind{Number}, desde que la clase \ct{Number} es una superclase de la clase \ct{Fraction}, pero  \ct{1/3} no es \ct{Integer}.
+
+\paragraph{\ct{respondsTo:}}
+\cmind{Object}{respondsTo:} Responde cuando el receptor entiende el selector de mensaje pasado como argumento.
+
+\begin{code}{@TEST}
+1 respondsTo: #, --> false
+\end{code}
+
+Normalmente es una mala idea preguntar a un objeto por su clase, o preguntar cuales mensajes entiende. En lugar de timar decisiones basadas en la clase de un objeto, simplemente deber\'ia enviar un mensaje al objeto y que \'el decida (por ejemplo, en lo m\'as profundo de su clase) c\'omo deber\'ia reaccionar.
+
+%-----------------------------------------------------------------
+\subsection{Copiando}
+
+La copia de objetos introduce algunos temas adicionales. Desde que las variables de instancia son accedidas por referencia, una \emphsubind{Object}{copia  superficial [shallow copy]} de un objeto deber\'ia compartir sus referencias a las variables de instancia del objeto original:
+
+\seeindex{copy}{Object, \ct{copy}}
+\seeindex{shallow copy}{Object, \ct{shallowCopy}}
+\seeindex{deep copy}{Object, \ct{deepCopy}}
+
+\begin{code}{@TEST | a1 a2 |}
+a1 := { { 'harry' } }.
+a1 --> #(#('harry'))
+a2 := a1 shallowCopy.
+a2 --> #(#('harry'))
+(a1 at: 1) at: 1 put: 'sally'.
+a1 --> #(#('sally'))
+a2 --> #(#('sally'))    "the subarray is shared!"
+\end{code}
+
+\cmind{Object}{shallowCopy} es un m\'etodo primitivo que crea una copia superficial de un objeto. Desde que \ct{a2} es solo una copia superficial de  \ct{a1}, los dos array comparten la referencia al array anidado que contienen.
+
+\ct{Object>>>shallowCopy} es la ``interfa p\'ublica'' a \cmind{Object}{copy} y deber\'ia ser sobreescrito si las instancias son \'unicas. Este es el caso, por ejemplo con las clases \clsind{Boolean}, \clsind{Character}, \clsind{SmallInteger}, \clsind{Symbol} y \clsind{UndefinedObject}.
+
+\cmind{Object}{copyTwoLevel} hace lo obvio cuando una simple copia superficial no es suficiente:
+
+\begin{code}{@TEST | a1 a2 |}
+a1 := { { 'harry' } } .
+a2 := a1 copyTwoLevel.
+(a1 at: 1) at: 1 put: 'sally'.
+a1 --> #(#('sally'))
+a2 --> #(#('harry'))    "fully independent state"
+\end{code}
+
+\cmind{Object}{deepCopy} hace una copia profuda en forma arbitraria de un objeto.
+
+\begin{code}{@TEST | a1 a2 |}
+a1 := { { { 'harry' } } } .
+a2 := a1 deepCopy.
+(a1 at: 1) at: 1 put: 'sally'.
+a1 --> #(#('sally'))
+a2 --> #(#(#('harry')))
+\end{code}
+
+El problema con \ct{deepCopy} es que no terminar\'a cuando se aplique a una esctructura mutuamente recursiva:
+
+\begin{code}{NB: CANNOT TEST}
+a1 := { 'harry' }.
+a2 := { a1 }.
+a1 at: 1 put: a2.
+a1 deepCopy --> !\emph{... does not terminate!}!
+\end{code}
+% NB: Not a test!
+
+Dado que es posible sobreescribir \ct{deepCopy} para hacer las cosas correctamente,  \cmind{Object}{copy} brinda una mejor soluci\'on:
+
+\begin{method}{Copiando objetos como un m\'etodo plantilla}
+Object>>>copy
+    "Answer another instance just like the receiver.
+    Subclasses typically override postCopy;
+    they typically do not override shallowCopy."
+    ^self shallowCopy postCopy
+\end{method}
+
+Deber\'ia sobreescribir \mthind{Object}{postCopy} para copiar cualqueir variable de instancia que no debiera ser compartida. \ct{postCopy} deber\'ia hacer siempre un \ct{super postCopy}.
+
+\on{I looked, but did not finda good example in the system.}
+
+
+%-----------------------------------------------------------------
+\subsection{Debugging}
+
+El m\'etodo m\'as importante aqu\'i es \mthind{Object}{halt}. Al establecer un punto de ruptura en un m\'etodo, simplemente inserte el env\'io del mensaje \ct{self halt} en alg\'un punto en el cuepo del m\'etodo. Cuando este mensaje es enviado, la ejecuci\'on ser\'a interrumpida y el \ind{debugger} se abrir\'a en este punto de su programa.
+(Vea \charef{env} por m\'as detalles del debbuger)
+
+\sd{in another chapter haltIf:, haltOnce, inspectOnce, flagging: isThisEverCalled, }
+
+El siguiente mensaje m\'as importante es  \mthind{Object}{assert:}, el cual toma un \ind{bloque} como su argumento. Si el bloque devuelve \ct{true}, la ejecuci\'on contin\'ua. De otra forma, una escepci\'on \ct{AssertionFailure} ser\'a disparada. Si esta no es capturada por otro, el debugger se abrir\'a en este punto de la ejecuci\'on. \ct{assert:} es especialmente \'util para soportar el \emphind{diseño por contrato}.El uso t\'ipico es para chequar precondiciones no triviales a los m\'etodos p\'ublicos de los objetos. \cmind{Stack}{pop} puede facilmente haber sido implementado as\'i:
+
+\begin{method}{Chequeando una precondici\'on}
+Stack>>>pop
+    "Return the first element and remove it from the stack."
+    self assert: [ self isEmpty not ].
+    ^self linkedList removeFirst element
+\end{method}
+
+No confunda \ct{Object>>>assert:} con \cmind{TestCase}{assert:}, el cual ocurre en el framewort de pruebas Sunit (vea \charef{SUnit}). Mientras que el primero espera un bloque como argumento\footnote{Actualmente, esto podr\'ia tomar cualquier argumento que entienda \ct{value}, incluyendo a \ct{Boolean}.}, el segundo espera un \clsind{Boolean}. Si bien ambos son \'utiles para debuguear, cada uno tiene una muy distinta intenci\'on.
+
+%-----------------------------------------------------------------
+\subsection{Manejo de errores}
+
+ Este protocolo contiene muchos m\'etodos \'utiles a la hora de señalar errores en tiempo de ejecuci\'on.
+
+Enviar  \lct{self deprecated: \emph{anExplanationString}} señala que el m\'etodo actual no deber\'ia segur us\'andose si la desoeciaci\'on ha sido encendida en el protocolo \protind{debug} del \ind{navegador}.
+El argumento \ct{String} deber\'ia ofrecer una alternativa.
+\cmindex{Object}{deprecated:}
+\index{deprecation}
+
+\begin{code}{NB: CANNOT TEST}
+1 doIfNotNil: [ :arg | arg printString, ' is not nil' ]
+	--> SmallInteger(Object)>>doIfNotNil: has been deprecated. use ifNotNilDo:
+\end{code}
+
+\ct{doesNotUnderstand:} es enmviado cuando la b\'usqueda de mensajes falla. La implementaci\'on por defecto, por ej \cmind{Object}{doesNotUnderstand:}  disparar\'a al debugger en este punto. Puede ser \'util sobreescribir  \lct{does\-Not\-Un\-der\-stand:} para proporcionar alg\'un otro comportamiento.
+
+\on{Add a chapter ref when we write the chapter on exceptions.}
+
+\cmind{Object}{error} y \cmind{Object}{error:} son m\'etodos gen\'ericos que pueden ser utilizados para disparar excepciones (Generalmente es mejor disparar sus propias y diseñadas excepciones, de esta forma puede distinguir errores derivados de su c\'odigo de aquellos que provienen de las clases del kernel)
+
+\lr{Maybe mention that it is preferred to create your own custom exception class. (p. 208)}
+
+Los m\'etodos abstractos en Smalltalk son omplementados por convenci\'on con el cuerpo\lct{self sub\-class\-Res\-pon\-si\-bi\-li\-ty}. Una clase abstractra deber\'ia ser instanciada por accidente, originando la llamada a m\'etodos abstractos que resultar\'ian en una evaluaci\'on de  \cmind{Object}{subclassResponsibility}.
+
+\begin{method}{Señalando un m\'etodo como abastracto}
+Object>>>subclassResponsibility
+    "This message sets up a framework for the behavior of the class' subclasses.
+    Announce that the subclass should have implemented this message."
+    self error: 'My subclass should have overridden ', thisContext sender selector printString
+\end{method}
+
+\clsind{Magnitude}, \clsind{Number} y \clsind{Boolean} sib ejemplos cl\'asicos de clases \subind{class}{abstractas} que veremos brevemente en este cap\'itulo.
+
+\begin{code}{NB: CANNOT TEST}
+Number new + 1 --> !\emph{Error: My subclass should have overridden \#+}!
+\end{code}
+
+\ct{self shouldNotImplement} es enviado por convenci\'on para marcar un m\'etodo heredado que no es aporpiado pra su subclase. Esto generalmente marca que algo no va bien con el diseño de la jeraqu\'ia de esa clase. Debido a la limitaciones de la herencia simple, a veces es muy dif\'icil evitar tales soluciones. 
+
+\cmindex{Object}{shouldNotImplement}
+\index{inheritance!canceling}
+
+Un ejemplo t\'ipico es \cmind{Collection}{remove:} el cual es heredado por  \clsind{Dictionary} pero señalado como no implementado (Un \ct{Dictionary} provee en su lugar \mthind{Dictionary}{removeKey:}).
+
+
+
 %=============================================================
 \ifx\wholebook\relax\else
    \bibliographystyle{jurabib}
