@@ -32,3 +32,10 @@
 521: \textsc{return}
 554: \ind{Test Driven Development}\cite{Beck03a}
 557: \seeindex{Behavior Driven Development}{Test Driven Development}
+652: sin traducir
+658: \ind{debugger} \charef{env}
+667: Nevertheless
+682: sin traducir
+687: test runner
+705: test runner
+716: test runner

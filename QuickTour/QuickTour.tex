@@ -592,7 +592,7 @@ Selecciona \menu{accept (s)} haciendo \actclick{ing} en el panel inferior, o sim
 \index{keyboard shortcut!accept}
 \seeindex{accept it}{keyboard shortcut, accept}
 
-Si este es la priera vez que has guardado código en tu imagen, probablemente te pedirá que ingreses tu nombre. Dado que mucha gente ha contribuido con código a la imagen, es importante mantener un seguimiento de cualquiera que cree o modifique métodos. Simpelmente ingresa tu nombre y apellido, sin espacios, o separados por un punto.
+Si esta es la priera vez que has guardado código en tu imagen, probablemente te pedirá que ingreses tu nombre. Dado que mucha gente ha contribuido con código a la imagen, es importante mantener un seguimiento de cualquiera que cree o modifique métodos. Simplemente ingresa tu nombre y apellido, sin espacios, o separados por un punto.
 
 %\begin{figure}[hbt]
 %\centerline {\includegraphics[width=0.35\textwidth]{initials}}
@@ -600,8 +600,8 @@ Si este es la priera vez que has guardado código en tu imagen, probablemente te 
 %\figlabel{initials}}
 %\end{figure}
 
-Because there is as yet no method called \ct{shout}, the browser will ask you to confirm that this is the name that you really want\,---\,and it will suggest some other names that you might have intended (\figref{testShoutConfirm}).
-This can be quite useful if you have merely made a typing mistake, but in this case, we really \emph{do} mean \ct{shout}, since that is the method we are about to create, so we have to confirm this by selecting the first option from the menu of choices, as shown in \figref{testShoutConfirm}. 
+Debido a que no existe todavía ningún método llamado \ct{shout}, el navegador te pedirá confirmar que este es el nombre que realmente quieres\,---\,y te sugerirá algunos otros nombres que podrías haber intentado (\figref{testShoutConfirm}).
+Esto puede ser bastante útil si has cometido un error al escribir, realmente \emph{queremos} decir \ct{shout}, dado que es el método que estamos a punto de crear, por lo que tenemos que confirmar esto seleccionando la primera opción del menú de opciones, como se ve en \figref{testShoutConfirm}. 
 
 
 %\begin{figure}[htb]
@@ -618,12 +618,12 @@ This can be quite useful if you have merely made a typing mistake, but in this c
 
 \begin{figure}[htb]
 \centerline {\includegraphics[width=0.6\textwidth]{name}}
-\caption{Entering your name.\figlabel{name}}
+\caption{Ingresando tu nombre.\figlabel{name}}
 \end{figure}
 
 \begin{figure}[htb]
 \centerline {\includegraphics[width=\textwidth]{testShoutConfirm}}
-\caption{Accepting the \ct{StringTest} method \ct{testShout}.\figlabel{testShoutConfirm}}
+\caption{Aceptando el método \ct{testShout} en la clase \ct{StringTest}.\figlabel{testShoutConfirm}}
 \end{figure}
 
 
@@ -635,58 +635,58 @@ This can be quite useful if you have merely made a typing mistake, but in this c
 %\figlabel{testShoutConfirm}}
 %\end{figure}
 
-\dothis{Run your newly created test: open the \ind{SUnit} \emphind{TestRunner} from the \menu{World} menu.}
+\dothis{Ejecuta la prueba creada: abre el \ind{SUnit} \emphind{TestRunner} desde el menú \menu{World}.}
 
-The leftmost two panes are a bit like the top panes in the browser.  The left pane contains a list of categories, but it's restricted to those categories that contain test classes.
+Los paneles mas a la izquierda son similares a los paneles superiores en el navegador. El panel izquierdo contiene una lista de categorías, pero estas están restringidas a aquellas categorías que contienen clases de prueba.
 
-\dothis{Select \scat{CollectionsTests-Text} and the pane to the right will show all of the test classes in that category, which includes the class \ct{StringTest}.  The names of the classes are already selected, so \click \menu{Run Selected} to run all these tests.}
+\dothis{Selecciona \scat{CollectionsTests-Text} y el panel a la derecha mostrará todos las clases de prueba en la categoría, las cuales incluyen la clase \ct{StringTest}. Los nombres de las clases ya están seleccionados, por lo que haz \click en \menu{Run Selected} para ejecutar todas estas pruebas.}
 
 \begin{figure}[hbt]
 \centerline {\includegraphics[width=\textwidth]{testRunnerOnStringTest}}
-\caption{Running the String tests.
+\caption{Ejecutando las purbas de String.
 \figlabel{testRunnerTestShout}}
 \end{figure}
 
-You should see a message like that shown in \figref{testRunnerTestShout}, which indicates that there was an error in running the tests.  The list of tests that gave rise to errors is shown in the bottom right pane; as you can see, \ct{StringTest>>>#testShout} is the culprit.
-(Note that \ct{StringTest>>#testShout} is the Smalltalk way of identifying the \mthind{StringTest}{testShout} method of the \ct{StringTest} class.)
-If you \click on that line of text, the erroneous test will run again, this time in such a way that you see the error happen: ``\ct{MessageNotUnderstood: ByteString>>>shout}''.
+Deberías ver un mensaje cómo el mostrado en \figref{testRunnerTestShout}, el cual indica que hubo un error en la ejecución de las pruebas. La lista de pruebas que dieron lugar a los errores se muestra en el panel inferior derecho; como puedes ver, \ct{StringTest>>>#testShout} es el culpable.
+(Notar que \ct{StringTest>>#testShout} es la manera en Smalltalk de identificar el método \mthind{StringTest}{testShout} de la clase \ct{StringTest}.)
+Si haces \click en esa linea de texto, la prueba errónea se ejecutará de nuevo, esta vez in such a way that you see the error happen: ``\ct{MessageNotUnderstood: ByteString>>>shout}''.
 \seeindex{\ct{>>}}{Behavior, \ct{>>}}
 \cmindex{Behavior}{>>}
 
-The window that opens with the error message is the \st debugger (see \figref{predebugger}).
+La ventana que se abre con el mensaje de error es el depurador de \st (Ver \figref{predebugger}).
 % \ab{Well, it's actually the \emph{pre-}debugger.  Does this matter?}\damien{I don't think it's important at this point.}
-We will look at the \ind{debugger} and how to use it in \charef{env}.
+Miraremos el \ind{debugger} y cómo usarlo en \charef{env}.
 
 \begin{figure}[hbt]
 \centerline {\includegraphics[width=\textwidth]{Predebugger}}
-\caption{The (pre-)debugger.}
+\caption{El (pre-)depurador.}
 \figlabel{predebugger}
 \end{figure}
 
-The error is, of course, exactly what we expected:  running the test generates an error because we haven't yet written a method that tells strings how to \ct{shout}.  
-Nevertheless, it's good practice to make sure that the test fails because this confirms that we have set up the testing machinery correctly and that the new test is actually being run.
-Once you have seen the error, you can \button{Abandon} the running test, which will close the debugger window.
-Note that often with Smalltalk you can define the missing method using the \button{Create} button, edit the newly-created method in the debugger, and then \button{Proceed} with the test.
+El error es, por supuesto, exactamente lo que esperabamos: ejecutar la prueba genera un error porque aún no hemos escrito un método que le diga a las cadenas de caracteres como \ct{shout}.  
+Nevertheless, es una buena práctica estar seguros que la prueba falla porque confirma que tenemos configurada la maquinaria de pruebas correctamente y que la nueva prueba está realmente siendo ejecutada.
+Una vez que has visto el error, puedes dejar la prueba ejecutándose haciendo clic en \button{Abandon}, lo cual cerrará la ventana de depuración.
+Notar que a menudo con Smalltalk puedes definir el método no definido usando el botón \button{Create}, editar el método recientemente creado en el depurador, y ejecutar la prueba hacindo clic en \button{Proceed}.
 
-Now let's define the method that will make the test succeed!
+¡AHora definamos un método que hará que la pueba sea exitosa!
 
-\dothis{Select class \clsind{String} in the browser, select the \menu{converting} protocol, type the text in \mthref{shout} over the method creation template, and \menu{accept} it.
-(Note: to get a \mbox{\ct{^}}, type \caret). }
-\begin{method}[shout]{The shout method}
+\dothis{Selecciona la clase \clsind{String} en el navegador, selecciona el protocolo \menu{converting}, escribe el texto en \mthref{shout} sobre la plantilla de creación de método, y selecciona \menu{accept}.
+(Nota: para obtener \mbox{\ct{^}}, escribe \caret). }
+\begin{method}[shout]{El método shout}
 shout
 	^ self asUppercase, 'BANG'
 \end{method}
 
-The comma is the string concatenation operation, so the body of this method appends an exclamation mark to an upper-case version of whatever \ct{String} object the \ct{shout} message was sent to.
-The $\uparrow$ tells \pharo that the expression that follows is the answer to be returned from the method, in this case the new concatenated string.
+La coma es la operación de concatenación de cadenas de caracteres, por lo que el cuerpo del método agrega un signo de exclamación a una versión en mayúsculas de lo que sea el objeto \ct{String} al cual se le envió el mensaje \ct{shout}.
+El $\uparrow$ dice a \pharo que la expresión que sigue es la respuesta a ser retornada desde el método, en este caso la nueva cadena de caracteres concatenada.
 \seeindex{comma}{Collection, comma operator}
 \index{Collection!comma operator}
 
-Does this method work?  Let's run the tests and see.
+¿Este método funciona? Ejecutémos la prueba y veamos.
 
-\dothis{Click on \menu{Run Selected} again in the test runner, and this time you should see a green bar and text indicating that all of the tests ran with no failures and no errors.}
-When you get to a green bar\footnotemark, it's a good idea to save your work and take a break.  
-So do that right now!
+\dothis{Has clic en \menu{Run Selected} nuevamente en el test runner, y esta vez deberías ver una barra verde y un texto indicando que todas las pruebas se ejecutaron sin fallas ni errores.}
+Cuando obtienes uan barra verde\footnotemark, es una buena idea guardar tu trabajo y tomar un descanso.  
+¡Asi que hazlo ahora mismo!
 %\footnotetext{Actually, you might not get a green bar since some images contains tests for bugs that still need to be fixed.
 %Don't worry about this.
 %\pharo is constantly evolving.
@@ -696,24 +696,24 @@ So do that right now!
 \ifluluelse
 	{\centerline{\includegraphics[width=\textwidth]{String-Shout}}}
 	{\centerline{\includegraphics[width=0.7\textwidth]{String-Shout}}}
-\caption{The \ct{shout} method defined on class \ct{String}.
+\caption{EL método \ct{shout} definido en la clase \ct{String}.
 \figlabel{String-shout}}
 \end{figure}
 
 %=================================================================
-\section{Chapter summary}
-This chapter has introduced you to the \pharo environment and shown you how to use some of the major tools, such as the browser, the method finder, and the test runner.   You have also seen a little of \pharo's syntax, even though you may not understand it all yet.
+\section{Resumen del capítulo}
+Este capítulo te ha introducidoen el ambiente de \pharo y te ha mostradoand cómo usar la mayoría de las herramientas, como el navegador, el buscador de métodos, y el test runner. Has visto también un poco de la sintaxis de \pharo, aunque puede que la entiendas completamente aún.
 
 \begin{itemize}
-  \item A running \pharo system consists of a \emph{virtual machine}, a \emph{sources} file, and \emph{image} and \emph{changes} files. Only these last two change, as they record a snapshot of the running system.
-  \item When you restore a \pharo image, you will find yourself in exactly the same state\,---\,with the same running objects\,---\,that you had when you last saved that image.
-  \item \pharo is designed to work with a three-button mouse to \click, \actclick or \metaclick.  If you don't have a three-button mouse, you can use modifier keys to obtain the same effect.
-  \item You \click on the \pharo background to bring up the \emph{World menu} and launch various tools.
-  \item A \emph{workspace} is a tool for writing and evaluating snippets of code. You can also use it to store arbitrary text.
-  \item You can use \ind{keyboard shortcuts} on text in the workspace, or any other tool, to evaluate code. The most important of these are \menu{do it} (\short{d}), \menu{print it} (\short{p}), \menu{inspect it} (\short{i}), \menu{explore it} (\short{I}) and \menu{browse it} (\short{b}).
+  \item Un sistema \pharo ejecutando consiste en una \emph{máquina virtual}, un archivo \emph{sources}, y unos archivos \emph{image} y \emph{changes}. Sólo estos dos últimos cambian, grabando una instantanea del sistema ejecutando.
+  \item CUando recuperes una imagen de \pharo, te encontrarás en exactamente el mismo estado\,---\,con los mismos objetos ejecutando\,---\,que tenías cuando guardaste por última vez la imagen.
+  \item \pharo está diseñado para trabajar con un ratón de tres botones para hacer \click, hacer \actclick o hacer \metaclick. Si no tienes un ratón de tres botones, puede usar las teclas modificadoras para obtener el mismo efecto.
+  \item Puede hacer \click en el fondo de \pharo para abrir el \emph{menú World} y lanzar varias herramientas.
+  \item Un \emph{workspace} es una herramienta para escribir y evaluar porciones de código. También puedes usarlo para almacenar texto arbitrario.
+  \item Puedes usar \ind{atajos de teclado} en el texto del workspace, o en cualquier otra herramienta, para evaluar código. El mas importante de estos son \menu{do it} (\short{d}), \menu{print it} (\short{p}), \menu{inspect it} (\short{i}), \menu{explore it} (\short{I}) y \menu{browse it} (\short{b}).
 %  \item \sqmap is a tool for loading useful packages from the Internet.
-  \item The \emph{browser} is the main tool for browsing \pharo code, and for developing new code.
-  \item The \emph{test runner} is a tool for running unit tests. It also supports Test Driven Development.
+  \item El \emph{navegador} es la herramienta principal para navegar código \pharo, y para desarrollar nuevo código.
+  \item El \emph{test runner} es una herramienta para ejecutar pruebas unitarias. También soporta Desarrollo Dirigido por Pruebas.
 \end{itemize}
 
 %=================================================================
