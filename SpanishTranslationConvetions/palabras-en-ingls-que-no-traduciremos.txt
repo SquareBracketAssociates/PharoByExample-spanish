@@ -14,6 +14,7 @@ Palabras que NO traduciremos
 - Liveness
 - Method lookup
 - Pixel
+- Socket
 - Transcript
 - Toolkit, en el contexto de Morphic
 - Wrapper
