@@ -10,6 +10,7 @@
 % 2007-08-21 - Oscar edit
 % 2007-08-21 - Cassou review
 % 2009-07-07 - Oscar migrate to Pharo; fixed broken tests
+% 2011-06-16 - NicoPaez started spanish translation
 
 %=================================================================
 \ifx\wholebook\relax\else
@@ -45,67 +46,64 @@
 Only few streams have random access capability.}
 
 \clsindexmain{Stream}
-Streams are used to iterate over sequences of elements such as sequenced
-collections, files, and network streams.
-Streams may be either readable, or writeable, or both.
-Reading or writing is always relative to the current position in the stream.
-Streams can easily be converted to collections, and vice versa.
+Los Streams son usados para iterar sobre secuencias de elementos como colecciones secuenciadas, archivos y streams de red.
+Los Streams pueden ser de lectura, de escritura o de ambos.
+Leer o escribir es siempre relativo a la posici\'on en el stream.
+Los Streams pueden ser f\'acilmente convertidos en colecciones y vice versa.
+
 \lr{"Streams can easily be converted into collections." I wouldn't say it like this, because it is not true for all streams (infinite streams). According to Kent Beck we should only talk about conversion when the same protocol is supported. Collections and Streams do not support the same protocol. (p. 249)}
 
 %=============================================================
-\section{Two sequences of elements}
-A good metaphor to understand a stream is the following: A stream
-can be represented as two sequences of elements: a past element sequence
-and a future element sequence. The stream is positioned between the two
-sequences. Understanding this model is important since all stream
-operations in Smalltalk rely on it.
-For this reason, most of the \clsind{Stream} classes are subclasses of \clsind{PositionableStream}.
-\figref{_abcde} presents a stream which contains five characters. This stream is in its original position, \ie there is no element in the past. You can go back to this position using the message \mthind{PositionableStream}{reset}.
+\section{Dos secuencias de elementos}
+Una buena met\'afora para entender un stream es las siguiente: Un stream puede ser representado como dos secuencias de elementos: una secuencia de 
+elementos pasados y una secuencias de elementos futuros.
+El stream es posicionado entre las dos secuencias. Entender este modelo es importante ya que toda operaci\'on en \st se basa en el.
+The stream is positioned between the two
+
+Por esta raz\'on, la mayoria de las classes \clsind{Stream} son subclases de \clsind{PositionableStream}.
+\figref{_abcde} presenta un stream con cinco caracteres. Este stream est\'a es su posici\'on original, \ie no hay elementos anteriores. 
+Puedes volver a esta posici\'on usando el mensaje \mthind{PositionableStream}{reset}.
 
 \begin{figure}[ht]
 \centerline{\includegraphics[scale=0.5]{_abcdeStef}}
-\caption{A stream positioned at its beginning.}
+\caption{Un stream posicionado en su comienzo.}
 \figlabel{_abcde}
 \vspace{.2in}
 \end{figure}
 
-Reading an element conceptually means removing the first element of the future element sequence  and putting it after the last element in the past
-element sequence. After having read one element using the message \ct{next}, the state of your stream is that shown in \figref{a_bcde}.
+Leer un elemento conceptualmente significa sacar el primer elemento de la secuencia de elementos futuros y ponerlo despues del \'ultimo en
+la secuencia de elementos pasados. Luego de haber leido un elemento usando el mensaje \ct{next}, el estado de tu stream es el mostrado en \figref{a_bcde}.
 
 \begin{figure}[ht]
 \centerline{\includegraphics[scale=0.5]{a_bcdeStef}}
-\caption{The same stream after the execution of the method \ct{next}: the character \ct{a} is ``in the past'' whereas \ct{b}, \ct{c}, \ct{d} and \ct{e} are ``in the future''.}
+\caption{El mismo stream despues de la ejecuci\'on del m\'etodo \ct{next}: ell caracter \ct{a} est\'a ``en el pasado'' mientras \ct{b}, \ct{c}, \ct{d} y
+ \ct{e} estan ``en el futuro''.}
 \figlabel{a_bcde}
 \vspace{.2in}
 \end{figure}
 
-Writing an element means replacing the first element of the future sequence by the new one and moving it to the past. \figref{ax_cde} shows the state of the same stream after having written an \ct{x} using the message \mthind{Stream}{nextPut:} \ct{anElement}.
+Escribir un elemento significa reemplazar el primer elemento de la secuencia futura por el nuevo y moverlo hacia atras.
+ \figref{ax_cde} muestra el estado del mismo stream despues de haber escrito a \ct{x} usando el mensaje \mthind{Stream}{nextPut:} \ct{anElement}.
 
 \begin{figure}[h!t]
 \centerline{\includegraphics[scale=0.5]{ax_cdeStef}}
-\caption{The same stream after having written an \ct{x}.}
+\caption{El mismo stream despues de haber escrito una \ct{x}.}
 \figlabel{ax_cde}
 \vspace{.2in}
 \end{figure}
 
 %=============================================================
-\section{Streams vs. collections}
+\section{Streams vs. colecciones}
 
-The collection protocol supports the storage, removal and enumeration
-of the elements of a collection, but does not allow these operations
-to be intermingled.  For example, if the elements of an
-\clsind{OrderedCollection} are processed by a \mthind{OrderedCollection}{do:} method, it is not
-possible to add or remove elements from inside the \ct{do:} block.
-Nor does the collection protocol offer ways to iterate over two
-collections at the same time, choosing which collection goes forward
-and which does not. Procedures like these require that a traversal index or
-position reference is maintained outside of the collection itself:
-this is exactly the role of \clsind{ReadStream}, \clsind{WriteStream} and
-\clsind{ReadWriteStream}.
+El protocolo de colecci\'on soporte el almacenamiento, la remoci\'on y enumeraci\'on de los elementos de una colecci\'on, 
+but no permite que estas operaciones sean entremezcladas.  Por ejemplo, si los elementos de una \clsind{OrderedCollection} son
+procesados por un m\'etodo \mthind{OrderedCollection}{do:}, no es posible agregar o remover elementos desde el interior del bloque \ct{do:}.
+El protocolo de colecci\'on tampoco ofrece formas de interar sobre dos colecciones al mismo tiempo, eligiendo cual colecci\'on avanza y cual no.
+Procedimientos como estos requieren que un \'indice transversal o una posici\'on de referencia sea mantenida fuera de la propia colecci\'on:
+este es exactamente el rol de \clsind{ReadStream}, \clsind{WriteStream} y \clsind{ReadWriteStream}.
 
-These three classes are defined to \emph{stream over} some collection.
-For example, the following snippet creates a stream on an interval,
-then it reads two elements.
+Estas tres clases estan definidas para trabajar sobre alguna colecci\'on.
+Por ejemplo, el siguiente fragmento de c\'odigo crea un stream sobre un int\'ervalo y luego lee dos elementos
 \needlines{5}
 \begin{code}{@TEST |r|}
 r := ReadStream on: (1 to: 1000).
@@ -114,7 +112,7 @@ r next.   --> 2
 r atEnd.--> false
 \end{code}
 
-\ct{WriteStream}s can write data to the collection:
+\ct{WriteStream}s pueden escribir datos en una colecci\'on:
 \begin{code}{@TEST |w|}
 w := WriteStream on: (String new: 5).
 w nextPut: $a.
@@ -122,14 +120,10 @@ w nextPut: $b.
 w contents. -->  'ab'
 \end{code}
 
-It is also possible to create \ct{ReadWriteStream}s that support both
-the reading and writing protocols.
+Tambi\'en es posible crear \ct{ReadWriteStream}s que soporte ambos protocolos de escritura y lectura.
 
-The main problem with \ct{WriteStream} and \ct{ReadWriteStream} is
-that they only support arrays and strings in \pharo. This is currently
-being changed by the development of a new library named Nile, 
-but for now if you try to stream over another kind of
-collection, you will get an error:
+El principal problema con \ct{WriteStream} y \ct{ReadWriteStream} es que solo soportan arreglos y cadenas de caracteres en \pharo. Esto está siendo
+cambiado actualmente con el desarrollo de una nueva biblioteca llamada Nile, pero por ahora si intentas trabajar sobre otra clase de colecci\'on, obtendr\'as un error:
 
 \needlines{3}
 \begin{code}{}
@@ -137,8 +131,9 @@ w := WriteStream on: (OrderedCollection new: 20).
 w nextPut: 12. -->  raises an error
 \end{code}
 
-Streams are not only meant for collections, they can be used for files or sockets
-too. The following example creates a file named \ct{test.txt}, writes two strings to it, separated by a carriage return, and closes the file.
+Los Streams no estan solo pensados para colecciones, tambi\'en pueden ser usados con archivos o sockets.
+El siguiente ejemplo crea un archivo llamado \ct{test.txt}, escribe dos cadenas de caracteres separadas por un retorno de carro
+y cierra el archivo.
 
 \needlines{3}
 \begin{code}{}
@@ -151,24 +146,24 @@ StandardFileStream
 \end{code}
 \cmindex{FileStream class}{fileNamed:do:}
 
-The following sections present the protocols in more depth.
+Las siguientes secciones presentan los protocoles en mayor profundidad.
 
 %=============================================================
 \section{Streaming over collections}
 
-Streams are really useful when dealing with collections of
-elements. They can be used for reading and writing elements in
-collections. We will now explore the stream features for the
-collections.
+Los streams son realmente \'utiles para trabajar con colecciones de elementos. Pueden ser usados para leer y escribir elementos en colecciones
+Ahora exploraremos las caracteristicas de los streams para las colecciones.
 
 %-----------------------------------------------------------------
-\subsection{Reading collections}
+\subsection{Leyendo colecciones}
 
-This section presents features used for reading collections. Using a
-stream to read a collection essentially provides you a pointer into the collection. That pointer will move forward on reading and you can place it wherever you want. The class \clsindmain{ReadStream} should be used to read elements from collections.
+Esta secci\'on presenta caracteristicas usadas para leer colecciones. Usar un stream para leer una colecci\'on provee un puntero a la colecci\'on.
+Dicho puntero se mover\'a hacia adelante leyendo y podr\'as ubicarlo donde gustes.
 
-Methods \mthind{ReadStream}{next} and \mthind{ReadStream}{next:} are used to
-retrieve one or more elements from the collection.
+La clase \clsindmain{ReadStream} deberia usarse para leer elementos de la colecci\'on.
+
+Los m\'etodos \mthind{ReadStream}{next} ay \mthind{ReadStream}{next:} son utilizados para obtener uno o m\'as elementos de una colecci\'on.
+
 
 \begin{code}{@TEST |stream|}
 stream := ReadStream on: #(1 (a b c) false).
@@ -186,8 +181,7 @@ stream next: 3. -->   'bcd'
 stream next: 2. -->   'ef'
 \end{code}
 
-The message \mthind{PositionableStream}{peek} is used when you want to know what is the next element in
-the stream without going forward.
+El mensaje \mthind{PositionableStream}{peek} es usado cuando quieres conocer el siguiente elemento en el stream sin avanzar.
 
 \begin{code}{@TEST |stream negative number|}
 stream := ReadStream on: '-143'.
