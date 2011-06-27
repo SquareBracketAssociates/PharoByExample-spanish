@@ -151,19 +151,19 @@ Las siguientes secciones presentan los protocoles en mayor profundidad.
 %=============================================================
 \section{Streaming over collections}
 
-Streams are really useful when dealing with collections of
-elements. They can be used for reading and writing elements in
-collections. We will now explore the stream features for the
-collections.
+Los streams son realmente \'utiles para trabajar con colecciones de elementos. Pueden ser usados para leer y escribir elementos en colecciones
+Ahora exploraremos las caracteristicas de los streams para las colecciones.
 
 %-----------------------------------------------------------------
-\subsection{Reading collections}
+\subsection{Leyendo colecciones}
 
-This section presents features used for reading collections. Using a
-stream to read a collection essentially provides you a pointer into the collection. That pointer will move forward on reading and you can place it wherever you want. The class \clsindmain{ReadStream} should be used to read elements from collections.
+Esta secci\'on presenta caracteristicas usadas para leer colecciones. Usar un stream para leer una colecci\'on provee un puntero a la colecci\'on.
+Dicho puntero se mover\'a hacia adelante leyendo y podr\'as ubicarlo donde gustes.
 
-Methods \mthind{ReadStream}{next} and \mthind{ReadStream}{next:} are used to
-retrieve one or more elements from the collection.
+La clase \clsindmain{ReadStream} deberia usarse para leer elementos de la colecci\'on.
+
+Los m\'etodos \mthind{ReadStream}{next} ay \mthind{ReadStream}{next:} son utilizados para obtener uno o m\'as elementos de una colecci\'on.
+
 
 \begin{code}{@TEST |stream|}
 stream := ReadStream on: #(1 (a b c) false).
@@ -181,8 +181,7 @@ stream next: 3. -->   'bcd'
 stream next: 2. -->   'ef'
 \end{code}
 
-The message \mthind{PositionableStream}{peek} is used when you want to know what is the next element in
-the stream without going forward.
+El mensaje \mthind{PositionableStream}{peek} es usado cuando quieres conocer el siguiente elemento en el stream sin avanzar.
 
 \begin{code}{@TEST |stream negative number|}
 stream := ReadStream on: '-143'.
