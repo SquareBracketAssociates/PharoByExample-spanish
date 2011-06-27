@@ -652,19 +652,19 @@ Si tratas de guardar a un repositorio donde no tienes permiso de escritura, una 
 As\'i puedes recuperar mediante la edici\'on de la informaci\'on del repositorio (\actclick en el navegador Monticello ) o escogiendo un diferente repositorio, y entonces usando el bot\'on \button{Copy} desde el navegador cach\'e-paquete.
 
 %=========================================================
-\section{The Inspector and the Explorer}
+\section{El inspector y el Explorador}
 \seclabel{inspector} % (fold)
 
-One of the things that makes \st so different from many other programming environments is that it is provides you with a window onto a world of live objects, not a world of static code.
-Any of those objects can be examined by the programmer, and even changed\,---\,although some care is necessary when changing the basic objects that support the system.
-By all means experiment, but save your image first!
+Una de las cosas que hace tan diferente a \st de muchos otros de entornos de programaci\'on es que este te proporciona una ventana a un mundo de objetos vivos, no a un mundo de c\'odigo est\'atico.
+Cualquiera de estos objetos puede ser examinado por el programador, e, incluso, cambiar\,---\, aunque alg\'un tipo de cuidado es necesario cuando se cambian objetos b\'asicos que soportan el sistema.
+Experimente por todos los medios, pero guarde la imagen primero!
 
 %---------------------------------------------------------
 \subsection{The Inspector}
 
-\dothis{As an illustration of what you can do with an \ind{inspector}, type  \ct{TimeStamp now} in a workspace, and then \actclick and choose \menu{inspect it}.}
-(It's not necessary to select the text before using the menu; if no text is selected, the menu operations work on the whole of the current line.
-You can also type \short{i} for \menu{\textbf{i}nspect it}.)
+\dothis{Como una ilustraci\'on de lo que se puede hacer con un \ind{inspector}, escriba  \ct{TimeStamp now} en un workspace, y entonces \actclick y seleccione \menu{inspect it}.}
+(No es necesario seleccionar el texto antes de utilizar el men\'u; si no hay texto seleccionado, las operaciones del men\'u trabajan en la totalidad de la l\'inea actual.
+Tambi\'en puedes escribir \short{i} para \menu{\textbf{i}nspect }.)
 \clsindex{TimeStamp}
 \index{keyboard shortcut!inspect it}
 
@@ -672,43 +672,43 @@ You can also type \short{i} for \menu{\textbf{i}nspect it}.)
 	\begin{center}
 		\includegraphics[width=\textwidth]{inspectTimeNow1}
 	\end{center}
-	\caption{Inspecting \ct{TimeStamp now}}
+	\caption{Inspeccionando \ct{TimeStamp now}}
 	\figlabel{inspectTimeNow1}
 \end{figure}
 
-A window like that shown in \figref{inspectTimeNow1} will appear.
-This is an inspector, and can be thought of as a window onto the internals of a particular object\,---\,in this case, the particular instance of \mbox{\ct{TimeStamp}}
+Una ventana como la mostrada en \figref{inspectTimeNow1} aparecer\'a.
+Este es un inspector, y se puede considerar como una ventana al funcionamiento interno de un objeto determinado\,---\, en este caso, una instancia en particular de \mbox{\ct{TimeStamp}}
 % the \mbox is here because without it, the listings macros puts a space between TimeStamp
 % and the following word, and that space happens to come out at the start of a line.
-that was created when you evaluated the expression \ct{TimeStamp now}.
-The title bar of the window shows the printable representation of the object that is being inspected.
-If you select \menu{self} at the top of the left pane, the right pane will show the printstring of the object.
+que se cre\'o cuando evaluaste la expresi\'on \ct{TimeStamp now}.
+La barra de t\'itulo de la ventana muestra la representaci\'on imprimible del objeto que est\'a siendo inspeccionado.
+Si seleccionas \menu{self} en la parte superior del panel de la izquierda, el panel de la derecha mostrar\'a el printstring del objeto.
 % If you select \menu{all inst vars} in the left pane, the right pane will show a list of the instance variables in the object, and the printstring for each one.
 % The remaining items in the left pane represent the instance variables; this makes it easy to examine them one at a time, and also to change them.
-The left pane shows a tree view of the object, with \self at the root.
-Instance variables can be explored by expanding the triangles next to their names.
+El panel de la izquierda muestra una vista de \'arbol del objeto, con \self en la ra\'iz.
+Las Variables de instancia pueden ser exploradas expandiendo los tri\'angulos junto a sus nombres.
 
-The horizontal pane at the bottom of the inspector is a small workspace window.  It is useful because in this window, the pseudo-variable \ct{self} is bound to the object that you have selected in the left pane.
-So, if you \menu{inspect it} on
+El pane horizontal en la parte inferior del inspector es una pequeña ventana del workspace.  Esto es \'util porque en esta ventana, la pseudo-variable \ct{self} esta enlazada al objeto que haz seleccionado en el panel izquierdo.
+Por lo tanto, si \menu{inspect it} en
 \begin{code}{}
 self - TimeStamp today
 \end{code}
-in the workspace pane, the result will be a \clsind{Duration} object that represents the time interval between midnight today and the instant at which you evaluated  \ct{TimeStamp now} and created the \ct{TimeStamp} object that you are inspecting.
-You can also try evaluating \ct{TimeStamp now - self}; this will tell you how long you have spent reading this section of this book!
+en el panel del workspace, el resultado ser\'a un objeto \clsind{Duration} que representa el intervalo de tiempo entre la medianoche y hoy y el instante en que est\'as evaluando la expresi\'on  \ct{TimeStamp now} y ha creado el objeto \ct{TimeStamp} que est\'as inspeccionando.
+Tambi\'en puedes tratar de evaluar \ct{TimeStamp now - self}; esto te dir\'a cu\'anto tiempo haz dedicado a leer esta secci\'on de este libro!
 
-In addition to \ct{self}, all the instance variables of the object are in scope in the workspace pane, so you can use them in expressions or even assign to them.  For example, if you select the root object in the left pane and evaluate \ct{jdn  := jdn - 1} in the workspace pane, you will see that the value of the \ct{jdn} instance variable will indeed change, and the value of \ct{TimeStamp now - self} will increase by one day.
+Adem\'as de \ct{self}, todas las variables del objeto est\'an en el \'ambito en el panel del workspace, para que puedas utilizarlo en expresiones o incluso asign\'arselas.  Por ejemplo, si seleccionas el objeto ra\'iz en el panel izquierdo y eval\'uas \ct{jdn  := jdn - 1} en el panel del workspace, puedes ver el valor de la instancia de la variable \ct{jdn} de hecho cambia, y el valor de \ct{TimeStamp now - self} se incrementar\'a en un d\'ia.
 
 % ON: Does not work anymore
 %You can change instance variables directly by selecting them, replacing the old value in the right-hand  pane by a \pharo expression, and accepting.
 %\pharo will evaluate the expression and assign the result to the instance variable.
 
-There are special variants of the inspector for Dictionaries, OrderedCollections, CompiledMethods and a few other classes that make it easier to examine the contents of these special objects.
+Existen variantes especiales del inspector para los Diccionarios, OrderedCollections, CompiledMethods y algunas otras clases que facilitan la tarea de examinar el contenido de estos objetos especiales.
 
 %---------------------------------------------------------
-\subsection{The Object Explorer}
+\subsection{El Explorador de Objetos}
 
-The \emph{object explorer} is conceptually similar to the inspector, but presents its information in a different way.
-To see the difference, we'll \emph{explore} the same object that we were just inspecting.
+El \emph{explorador de objetos} es conceptualmente similar al inspector, pero presenta su informaci\'on en forma diferente.
+Para ver la diferencia, \emph{exploraremos} el mismos objeto que est\'abamos inspeccionando.
 
 \begin{figure}[tbp]
 \begin{minipage}{0.48\textwidth}
@@ -717,7 +717,7 @@ To see the difference, we'll \emph{explore} the same object that we were just in
 		{\includegraphics[width=\textwidth]{exploreTimeStampNow}}
 		{\includegraphics[width=0.7\textwidth]{exploreTimeStampNow}}
 	\end{center}
-	\caption{Exploring \ct{TimeStamp now}}
+	\caption{Explorando \ct{TimeStamp now}}
 	\figlabel{exploreTimeStampNow}
 \end{minipage}
 \hfill
@@ -727,32 +727,32 @@ To see the difference, we'll \emph{explore} the same object that we were just in
 		{\includegraphics[width=\textwidth]{exploreTimeStampNow2}}
 		{\includegraphics[width=0.7\textwidth]{exploreTimeStampNow2}}
 	\end{center}
-	\caption{Exploring the instance variables}
+	\caption{Explorando las variables de instancia}
 	\figlabel{exploreTimeStampNow2}
 \end{minipage}
 \end{figure}
 
-\dothis{Select \menu{self} in the inspector's left-hand pane, then \actclick and choose \menu{explore (I)}.}
-The \ind{explorer} window looks like \figref{exploreTimeStampNow}.
-If you click on the small triangle next to \ct{root}, the view will change to \figref{exploreTimeStampNow2}, which shows the instance variables of object that you are exploring.
-Click on the triangle next to \ct{offset}, and you will see \emph{its} instance variables.
-The explorer is really useful when you need to explore a complex hierarchic structure\,---\,hence the name.
+\dothis{Seleccione \menu{self} en el panel izquierdo del inspector, luego \actclick y escoja \menu{explore (I)}.}
+La ventana del \ind{explorador} se ve como \figref{exploreTimeStampNow}.
+Si haces clic en el pequeño tri\'angulo que se encuentra junto a \ct{root}, la vista cambiar\'a a  \figref{exploreTimeStampNow2}, que muestra las variables de instancia del objeto que est\'as explorando.
+Haga Clic en el tri\'angulo que se encuentra junto a \ct{offset}, y ver\'a \emph{sus} variables de instancia.
+El explorador es realmente \'util cuando necesitas explorar un estructura jer\'arquica compleja\,---\,de ah\'i el nombre.
 \index{keyboard shortcut!explore it}
 
-The workspace pane of the object explorer works slightly differently from that of the inspector.
-\ct{self} is not bound to the root object, but rather to the object that is currently selected; the instance variables of the selected object are also in scope.
+El panel del workspace del explorador de objetos trabaja ligeramente diferente a la del inspector.
+\ct{self} no est\'a enlazado al objeto root, sino m\'as bien para el objeto que esta seleccionado actualmente; las variables de instancia del objeto seleccionado est\'an tambi\'en dentro del alcance.
 
-To see the value of the explorer, let's use it to explore a deeply-nested structure of objects.
+Para ver el valor del explorer, us\'emoslo para explorar profundamente la estructura de objetos anidados.
 
-\dothis{Evaluate \ct{Object explore} in a workspace.}
-This is the object that represents the class \ct{Object} in \pharo.
-Note that you can navigate directly to the objects representing the method dictionary and even the compiles methods of this class (see \figref{ExploreObject}).
+\dothis{Eval\'ue \ct{Object explore} en un workspace.}
+Este es el objeto que representa la clase \ct{Object} en \pharo.
+Tenga en cuenta que puedes navegar directamente a los objetos representando el diccionario de m\'etodos e incluso los m\'etodos compilados de esta clase (ver \figref{ExploreObject}).
 
 \begin{figure}[tbp]
 	\begin{center}
 		\includegraphics[width=0.5\textwidth]{ExploreObject}
 	\end{center}
-	\caption{Exploring a \ct{ExploreObject}}
+	\caption{Explorando un \ct{ExploreObject}}
 	\figlabel{ExploreObject}
 \end{figure}
 
@@ -770,41 +770,41 @@ Note that you can navigate directly to the objects representing the method dicti
 %\end{figure}
 
 %=========================================================
-\section{The Debugger}
+\section{El Depurador}
 \seclabel{debugger} % (fold)
 
-The \ind{debugger} is arguably the most powerful tool in the \pharo tool suite.  It is used not just for debugging, but also for writing new code.
-To demonstrate the debugger, let's start by creating a bug!
+El \ind{depurador} es probablemente la herramienta m\'as poderosa en la suite de herramientas de \pharo.  Se utiliza no s\'olo para la depuraci\'on, sino tambi\'en para escribir nuevo c\'odigo.
+Para demostrar el depurador, comencemos por crear un error!
 
-\dothis{Using the browser, add the following method to the class \ct{String}:}
+\dothis{Usando el navegador, agregue el siguiente m\'etodo a la clase \ct{String}:}
 
 \needlines{7}
 \begin{method}[buggy]{A buggy method}
 suffix
-	"assumes that I'm a file name, and answers my suffix, the part after the last dot"
+	"Se supone que soy un nombre de archivo, y respondo con mi sufijo, la parte despu\'es del \'ultimo punto"
 	| dot dotPosition |
 	dot := FileDirectory dot.
 	dotPosition := (self size to: 1 by: -1) detect: [ :i | (self at: i) = dot ].
 	^ self copyFrom: dotPosition to: self size
 \end{method}
 
-Of course, we are sure that such a trivial method will work, so instead of writing an SUnit test, we just type
-\ct{'readme.txt' suffix} in a workspace and \menu{print it (p)}.
-What a surprise!  Instead of getting the expected answer \ct{'txt'}, a \clsind{PreDebugWindow} pops up, as shown in \figref{PreDebugWindow}.
+Por supuesto, estamos seguros que ese m\'etodo trivial funcionar\'a, as\'i que en vez de escribir una prueba SUnit, simplemente escribiremos
+\ct{'readme.txt' suffix} en un workspace y \menu{print it (p)}.
+Qu\'e sorpresa!  En vez de la esperada respuesta \ct{'txt'}, aparecer\'a un pops up \clsind{PreDebugWindow}, como aparece en \figref{PreDebugWindow}.
 
 \begin{figure}[btp]
 	\begin{center}
 	\includegraphics[width=0.8\textwidth]{PreDebugWindow}
 	\end{center}
-	\caption{A \ct{PreDebugWindow} notifies us of a bug.}
+	\caption{Una \ct{PreDebugWindow} nos notifica un error.}
 	\figlabel{PreDebugWindow}
 \end{figure}
 
-The \ct{PreDebugWindow} has a title-bar that tells us what error occurred, and shows us a \emphind{stack trace} of the messages that led up to the error.
-Starting from the bottom of the trace, \ct{UndefinedObject>>>DoIt} represents the code that was compiled and run when we selected \ct{'readme.txt' suffix} in the workspace and asked \pharo to \menu{print it}.
-This code, of course, sent the message \ct{suffix} to a \clsind{ByteString} object (\ct{'readme.txt'}).
-This caused the inherited \ct{suffix} method in class \ct{String} to execute; all this information is encoded in the next line of the stack trace, \ct{ByteString(String)>>>suffix}.
-Working up the stack, we can see that \ct{suffix} sent \ct{detect:}\ldots and eventually \ct{detect:ifNone} sent \ct{errorNotFound}.
+La \ct{PreDebugWindow} tiene una barra de t\'itulo que nos indica que ha ocurrido un error, y nos muestra un \emphind{stack trace} de los mensajes que condujo al error.
+A partir de la parte inferior de la traza, \ct{UndefinedObject>>>DoIt} representa el c\'odigo que se compila y se ejecuta cuando lo seleccionamos \ct{'readme.txt' suffix} en el workspace y pedimos a \pharo imprimirlo \menu{print it}.
+Este c\'odigo, por supuesto, envi\'o el mensaje \ct{suffix} a un objeto \clsind{ByteString} (\ct{'readme.txt'}).
+Esto caus\'o que el heredado m\'etodo \ct{suffix} en la clase \ct{String} se ejecute; toda esta informaci\'on se codifica en la siguiente l\'inea de la traza de la pila, \ct{ByteString(String)>>>suffix}.
+Trabajando en la pila, podemos ver que \ct{suffix} envi\'o \ct{detect:}\ldots y eventualmente \ct{detect:ifNone} envi\'o \ct{errorNotFound}.
 \clsindex{UndefinedObject}
 
 \begin{figure}[btp]
@@ -813,53 +813,53 @@ Working up the stack, we can see that \ct{suffix} sent \ct{detect:}\ldots and ev
 		{\includegraphics[width=\textwidth]{debuggerDetectIfNone}}
 		{\includegraphics[width=0.7\textwidth]{debuggerDetectIfNone}}
 	\end{center}
-	\caption{The debugger.}
+	\caption{El Depurador.}
 	\figlabel{debuggerDetectIfNone}
 \end{figure}
 
-To find out \emph{why} the dot was not found, we need the debugger itself, so click on \button{Debug}.
+Para averiguar el \emph{por qu\'e} el punto no fue encontrado, necesitamos el depurador en s\'i, as\'i que haga clic en el bot\'on \button{Debug}.
 
 %\dothis{You can also open the debugger by clicking on any of the lines on the stack trace.  If you do this, the debugger will open already focussed on the corresponding method.}
 
-The debugger is shown in \figref{debuggerDetectIfNone}; it looks intimidating at first, but it is quite easy to use.
-The title-bar and the top pane are very similar to those that we saw in the \lct{PreDebugWindow}.
-However, the debugger combines the stack trace with a method browser, so when you select a line in the stack trace, the corresponding method is shown in the pane below.
-It's important to realize that the execution that caused the error is still in your image, but in a suspended state.
-Each line of the stack trace represents a frame on the execution stack that contains all of the information necessary to continue the execution.  This includes all of the objects involved in the computation, with their instance variables, and all of the temporary variables of the executing methods.
+El depurador es mostrado en \figref{debuggerDetectIfNone}; parece intimidante en un primer momento, pero es bastante f\'acil de usar.
+La barra de t\'itulo y la parte superior del panel son muy similares a los que vimos en la \lct{PreDebugWindow}.
+Sin embargo, el depurador combina la traza de la pila con un navegador de m\'etodos, as\'i cuando se selecciona una l\'inea en la traza de la pila, el correspondiente m\'etodo se muestra en el panel inferior.
+Es importante darse cuenta que la ejecuci\'on que provoc\'o el error se encuentra en su imagen, pero en un estado de suspensi\'on.
+Cada l\'inea de la traza de la pila representa un marco en la pila de ejecuci\'on que contiene toda la informaci\'on necesaria para continuar con la ejecuci\'on.  Esto incluye todos los objetos involucrados en el c\'alculo, con sus variables de instancia, y todas las variables temporales de los m\'etodos de ejecuci\'on.
 
-In \figref{debuggerDetectIfNone} we have selected the \ct{detect:ifNone:} method in the top pane.
-The method body is displayed in the center pane; the blue highlight around the message \ct{value} shows that the current method has sent the message \ct{value} and is waiting for an answer.
+En \figref{debuggerDetectIfNone} hemos seleccionado el m\'etodo \ct{detect:ifNone:} en la parte superior del panel.
+El cuerpo del m\'etodo se muestra en el panel central; el resaltado en azul alrededor del mensaje \ct{value} muestra que el m\'etodo actual ha enviado el mensaje \ct{value} y est\'a esperando una respuesta.
 
-The four panes at the bottom of the debugger are really two mini-inspectors (without workspace panes).
-The inspector on the left shows the current object, that is, the object named \self in the center pane.
-As you select different stack frames, the identity of \self may change, and so will the contents of the
+Los cuatro paneles en la parte inferior del depurador son realmente dos mini-inspectores (sin paneles de workspace).
+El inspector de la izquierda muestra el objeto actual, es decir, el objeto llamado \self en el panel central.
+Como selecciones diferentes stack frames, la identidad de \self puede cambiar, y lo mismo ocurrir\'a con el contenido del
 \self{}-inspector.
-If you click on \self in the bottom-left pane, you will see that \self is the interval \ct{(10 to: 1 by -1)}, which is what we expect.
-The workspace panes are not needed in the debugger's mini-inspectors because all of the variables are also in scope in the method pane; you should feel free to type or select expressions in this pane and evaluate them.
-You can always \menu{cancel (l)} your changes using the menu or \short{\textit{l}}.
+Si haces clic en \self en la parte inferior del panel de la izquierda, ver\'as que \self es el intervalo \ct{(10 to: 1 by -1)}, que es lo que esperamos.
+Los paneles del workspace no son necesarios en los mini-inspectores del depurador porque todas las variables est\'an tambi\'en en el \'ambito del panel de m\'etodos; debes sentirte libre de escribir o seleccionar expresiones en este panel y evaluarlos.
+Siempre puedes \menu{cancel (l)} tus cambios usando el men\'u o \short{\textit{l}}.
 % apb: that lower-case-L is in italics so that it doesn't look like a 1 or a |
 \index{keyboard shortcut!cancel}
 
-The inspector on the right shows the temporary variables of the current context.
-In \figref{debuggerDetectIfNone},
-\ct{value} was sent to the parameter \ct{exceptionBlock}.
+El inspector de la derecha muestra las variables temporales del contexto actual.
+En \figref{debuggerDetectIfNone},
+\ct{value} fue enviado al par\'ametro \ct{exceptionBlock}.
 
 %\dothis{To see the current value of this parameter, click on \ct{exceptionBlock} in the context inspector.
 %This will tell you that \ct{exceptionBlock} is \ct{[self errorNotFound: ...]}.
 %\on{no longer true!}
 
-As we can see one method lower in the stack trace, the \ct{exceptionBlock} is \ct{[self errorNotFound: ...]}, so, it is not surprising that we see the corresponding error message.
+Como podemos ver un m\'etodo abajo en la traza de la pila, el \ct{exceptionBlock} es \ct{[self errorNotFound: ...]}, as\'i, no es de extrañar que veamos el correspondiente mensaje de error.
 
-Incidentally, if you want to open a full inspector or explorer on one of the variables shown in the mini-inspectors, just double-click on the name of the variable, or select the name of the variable and \actclick to choose \menu{inspect (i)} or \menu{explore (I)}.
-This can be useful if you want to watch how a variable changes while you execute other code.
+por otra parte, si deseas abrir un completo inspector o explorador en una de las variables mostradas en los mini-inspectores, simplemente haga doble clic en el nombre de la variable, o seleccione el nombre de la variable y \actclick escoja \menu{inspect (i)} o \menu{explore (I)}.
+Esto puede ser \'util si quieres ver c\'omo una variable cambia mientras ejecutas otro c\'odigo.
 \index{keyboard shortcut!inspect it}
 \index{keyboard shortcut!explore it}
 
-Looking back at the method window, we see that we expected the penultimate line of the method to find \ct{dot} in the string \ct{'readme.txt'}, and that execution should never have reached the final line.
-\pharo does not let us run an execution backwards, but it does let us start a method again, which works very well in code such as this that does not mutate objects, but instead creates new ones.
+Mirando hacia atr\'as a la vnetana del m\'etodo, vemos que esper\'abamos la pen\'ultima l\'inea del m\'etodo para encontrar el \ct{punto} en el string \ct{'readme.txt'}, y que la ejecuci\'on nunca deber\'ia haver llegado a la \'ultima l\'inea.
+\pharo no nos permite correr una ejecuci\'on hacia atr\'as, pero esto nos permite comenzar un m\'etodo de nuevo, que funcinan muy bien en el c\'odigo tal como este que no muta objetos, pero en su lugar crea otros nuevos.
 
-\dothis{Click \button{Restart}, and you will see that the locus of execution returns to the first statement of the current method.
-The blue highlight shows that the next message to be sent will be {\ct{do:}} (see \figref{RestartDetectIfNone}).}
+\dothis{Clic \button{Restart}, y ver\'as que el lugar de ejecuci\'on vuelve a la primera declaraci\'on del m\'etodo actual.
+El resaltado en azul muestra que el pr\'oximo mensaje a ser enviado ser\'a {\ct{do:}} (ver \figref{RestartDetectIfNone}).}
 
 \begin{figure}[btp]
 	\begin{center}
@@ -867,27 +867,27 @@ The blue highlight shows that the next message to be sent will be {\ct{do:}} (se
 		{\includegraphics[width=\textwidth]{RestartDetectIfNone}}
 		{\includegraphics[width=0.7\textwidth]{RestartDetectIfNone}}
 	\end{center}
-	\caption{The debugger after restarting the \ct{detect: ifNone:} method}
+	\caption{El depurador despu\'es de reiniciar el m\'etodo \ct{detect: ifNone:} }
 	\figlabel{RestartDetectIfNone}
 \end{figure}
 
-The \button{Into} and \button{Over} buttons give us two different ways to step through the execution.  If you click \button{Over}, \pharo executes the current message-send (in this case the \ct{do:}) in one step, unless there is an error.
-So \button{Over} will take us to the next message-send in the current method, which is \ct{value}\,---\,this is exactly where we started, and not much help.
-What we need to do is to find out why the \ct{do:} is not finding the character that we are looking for.
+Los botones \button{Into} y \button{Over} nos brindan dos diferentes maneras de paso a trav\'es de la ejecuci\'on.  Si hace clic en el bot\'on \button{Over}, \pharo ejecuta el actual env\'io-mensaje (en este caso el \ct{do:}) en un paso, a menos que exista un error.
+ As\'i \button{Over} nos llevar\'a al pr\'oximo env\'io-mensaje en el actual m\'etodo, el cual es \ct{value}\,---\,este est\'a exactamente donde comenzamos, y no ayudan mucho.
+Lo que debemos hacer es averiguar porque el \ct{do:} no est\'a encontrando el caracter que estamos buscando.
 
-\dothis{After clicking \button{Over}, click \button{Restart} to get back to the situation shown in \figref{RestartDetectIfNone}.}
+\dothis{Despu\'es de hacer clic en \button{Over}, hacer clic en \button{Restart} para volver a la situaci\'on mostrada en \figref{RestartDetectIfNone}.}
 
-\dothis{Click \button{Into}; \pharo will go into the method corresponding to the highlighted message-send, in this case, \ct{Collection>>>do:}.}
+\dothis{Clic \button{Into}; \pharo ingresar\'a en el m\'etodo correspondiente al env\'io-mensaje resaltado, en este caso, \ct{Collection>>>do:}.}
 
-However, it turns out that this is not much help either: we can be fairly confident that \ct{Collection>>>do:} is not broken.  The bug is much more likely to be in \emph{what} we asked \pharo to do.
-\button{Through} is the appropriate button to use in this case: we want to ignore the details of the \ct{do:} itself and focus on the execution of the argument block.
+Sin embargo, resulta que esto no es una gran ayuda ya sea: podemos estar bastante seguros de que  \ct{Collection>>>do:} no se rompe.  El error es mucho m\'as probable que est\'e en \emph{que} estamos pidiendo hacer a \pharo.
+\button{Through} es el bot\'on apropiado para utilizar en este caso: queremos ignorar los detalles de \ct{do:} en s\'i y centrarse en la ejecuci\'on del argumento del bloque.
 
-\dothis{Select the \ct{detect:ifNone:} method again and \button{Restart} to get back to the state shown in \figref{RestartDetectIfNone}.
-Now click on \button{Through} a few times.  Select \ct{each} in the context window as you do so.
-You should see \ct{each} count down from \ct{10} as the \ct{do:} method executes.}
+\dothis{Seleccione el m\'etodo \ct{detect:ifNone:} de nuevo y el bot\'on \button{Restart} para volver al estado mostrado en \figref{RestartDetectIfNone}.
+Ahora haga clic en \button{Through} un par de veces.  Seleccione \ct{each} en la ventana de contexto al hacerlo.
+Ver\'as en \ct{each} una cuenta regresiva desde \ct{10} en la medida que se ejecuta el m\'etodo \ct{do:} .}
 
-When \ct{each} is \ct{7} we expect the \ct{ifTrue:} block to be executed, but it isn't.
-To see what is going wrong, go \button{Into} the execution of \ct{value:} as illustrated in \figref{steppingIntoValue}.
+Cuando \ct{each} es \ct{7} esperamos que el block \ct{ifTrue:} sea ejecutado, pero no es as\'i.
+Para ver qu\'e es lo que va mal, vaya a \button{Into} la ejecuci\'on de \ct{value:} como se ilustra en \figref{steppingIntoValue}.
 
 \begin{figure}[btp]
 	\begin{center}
@@ -895,18 +895,18 @@ To see what is going wrong, go \button{Into} the execution of \ct{value:} as ill
 		{\includegraphics[width=\textwidth]{steppingIntoValue}}
 		{\includegraphics[width=0.7\textwidth]{steppingIntoValue}}
 	\end{center}
-	\caption{The debugger after stepping \lct{Through} the \ct{do:} method several times.}
+	\caption{El depurador despu\'es de avanzar varias veces \lct{A trav\'es de} del m\'etodo \ct{do:} }
 	\figlabel{steppingIntoValue}
 \end{figure}
 
-After clicking \button{Into}, we find ourselves in the position shown in \figref{dotIsAString}.
-It looks at first that we have gone \emph{back} to the \ct{suffix} method, but this is because we are now executing the block that \ct{suffix} provided as argument to \ct{detect:}.
+Despu\'es de hacer clic en el bot\'on \button{Into}, nos encontramos en la posici\'on indicada en \figref{dotIsAString}.
+Esto parece a primera vista que hemos ido \emph{de vuelta} al m\'etodo \ct{suffix} , pero esto es porque ahora estamos ejecutando el bloque que \ct{suffix} proporciona como argumento a \ct{detect:}.
 %\on{does not work any more! the debugger does not know about block variables!}
 %If you select \ct{i} in the context inspector, you can see its current value, which should be \ct{7} if you have been following along.
 %You can then select the corresponding element of \self from the \self{}-inspector.
 %In  \figref{dotIsAString} you can see that element \ct{7} of the string is character 46, which is indeed a dot.
-If you select \ct{dot} in the context inspector, you will see that its value is \ct{'.'}.
-And now you see why they are not equal: the seventh character of \ct{'readme.txt'} is of course a \ct{Character}, while \ct{dot} is a \ct{String}.
+Si seleccionas \ct{dot} en el contexto del inspector, ver\'as que su valor es \ct{'.'}.
+Y ahora puedes ver por qu\'e ellos no son iguales: el s\'eptimo car\'acter de \ct{'readme.txt'} es por supuesto un \ct{Character}, mientras que \ct{dot} es un \ct{String}.
 
 \begin{figure}[btp]
 	\begin{center}
@@ -914,11 +914,11 @@ And now you see why they are not equal: the seventh character of \ct{'readme.txt
 		{\includegraphics[width=\textwidth]{dotIsAString}}
 		{\includegraphics[width=0.7\textwidth]{dotIsAString}}
 	\end{center}
-	\caption{The debugger showing why \ct{'readme.txt' at: 7} is not equal to \ct{dot}}
+	\caption{El depurador mostrando porque \ct{'readme.txt' at: 7} no es igual a \ct{dot}}
 	\figlabel{dotIsAString}
 \end{figure}
 
-Now that we see the bug, the fix is obvious: we have to convert \ct{dot} to a character before starting to search for it.
+Ahora que vemos el error, la soluci\'on es obvia: tenemos que convertir \ct{dot} a un caracter antes de comenzar a buscarlo.
 
 \begin{figure}[btp]
 	\begin{center}
@@ -926,60 +926,60 @@ Now that we see the bug, the fix is obvious: we have to convert \ct{dot} to a ch
 		{\includegraphics[width=\textwidth]{revertDialog}}
 		{\includegraphics[width=0.7\textwidth]{revertDialog}}
 	\end{center}
-	\caption{Changing the \ct{suffix} method in the debugger: asking for confirmation of the exit from an inner block}
+	\caption{Cambiando el m\'etodo  \ct{suffix} en el depurador: solicitando la confirmaci\'on de la salida desde un bloque interior}
 	\figlabel{revertDialog}
 \end{figure}
 
-\dothis{Change the code right in the debugger so that the assignment reads \ct{dot := FileDirectory dot first} and \menu{accept} the change.}
+\dothis{Cambiar el c\'odigo en el depurador de manera que la asignaci\'on se lea \ct{dot := FileDirectory dot first} y \menu{accept} los cambios.}
 
-Because we are executing code inside a block that is inside a \lct{detect:}, several stack frames will have to be abandoned in order to make this change.  \pharo asks us if this is what we want (see \figref{revertDialog}), and, assuming that we click \menu{yes}, will save (and compile) the new method.
+Dado que estamos ejecutando el c\'odigo dentro de un bloque que se encuentra dentro de  \lct{detect:}, varios marcos de pilas tendr\'an que ser abandonados con el fin de realizar este cambio.  \pharo nos pregunta si esto es lo que requemos (ver \figref{revertDialog}), y, asumiendo que hacemos clic en \menu{yes}, se guardar\'a (y compilar\'a) el nuevo m\'etodo.
 
 %\dothis{Click \button{Restart} and then \button{Proceed}; the debugger window will vanish, and the evaluation of the expression \ct{'readme.txt' suffix} will complete, and print the answer \ct{'.txt'}}
 
-The evaluation of the expression \ct{'readme.txt' suffix} will complete, and print the answer \ct{'.txt'}.
+La evaluaci\'on de la expresi\'on \ct{'readme.txt' suffix} completar\'a, e imprime la respuesta \ct{'.txt'}.
 
-Is the answer correct?  Unfortunately, we can't say for sure.  Should the suffix be \ct{.txt} or \ct{txt}?
-The method comment in \ct{suffix} is not very precise.
-The way to avoid this sort of problem is to write an \ind{SUnit} test that defines the answer.
+¿Es la respuesta correcta?  Desafortunadamente, no lo podemos decir con certeza.  ¿El sufijo debe ser \ct{.txt} o \ct{txt}?
+El comentario del m\'etodo en \ct{suffix} no es muy preciso.
+La manera de evitar este tipo de problema es escribir una prueba en \ind{SUnit} que defina la respuesta.
 
-\begin{method}[testSuffix]{A simple test for the \ct{suffix} method}
+\begin{method}[testSuffix]{Una prueba simple para el m\'etodo \ct{suffix}}
 testSuffixFound
 	self assert: 'readme.txt' suffix = 'txt'
 \end{method}
 
-The effort required to do that was little more than to run the same test in the workspace, but using \sunit saves the test as executable documentation, and makes it easy for others to run.
-Moreover, if you add \mthref{testSuffix} to the class \ct{StringTest} and run that test suite with \sunit, you can very quickly get back to debugging the error.
-\sunit opens the debugger on the failing assertion, but you need only go back down the stack one frame, \button{Restart} the test and go \button{Into} the \ct{suffix} method, and you can correct the error, as we are doing in \figref{fixOffByOne}.
-It is then only  a second of work to click on the \button{Run Failures} button in the \sunit Test Runner, and confirm that the test now passes.
+El esfuerzo requerido para hecerlo fue un poco mas que para ejecutar la misma prueba workspace, pero usando \sunit guarda el archivo ejecutable de la prueba como documentaci\'on , y hace que sea f\'acil para los dem\'as para que se ejecute.
+Por otra parte, si agregas \mthref{testSuffix} a la clase \ct{StringTest} y ejecutar este conjunto de pruebas con \sunit, puedes r\'apidamente volver a depurar el error.
+\sunit abre el depurador en la afirmaci\'on de errores (assertion failure), pero solamente necesitas regresar por la pila una trama, \button{Restart} la prueba e ir \button{Into} del m\'etodo \ct{suffix} , y puedes corregir el error, como lo estamos haciendo en \figref{fixOffByOne}.
+Solamente existe un segundo trabajo al hacer clic en el bot\'on \button{Run Failures} en la unidad de pruebas  \sunit, y confirmar que la prueba ahora pasa.
 
 \begin{figure}[btp]
 	\begin{center}
 		\includegraphics[width=\textwidth]{fixOffByOne}
 	\end{center}
-	\caption{Changing the \ct{suffix} method in the debugger: fixing the off-by-one error after an \sunit assertion failure}
+	\caption{Cambiando el m\'etodo \ct{suffix} en el depurador: corrigiendo el error off-by-one despu\'es de una \sunit de afirmaci\'on de errores (assertion failure)}
 	\figlabel{fixOffByOne}
 \end{figure}
 
 Here is a better test:
 
-\begin{method}[testSuffix2]{A better test for the \ct{suffix} method}
+\begin{method}[testSuffix2]{Una mejor prueba para el m\'etodo \ct{suffix}}
 testSuffixFound
 	self assert: 'readme.txt' suffix = 'txt'.
 	self assert: 'read.me.txt' suffix = 'txt'
 \end{method}
 \noindent
-Why is this test better?  Because it tells the reader what the method should do if there is more than one dot in the target String.
+¿Por qu\'e esta es una mejor prueba?  Porque esta le dice al lector lo que el m\'etodo debe hacer si hay mas de un punto en el string de destino.
 
-There are a few other ways to get into the debugger in addition to catching errors and assertion failures.
-If you execute code that goes into an infinite loop, you can interrupt it and open a debugger on the computation by typing \short{.} (that's a full stop or a period, depending  on where you learned English).\footnote{It is also useful to know that you can bring up an emergency debugger at any time by typing \short{{\sc shift--}.}}
-You can also just edit the suspect code to insert \ct{self halt}.
-So, for example, we might edit the \ct{suffix} method to read as follows:
+Hay algunas otras maneras de entrar en el depurador adem\'as de detectar los errores y afirmaciones de errores.
+Si ejecutas el c\'odigo que entra en un infinito bucle, puedes interrunpirlo y abrir un depurador en el c\'alculo escribiendo \short{.} (eso es una detenci\'on completa o un per\'iodo, dependiendo donde aprendi\'o Ingles).\footnote{Tambi\'en es \'util saber que puede hacer aparecer un depurador de emergencia en cualquier momento escribiendo \short{{\sc shift--}.}}
+Tambi\'en puedes solo editar el c\'odigo sospechoso a insertar \ct{self halt}.
+AS\'i, por ejemplo, podr\'iamos editar el m\'etodo \ct{suffix} para leer de la siguiente manera:
 \index{process!interrupting}
 
 \needspace{11ex}
-\begin{method}[suffix]{Inserting a \ct{halt} into the \ct{suffix} method.}
+\begin{method}[suffix]{Insertando un \ct{halt} en el m\'etodo \ct{suffix}.}
 suffix
-	"assumes that I'm a file name, and answers my suffix, the part after the last dot"
+	"se supone que soy un nombre de archivo, y respondo mi sufijo, la parte despu\'es del \'ultimo punto"
 	| dot dotPosition |
 	dot := FileDirectory dot first.
 	dotPosition := (self size to: 1 by: -1) detect: [ :i | (self at: i) = dot ].
@@ -987,32 +987,32 @@ suffix
 	^ self copyFrom: dotPosition to: self size
 \end{method}
 
-When we run this method, the execution of the \ct{self halt} will bring up the \ind{pre-debugger}, from where we can proceed, or go into the debugger and look at variables, step the computation, and edit the code.
+Cuando corremos este m\'etodo, la ejecuci\'on de \ct{self halt} iniciar\'a el \ind{pre-debugger}, desde donde podemos proceder, o ir al depurador y mirar las variables, dar pasos en el c\'alculo, y editar el c\'odigo.
 
-That's all there is to the debugger, but it's not all there is to the \ct{suffix} method.
-The initial bug should have made you realize that if there is no dot in the target string, the \ct{suffix} method will raise an error.
-This isn't the behaviour that we want, so let's add a second test to specify what should happen in this case.
+Eso es todo lo que hay en el depurador, pero no esto lo que hay para el m\'etodo \ct{suffix}.
+El primer fallo deber\'ia haber hecho que te dieras cuenta que si no ha un punto en el string de destino, el m\'etodo \ct{suffix} provocar\'a un error.
+Este no es el comportamiento que queremos, as\'i que vamos a añadir una segunda prueba para especificar qu\'e es lo que deber\'ia ocurrir en este caso.
 
 \needlines{3}
-\begin{method}[testNoSuffix]{A second test for the \ct{suffix} method: the target has no suffix}
+\begin{method}[testNoSuffix]{Una segunda prueba para el m\'etodo \ct{suffix}: el objetivo no tiene sufijo}
 testSuffixNotFound
 	self assert: 'readme' suffix = ''
 \end{method}
 
 \needlines{2}
-\dothis{Add \mthref{testNoSuffix} to the test suite in class \clsind{StringTest}, and watch the test raise an error.
-Enter the debugger by selecting the erroneous test in \sunit, and edit the code so that the test passes.
-The easiest and clearest way to do this is to replace the \ct{detect:} message by \ct{detect: ifNone:}, where  the second argument is a block that simply returns the string size.}
+\dothis{Agregar \mthref{testNoSuffix} al conjunto de pruebas en la clase \clsind{StringTest}, y ver que la prueba provoca un error.
+Ingrese al depurador seleccionando la prueba err\'onea en  \sunit, y edite el c\'odigo de manera que la prueba sea satisfactoria.
+La forma mas f\'acil y clara de hacer esto es reemplazar el mensaje \ct{detect:} por \ct{detect: ifNone:}, donde el segundo argumento es un block que devuelve simplemente el tamaño del string.}
 
-We will learn more about SUnit in \charef{SUnit}.
+Vamos a aprender más sobre SUnit en \charef{SUnit}.
 
 % section debugger (end)
 
 %=========================================================
-\section{The Process Browser}
+\section{El Navegador de Procesos}
 
-\st is a multi-threaded system: there are many lightweight processes (also known as threads) running concurrently in your image.
-In the future the \pharo virtual machine may take advantage of multiprocessors when they are available, but at present concurrency is implemented by time-slicing.
+\st es un sistema multi-hebra: hay muchos procesos ligeros (también conocidos como hebras) ejecut\'andose simult\'aneamente en tu imagen.
+En el futuro la m''aquina virtual de \pharo puede tomar ventaja de los multiprocesadores cuando est\'en disponibles, pero en la actualidad la concurrencia esta implementada por tiempo de fragmentaci\'on (time-slicing).
 
 \begin{figure}[btp]
 	\begin{center}
@@ -1020,32 +1020,32 @@ In the future the \pharo virtual machine may take advantage of multiprocessors w
 		{\includegraphics[width=\textwidth]{processBrowser}}
 		{\includegraphics[width=0.7\textwidth]{processBrowser}}
 	\end{center}
-	\caption{The Process Browser}
+	\caption{El Navegador de Procesos}
 	\figlabel{processBrowser}
 \end{figure}
 
-The process \subind{process}{browser} is a cousin of the debugger that lets you look at the various processes running inside \pharo.
-\figref{processBrowser} shows a screenshot.
-The top-left pane lists all of the processes in \pharo, in priority order, from the timer interrupt watcher at priority 80 to the idle process at priority 10.
-Of course, on a uniprocessor, the only process that can be running when you look is the UI process; all others will be waiting for some kind of event.
+El proceso \subind{process}{browser} es un primo del depurador que te permite echar un vistazo a los diversos procesos que se ejecutan dentro de \pharo.
+\figref{processBrowser} muestra un screenshot.
+La parte superior del panel de la izquierda lista todos los procesos en \pharo, en orden de prioridad, de la interrupci\'on del temporizador vigilante con prioridad 80 al proceso inactivo con prioridad 10.
+Por supuesto, un monoprocesador, el \'unico proceso que puede estar corriendo cuando miras es el proceso UI; todos los dem\'as estar\'an esperando por alg\'un tipo de evento.
 %:===> Process browser context menu is broken!
 \on{broken -- to be fixed!}
-By default, the display of processes is static; it can be updated by \actclick{ing} and selecting \menu{turn on auto-update (a)}
+Por defecto, la vizualizaci\'on del proceso es est\'atica; este puede ser actualizado por \actclick{ing} y seleccionando \menu{turn on auto-update (a)}
 
-If you select a process in the top-left pane, its stack trace is displayed in the top-right pane, just as with the debugger.
-If you select a stack frame, the corresponding method is displayed in the bottom pane.
-The process browser is not equipped with mini-inspectors for \self and \lct{thisContext}, but \actclick{ing} on the stack frames provide equivalent functionality.
+Si seleccionas un proceso en la partes superior del panel de la izquierda, la traza de la pila se muestra en la parte superior del panel de la derecha, al igual que con el depurador.
+Si seleccionas un frame de la pila, el m\'etodo correspondiente se muestra en el panel inferior.
+El navegador de procesos no esta equipado con mini-inspectores para \self y \lct{thisContext}, pero \actclick{ing} en los frames de la pila proporciona funcionalidad equivalente.
 
 %=========================================================
-\section{Finding methods}
+\section{Encontrando m\'etodos}
 \seclabel{methodFinder}
 
-There are two tools in \pharo to help you find messages.
-They differ in both interface and functionality.
+Existen dos herramientas en \pharo para ayudarte a encontrar mensajes.
+Difieren tanto en funcionalidad como en interfaz.
 
-The \emph{method finder} was described at some length in \secref{quick:methodFinder}; you can use it to find methods by name or by functionality.
-However, to look at the body of a method, the method finder opens a new browser.
-This can quickly become overwhelming.
+El \emph{method finder} fue descrito con alg\'un detalle en \secref{quick:methodFinder}; puedes usarlo para encontrar m\'etodos por nombre o por funcionalidad.
+Sin embargo, para mirar el cuerpo de un m\'etodo, el m\'etodo finder abre un nuevo explorador.
+Esto puede ser abrumador.
 
 \begin{figure}[btp]
 	\begin{center}
@@ -1053,15 +1053,15 @@ This can quickly become overwhelming.
 		{\includegraphics[width=\textwidth]{methodNamesRandom}}
 		{\includegraphics[width=0.7\textwidth]{methodNamesRandom}}
 	\end{center}
-	\caption{The message names browser showing all methods containing the substring \ct{random} in their selectors.}
+	\caption{El navegador de nombres de mensajes mostrando todos los m\'etodos que contengan el substring \ct{random} en sus selectores.}
 	\figlabel{methodNamesRandom} % should be *message* names!
 \end{figure}
 
 \index{message names browser}
-The \emph{message names} browser has more limited search functionality: you type a fragment of a message selector in the search box, and the browser lists all methods that contain that fragment in their names, as shown in \figref{methodNamesRandom}.
-However, it is a full-fledged browser:
-if you select one of the names in the left pane, all of the methods with that name are listed in the right pane, and can be browsed in the bottom pane.
-As with the browser, the message names browser has a button bar that can be used to open other  browsers on the selected method or its class.
+El navegador \emph{message names} tiene m\'as limitada funcionalidad de b\'usqueda: puedes escribir un fragmento de selector de mensajes en el cuadro de b\'usqueda, y el navegador lista todos los m\'etodos que contienen ese fragmento en sus nombres, como se muestra en \figref{methodNamesRandom}.
+Sin embargo, es un completo navegador:
+Si seleccionas uno de los nombres en el panel izquierdo , todos los m\'etodos con ese nombre son listados en el panel derecho, y pueden ser consultados en el panel inferior.
+Al igual como ocurre con el navegador, el navegador de mensajes de nombres tiene una barra de botones que puede ser usada para abrir otros navegadores sobre el m\'etodo seleccionado o sus clases.
 
 
 % section methodFinder (end)
