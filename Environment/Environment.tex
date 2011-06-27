@@ -256,12 +256,12 @@ La ``n'' en \menu{senders (n)} te indica que el acceso r\'apido del teclado para
 	\caption{The Senders Browser showing that the \ct{Canvas>>>draw} method sends the \ct{drawOn:} message to its argument.	\figlabel{CanvasDraw}}
 \end{figure}
 
-Si est\'as buscando los emisores de \ct{drawOn:} en \ct{AtomMorph>>>drawOn:}, ver\'as que esto es un super \subind{super}{send}.  Por lo tanto sabemos que el m\'etodo que se ejecutar\'a ser\'a en la superclase de \ct{AtomMorph} .  ¿Que clase es esta?  \Actclick ~ \menu{browse \go hierarchy implementors} y ver\'as que esta es \ct{EllipseMorph}.
+Si est\'as buscando los emisores de \ct{drawOn:} en \ct{AtomMorph>>>drawOn:}, ver\'as que esto es un super \subind{super}{send}.  Por lo tanto sabemos que el m\'etodo que se ejecutar\'a ser\'a en la superclase de \ct{AtomMorph} . Que clase es esta?  \Actclick ~ \menu{browse \go hierarchy implementors} y ver\'as que esta es \ct{EllipseMorph}.
 \index{browser!hierarchy button}
 
 Ahora mire el sexto emisor en la lista, \ct{Canvas>>>draw}, mostrado en la \figref{CanvasDraw}.
 Usted puede ver que este m\'etodo env\'ia \ct{drawOn:}para cualquier objeto que se le pasa como un argumento, lo que potencialmente podr\'ia ser una instancia de cualquier clase.
-An\'alisis de flujo puede ayudar a entender la clase del receptor de algunos mensajes, pero en general, no existe una manera sencilla para que el navegador pueda saber cual mensaje-env\'ia puede causar que los métodos ser\'an ejecutados.
+An\'alisis de flujo puede ayudar a entender la clase del receptor de algunos mensajes, pero en general, no existe una manera sencilla para que el navegador pueda saber cual mensaje-env\'ia puede causar que los m\'etodos ser\'an ejecutados.
 Por esta raz\'on, los ``senders''en el navegador muestra exactamente lo que sugiere su nombre: todos los emisores de los mensajes con el selector elegido.
 El navegador de emisores es sin embargo extremadamente \'util cuando necesitas comprender c\'omo puedes \emph{usar} un m\'etodo: te permite navegar r\'apidamente a trav\'es del ejemplo utilizado.
 Dado que todos los m\'etodos con el mismo selector deben usarse de la misma manera, todos los usos de un determinado mensaje tienen que ser similares.
@@ -282,21 +282,21 @@ Cuando guardas un nuevo \subind{m\'etodo}{versi\'on} de un m\'etodo, la antigua 
    \caption{The \ind{versions browser} showing two versions of the \ct{TheWorldMenu>>>buildWorldMenu:} method}
    \figlabel{buildWorldMenuVersions}
 \end{figure}
-El \'item del men\'u \menu{browse \go versions (v)} da acceso a las sucesivas modificaciones introducidas en el método seleccionado.
+El \'item del men\'u \menu{browse \go versions (v)} da acceso a las sucesivas modificaciones introducidas en el m\'etodo seleccionado.
 En \figref{buildWorldMenuVersions} podemos ver dos versiones del m\'etodo \ct{buildWorldMenu:}.
 
 \index{browser!versions button}
 El panel superior muestra una l\'inea para cada versi\'on del m\'etodo, en el que fifuran las iniciales del programador que las escribi\'o, la fecha y hora en que se guard\'o, los nombres de la clase y el m\'etodo, y el protocolo en el que se ha definido.  La actual versi\'on (activa) est\'a en la parte superior de la lista; independiente de la versi\'on seleccionada se muestra en la parte inferior del panel.
 % Si el checkbox \menu{diffs} esta seleccionado, como lo es en \figref{mouseUpVersions}, la pantalla tambi\'en muestra las diferencias entre la versi\'on seleccionada y el inmediatamente anterior.
-También se proporcionan botones para mostrar las diferencias entre el método seleccionado y la versión actual, y para volver a la versión seleccionada.
+Tambi\'en se proporcionan botones para mostrar las diferencias entre el m\'etodo seleccionado y la versi\'on actual, y para volver a la versi\'on seleccionada.
 % El checkbox \menu{prettyDiffs} es \'util si ha habido cambios en el diseño: este imprime muy bonito ambas versiones antes de la diferenciaci\'on, de modo que las diferencias que se observan excluyen los cambios del formato.
 
 La existencia de las \ind{versiones del navegador} significa que nunca tend\'as que preocuparte de preservar el c\'odigo que piensas que tal ves ya no sea necesario: simplemente suprimalo. Si encuentr\'as que lo \emph{necesitas}, siempre puedes volver a la versi\'on anterior, o copiar el fragmento de la versi\'on anterior y pegarlo en otro m\'etodo.
 Get into the habit of using versions;  ``comentando'' el c\'odigo que ya no es necesario es una mala pr\'actica porque hace que el actual c\'odigo sea m\'as dif\'icil de leer.
 La tasa de legilibilidad de c\'odigo de Smalltalkers es extremadamente alta.
 
-\hint{¿Que pasa si se elimina completamente un m\'etodo?, y luego se decides que deseas recuperarlo?  Puedes encontrar el borrado en un conjunto de cambio, donde puedes pedir ver las versiones por \actclick{ing}.
-El conjunto de cambio esta descrito en \secref{env:changeSet}}
+\hint{Que pasa si se elimina completamente un m\'etodo?, y luego se decides que deseas recuperarlo?  Puedes encontrar el borrado en un conjunto de cambio, donde puedes pedir ver las versiones por \actclick{ing}.
+El conjunto de cambio est\'a descrito en \secref{env:changeSet}}
 
 \subsubsection{Sobre escribiendo m\'etodos}
 \seclabel{overriding}
@@ -304,7 +304,7 @@ El conjunto de cambio esta descrito en \secref{env:changeSet}}
 El navegador de herencia mostrar\'a todos los m\'etodos sobre escritos por el m\'etodo mostrado.
 Para ver como trabaja, seleccione el m\'etodo \cmind{ImageMorph}{drawOn:} en el navegador.
 Nota el icono triangular pr\'oximo al nombre del m\'etodo (\figref{OBinheritanceBrowser}).
-El tri\'angulo que apunta hacia arriba te dice que \ct{ImageMorph>>>drawOn:} sobre escribe un m\etodo heredado (\ie \ct{Morph>>>drawOn:}), y el tri\'angulo apuntando hacia abajo te dice que es sobre escrito por subclases. (Tambi\'en puedes hacer click sobre los iconos para ir a estos m\'etodos.)
+El tri\'angulo que apunta hacia arriba te dice que \ct{ImageMorph>>>drawOn:} sobre escribe un m\'etodo heredado (\ie \ct{Morph>>>drawOn:}), y el tri\'angulo apuntando hacia abajo te dice que es sobre escrito por subclases. (Tambi\'en puedes hacer click sobre los iconos para ir a estos m\'etodos.)
 Ahora selecciona \menu{browse \go inheritance}.
 El navegador de herencia te mostrar\'a la jerarqu\'ia de los m\'etodos sobre escritos (ver \figref{OBinheritanceBrowser}).
 
@@ -322,14 +322,14 @@ El navegador de herencia te mostrar\'a la jerarqu\'ia de los m\'etodos sobre esc
 \seclabel{hierarchy}
 
 De forma predeterminada, el navegador presenta una lista de los paquetes en el panel que est\'a m\'as a la izquierda.
-Sin embargo, es posible cambiar a una vista de jerarquía de clases.
-Simplemente seleccione una clase de particular de inter\'es, tal como  \ct{ImageMorph} y, haga clic en el botón \button{hier.}.
-A continuación, podrá ver en el panel que est\'a m\'as a la izquierda una jerarquía de clases mostrando todas las superclases y subclases de la clase seleccionada.
-El segundo panel muestra los paquetes que implementan los métodos de la clase seleccionada.
+Sin embargo, es posible cambiar a una vista de jerarqu\'ia de clases.
+Simplemente seleccione una clase de particular de inter\'es, tal como  \ct{ImageMorph} y, haga clic en el bot\'on \button{hier.}.
+A continuaci\'on, podr\'a ver en el panel que est\'a m\'as a la izquierda una jerarqu\'ia de clases mostrando todas las superclases y subclases de la clase seleccionada.
+El segundo panel muestra los paquetes que implementan los m\'etodos de la clase seleccionada.
 %El bot\'on \button{hierarchy} abre un \ind{navegador de jerarqu\'ia} en la actual clase; este
 %navegador puede tambi\'en ser abierto utilizando el \'item del men\'u \menu{browse hierarchy} en el panel de clases.
 %El navegador de la jerarqu\'ia es similar al navegador, pero en vez de mostrar las categor\'ias y las clases en cada categor\'ia, muestra una \'unica lista de clases, indentada para representar la jerarqu\'ia.
-%La categor\'ia de la seleccionada clase es mostrada en un pequeño panel de comentarios en la parte superior del navegador.
+%La categor\'ia de la seleccionada clase es mostrada en un peque–o panel de comentarios en la parte superior del navegador.
 El navegador de jerarqu\'ia \figref{hierarchyBrowser}, revela que la superclase directa de \clsind{ImageMorph} es \clsind{Morph}.
 \index{browser!hierarchy button}
 
@@ -404,7 +404,7 @@ La Refactorizaci\'on estubo previamente disponible solamente en un navegador esp
 Muchas funciones adicionales est\'an disponibles por \actclick{ing} en los paneles del navegador.
 Incluso si las etiquetas sobre los \'items del men\'u son los mismos, su \emph{significado} puede ser dependiente del contexto.
 Por ejemplo, el panel de paquetes, el panel de clases, el panel de protocolos y el panel de m\'etodos todos tienen un \'item del men\'u \menu{file out}.  Sin embargo, ellas hacen cosas diferentes: del men\'u del panel de paquetes \menu{file out} emerge el paquete completo, del men\'u del panel de clases \menu{file out} emerge la clase completa, del men\'u del panel de protocolos \menu{file out} emerge el protocolo completo, y del men\'u del panel de m\'etodos \menu{file out} emerge solo el m\'etodo mostrado.
-Si bien esto puede parecer obvio, puede ser una fuente de confusión para los principiantes.
+Si bien esto puede parecer obvio, puede ser una fuente de confusi\'on para los principiantes.
 \index{file!filing in}
 \index{file!filing out}
 
@@ -412,7 +412,7 @@ Posiblemente el \'item del men\'u mas \'util es \menu{find class\ldots (f)} en e
 \index{class!finding}
 \index{class!recent}
 
-Tambí\'en puedes buscar una clase o m\'etodo espec\'ifico tecleando el nombre en el recuadro de b\'usqueda en el cuadro superior izquierdo del navegador. Cuando presiones return, una consulta ser\'a puesta en el sistema, y los resultados de la consulta ser\'an mostrados.  Tenga en cuenta que anteponiendo su con sulta con \ct{#}, puedes buscar las referencias a una clase o emisores de un mensaje.
+Tambi\'en puedes buscar una clase o m\'etodo espec\'ifico tecleando el nombre en el recuadro de b\'usqueda en el cuadro superior izquierdo del navegador. Cuando presiones return, una consulta ser\'a puesta en el sistema, y los resultados de la consulta ser\'an mostrados.  Tenga en cuenta que anteponiendo su con sulta con \ct{#}, puedes buscar las referencias a una clase o emisores de un mensaje.
 %To browse to a particular method, you can
 %In the class pane, there are two menu items \menu{find method} and \menu{find method wildcard\ldots} that can be useful if you want to browse a particular method.
 Si est\'as buscando un m\'etodo en particular de la clase seleccionada, es a menudo mas r\'apido it is often quicker to browse the \prot{-{}-all-{}-} protocol (que es el valor predeterminado), coloque el mouse en el panel del m\'etodo, y escriba la primera letra del nombre del m\'etodo que est\'as buscando.
@@ -422,7 +422,7 @@ Esto usualmente desplazar\'a el panel de modo que la b\'usqueda del nombre del m
 
 \dothis{Trate de navegar en ambas formas para \cmind{OrderedCollection}{removeAt:}}
 
-Hay muchas otras opciones disponibles en los menúes. Por eso es mejor pasar unos minutos trabajando con el navegador y ver lo que hay.
+Hay muchas otras opciones disponibles en los men\'ues. Por eso es mejor pasar unos minutos trabajando con el navegador y ver lo que hay.
 
 \dothis{Compare el resultado de \menu{Browse Protocol}, \menu{Browse Hierarchy}, y \menu{Show Hierarchy} en el men\'u del panel de clases.}
 
@@ -449,7 +449,7 @@ El equivalente en programaci\'on al nem\'u \menu{implementors} es:
 SystemNavigation default browseAllImplementorsOf: #drawOn:
 \end{code}
 
-Para conocer más acerca de lo que está disponible, explorar la clase \ct{SystemNavigation} con el navegador.
+Para conocer m\'as acerca de lo que est\'a disponible, explorar la clase \ct{SystemNavigation} con el navegador.
 Adicionales ejemplos de navegaci\'on pueden ser encontrados en las preguntas frecuentes FAQ (\appref{faq}).
 
 %=========================================================
@@ -457,17 +457,16 @@ Adicionales ejemplos de navegaci\'on pueden ser encontrados en las preguntas fre
 
 Hemos dado un r\'apido repaso de \ind{Monticello}, el paquete de herramientas de \pharo, en \secref{Monticello}.
 Sin embargo, Monticello tiene muchas mas caracter\'isticas que se han discutido.
-Debido a que Monticello administra \emph{paquetes}, Antes de hablarles más acerca de Monticello, es importante que expliquemos primero exactamente lo que es un \ind{paquete} .
+Debido a que Monticello administra \emph{paquetes}, Antes de hablarles m\'as acerca de Monticello, es importante que expliquemos primero exactamente lo que es un \ind{paquete} .
 
 %---------------------------------------------------------
 \subsection{Packages: declarative categorization of \pharo code}\seclabel{packages}
 
-Hemos señalado anteriormente, en \secref{categoriesPackages} los paquetes que son m\'as o menos equivalentes a las categor\'ias. Ahora vamos a ver exactamente cu\'al es la relaci\'on.
+Hemos indicado anteriormente, en \secref{categoriesPackages} los paquetes que son m\'as o menos equivalentes a las categor\'ias. Ahora vamos a ver exactamente cu\'al es la relaci\'on.
 El sistema de paquetes es un sencilla y simple manera de organizar el c\'odigo fuente smalltalk que explota una simple convenci\'on de nombres para las categor\'ias y protocolos.
 
 Veamos esto utilizando un ejemplo.
-Suponga que est\'a desarrollando un framework denominado con el fin de facilitar la utilización de bases de datos relacionales de \pharo. Han decidido llamar al framework \ct{PharoLink}, y han creado una serie de categor\'ias que contienen todad las clases que se han escrito, \ej
-categor\'ia \ct{'PharoLink-Connections'} contiene \ct{OracleConnection MySQLConnection PostgresConnection} y categor\'ia \ct{'PharoLink-Model'} contiene \ct{DBTable DBRow DBQuery}, etc. Sin embargo, no todo el c\'odigo residir\'a en estas clases. Por ejemplo, tambi\'en puede tener una serie de m\'etodos para convertir objetos en un formato amistoso de SQL:
+Suponga que est\'a desarrollando un framework determinado con el fin de facilitar la utilizaci\'on de bases de datos relacionales de \pharo. Han decidido llamar al framework \ct{PharoLink}, y han creado una serie de categor\'ias que contienen todas las clases que se han escrito, ejemplo de categor\'ia \ct{'PharoLink-Connections'} contiene \ct{OracleConnection MySQLConnection PostgresConnection} y la categor\'ia \ct{'PharoLink-Model'} contiene \ct{DBTable DBRow DBQuery}, etc. Sin embargo, no todo el c\'odigo residir\'a en estas clases. Por ejemplo, tambi\'en puede tener una serie de m\'etodos para convertir objetos en un formato amistoso de SQL:
 
 \begin{code}{}
 Object>>>asSQL
@@ -487,18 +486,18 @@ Por lo tanto necesitas una manera de poner ciertos \emph{m\'etodos} en un paquet
 \seeindex{extension package}{package, extension}
 
 La manera en que lo haces es poniendo esos m\'etodos en un protocolo  (of \ct{Object}, \ct{String}, \ct{Date}, y as\'i sucesivamente) llamado \prot{*PharoLink} (nota el primer asterisco). La combinaci\'on de las categor\'ias \scat{PharoLink-\ldots} y los protocolos \prot{*PharoLink} forman un paquete denominado \ct{PharoLink}.
-Para ser más precisos, las normas de lo que va en un paquete son de la siguiente manera.
+Para ser m\'as precisos, las normas de lo que va en un paquete son de la siguiente manera.
 
 Un paquete llamado \ct{Foo} contiene:
 
 \begin{enumerate}		\seclabel{packageRules}
 	\item{} todas las \emph{definiciones de la clase} de las clases en la categor\'ia \scat{Foo}, o en las categor\'ias que comienzan con \scat{Foo-}, y
-	\item{} \label{env:extensions} todos los \emph{m\'etodos} en \emph{cualquier clase} en los protocolos llamados \prot{*Foo} o \prot{*foo}\footnote{Al realizar esta comparaci\'on, el tamaño de las letras en los nombres es ignorado.}, o cuyo nombre comience con \prot{*Foo-} or \prot{*foo-}, y
+	\item{} \label{env:extensions} todos los \emph{m\'etodos} en \emph{cualquier clase} en los protocolos llamados \prot{*Foo} o \prot{*foo}\footnote{Al realizar esta comparaci\'on, las letras may\'usculas y min\'usculas  en los nombres son ignoradas.}, o cuyo nombre comience con \prot{*Foo-} or \prot{*foo-}, y
 	\item{} todos los \emph{m\'etodos} en las clases de la categor\'ia \scat{Foo}, o en la categor\'ia cuyo nombre comience con \scat{Foo-}, \emph{excepto} para esos nombres en los protocolos cuyos nombres comienzan con \prot{*}.
 	
 \end{enumerate}
 \noindent
-Una consecuencia de estas reglas es que cada definici\'on de clase y cada método pertenece a exactamente un paquete. La \emph{excepci\'on} en la \'ultima regla ha de estar all\'i porque esos m\'etodos deben pertenecer a otros paquetes. La raz\'on para ignorar el tamaño en la regla \ref{env:extensions} es que, por convenci\'on, los nombres de los protocolos son normalmente (pero no necesariamente) nim\'usculas (y puede incluir espacios), mientras los nombres de las categor\'ias usan CamelCase (y no incluyen espacios).
+Una consecuencia de estas reglas es que cada definici\'on de clase y cada m\'etodo pertenece a exactamente un paquete. La \emph{excepci\'on} en la \'ultima regla ha de estar all\'i porque esos m\'etodos deben pertenecer a otros paquetes. La raz\'on para ignorar el  case en la regla \ref{env:extensions} es que, por convenci\'on, los nombres de los protocolos son normalmente (pero no necesariamente) nim\'usculas (y puede incluir espacios), mientras los nombres de las categor\'ias usan CamelCase (y no incluyen espacios).
 \index{camelCase}
 
 La clase \ct{PackageInfo} implementa estas reglas, y una manera de tener una sensaci\'on de ellos es experimentar con esta clase.
@@ -521,7 +520,7 @@ Los paquetes son una adici\'on relativamente nueva a \pharo, pero ya que las con
 %---------------------------------------------------------
 \subsection{Monticello b\'asicos}
 
-\ind{Monticello} debe su nombre al hogar de Thomas Jefferson, una mansi\'on neocl\'asica constru\'iada en la cima de una montaña, tercer presidente de los Estados Unidos y autor del Estatuto de libertad Religiosa de Virginia. El nombre significa ``mont\'iculo'' en Italiano, y por lo tanto, se pronuncia siempre con una ``c'' italiana, que suena como el ``ch'' en chair: Mont-y'-che-llo.
+\ind{Monticello} debe su nombre al hogar de Thomas Jefferson, una mansi\'on neocl\'asica constru\'iada en la cima de un cerro , tercer presidente de los Estados Unidos y autor del Estatuto de libertad Religiosa de Virginia. El nombre significa ``mont\'iculo'' en Italiano, y por lo tanto, se pronuncia siempre con una ``c'' italiana, que suena como el ``ch'' en chair: Mont-y'-che-llo.
 
 
 \begin{figure}[btp]
@@ -540,7 +539,7 @@ El panel de la izquierda muestra una lista de todos los paquetes que han sido ca
 El panel de la derecha muestra una lista de todos los repositorios de c\'odigo fuente que Monticello tiene conocimiento, usualmente porque se ha cargado el c\'odigo desde ellos.  Si seleccionas un paquete en el panel de la izquierda, el panel de la derecha se filtra para mostrar \'unicamente los repositorios que contienen las versiones del paquete seleccionado.
 
 Uno de los repositorios es un directorio llamado \emph{package-cache}, el cual es un subdirectorio del directorio en el cual est\'as corriendo la imagen.
-Cuando cargas el c\'odigo desde o escribes c\'odigo a un repositorio remoto, una copia es guardada en el cache del paquete. Esto puede ser \'util si la red no esta disponible y necesitas acceder a un paquete.  Tambi\'en, si le das un archivo Monticello (.mcz) directamente, por ejemplo como un archivo adjunto al correo electrónico, la forma m\'as conveniente de acceder a este es colocarlo en el directorio del package-cache.
+Cuando cargas el c\'odigo desde o escribes c\'odigo a un repositorio remoto, una copia es guardada en el cache del paquete. Esto puede ser \'util si la red no esta disponible y necesitas acceder a un paquete.  Tambi\'en, si le das un archivo Monticello (.mcz) directamente, por ejemplo como un archivo adjunto al correo electr\'onico, la forma m\'as conveniente de acceder a este es colocarlo en el directorio del package-cache.
 \index{package!cache}
 
 Para agregar un nuevo repositorio a la lista, clic en el \button{+Repository}, y elegir el tipo de repositorio en el men\'u emergente.  Vamos a agregar un repositorio HTTP.
@@ -569,9 +568,9 @@ MCHttpRepository
 \noindent
 Entonces cic en \button{Open} para abrir el navegador de repositorios en este directorio.  Dever\'ias ver algo como \figref{SqueakSource:PBE}.  A la izquierda hay una lista de todos los paquetes en el repositorio; si seleccionas uno, y luego el panel de la derecha se mostrar\'an todas las versiones del paquete seleccionado en este repositorio.
 
-Si haz seleccionado una de las versiones, puedes usar el bot\'on \button{Browse} (sin cargarlo en tu imagen), bot\'on \button{Load} , o buscar con el bot\'on \button{Changes} que se har\'an a su imagen por la carga de la versión seleccionada. Puedes tambi\'en hacer una \button{Copy} de la versión del paquete, que luego puedes escribir en otro repositorio.
+Si haz seleccionado una de las versiones, puedes usar el bot\'on \button{Browse} (sin cargarlo en tu imagen), bot\'on \button{Load} , o buscar con el bot\'on \button{Changes} que se har\'an a su imagen por la carga de la versi\'on seleccionada. Puedes tambi\'en hacer una \button{Copy} de la versi\'on del paquete, que luego puedes escribir en otro repositorio.
 
-Como puedes ver, los nombres de las versiones contienen el nombre del paquete, las iniciales del autor de la versión, y un n\'umero de versi\'on.  El nombre de la versi\'on es tambi\'en el nombre del archivo en el repositorio.  Nunca se deben cambiar estos nombres; la correcta operaci\'on de Monticello depende de ellos!   Los archivos de versiones Monticello son solo archivos zip, y si eres curioso puedes descomprimirlos con una herramienta zip, pero la mejor manera de mirar su contenido es usando el mismo Monticello.
+Como puedes ver, los nombres de las versiones contienen el nombre del paquete, las iniciales del autor de la versi\'on, y un n\'umero de versi\'on.  El nombre de la versi\'on es tambi\'en el nombre del archivo en el repositorio.  Nunca se deben cambiar estos nombres; la correcta operaci\'on de Monticello depende de ellos!   Los archivos de versiones Monticello son solo archivos zip, y si eres curioso puedes descomprimirlos con una herramienta zip, pero la mejor manera de mirar su contenido es usando el mismo Monticello.
 
 Para crear un paquete con Monticello, tienes que hacer dos cosas: escribir alg\'un c\'odigo, y decile a Monticello acerca de esto.
 
@@ -600,11 +599,11 @@ Para crear un paquete con Monticello, tienes que hacer dos cosas: escribir alg\'
 Para decirle a Monticello acerca de tus paquetes, clic en el bot\'on \button{+Package}, y escriba el nombre del paquete, en este caso ``PBE''.  Monticello agregar\'a \ct{PBE} a su lista de paquetes; la entrada del paquete ser\'a marcada con un asterisco para mostrar que la versi\'on en la imagen todav\'ia no se ha escrito a cualquier repositorio. Tenga en cuenta que ahora deber\'as tener dos paquetes en Monticello, uno llamado \ct{PBE} y el otro llamado \ct{PBE-Monticello}. Esto esta bien, porque \ct{PBE} contendr\'a \ct{PBE-Monticello}, y otros paquetes a partir de \ct{PBE-}.
 
 Inicialmente, el \'unico repositorio asociado con este paquete ser\'a su cache paquete, como se muestra en \figref{MC+PBE}.  Esto esta bien: todav\'ia puedes guardar el c\'odigo, lo que causar\'a que se escriba el la cach\'e del paquete.
-Simplemente haz clic en el bot\'on \button{Save} y ser\'as invitado a proporcionar un registro de la versión del paquete que est\'as a punto de guardar, como se muestra en \figref{PBE-on}; cuando aceptas el mensaje, Monticello guardar\'a tu paquete.
-Para indicar esto, el asterisco decorando el nombre en el paquete en el panel de Monticello ser\'a eliminado, y se agregar\'a el n\'umero de la versí\'on.
+Simplemente haz clic en el bot\'on \button{Save} y ser\'as invitado a proporcionar un registro de la versi\'on del paquete que est\'as a punto de guardar, como se muestra en \figref{PBE-on}; cuando aceptas el mensaje, Monticello guardar\'a tu paquete.
+Para indicar esto, el asterisco decorando el nombre en el paquete en el panel de Monticello ser\'a eliminado, y se agregar\'a el n\'umero de la versi\'on.
 
-Si a continuación haces un cambio en el paquete\,---\, por ejemplo agregando un m\'etodo a una de las clases\,---\, el asterisco volver\'a a aparecer, mostrando que tienes cambios que no han sido guardados.  Si abres un navegador de repositorio en el cach\'e de paquetes, puedes seleccionar la versi\'on guardada, y usar el bot\'on \button{Changes} y otros botones.
-Tambi\'en puedes por su puesto guardar la nueva versión al respositorio; una vez que refrescada con el bot\'on \button{Refresh} la vista del repositorio, este deber\'ia verse como \figref{package-cache-browser}.
+Si a continuaci\'on haces un cambio en el paquete\,---\, por ejemplo agregando un m\'etodo a una de las clases\,---\, el asterisco volver\'a a aparecer, mostrando que tienes cambios que no han sido guardados.  Si abres un navegador de repositorio en el cach\'e de paquetes, puedes seleccionar la versi\'on guardada, y usar el bot\'on \button{Changes} y otros botones.
+Tambi\'en puedes por su puesto guardar la nueva versi\'on al respositorio; una vez que refrescada con el bot\'on \button{Refresh} la vista del repositorio, este deber\'ia verse como \figref{package-cache-browser}.
 \index{package!cache}
 
 \begin{figure}[tbp]
@@ -688,7 +687,7 @@ Si seleccionas \menu{self} en la parte superior del panel de la izquierda, el pa
 El panel de la izquierda muestra una vista de \'arbol del objeto, con \self en la ra\'iz.
 Las Variables de instancia pueden ser exploradas expandiendo los tri\'angulos junto a sus nombres.
 
-El pane horizontal en la parte inferior del inspector es una pequeña ventana del workspace.  Esto es \'util porque en esta ventana, la pseudo-variable \ct{self} esta enlazada al objeto que haz seleccionado en el panel izquierdo.
+El pane horizontal en la parte inferior del inspector es una chica ventana en el workspace.  Esto es \'util porque en esta ventana, la pseudo-variable \ct{self} esta enlazada al objeto que haz seleccionado en el panel izquierdo.
 Por lo tanto, si \menu{inspect it} en
 \begin{code}{}
 self - TimeStamp today
@@ -734,7 +733,7 @@ Para ver la diferencia, \emph{exploraremos} el mismos objeto que est\'abamos ins
 
 \dothis{Seleccione \menu{self} en el panel izquierdo del inspector, luego \actclick y escoja \menu{explore (I)}.}
 La ventana del \ind{explorador} se ve como \figref{exploreTimeStampNow}.
-Si haces clic en el pequeño tri\'angulo que se encuentra junto a \ct{root}, la vista cambiar\'a a  \figref{exploreTimeStampNow2}, que muestra las variables de instancia del objeto que est\'as explorando.
+Si haces clic en el diminuto tri\'angulo que se encuentra junto a \ct{root}, la vista cambiar\'a a  \figref{exploreTimeStampNow2}, que muestra las variables de instancia del objeto que est\'as explorando.
 Haga Clic en el tri\'angulo que se encuentra junto a \ct{offset}, y ver\'a \emph{sus} variables de instancia.
 El explorador es realmente \'util cuando necesitas explorar un estructura jer\'arquica compleja\,---\,de ah\'i el nombre.
 \index{keyboard shortcut!explore it}
@@ -848,7 +847,7 @@ En \figref{debuggerDetectIfNone},
 %This will tell you that \ct{exceptionBlock} is \ct{[self errorNotFound: ...]}.
 %\on{no longer true!}
 
-Como podemos ver un m\'etodo abajo en la traza de la pila, el \ct{exceptionBlock} es \ct{[self errorNotFound: ...]}, as\'i, no es de extrañar que veamos el correspondiente mensaje de error.
+Como podemos ver un m\'etodo abajo en la traza de la pila, el \ct{exceptionBlock} es \ct{[self errorNotFound: ...]}, as\'i, no es de raro que veamos el correspondiente mensaje de error.
 
 por otra parte, si deseas abrir un completo inspector o explorador en una de las variables mostradas en los mini-inspectores, simplemente haga doble clic en el nombre de la variable, o seleccione el nombre de la variable y \actclick escoja \menu{inspect (i)} o \menu{explore (I)}.
 Esto puede ser \'util si quieres ver c\'omo una variable cambia mientras ejecutas otro c\'odigo.
@@ -938,7 +937,7 @@ Dado que estamos ejecutando el c\'odigo dentro de un bloque que se encuentra den
 
 La evaluaci\'on de la expresi\'on \ct{'readme.txt' suffix} completar\'a, e imprime la respuesta \ct{'.txt'}.
 
-¿Es la respuesta correcta?  Desafortunadamente, no lo podemos decir con certeza.  ¿El sufijo debe ser \ct{.txt} o \ct{txt}?
+Es la respuesta correcta?  Desafortunadamente, no lo podemos decir con certeza.  El sufijo debe ser \ct{.txt} o \ct{txt}?
 El comentario del m\'etodo en \ct{suffix} no es muy preciso.
 La manera de evitar este tipo de problema es escribir una prueba en \ind{SUnit} que defina la respuesta.
 
@@ -968,7 +967,7 @@ testSuffixFound
 	self assert: 'read.me.txt' suffix = 'txt'
 \end{method}
 \noindent
-¿Por qu\'e esta es una mejor prueba?  Porque esta le dice al lector lo que el m\'etodo debe hacer si hay mas de un punto en el string de destino.
+Por qu\'e esta es una mejor prueba?  Porque esta le dice al lector lo que el m\'etodo debe hacer si hay mas de un punto en el string de destino.
 
 Hay algunas otras maneras de entrar en el depurador adem\'as de detectar los errores y afirmaciones de errores.
 Si ejecutas el c\'odigo que entra en un infinito bucle, puedes interrunpirlo y abrir un depurador en el c\'alculo escribiendo \short{.} (eso es una detenci\'on completa o un per\'iodo, dependiendo donde aprendi\'o Ingles).\footnote{Tambi\'en es \'util saber que puede hacer aparecer un depurador de emergencia en cualquier momento escribiendo \short{{\sc shift--}.}}
@@ -991,7 +990,7 @@ Cuando corremos este m\'etodo, la ejecuci\'on de \ct{self halt} iniciar\'a el \i
 
 Eso es todo lo que hay en el depurador, pero no esto lo que hay para el m\'etodo \ct{suffix}.
 El primer fallo deber\'ia haber hecho que te dieras cuenta que si no ha un punto en el string de destino, el m\'etodo \ct{suffix} provocar\'a un error.
-Este no es el comportamiento que queremos, as\'i que vamos a añadir una segunda prueba para especificar qu\'e es lo que deber\'ia ocurrir en este caso.
+Este no es el comportamiento que queremos, as\'i que vamos a agregar una segunda prueba para especificar qu\'e es lo que deber\'ia ocurrir en este caso.
 
 \needlines{3}
 \begin{method}[testNoSuffix]{Una segunda prueba para el m\'etodo \ct{suffix}: el objetivo no tiene sufijo}
@@ -1002,16 +1001,16 @@ testSuffixNotFound
 \needlines{2}
 \dothis{Agregar \mthref{testNoSuffix} al conjunto de pruebas en la clase \clsind{StringTest}, y ver que la prueba provoca un error.
 Ingrese al depurador seleccionando la prueba err\'onea en  \sunit, y edite el c\'odigo de manera que la prueba sea satisfactoria.
-La forma mas f\'acil y clara de hacer esto es reemplazar el mensaje \ct{detect:} por \ct{detect: ifNone:}, donde el segundo argumento es un block que devuelve simplemente el tamaño del string.}
+La forma mas f\'acil y clara de hacer esto es reemplazar el mensaje \ct{detect:} por \ct{detect: ifNone:}, donde el segundo argumento es un block que devuelve simplemente el string size.}
 
-Vamos a aprender más sobre SUnit en \charef{SUnit}.
+Vamos a aprender m\'as sobre SUnit en \charef{SUnit}.
 
 % section debugger (end)
 
 %=========================================================
 \section{El Navegador de Procesos}
 
-\st es un sistema multi-hebra: hay muchos procesos ligeros (también conocidos como hebras) ejecut\'andose simult\'aneamente en tu imagen.
+\st es un sistema multi-hebra: hay muchos procesos ligeros (tambi\'en conocidos como hebras) ejecut\'andose simult\'aneamente en tu imagen.
 En el futuro la m''aquina virtual de \pharo puede tomar ventaja de los multiprocesadores cuando est\'en disponibles, pero en la actualidad la concurrencia esta implementada por tiempo de fragmentaci\'on (time-slicing).
 
 \begin{figure}[btp]
@@ -1025,7 +1024,7 @@ En el futuro la m''aquina virtual de \pharo puede tomar ventaja de los multiproc
 \end{figure}
 
 El proceso \subind{process}{browser} es un primo del depurador que te permite echar un vistazo a los diversos procesos que se ejecutan dentro de \pharo.
-\figref{processBrowser} muestra un screenshot.
+\figref{processBrowser} muestra un pantallazo.
 La parte superior del panel de la izquierda lista todos los procesos en \pharo, en orden de prioridad, de la interrupci\'on del temporizador vigilante con prioridad 80 al proceso inactivo con prioridad 10.
 Por supuesto, un monoprocesador, el \'unico proceso que puede estar corriendo cuando miras es el proceso UI; todos los dem\'as estar\'an esperando por alg\'un tipo de evento.
 %:===> Process browser context menu is broken!
@@ -1037,7 +1036,7 @@ Si seleccionas un frame de la pila, el m\'etodo correspondiente se muestra en el
 El navegador de procesos no esta equipado con mini-inspectores para \self y \lct{thisContext}, pero \actclick{ing} en los frames de la pila proporciona funcionalidad equivalente.
 
 %=========================================================
-\section{Encontrando m\'etodos}
+\section{Buscando m\'etodos}
 \seclabel{methodFinder}
 
 Existen dos herramientas en \pharo para ayudarte a encontrar mensajes.
@@ -1185,29 +1184,29 @@ It will show the methods in each class, and (as shown in \figref{fileContentsBro
 Contextual menu items in each of the top four panes will also let you file in the whole of the change set, or the corresponding class, protocol or method.
 
 %=========================================================
-\section{In Smalltalk, you can't lose code}
+\section{En Smalltalk, no puedes perder c\'odigo}
 \seclabel{cantLoseCode} % (fold)
 
-It is quite possible to crash \pharo: as an experimental system, \pharo lets you change anything, including things that are vital to make \pharo work!
+Es muy posible hacer caer \pharo: como un sistema experimental, \pharo te permite cambiar cualquier cosa, incluyendo cosas que son vitales para que \pharo trabaje!
 
-\dothis{To maliciously crash \pharo, try \ct{Object become: nil}.}
+\dothis{Para maliciosamente hacer caer \pharo, intente \ct{Object become: nil}.}
 
-The good news is that you need never lose any work, even if you crash and go back to the last saved version of your image, which might be hours old.
-This is because all of the code that you executed is saved in the \emph{.changes} file.
-All of it!
-This includes one liners that you evaluate in a workspace, as well as code that you add to a class while programming.
+La buena noticia es que nunca perder\'as todo el trabajo, a\'un si cae y vuelve a la \'ultima versi\'on guardada de tu imagen, la cual podr\'ia haber sido horas atr\'as.
+Esto es porque todo el c\'odigo que haz ejecutado es guardado en el archivo \emph{.changes}.
+Integramente!
+Esto incluye una l\'inea de entrada que eval\'uas en un workspace, as\'i como el c\'odigo que haz agregado a una clase durante la programaci\'on.
 \index{changes}
 
-So here are the instructions on how to get your code back.
-There is no need to read this until you need it.
-However, when you do need it, you'll find it here waiting for you.
+As\'i que aqu\'i est\'an las instrucciones sobre c\'omo obtener el c\'odigo de nuevo.
+No hay necesidad de leer esto hasta que lo necesites.
+Sin embargo, cuando lo necesitas, lo encontrar\'as aqu\'i esper\'andote.
 
-In the worst case, you can use a text editor on the \emph{.changes} file, but since it is many megabytes in size, this can be slow and is not recommended.
-\pharo offers you better ways.
+En el peor caso, puedes usar un editor de texto en el archivo \emph{.changes}, pero dado que este tiene muchos megabytes, esto puede ser lento y no es recomendado.
+\pharo le ofrece una mejor manera.
 
 %---------------------------------------------------------
-\subsection{How to get your code back}
-Restart \pharo from the most recent snapshot, and select \menu{World\go{}Tools \ldots \go{}Recover lost changes}.
+\subsection{C\'omo obtener el c\'odigo de nuevo}
+Reinicie \pharo desde el m\'as reciente snapshot, y seleccione \menu{World\go{}Tools \ldots \go{}Recover lost changes}.
 %This will open a workspace full of useful expressions. The first three,
 
 %\begin{code}{}
@@ -1221,47 +1220,47 @@ Restart \pharo from the most recent snapshot, and select \menu{World\go{}Tools \
 
 % If you execute \ct{ChangeList browseRecentLog}, you will be given
 
-This will give the opportunity to decide how far back in history you wish to browse.
-Normally, it's sufficient to browse changes as far back as the last snapshot. (You can get much the same effect by editing \ct{ChangeList browseRecent: 2000} so that the number \ct{2000} becomes something else, using trial and error.)
+Esto te dar\'a la oportunidad para decidir cu\'anto tiempo atr\'as en la historia deseas examinar.
+Normalmente, basta con examinar los cambios hasta el \'ultimo snapshot. (Puedes conseguir el mismo efecto mediante la edici\'on de \ct{ChangeList browseRecent: 2000} por lo que el n\'umero \ct{2000} se vuelve algo m\'as, mediante prueba y error.)
 
-One you have a \emph{recent changes} browser, showing, say, changes back as far as your last snapshot, you will have a list of everything that you have done to \pharo during that time.
-You can delete items from this list using the \actclick menu.
-When you are satisfied, you can file-in what is left, thus incorporating the changes into your new image.
-It's a good idea to start a new change set, using the ordinary change set browser, before you do the file in, so that all of your recovered code will be in a new change set.
-You can then file out this change set.
+Uno tiene un navegador \emph{recent changes}, mostrando, digamos, cambios nuevos hasta tu \'ultimo snapshot, tendr\'as una lista de todo lo que haz hecho en \pharo durante ese tiempo.
+Puedes borrar los \'items desde estal lista usando el men\'u \actclick.
+Cuando est\'es satisfecho, puedes archivar lo que queda, por lo tanto incorporando los cambios en tu nueva imagen.
+Es una buena idea comenzar un nuevo conjunto de cambios, usando el ordinario navegador del set de cambios, antes de hacer el archivo, de manera que todo tu c\'odigo recuperado ser\'a un nuevo conjunto de cambios.
+Puedes entonces sacar este conjunto de cambios.
 
-One useful thing to do in the \emph{recent changes} browser is to \menu{remove doIts}.
-Usually, you won't want to file in (and thus re-execute) doIts.
-However, there is an exception.
-Creating a class shows up as a \menu{doIt}.
-\emph{Before you can file in the methods for a class, the class must exist.}
-So, if you have created any new classes, \emph{first} file-in the class creation doIts, then \menu{remove doIts} and file in the methods.
-\lr{Maybe mention that class renames are not logged and completely screw up the change-set mechanism. (p. 174)}
+Lo \'util que se pueda hacer en el navegador \emph{recent changes} es \menu{remove doIts}.
+Usualmente, no querr\'as entrar en el archivo (y as\'i re-ejecutar) doIts.
+Sin embargo, hay una excepci\'on.
+Creando una clase aparece como un \menu{doIt}.
+\emph{Antes que puedas ingresar en un archivo los m\'etodos de una clase, la clase debe existir.}
+Por lo tanto, si haz creado cuaquiera nueva clase, \emph{primero} ingresa en el archivo la creaci\'on de la clase doIts, luego \menu{remove doIts} e ingresa al archivo los m\'etodos.
+\lr{Tal vez mencionar ese renombre de clase no se registra y agrava enteramente el mecanismo de conjunto de cambios. (p. 174)}
 
-When I am finished with the recovery, I like to file out my new change set, quit \pharo without saving the image, restart, and make sure that the new change set files back in cleanly.
+Cuando termino con la recuperaci\'on, me gusta sacar del archivo mi nuevo conjunto de cambios, salir de \pharo sin guardar la imagen, reiniciar, y asegurarse que los nuevos archivos con el conjunto de cambios vuelvan de manera limpia.
 % section cantLoseCode (end)
 
 %=========================================================
-\section{Chapter summary}
+\section{Resumen del Cap\'itulo}
 
-In order to develop effectively with \pharo, it is important to invest some effort into learning the tools available in the environment.
+Con el fin de desarrollar eficazmente con \pharo, es importante invertir alg\'un esfuerzo en aprender las herramientas disponibles en el ambiente.
 
 \begin{itemize}
-  \item The standard \emph{browser} is your main interface for browsing existing categories, classes, method protocols and methods, and for defining new ones.
-  The browser offers several useful buttons to directly jump to senders or implementors of a message, versions of a method, and so on.
-  \item There exist several different browsers (such as the OmniBrowser and the Refactoring Browser), and several specialized browsers (such as the hierarchy browser) which provide different views of classes and methods.
-  \item From any of the tools, you can highlight the name of a class or a method and immediately jump to a browser by using the keyboard shortcut \short{b}.
-  \item You can also browse the \st system programmatically by sending messages to \ct{SystemNavigation default}.
-  \item \emph{Monticello} is a tool for exporting, importing, versioning and sharing packages of classes and methods.
-  A Monticello package consists of a category, subcategories, and related methods protocols in other categories.
-  \item The \emph{inspector} and the \emph{explorer} are two tools that are useful for exploring and interacting with live objects in your image.
-  You can even inspect tools by \metaclick{ing} to bring up their morphic halo and selecting the debug handle \debugHandle.
-  \item The \emph{debugger} is a tool that not only lets you inspect the run-time stack of your program when an error is raised, but it also enables you to interact with all of the objects of your application, including the source code. In many cases you can modify your source code from the debugger and continue executing. The debugger is especially effective as a tool to support test-first development in tandem with SUnit (\charef{SUnit}).
-  \item The \emph{process browser} lets you monitor, query and interact with the processes current running in your image.
-  \item The \emph{method finder} and the \emph{message names browser} are two tools for locating methods. The first is more useful when you are not sure of the name, but you know the expected behaviour. The second offers a more advanced browsing interface when you know at least a fragment of the name.
-  \item \emph{Change sets} are automatically generated logs of all changes to the source code of your image. They have largely been superseded by Monticello as a means to store and exchange versions of your source code, but are still useful, especially for recovering from catastrophic failures, however rare these may be.
-  \item The \emph{file list browser} is a tool for browsing the file system. It also allows you to \menu{filein} source code from the file system.
-  \item In case your image crashes before you could save it or backup your source code with Monticello, you can always recover your most recent changes using a \emph{change list browser}. You can then select the changes you want to replay and file them into the most recent copy of your image.
+  \item El \emph{navegador} est\'andar es tu principal interfaz para navegar por las existentes categor\'ias, clases, m\'etodos y protocolos de m\'etodos, y para definir nuevos.
+      El navegador ofrece varios pr\'acticos botones para saltar directamente a los emisores o implementadores de un mensaje, versiones de un m\'etodo, y as\'i sucesivamente.
+  \item Existen varios diferentes navegadores (tales como el OmniBrowser y el navegador de Refactorizaci\'on), y varios navegadores especializados (tales como el navegador de jerarqu\'ia) que proporciona distintos puntos de vista de m\'etodos y clases.
+  \item Desde cualquiera de las herramientas, puedes resaltar el nombre de una clase o un m\'etodo e inmediatamente saltar a un navegador unsando un acceso r\'apido de teclado \short{b}.
+  \item Tambi\'en puedes navegar el sistema \st program\'aticamente enviando mensajes por defecto a \ct{SystemNavigation }.
+  \item \emph{Monticello} es una herramienta para exportaci\'on, importaci\'on, versionamiento y compartir paquetes de clases y m\'etodos.
+      Un paquete de Monticello consiste de una categor\'ia, subcategor\'ia, y relacionados protocolos de m\'etodos en otras categor\'ias.
+  \item El \emph{inspector} y el \emph{explorador} son dos herramientas que son \'utiles para explorar e interactuar con objetos vivos en tu imagen.
+      Incluso puedes inspeccionar herramientas por \metaclick{ing} para iniciar el halo de su morphic y seleccionando manejador de depuraci\'on \debugHandle.
+  \item El \emph{depurador} es una herramienta que no solo te permite inspeccionar la pila en tiempo de ejecuci\'on de tu programa cuando se genera un error, sino que tambi\'en te permite interactuar con todos los objetos de tu aplicaci\'on, inclu\'ido el c\'odigo fuente. En muchos casos, puedes modificar el c\'odigo fuente desde depurador y continuar la ejecuci\'on. El depurador es especialmente efectigo como una herramienta de apoyo a las primeras pruebas de desarrollo junto a SUnit (\charef{SUnit}).
+  \item El \emph{navegador de procesos} te permite monitorear, consultar e interactuar con los procesos actuales que est\'an corriendo en tu imagen.
+  \item El \emph{buscador de m\'etodos} y el \emph{navegador de nombres de mensajes} son dos herramientas para localizar m\'etodos. El primero de ellos es m\'as \'util cuando no est\'as seguro del nombre , pero no saben el comportamiento esperado. La segunda ofrece una interface de navegaci\'on mas avanzada cuando conoces al menos un fragmento del nombre.
+  \item \emph{Conjunto de Cambios} se generan autom\'aticamente registros de todos los cambios en el c\'odigo fuente de tu imagen. En gran parte han sido reemplazados por Monticello como un medio para almacenar e intercambiar las versiones de tu c\'odigo fuente, pero a\'un son \'utiles, especialmente para la recuperaci\'on de fallas catastr\'oficas, sin embargo es muy raro que esto suceda.
+  \item El \emph{navegador de lista de archivo} es una herramienta que permite navegar por el sistema de archivo. Tambi\'en te permite para \menu{filein} el c\'odigo fuente del sistema de archivo.
+  \item En el caso de que tu imagen se caiga antes de que puedas guardarla o respaldar tu c\'odigo fuente con Monticello, siempre puedes recuperar tus m\'as recientes cambios usando un \emph{navegador de lista de cambios}. Puedes seleccionar los cambios que deseas reproducir y presentarlas en la copia mas reciente de tu imagen.
 \end{itemize}
 
 %=================================================================
