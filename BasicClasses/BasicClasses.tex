@@ -38,9 +38,9 @@
 %=================================================================
 \chapter{Clases B\'asicas}
 
-La mayor\'ia de la magia de Smalltalk no est\'a tanto en el lenguaje como en las librer\'ias de clases. Para programar efectivamente con Smalltalk, necesita aprender cómo la librer\'ia de clases soporta el lenguaje y el entorno. Toda la liber\'ia de clases a sido enteramente escrita en Smalltalk y puede ser facilmente ampliada desde un paquete que agregue alguna nueva funcionalidad a una clase si esta no se encuentra definida en ella.
+La mayor\'ia de la magia de Smalltalk no est\'a tanto en el lenguaje como en las librer\'ias de clases. Para programar efectivamente con Smalltalk, necesita aprender c\'omo la librer\'ia de clases soporta el lenguaje y el entorno. Toda la liber\'ia de clases a sido enteramente escrita en Smalltalk y puede ser facilmente ampliada desde un paquete que agregue alguna nueva funcionalidad a una clase si esta no se encuentra definida en ella.
 
-Nuestro objetivo no es presentar en un tedioso detalle toda la librer\'ia de clases de \pharo, pero si resaltar las clases clave y los m\'etodos que necesita conocer para usar o evitar al programar efectivamente. En este cap\'itulo cubriremos las cases b\'asicas que necesitar\'a en cualquier aplicaci\'on: \ct{Object}, \ct{Number} and its subclasses, \ct{Character}, \ct{String}, \ct{Symbol} and \ct{Boolean}.
+Nuestro objetivo no es presentar en un tedioso detalle toda la librer\'ia de clases de \pharo, pero s\'i resaltar las clases clave y los m\'etodos que necesita conocer para usar o evitar al programar efectivamente. En este cap\'itulo cubriremos las clases b\'asicas que necesitar\'a en cualquier aplicaci\'on: \ct{Object}, \ct{Number} and its subclasses, \ct{Character}, \ct{String}, \ct{Symbol} and \ct{Boolean}.
 
 
 %=================================================================
@@ -378,7 +378,370 @@ Number new + 1 --> !\emph{Error: My subclass should have overridden \#+}!
 
 Un ejemplo t\'ipico es \cmind{Collection}{remove:} el cual es heredado por  \clsind{Dictionary} pero señalado como no implementado (Un \ct{Dictionary} provee en su lugar \mthind{Dictionary}{removeKey:}).
 
+%-----------------------------------------------------------------
+\subsection{Probando}
 
+los m\'etodos de \protind{prueba} no tienen nada que ver con las pruebas de  SUnit! Un m\'etodo de prueba es aquyel que le permite realizar una pregunta sobre el estado del receptor y devolver un \clsind{Boolean}.
+
+Numerosos m\'etodos de prueba son provistos por \ct{Object}. Ya hemos visto \mthind{Object}{isComplex}. Otros son \mthind{Object}{isArray}, \mthind{Object}{isBoolean}, \mthind{Object}{isBlock}, \mthind{Object}{isCollection} y as´\'i. Generalmente tales m\'etodos deben ser evitados ya que conturar a un objeto por su clase es una forma de violar el encapsulamiento. En lugar de probar a un objeto por su clase, deber\'ia simplemente enviar un requerimiento y dejar que el objeto decida c\'omo manejarlo.
+
+Sin embargo, algunos de estos \'etodos de prueba son sin lugar a dudas \'utiles. Los m\'as utiles son probablemente \cmind{ProtoObject}{isNil} y \cmind{Object}{notNil} (pensar en el patr\'on de diseño \patind{Null Object}\cite{Wool98a} puede obviar unclusive la necesidad de usar estos m\'etodos).
+
+% \footnote{However the \emph{Null Object} design pattern can obviate the need for even these methods. See, Bobby Woolf, ``Null Object,'' Pattern Languages of Program Design 3, Robert Martin, Dirk Riehle and Frank Buschmann (Eds.), pp. 5-18, Addison Wesley, 1998.}.
+
+
+%-----------------------------------------------------------------
+\subsection{Lanzar la inicializaci\'on}
+
+Un m\'etodo final pero clave que no ocurre en \ct{Object} pero si en \ct{ProtoObject} es \mthind{ProtoObject}{initialize}.
+
+\begin{method}{\lct{initialize} es un m\'etodo gancho vac\'io}
+ProtoObject>>>initialize
+   "Subclasses should redefine this method to perform initializations on instance creation"
+\end{method}
+
+La raz\'on de su importancia es que en \pharo, el \'etodo por defecto \mthind{Behavior}{new} definido por cada nueva clase en el sistema enviar\'a  \ct{initialize} a cada instancia nueva creada.
+
+\begin{method}{\lct{new} como un m\'etodo de clase}
+Behavior>>>new
+    "Answer a new initialized instance of the receiver (which is a class) with no indexable
+    variables. Fail if the class is indexable."
+    ^ self basicNew initialize
+\end{method}
+\cmindex{Behavior}{new}
+
+Esto significa que simplemente por sobreescribir el m\'etodo \ct{initialize}, las nuevas instancias de su clase ser\'an inicializazadas autom\'aticamente. El mm\'etodo \ct{initialize} deber\'ia normalmente realizar un  a \ct{super initialize} para establecer las \subind{class}{invariantes} para cualquier viariable de clase heredada.
+(Notese que esto \emph{no} es el comportamiento estandar de otros Smalltalks)
+
+
+%=================================================================
+\section{Numbers}
+\seclabel{Number}
+
+Destacadamente, los n\'umeros en Smalltalk no son datos primivitos sino objetos reales. Por supuesto, los n\'umeros son implementados eficientemente en la m\'aquina virtual, pero la jerarqu\'ia de \clsindmain{Number} es tan perfectamente accesible y extensble como cualquier otra jerarqu\'ia de clases en Smalltalk.
+
+\begin{figure}[ht]
+\centerline {\includegraphics[width=8cm]{NumberHierarchy}}
+\caption{La Jerarqu\'ia de Number \figlabel{numbers}}
+\end{figure}
+
+Los n\'umeros pueden ser encontrados en la categor\'ia \scatind{Kernel-Numbers}. 
+La ra\'iz abstracta de su jerarqu\'ia es \clsind{Magnitude}, la cual representa todos los tipos de clases que soportan los operadores de comparaci\'on. \ct{Number} agrega varios operadores aritm\'eticos y otros como m\'etodos abstractos. \clsind{Float} y \clsind{Fraction} representan, respectivamente, n\'umeros en punto flotante y valores fraccionarios.  \clsind{Integer} es tambi\'enabstractro, debiendo distinguirse entre las subclases \clsind{SmallInteger}, \clsind{LargePositiveInteger} y \clsind{LargeNegativeInteger}. La mayor\'ia de los usuarios no necesitan estar alertas entre las tres clases \ct{Integer} ya que los valores son autom\'aticamente convertidos seg\'un sea necesario.
+
+%-----------------------------------------------------------------
+\subsection{Magnitude}
+
+\clsindmain{Magnitude} no solo es el ancestro de la clase \clsind{Number}, sino tambien\'en de otras clases que soportan operaciones de comparaci\'on, tales como  \clsind{Character}, \clsind{Duration} y \clsind{Timespan}.  (Los n\'umeros \clsind{Complex} no son comparables, por lo tanto no heredan de \clsind{Number})
+
+Los m\'etodos \mthind{Magnitude}{<} and \mthind{Magnitude}{=} son abstractos. el resto de las operaciones est\'an generalmente definidas:
+
+\begin{method}{M\'etodos abstractos de comparaci\'on}
+Magnitude>>> < aMagnitude 
+    "Answer whether the receiver is less than the argument."
+    ^self subclassResponsibility
+
+Magnitude>>> > aMagnitude 
+    "Answer whether the receiver is greater than the argument."
+    ^aMagnitude < self
+\end{method}
+\cmindex{Magnitude}{>}
+
+
+%-----------------------------------------------------------------
+\subsection{Number}
+
+Similarmente, \clsindmain{Number} define \mthind{Number}{+}, \mthind{Number}{-}, \mthind{Number}{*} y \mthind{Number}{/} para ser abstractos, pero todo el resto de los operadores aritm\'eticos est\'an definidos.
+
+Todos los objetos \ct{Number} soportan varios operadores de  \emph{conversi\'on}, tales como  \mthind{Number}{asFloat} y \mthind{Number}{asInteger}. Estos tambi\'en tienen numerosos \emphind{m\'etodos constructores atajo}, tales como \mthind{Number}{i}, el cual convierte un \ct{Number} a una instancia de \clsind{Complex} con un componente real cero y otros, los cuales generan \clsindplural{Duration}, tales como \mthind{Number}{hour}, \mthind{Number}{day} y \mthind{Number}{week}.
+
+\ct{Numbers} soporta directamente las funciones matem\'aticas comunes, como \mthind{Number}{sin}, \mthind{Number}{log}, \mthind{Number}{raiseTo:}, \mthind{Number}{squared}, \mthind{Number}{sqrt} y similares.
+
+\cmind{Number}{printOn:} es implementado en t\'erminos de m\'etodo abstracto \ct{Number>>>printOn:base:}. (La base por defecto es 10)
+
+los m\'etodos de prueba incluyen \mthind{Number}{even}, \mthind{Number}{odd}, \mthind{Number}{positive} y \mthind{Number}{negative}.Como era de esperar \ct{Number} sobreescribe \lct{is\-Num\-ber}. M\'as interesante es que \mthind{Number}{isInfinite} est\'a definido para devolver \ct{false}.
+
+\emph{Truncation} m\'etodos que incluyen \mthind{Number}{floor}, \mthind{Number}{ceiling}, \mthind{Number}{integerPart}, \mthind{Number}{fractionPart} y similares.
+
+\begin{code}{@TEST}
+1 + 2.5     --> 3.5             "Addition of two numbers"
+3.4 * 5      --> 17.0           "Multiplication of two numbers"
+8 / 2         --> 4                 "Division of two numbers"
+10 - 8.3   --> 1.7              "Subtraction of two numbers"
+12 = 11    --> false           "Equality between two numbers"
+12 ~= 11 --> true            "Test if two numbers are different"
+12 > 9      --> true            "Greater than"
+12 >= 10  --> true            "Greater or equal  than"
+12 < 10    --> false           "Smaller than"
+100@10   --> 100@10    "Point creation"
+\end{code}
+\on{Should check how tabbing works in the listings package ...}
+
+El siguiente c\'odigo funciona esperablemente bien en  \st:
+\begin{code}{@TEST}
+1000 factorial / 999 factorial --> 1000
+\end{code}
+Note que el \ct{factorial de 1000} es realmente calculado. Lo cual en otros lenguajes puede ser algo muy dif\'icil de computar. Esto es un excelente ejemplo de coerci\'on autom\'atica y un exacto manejo de un n\'umero.
+\cmindex{Integer}{factorial}
+
+\dothis{Trate de mostrar el resultado del \ct{factorial de 1000}. Toma m\'as tiempo mostrarlo que calcularlo!}
+
+
+%-----------------------------------------------------------------
+\subsection{Float}
+
+\clsindmain{Float} implementa los m\'etodos abstractos de \ct{Number} para los n\'umeros de punto flotante.
+
+M\'as interesante es saber que la clase \ct{Float} (del lado de la clase) provee m\'etodos para devolver las siguientes \emph{constantes}: \mthind{Float class}{e}, \mthind{Float class}{infinity}, \mthind{Float class}{nan} y \mthind{Float class}{pi}.
+
+\begin{code}{@TEST}
+Float pi                      --> 3.141592653589793
+Float infinity               --> Infinity
+Float infinity isInfinite --> true
+\end{code}
+
+%-----------------------------------------------------------------
+\subsection{Fraction}
+
+Las \clsind{Fracciones} son representadas por variables de instancia para el numerador y denominador, las cuales deben ser\ct{Integer}. \ct{Fractions} es normalmente creado por la divisi\'on de  \ct{Integer} (en lugar de usar el m\'etodo constructor de \cmind{Fraction}{numerator:denominator:}):
+
+\begin{code}{@TEST}
+6/8             --> (3/4)
+(6/8) class --> Fraction
+\end{code}
+
+Multiplicando una \ct{Fraction} por un \ct{Integer} o por otra \ct{Fraction} puede resultar en un \ct{Integer}:
+
+\begin{code}{@TEST}
+6/8 * 4 --> 3
+\end{code}
+
+\lr{Hacemos menci\'on de evitar las fracciones en los resultados en que cualquiera de sus operandos sea un float, por ej. 6.0 / 8 o 6 asFloat / 8. (p. 213)}
+
+
+%-----------------------------------------------------------------
+\subsection{Integer}
+
+\clsindmain{Integer} es el ancestro abstracto de tres implementaciones concretas de enteros. En suma para proveer implementaciones concretas de mmuchos m\'etodoss abstractos. \ct{Number}, tambi\'en suma unos pocos m\'etodosespec\'ificos para enteros como \mthind{Integer}{factorial}, \mthind{Integer}{atRandom}, \mthind{Integer}{isPrime}, \mthind{Integer}{gcd:} y muchos otros.
+
+\clsindmain{SmallInteger} es especial en tanto que sus instancias son representadas en forma compacta. En lugar de ser almacenadas por referencia, un \ct{SmallInteger} es representado directamente usando los bits que ser\'ian usados de otra forma para señalar la referencia. El primer bit de una referencia de objeto marca si el objeto es un \ct{SmallInteger} o no.
+
+los m\'etodos de clase \mthind{SmallInteger}{minVal} y \mthind{SmallInteger}{maxVal} nos ciden el rango de un \ct{SmallInteger}:
+
+\begin{code}{@TEST}
+SmallInteger maxVal = ((2 raisedTo: 30) - 1)      --> true
+SmallInteger minVal = (2 raisedTo: 30) negated --> true
+\end{code}
+
+Cuando un \ct{SmallInteger} se va fuera de rango, es autom\'aticamente convertido en un  \clsind{LargePositiveInteger} o en un \clsind{LargeNegativeInteger}, seg\'un sea necesario:
+
+\begin{code}{@TEST}
+(SmallInteger maxVal + 1) class --> LargePositiveInteger
+(SmallInteger minVal - 1) class  --> LargeNegativeInteger
+\end{code}
+
+Los enteros largos son similarmente convertidos a enteros cortos cuando es apropiado.
+
+En la mayor\'ia de los lenguajes de programaci\'on, los enteros pueden ser \'utiles para especificar comportamientos iterativos. Aqu\'i tenemos el m\'etodo \mthind{Integer}{timesRepeat:} para evaluar un bloque repetidamente.
+Vimos un ejemplo parecido en \charef{syntax}:
+
+\begin{code}{@TEST | n |}
+n := 2.
+3 timesRepeat: [ n := n*n ].
+n --> 256
+\end{code}
+
+%=================================================================
+\section{Characters}
+
+\clsindmain{Character} es definido en la categor\'ia \scatind{Collections-Strings} como una subclase de \clsind{Magnitude}. Los caracteres imprimibles son representados en \pharo como \lct{\$$\langle$\emph{char}$\rangle$}.  Por ejemplo:
+
+\begin{code}{@TEST}
+$a < $b --> true
+\end{code}
+
+los caracteres no imprimibles son generados por varios m\'etodos de clase.  \mbox{\cmind{Character class}{value:}} toma el valor entero Unicode (o ASCII) como argumento y devuelve el correspondiente caracter. El protocolo \protind{accessing untypeable characters} contiende un conveniente n\'umero de m\'etodos constructores tales como   \mthind{Character class}{backspace}, \mthind{Character class}{cr}, \mthind{Character class}{escape}, \mthind{Character class}{euro}, \mthind{Character class}{space}, \mthind{Character class}{tab}, y similares.
+
+\begin{code}{@TEST}
+Character space = (Character value: Character space asciiValue) --> true
+\end{code}
+
+El m\'etodo \mthind{Character}{printOn:} es suficientemente inteligente para saber cual de las tres formas de generar caracteres es la que ofrece la representaci\'on m\as apropiada:
+
+\begin{code}{@TEST}
+Character value: 1   --> Character home
+Character value: 2   --> Character value: 2
+Character value: 32 --> Character space
+Character value: 97 --> $a
+\end{code}\ignoredollar$
+
+Varios m\'etodos de prueba son convenientemente construidos aqu\'i: \mthind{Character}{isAlphaNumeric}, \mthind{Character}{isCharacter}, \mthind{Character}{isDigit}, \mthind{Character}{isLowercase}, \mthind{Character}{isVowel}, y similares.
+
+Para convertir un \ct{Character} en una cadena que contenga solo ese caracter, env\'ie  \mthind{Character}{asString}.  En este caso, \ct{asString} y \mthind{Character}{printString} devuelven resultados distintos:
+
+\begin{code}{@TEST}
+$a asString    --> 'a'
+$a                  --> $a
+$a printString --> '$a'
+\end{code}
+
+Cada  \ct{Character} ascii es una \'unica instancia, almacenada en la variable de clase \cvind{CharacterTable}:
+
+\begin{code}{@TEST}
+(Character value: 97) == $a --> true
+\end{code}\ignoredollar$
+
+\ct{Characters} fuera del rango 0..255 no son \'unicos. Si embargo: 
+
+\begin{code}{@TEST}
+Character characterTable size                               --> 256
+(Character value: 500) == (Character value: 500) --> false
+\end{code}
+
+%=================================================================
+\section{Strings}
+
+La clase \clsindmain{String} esta definida tambi\'en en la categor\'ia \scatind{Collections-Strings}.  Un \ct{String} es una \ct{Collection} indexada que almacena solamente \ct{Characters}.
+
+\begin{figure}[ht]
+	{\centerline {\includegraphics[width=0.4\textwidth]{StringHierarchy}}}
+\caption{The String Hierarchy \figlabel{strings}}
+\end{figure}
+
+En efecto, \ct{String} es abstracta y las cadenas en \pharo son actualmente instancias de la clase concreta \clsindmain{ByteString}.
+
+\begin{code}{@TEST}
+'hello world' class --> ByteString
+\end{code}
+
+La otra subclase importante de \ct{String} es \clsindmain{Symbol}.  La principal diferencia es que esta es solo una simple instancia de  \ct{Symbol} con un valor dado (Es algo a veces llamdado ``la propiedad de \'unica instancia'').  En contraste, dos  \ct{String}s  sontruidos separadamente que contengan la misma secuencia de caracteres ser\'an objetos diferentes.
+
+\begin{code}{@TEST}
+'hel','lo' == 'hello' --> false
+\end{code}
+
+\begin{code}{@TEST}
+('hel','lo') asSymbol == #hello --> true
+\end{code}
+
+\noindent
+Otra diferencia importante es que un \ct{String} es mutable, mientras que un \ct{Symbol} es inmutable.
+
+\begin{code}{@TEST}
+'hello' at: 2 put: $u; yourself --> 'hullo'
+\end{code}\ignoredollar$
+
+\begin{code}{NB: CANNOT TEST}
+#hello at: 2 put: $u --> error!
+\end{code}\ignoredollar$
+
+Es facil de olvidar qur como las cadenas son colecciones, entoces entiende los mismos mensajes de as otras colecciones:
+
+\begin{code}{@TEST}
+#hello indexOf: $o --> 5
+\end{code}\ignoredollar$
+
+Como \ct{String} no hereda de \clsind{Magnitude}, este debe soportar los m\'etodos usuales de \protind{comparaci\'on}, \ct{<}, \ct{=} y similares. En suma,  \cmind{String}{match:} es util para algunos apareos b\'asicos:
+
+\begin{code}{@TEST}
+'*or*' match: 'zorro' --> true
+\end{code}
+
+Si necesita un m\'as avanzado soporte para expresiones regulares, revise el paquete \pkgind{Regex} realizado por Vassili Bykov.
+\index{Bykov, Vassili}
+\index{regular expression package}
+
+Las cadenas soportan un gran n\'umero de m\'etodos de conversi'on. Muchos de ellos son \ind{m\'etodos atajo constructores} para otras clases, tales como \mthind{String}{asDate}, \mthind{String}{asFileName} y similares. Tambi\'en hay un n\'umero de m\'etodos \'utiles para convertir una cadena en otra cadena, tales como  \mthind{String}{capitalized} y \mthind{String}{translateToLowercase}.
+
+Para m\'as cadenas y colecciones, vea \charef{collections}.
+
+\on{Aqu\'i hay m\'as material que puede ser \'util:
+\url{http://www.dmu.com/crb/crb7.html}.}
+
+
+%=================================================================
+\section{Booleans}
+
+La clase \clsindmain{Boolean} ofrece una fascinante inmersi\'on en c\'omo el lenguaje Smalltalk ha sido utilizado dentro de su librer\'ia de clases. \ct{Boolean} es la superclase \subind{class}{abstracta} con \patind{Singleton} de las clases \clsindmain{True} y \clsindmain{False}.
+
+\begin{figure}[ht]
+	{\centerline {\includegraphics[width=0.5\textwidth]{BooleanHierarchy}}}
+\caption{The Boolean Hierarchy \figlabel{booleans}}
+\end{figure}
+
+La mayor\'ia de los comportamientos de \ct{Boolean}s pueden ser entendidos al considerar el m\'etodo  \mthind{Boolean}{ifTrue:ifFalse:}, el cual toma dos \ct{Blocks} como argumentos.
+
+\begin{code}{@TEST}
+(4 factorial > 20) ifTrue: [ 'bigger' ] ifFalse: [ 'smaller' ] --> 'bigger'
+\end{code}
+
+El m\'etodo es abstracto en \ct{Boolean}.
+La implementaci\'on est\'a en sus subclases, siendo concreta y trivial:
+
+\begin{method}{Implementations of \lct{ifTrue:ifFalse:}}
+True>>>ifTrue: trueAlternativeBlock ifFalse: falseAlternativeBlock 
+    ^trueAlternativeBlock value
+
+False>>>ifTrue: trueAlternativeBlock ifFalse: falseAlternativeBlock 
+    ^falseAlternativeBlock value
+\end{method}
+\cmindex{True}{ifTrue:}
+\cmindex{False}{ifTrue:}
+
+En efecto, esta es la escencia de OOP: Cuando un mensaje es enviado a un objeto, el objeto por s\'i mismo determina cu\'al objeto ser\'a usado para responder. En este caso, una instancia de  \ct{True} simplemente eval\'ua la alternativa \emph{verdadera} , mientras que una instancia de  \ct{False} eval\'ua la alternativa \emph{falsa}. Todos los m\'etodos abstractos de \ct{Boolean} son implementados de esta manera por \ct{True} y \ct{False}. Por ejemplo:
+
+\begin{method}{Implementando la negaci\'on}
+True>>>not
+    "Negation--answer false since the receiver is true."
+    ^false
+\end{method}
+\cmindex{True}{not}
+
+\ct{Booleans} ofrecen varios m\'etodos \'utiles como \mthind{Boolean}{ifTrue:}, \mthind{Boolean}{ifFalse:}, \mthind{Boolean}{ifFalse:ifTrue}. Usted puede elegir entre conjunciones y disjunciones ansiosas o perezosas
+
+\begin{code}{@TEST}
+(1>2) & (3<4)              --> false    "must evaluate both sides"
+(1>2) and: [ 3<4 ]        --> false    "only evaluate receiver"
+(1>2) and: [ (1/0) > 0 ] --> false    "argument block is never evaluated, so no exception"
+\end{code}
+
+En el primer ejemplo, ambas subexpresiones \ct{Boolean} son evaludadas, desde \mthind{Boolean}{&}  toma un argumento \ct{Boolean}.
+En el segudo y tercer ejemplos, solo el primero es evaluado, desde \mthind{Boolean}{and:} expera un \ct{Block} como su argumento.  El \ct{Block}es evaluado solo si el primer argumento es \pvind{true}.
+
+\dothis{Trate de imaginar c\'omo \ct{and:} y \ct{or:} est\'an implementados.
+Chequee las implementaciones en \ct{Boolean}, \ct{True} y \ct{False}.}
+
+%=================================================================
+\section{Resumen del Cap\'itulo}
+
+\begin{itemize}
+%  \item Send \ct{yourself} to get back the receiver at the end of a cascade.
+
+  \item Si sobreescribe \ct{=} deber\'ia sobreescribir \ct{hash} tambi\'en.
+
+  \item Sobreescriba \ct{postCopy} para implementar correctamente la copia de dus objetos.
+
+  \item Env\'ie \ct{self halt} para fijar un punto de ruptura.
+
+  \item Devuelva \ct{self subclassResponsibility} para hacer un m\'etodo abstracto.
+
+  \item Para dar a un objeto una representaci\'on \ct{String} deber\'ia sobreescribir el m\'etodo \ct{printOn:}.
+
+  \item Sobreescriba el m\'etodo \ct{initialize} para inicializar apropiadamente las instancias.
+
+  \item Los m\'etodos de \ct{Number} autom\'aticamente convierten entre  \ct{Floats}, \ct{Fractions} e \ct{Integers}.
+
+  \item \ct{Fractions} realmente representa fracciones en lugar de n\'umeros con punto flotante.
+
+  \item \ct{Characters} son instancias \'unicas.
+
+  \item \ct{Strings} son mutables; \ct{Symbols} no.
+  Sin embargo tenga cuidado de no mutar cadenas literales!
+
+  \item \ct{Symbols} son \'unicos; \ct{Strings} no.
+
+  \item \ct{Strings} y \ct{Symbols} son \ct{Collections} y por ello soportan los m'etodos de \ct{Collection}.
+
+\end{itemize}
 
 %=============================================================
 \ifx\wholebook\relax\else

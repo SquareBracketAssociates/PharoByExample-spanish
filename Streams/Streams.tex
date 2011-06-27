@@ -93,23 +93,17 @@ Escribir un elemento significa reemplazar el primer elemento de la secuencia fut
 \end{figure}
 
 %=============================================================
-\section{Streams vs. collections}
+\section{Streams vs. colecciones}
 
-The collection protocol supports the storage, removal and enumeration
-of the elements of a collection, but does not allow these operations
-to be intermingled.  For example, if the elements of an
-\clsind{OrderedCollection} are processed by a \mthind{OrderedCollection}{do:} method, it is not
-possible to add or remove elements from inside the \ct{do:} block.
-Nor does the collection protocol offer ways to iterate over two
-collections at the same time, choosing which collection goes forward
-and which does not. Procedures like these require that a traversal index or
-position reference is maintained outside of the collection itself:
-this is exactly the role of \clsind{ReadStream}, \clsind{WriteStream} and
-\clsind{ReadWriteStream}.
+El protocolo de colecci\'on soporte el almacenamiento, la remoci\'on y enumeraci\'on de los elementos de una colecci\'on, 
+but no permite que estas operaciones sean entremezcladas.  Por ejemplo, si los elementos de una \clsind{OrderedCollection} son
+procesados por un m\'etodo \mthind{OrderedCollection}{do:}, no es posible agregar o remover elementos desde el interior del bloque \ct{do:}.
+El protocolo de colecci\'on tampoco ofrece formas de interar sobre dos colecciones al mismo tiempo, eligiendo cual colecci\'on avanza y cual no.
+Procedimientos como estos requieren que un \'indice transversal o una posici\'on de referencia sea mantenida fuera de la propia colecci\'on:
+este es exactamente el rol de \clsind{ReadStream}, \clsind{WriteStream} y \clsind{ReadWriteStream}.
 
-These three classes are defined to \emph{stream over} some collection.
-For example, the following snippet creates a stream on an interval,
-then it reads two elements.
+Estas tres clases estan definidas para trabajar sobre alguna colecci\'on.
+Por ejemplo, el siguiente fragmento de c\'odigo crea un stream sobre un int\'ervalo y luego lee dos elementos
 \needlines{5}
 \begin{code}{@TEST |r|}
 r := ReadStream on: (1 to: 1000).
@@ -118,7 +112,7 @@ r next.   --> 2
 r atEnd.--> false
 \end{code}
 
-\ct{WriteStream}s can write data to the collection:
+\ct{WriteStream}s pueden escribir datos en una colecci\'on:
 \begin{code}{@TEST |w|}
 w := WriteStream on: (String new: 5).
 w nextPut: $a.
@@ -126,14 +120,10 @@ w nextPut: $b.
 w contents. -->  'ab'
 \end{code}
 
-It is also possible to create \ct{ReadWriteStream}s that support both
-the reading and writing protocols.
+Tambi\'en es posible crear \ct{ReadWriteStream}s que soporte ambos protocolos de escritura y lectura.
 
-The main problem with \ct{WriteStream} and \ct{ReadWriteStream} is
-that they only support arrays and strings in \pharo. This is currently
-being changed by the development of a new library named Nile, 
-but for now if you try to stream over another kind of
-collection, you will get an error:
+El principal problema con \ct{WriteStream} y \ct{ReadWriteStream} es que solo soportan arreglos y cadenas de caracteres en \pharo. Esto está siendo
+cambiado actualmente con el desarrollo de una nueva biblioteca llamada Nile, pero por ahora si intentas trabajar sobre otra clase de colecci\'on, obtendr\'as un error:
 
 \needlines{3}
 \begin{code}{}
@@ -141,8 +131,9 @@ w := WriteStream on: (OrderedCollection new: 20).
 w nextPut: 12. -->  raises an error
 \end{code}
 
-Streams are not only meant for collections, they can be used for files or sockets
-too. The following example creates a file named \ct{test.txt}, writes two strings to it, separated by a carriage return, and closes the file.
+Los Streams no estan solo pensados para colecciones, tambi\'en pueden ser usados con archivos o sockets.
+El siguiente ejemplo crea un archivo llamado \ct{test.txt}, escribe dos cadenas de caracteres separadas por un retorno de carro
+y cierra el archivo.
 
 \needlines{3}
 \begin{code}{}
@@ -155,7 +146,7 @@ StandardFileStream
 \end{code}
 \cmindex{FileStream class}{fileNamed:do:}
 
-The following sections present the protocols in more depth.
+Las siguientes secciones presentan los protocoles en mayor profundidad.
 
 %=============================================================
 \section{Streaming over collections}
