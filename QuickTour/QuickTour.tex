@@ -46,20 +46,20 @@
 	\raisebox{-0.8ex}[0pt][0pt]{%
 		\includegraphics[width=1em]{cloverleafKey}}}
 %=================================================================
-\chapter{Un paseo rápido por \pharo}
+\chapter{Un paseo r\'apido por \pharo}
 \chalabel{quick}
 
-En este capítulo te daremos un paseo de alto nivel por \pharo para ayudarte a sentirte cómodo con el ambiente.
-Habrá muchas oportunidades para probar cosas, por lo que sería una buena idea que tengas una computadora a mano mientras lees este capítulo.
+En este cap\'itulo te daremos un paseo de alto nivel por \pharo para ayudarte a sentirte c\'omodo con el ambiente.
+Habr\'a muchas oportunidades para probar cosas, por lo que ser\'ia una buena idea que tengas una computadora a mano mientras lees este cap\'itulo.
 
-Usaremos el ícono: \dothisicon{} para marcar lugares en el texto donde deberías probar algo en \pharo.
-En particular, lanza \pharo, aprende acerca de las diferentes formas de interactuar con el sistema, y descubre algunas de las herramientas básicas.
-Aprenderás también cómo definir un nuevo método, crear un objeto y enviarle mensajes.
+Usaremos el \'icono: \dothisicon{} para marcar lugares en el texto donde deber\'ias probar algo en \pharo.
+En particular, lanza \pharo, aprende acerca de las diferentes formas de interactuar con el sistema, y descubre algunas de las herramientas b\'asicas.
+Aprender\'as tambi\'en c\'omo definir un nuevo m\'etodo, crear un objeto y enviarle mensajes.
 
 %=================================================================
 \section{Primeros pasos}
 
-\pharo está disponible de forma gratuita para \ind{download} en \pharoweb.
+\pharo est\'a disponible de forma gratuita para \ind{download} en \pharoweb.
 Hay tres partes que necesitas descargar, que consisten en cuatro archivos (vea \figref{download}).
 
 \begin{figure}[htb]
@@ -69,30 +69,30 @@ Hay tres partes que necesitas descargar, que consisten en cuatro archivos (vea \
 
 \begin{enumerate}
 
-  \item La \emphind{máquina virtual} (VM) es la única parte del sistema que es diferente para cada sistema operativo y procesador. Hay disponibles máquinas virtuales precompiladas para la mayor parte de los ambientes. En la \figref{download} vemos la VM para la plataforma seleccionada, su nombre es \textit{Pharo.exe}.
+  \item La \emphind{m\'aquina virtual} (VM) es la \'unica parte del sistema que es diferente para cada sistema operativo y procesador. Hay disponibles m\'aquinas virtuales precompiladas para la mayor parte de los ambientes. En la \figref{download} vemos la VM para la plataforma seleccionada, su nombre es \textit{Pharo.exe}.
 
-  \item El archivo \emphind{sources} contiene el código fuente de todas las partes de \pharo que no cambian muy frecuentemente. En la \figref{download} su nombre es \emph{SqueakV39.sources}.\footnote{\pharo está derivado de \squeak 3.9, y actualmente comparte la VM con \squeak.}
+  \item El archivo \emphind{sources} contiene el c\'odigo fuente de todas las partes de \pharo que no cambian muy frecuentemente. En la \figref{download} su nombre es \emph{SqueakV39.sources}.\footnote{\pharo est\'a derivado de \squeak 3.9, y actualmente comparte la VM con \squeak.}
 
-  \item La \emph{system \ind{image}} actual es un snapshot de un sistema \pharo corriendo, congelado en un momento. Consiste de dos archivos: un archivo de \emph{.}\emphind{image}, que contiene el estado de todos los objetos en el sistema (incluidos clases y métodos, dado que son objetos también), y un archivo \emph{.}\emphind{changes}, que contiene un log de todos los cambios en el código fuente del sistema.
+  \item La \emph{system \ind{image}} actual es un snapshot de un sistema \pharo corriendo, congelado en un momento. Consiste de dos archivos: un archivo de \emph{.}\emphind{image}, que contiene el estado de todos los objetos en el sistema (incluidos clases y m\'etodos, dado que son objetos tambi\'en), y un archivo \emph{.}\emphind{changes}, que contiene un log de todos los cambios en el c\'odigo fuente del sistema.
 En la \figref{download}, sus nombres son \emph{pharo.image} y \emph{pharo.changes}.
 \end{enumerate}
 
 \dothis{Descarga e instala \pharo en tu computadora.}
-Te recomendamos que uses la imagen provista en la página \pharo by Example.\footnote{\pbe}
+Te recomendamos que uses la imagen provista en la p\'agina \pharo by Example.\footnote{\pbe}
 \index{download}
 \seclabel{sbeImage}
 
-La mayor parte del material introductorio de este libro funciona con cualquier versión por lo que si ya tienes una versión de \pharo, puedes continuar usándola.
-Sin embargo, si notas diferencias entre la apariencia o el comportamiento de tu sistema y el descripto aquí, no te preocupes. 
+La mayor parte del material introductorio de este libro funciona con cualquier versi\'on por lo que si ya tienes una versi\'on de \pharo, puedes continuar us\'andola.
+Sin embargo, si notas diferencias entre la apariencia o el comportamiento de tu sistema y el descripto aqu\'i, no te preocupes. 
 % On the other hand, if you are about to download \pharo for the first time, you may as well grab the \emph{\pharo by Example} image.
 
-Al trabajar en \pharo, el archivo de imágen y el archivo de cambios se modifican por lo que necesitas asegurarte que ambos pueden escribirse.
-Mantén siempre estos archivos juntos.
-Nunca los edites directamente con un editor de texto, ya que \pharo los usa para almacenar los objetos con los que está trabajando y para registrar los cambios en que haces en el código fuente.
-Es una buena idea guardar una copia de los archivos de imágen y cambios descargados para poder siempre empezar de una imágen limpia y recargar tu código.
+Al trabajar en \pharo, el archivo de im\'agen y el archivo de cambios se modifican por lo que necesitas asegurarte que ambos pueden escribirse.
+Mant\'en siempre estos archivos juntos.
+Nunca los edites directamente con un editor de texto, ya que \pharo los usa para almacenar los objetos con los que est\'a trabajando y para registrar los cambios en que haces en el c\'odigo fuente.
+Es una buena idea guardar una copia de los archivos de im\'agen y cambios descargados para poder siempre empezar de una im\'agen limpia y recargar tu c\'odigo.
 
 El archivo \emphind{sources} y la VM pueden estar como solo lectura\,---\,pueden ser compartidas entre diferentes usuarios.
-Todos estos archivos pueden ser puestos en el mismo directorio y es también posible poner la máquina virtualy el archivo and \emphind{sources} en directorio separado donde todos tengan acceso a ellos.
+Todos estos archivos pueden ser puestos en el mismo directorio y es tambi\'en posible poner la m\'aquina virtualy el archivo and \emphind{sources} en directorio separado donde todos tengan acceso a ellos.
 Haz lo que funcione mejor con tu estilo de trabajo y tu sistema operativo.
 
 %\sd{it would be really nice to have a setup and startup section on PC, Mac and Linux}
@@ -106,23 +106,23 @@ Haz lo que funcione mejor con tu estilo de trabajo y tu sistema operativo.
 \end{figure}
 
 \index{launching \pharo}
-\paragraph{Comenzando.} Para arrancar \pharo, haz lo que tu sistema operativo espera: arrastra el archivo \emph{.}\emphind{image} sobre el ícono de la máquina virtual, o haz doble clic en el arhivo \emph{.image}, o en la linea de comandos escribe el nombre de la máquina virtual seguido de la ruta al archivo \emph{.image}. (Si tienes multiples máquinas virtuales en tu máquina el sistema operativo puede no elegir la correcta; en ese caso es mas seguro arrastrar y soltar la imagen sobre la máquina virtual, o usar la linea de comandos.)
+\paragraph{Comenzando.} Para arrancar \pharo, haz lo que tu sistema operativo espera: arrastra el archivo \emph{.}\emphind{image} sobre el \'icono de la m\'aquina virtual, o haz doble clic en el arhivo \emph{.image}, o en la linea de comandos escribe el nombre de la m\'aquina virtual seguido de la ruta al archivo \emph{.image}. (Si tienes multiples m\'aquinas virtuales en tu m\'aquina el sistema operativo puede no elegir la correcta; en ese caso es mas seguro arrastrar y soltar la imagen sobre la m\'aquina virtual, o usar la linea de comandos.)
 
-Una vez que \pharo está ejecutando, deberías ver una única ventana, posiblemente conteniendo algunas ventanas de workspace abiertos (ver \figref{startup}) ¡y no es ovbio cómo continuar!
-Puedes notar una barra de menú, pero principalmente \pharo hace uso de menues contextuales.
+Una vez que \pharo est\'a ejecutando, deber\'ias ver una \'unica ventana, posiblemente conteniendo algunas ventanas de workspace abiertos (ver \figref{startup}) ï¿½y no es ovbio c\'omo continuar!
+Puedes notar una barra de men\'u, pero principalmente \pharo hace uso de menues contextuales.
 % You will notice that there is no menu bar, or at least not a useful one.  
 % Instead,  \pharo makes heavy use of context-dependent pop-up menus.
 
-\dothis{Ejecuta \pharo. Puedes cerrar cualquier workspaces abierto haciendo \click{ing} en el botón rojo en la esquina superior izquierda de la ventana del workspace.}
+\dothis{Ejecuta \pharo. Puedes cerrar cualquier workspaces abierto haciendo \click{ing} en el bot\'on rojo en la esquina superior izquierda de la ventana del workspace.}
 
-Puedes minimizar ventanas (estas se moverán a la parte inferior de la pantalla) haciendo \click{ing} en el botón naranja. Haciendo clic en el botón verde la ventana ocupará la pantalla completa.
+Puedes minimizar ventanas (estas se mover\'an a la parte inferior de la pantalla) haciendo \click{ing} en el bot\'on naranja. Haciendo clic en el bot\'on verde la ventana ocupar\'a la pantalla completa.
 
 %-----------------------------------------------------------------
-\paragraph{Primera interacción.}
+\paragraph{Primera interacci\'on.}
 
-Un buen lugar para comenzar es el menú \ind{world menu} mostrado en \figref{threeButtons:click}. 
+Un buen lugar para comenzar es el men\'u \ind{world menu} mostrado en \figref{threeButtons:click}. 
 
-\dothis{Haz clic con el ratón en el fondo de la ventana principal para mostrar el menú world, elige \menu{Workspace} para crear un nuevo workspace.}
+\dothis{Haz clic con el rat\'on en el fondo de la ventana principal para mostrar el men\'u world, elige \menu{Workspace} para crear un nuevo workspace.}
 
 %\begin{figure}[tbh]
 %	\centering
@@ -158,19 +158,19 @@ Un buen lugar para comenzar es el menú \ind{world menu} mostrado en \figref{thre
 %\figlabel{colouredMouse}
 %\end{wrapfigure}
 
-\st fué diseñado originalmente para computadoras con un \ind{ratón de tres botones}. Si tu ratón tiene menos de tres botones, tendrás que presionar teclas extras mientras \click{ing} el ratón para simular los botones faltantes. Un ratón de dos botones funciona bastante bien con \pharo, pero si tienes un ratón de un solo botón, deberías considerar seriamente comprar un ratón de dos botones con rueda de desplazamiento que permita hacer clic: hará que trabajar con \pharo mucho mas placentero.
+\st fu\'e diseï¿½ado originalmente para computadoras con un \ind{rat\'on de tres botones}. Si tu rat\'on tiene menos de tres botones, tendr\'as que presionar teclas extras mientras \click{ing} el rat\'on para simular los botones faltantes. Un rat\'on de dos botones funciona bastante bien con \pharo, pero si tienes un rat\'on de un solo bot\'on, deber\'ias considerar seriamente comprar un rat\'on de dos botones con rueda de desplazamiento que permita hacer clic: har\'a que trabajar con \pharo mucho mas placentero.
 
-\pharo evita términos como ``clic con el botón izquierdo'' porque diferentes computadoras, ratones, teclados y configuraciones personales significa que diferentes usuarios necesitarán presionar diferentes botones parato lograr el mismo efecto.
-Originalmente \st introdujo colores para representar los diferentes botones del ratón.\footnote{Los colores de los botones eran \emph{rojo}, \emph{amarillo} y \emph{azul}. Los autores de este libro nunca podían recordar qué color refería a qué botón.}
+\pharo evita t\'erminos como ``clic con el bot\'on izquierdo'' porque diferentes computadoras, ratones, teclados y configuraciones personales significa que diferentes usuarios necesitar\'an presionar diferentes botones parato lograr el mismo efecto.
+Originalmente \st introdujo colores para representar los diferentes botones del rat\'on.\footnote{Los colores de los botones eran \emph{rojo}, \emph{amarillo} y \emph{azul}. Los autores de este libro nunca pod\'ian recordar qu\'e color refer\'ia a qu\'e bot\'on.}
 \index{red button}
 \index{yellow button}
 \index{blue button}
-Dado que muchos usuarios usaran teclas modificadoras (\emph{control}, \emph{ALT}, \emph{meta} \etc) para lograr el mismo efecto, en su lugar usaremos los siguientes términos:
+Dado que muchos usuarios usaran teclas modificadoras (\emph{control}, \emph{ALT}, \emph{meta} \etc) para lograr el mismo efecto, en su lugar usaremos los siguientes t\'erminos:
 \begin{description}
-\item [\click:] este es el botón del reatón mas usado, y es quivalente a \click{ing} un ratón de un solo botón sin ninguna tecla modificadora; \click{} en la imagen para para que aparezca el menú ``World'' (\figref{threeButtons:click}).
-\item [\actclick:] este es el segundo botón mas usado; es usado para que aparezca el menú contextual, eso es, un menú que ofrece diferentes conjuntos de acciones dependiendo en donde está apuntando el ratón; vea \figref{threeButtons:actclick}. Si no tienes un ratón multi-botones, normalmente configurarás la tecla modificadora \emph{control} para \actclick con el botón del ratón.
-\item [\metaclick:] Finalmente, puedes \metaclick en cualquier objeto mostrado en la imagen para activar el ``morphic \subind{Morphic}{halo}'', un vector de manejadores que son usados para realizar operaciones en los objetos en pantalla, como por ejemplo rotarlos o cambiarles el tamaño; vea \figref{threeButtons:metaclick}.\footnote{Notar que manejadores morphic estan inactivos por defecto en \pharo, pero puedes activarlos usando el Navegador de Preferencias, el cual veremos pronto.}
-Si dejas el ratón sobre un manejador, un globo de ayuda te explicará su función.
+\item [\click:] este es el bot\'on del reat\'on mas usado, y es quivalente a \click{ing} un rat\'on de un solo bot\'on sin ninguna tecla modificadora; \click{} en la imagen para para que aparezca el men\'u ``World'' (\figref{threeButtons:click}).
+\item [\actclick:] este es el segundo bot\'on mas usado; es usado para que aparezca el men\'u contextual, eso es, un men\'u que ofrece diferentes conjuntos de acciones dependiendo en donde est\'a apuntando el rat\'on; vea \figref{threeButtons:actclick}. Si no tienes un rat\'on multi-botones, normalmente configurar\'as la tecla modificadora \emph{control} para \actclick con el bot\'on del rat\'on.
+\item [\metaclick:] Finalmente, puedes \metaclick en cualquier objeto mostrado en la imagen para activar el ``morphic \subind{Morphic}{halo}'', un vector de manejadores que son usados para realizar operaciones en los objetos en pantalla, como por ejemplo rotarlos o cambiarles el tamaï¿½o; vea \figref{threeButtons:metaclick}.\footnote{Notar que manejadores morphic estan inactivos por defecto en \pharo, pero puedes activarlos usando el Navegador de Preferencias, el cual veremos pronto.}
+Si dejas el rat\'on sobre un manejador, un globo de ayuda te explicar\'a su funci\'on.
 En \pharo, como \metaclick depende de tu sistema operativo:
 o bien debes mantener las teclas {\sc shift} + \emph{ctrl} o bien {\sc shift} + \emph{option} mientras haces clic.
 % \ab{This makes it sound like either {\sc shift} \emph{ctrl} or {\sc shift} \emph{alt} will work.  On my (Mac OS) system, only the latter works.  Perhaps we want to say: In \pharo, how you meta-click depends on your operating system. On Linux \ldots}
@@ -193,16 +193,16 @@ Selecciona \menu{print it}.}
 %\dothis{Now you should be able to \metaclick on the workspace. (See \figref{threeButtons:metaclick}.)
 %Grab the blue \raisebox{-0.4ex}{\includegraphics[width=1em]{morphicRotate}} handle near the bottom left corner and drag it to rotate the workspace.}
 
-Recomendamos a las personas diestras configurar sus ratones para hacer \click con el botón izquierdo, \actclick con el botón derecho, y \metaclick con la rueda de desplazamiento si está disponible.
+Recomendamos a las personas diestras configurar sus ratones para hacer \click con el bot\'on izquierdo, \actclick con el bot\'on derecho, y \metaclick con la rueda de desplazamiento si est\'a disponible.
 % If you don't have a clickable scroll wheel, then you can get the Morphic halo by holding down the \ct{alt} or \ct{option} key while \click{ing}. 
 % \ab{This doesn't work any more.  This sentence either repeats or contradicts the meta-click item above; neither is a good idea.}
-Si estás usando Macintosh sin un ratón con segundo botón, puedes simularlo manteniendo presionada la tecla \clover{} mientras \click{ing} el ratón. Sin embargo, si vas a usar \pharo a menudo, te recomendamos invertir en un ratón con al menos dos botones.
+Si est\'as usando Macintosh sin un rat\'on con segundo bot\'on, puedes simularlo manteniendo presionada la tecla \clover{} mientras \click{ing} el rat\'on. Sin embargo, si vas a usar \pharo a menudo, te recomendamos invertir en un rat\'on con al menos dos botones.
 
-Puedes configurar tu ratón para trabajar de la manera que quieras uasndo las preferencias de tu sistema operativo y el controlador del ratón.
+Puedes configurar tu rat\'on para trabajar de la manera que quieras uasndo las preferencias de tu sistema operativo y el controlador del rat\'on.
 \ab{Como puedo obtener meta-clic sin un saludo de tres dedos? Es un secreto?}
-\pharo tiene algunas preferencias para personalizar el ratón y las teclas meta en tu teclado.
-En el navegador de preferencias (\menu{System {\ldots\go} Preferences {\ldots\go} Preference Browser\ldots}), la categoría \menu{keyboard} contiene una opción \menu{swapControlAndAltKeys} que cambia las funciones \actclick y \metaclick.
-También hay opciones para duplicar las diferentes teclas de comando.   
+\pharo tiene algunas preferencias para personalizar el rat\'on y las teclas meta en tu teclado.
+En el navegador de preferencias (\menu{System {\ldots\go} Preferences {\ldots\go} Preference Browser\ldots}), la categor\'ia \menu{keyboard} contiene una opci\'on \menu{swapControlAndAltKeys} que cambia las funciones \actclick y \metaclick.
+Tambi\'en hay opciones para duplicar las diferentes teclas de comando.   
 
 \begin{figure}[htb]
 \centerline{\includegraphics[width=\textwidth]{PreferenceBrowser}}
@@ -211,20 +211,20 @@ También hay opciones para duplicar las diferentes teclas de comando.
 
 
 %=================================================================
-\section{El menú World}
+\section{El men\'u World}
 \index{world menu}
 
 \dothis{\Click nuevamente en el fondo de la ventana principal de \pharo.}
-Verás el menú \menu{World} nuevamente.
-La mayoría de los menues de \pharo son modales; puedes dejarlos en la pantalla todo el tiempo que desees haciendo \click{ing} el icono de pin en la esquina superior derecha. Hazlo.
+Ver\'as el men\'u \menu{World} nuevamente.
+La mayor\'ia de los menues de \pharo son modales; puedes dejarlos en la pantalla todo el tiempo que desees haciendo \click{ing} el icono de pin en la esquina superior derecha. Hazlo.
 % Also, notice that menus appear when you click the mouse, but do not disappear when you release it; they stay visible until you make a selection, or until you click outside of the menu. You can even move the menu around by grabbing its title bar.
 
-El menú world menu te provee una forma simple para acceder a muchas de las herramientas que \pharo ofrece.
+El men\'u world menu te provee una forma simple para acceder a muchas de las herramientas que \pharo ofrece.
 
 \dothis{Hecha una mirada a los menues \menu{World} y \menu{{}Tools \ldots}. (\figref{threeButtons:click})}
 
-Verás una lista de varias herramientas principales en \pharo, incluyendo el navegador y el workspace.
-Encontraremos la mayoría de ellos en los siguientes capítulos.
+Ver\'as una lista de varias herramientas principales en \pharo, incluyendo el navegador y el workspace.
+Encontraremos la mayor\'ia de ellos en los siguientes cap\'itulos.
 
 %=================================================================
 \section{Enviando mensajes}
@@ -235,29 +235,29 @@ Encontraremos la mayoría de ellos en los siguientes capítulos.
 BouncingAtomsMorph new openInWorld
 \end{code}
 
-\dothis{Ahora \actclick. Debería aparecer un menú. Selecciona \menu{do it (d)}. (See \figref{doit}.)}
+\dothis{Ahora \actclick. Deber\'ia aparecer un men\'u. Selecciona \menu{do it (d)}. (See \figref{doit}.)}
 
 \begin{figure}[htb]
 \centerline {\includegraphics[width=0.8\textwidth]{Doit}}
-\caption{``Haciendo'' una expresión\figlabel{doit}}
+\caption{``Haciendo'' una expresi\'on\figlabel{doit}}
 \end{figure}
 
-Una ventana conteniendo un gran nnúmero de átomos deberían abrirse arriba a la izquierda en \pharo.
+Una ventana conteniendo un gran nn\'umero de \'atomos deber\'ian abrirse arriba a la izquierda en \pharo.
 
-¡Acabas de evaluar tu primera expresión \st!
+ï¿½Acabas de evaluar tu primera expresi\'on \st!
 Has enviado el mensaje \ct{new} a la clase \bam, resultando en una nueva instancia de \bam, seguido del mensaje \ct{openInWorld} a esta instancia.
-La clase \bam decidió que hacer con el mensaje \ct{new}, esto es, buscó en sus \emph{métodos} cómo manejar el mensaje \ct{new} y reaccionó apropiadamante.
-De forma similar la instancia de \bam buscó en sus métodos cómo responder a \ct{openInWorld} y tomó la acción apropiada.
+La clase \bam decidi\'o que hacer con el mensaje \ct{new}, esto es, busc\'o en sus \emph{m\'etodos} c\'omo manejar el mensaje \ct{new} y reaccion\'o apropiadamante.
+De forma similar la instancia de \bam busc\'o en sus m\'etodos c\'omo responder a \ct{openInWorld} y tom\'o la acci\'on apropiada.
 
-Si hablas con Smalltalkers por un tiempos, rápidamente notarás que ellos generalmente no usan expresiones como ``llamar a una operación'' or ``invoke a method'', en su lugar dicen ``enviar un mensaje''.
+Si hablas con Smalltalkers por un tiempos, r\'apidamente notar\'as que ellos generalmente no usan expresiones como ``llamar a una operaci\'on'' or ``invoke a method'', en su lugar dicen ``enviar un mensaje''.
 Esto refleja la idea de que los objetos son responsables por sus propias acciones. 
-Nunca le \emph{dices} a un objeto que hacer\,---\,en su lugar políticamente le \emph{pides} que haga algo enviándole un mensaje.
-El objeto, no tú, selecciona el método apropiado para responder a tu mensaje.
+Nunca le \emph{dices} a un objeto que hacer\,---\,en su lugar pol\'iticamente le \emph{pides} que haga algo envi\'andole un mensaje.
+El objeto, no t\'u, selecciona el m\'etodo apropiado para responder a tu mensaje.
 
 %=================================================================
-\section{Guardando, terminando y reiniciando una sesión de \pharo}
+\section{Guardando, terminando y reiniciando una sesi\'on de \pharo}
 
-\dothis{Ahora haz \click en la ventana de átomos y arrastrala dónde quieras. Ahora tienes la demostración ``en tu mano''. Sueltala haciendo \click{ing} en cualquier parte.}
+\dothis{Ahora haz \click en la ventana de \'atomos y arrastrala d\'onde quieras. Ahora tienes la demostraci\'on ``en tu mano''. Sueltala haciendo \click{ing} en cualquier parte.}
 
 \begin{figure}[htb]
 \begin{minipage}[b]{0.48\textwidth}
@@ -267,52 +267,52 @@ El objeto, no tú, selecciona el método apropiado para responder a tu mensaje.
 \hfill
 \begin{minipage}[b]{0.48\textwidth}
 \centerline {\includegraphics[width=0.7\textwidth]{saveAs}}
-\caption{El cuadro de díalogo \menu{save as \ldots}.\figlabel{saveas}}
+\caption{El cuadro de d\'ialogo \menu{save as \ldots}.\figlabel{saveas}}
 \end{minipage}
 \end{figure}
 
-\dothis{Selecciona \menu{World\go{}Save as \ldots}, ingresa el nombre ``myPharo'', y haz \click en el botón \button{OK}.
+\dothis{Selecciona \menu{World\go{}Save as \ldots}, ingresa el nombre ``myPharo'', y haz \click en el bot\'on \button{OK}.
 Ahora selecciona \menu{World\go{}Save and quit}.}
 
-Ahora si vas a la ubicación donde lso archivos originales image y changes estaban, encontrarás dos nuevos archivos llamados``myPharo.\ind{image}'' y ``myPharo.\ind{changes}'' que representan el estado de trabajo de la imagen de \pharo en el momento anterior que dijeras a \pharo \menu{Save and quit}.
-Si lo deseas, puedes mover estos dos archivos a cualquier lugar que gustes en tu disco, pero si lo haces puedes (dependiendo de tu sistema operativo) necesitar tambien mover, copiar o enlazar a la máquina virtual y el archivo \emph{sources}.
+Ahora si vas a la ubicaci\'on donde lso archivos originales image y changes estaban, encontrar\'as dos nuevos archivos llamados``myPharo.\ind{image}'' y ``myPharo.\ind{changes}'' que representan el estado de trabajo de la imagen de \pharo en el momento anterior que dijeras a \pharo \menu{Save and quit}.
+Si lo deseas, puedes mover estos dos archivos a cualquier lugar que gustes en tu disco, pero si lo haces puedes (dependiendo de tu sistema operativo) necesitar tambien mover, copiar o enlazar a la m\'aquina virtual y el archivo \emph{sources}.
 
 \dothis{Inicia \pharo desde el archivo ``myPharo.image'' recientemente creado.}
 
-Ahora deberías encontrarte precisamente en el estado que estabas cuando terminaste \pharo. El \bam está allí nuevamente y los átomos continuan rebotando donde ellos estaban cuando tú terminaste.
+Ahora deber\'ias encontrarte precisamente en el estado que estabas cuando terminaste \pharo. El \bam est\'a all\'i nuevamente y los \'atomos continuan rebotando donde ellos estaban cuando t\'u terminaste.
 
-Cuando inicias \pharo por pimera vez, la \ind{máquina virtual} de \pharo carga la imagen que le sumistres. El archivo que contiene una instantanea de un gran número de objetos, incluyendo una vasta cantidad de código preexistente y un gran número de herramientas de programación (los cuales son objetos). Trabajando con \pharo, enviarás mensajes a esos objetos, crearás nuevos objetos, y algunos de esos objetos norirán y su memoria será reclamada (\ie recolección de basura).
+Cuando inicias \pharo por pimera vez, la \ind{m\'aquina virtual} de \pharo carga la imagen que le sumistres. El archivo que contiene una instantanea de un gran n\'umero de objetos, incluyendo una vasta cantidad de c\'odigo preexistente y un gran n\'umero de herramientas de programaci\'on (los cuales son objetos). Trabajando con \pharo, enviar\'as mensajes a esos objetos, crear\'as nuevos objetos, y algunos de esos objetos norir\'an y su memoria ser\'a reclamada (\ie recolecci\'on de basura).
 
-Cuando temines con \pharo, normalmente guradarás una instantaneaque contiene todos tus objetos. Si guardas normalmente, sobreescribirás tu viejo archivo de imagen con la nueva instantanea. Alternativamente, puedes gurdar la imagen con otro nombre, como acabamos de hacer.
+Cuando temines con \pharo, normalmente guradar\'as una instantaneaque contiene todos tus objetos. Si guardas normalmente, sobreescribir\'as tu viejo archivo de imagen con la nueva instantanea. Alternativamente, puedes gurdar la imagen con otro nombre, como acabamos de hacer.
 
-Junto al archivo \emph{.image}, hay también un archivo \emph{.changes}.
-Este archivo contiene una vitácora de todos los cambios del código fuente que has hecho usando usando las herramientas.
+Junto al archivo \emph{.image}, hay tambi\'en un archivo \emph{.changes}.
+Este archivo contiene una vit\'acora de todos los cambios del c\'odigo fuente que has hecho usando usando las herramientas.
 La mayor parte de las veces no necesitas preocuparte por este archivo para nada.
-Como podemos ver, sin embargo, el archivo \emph{.changes} puede ser muy útil para recuperación de errores, o rehacer cambios perdidos.
-¡Mas sobre esto luego!
+Como podemos ver, sin embargo, el archivo \emph{.changes} puede ser muy \'util para recuperaci\'on de errores, o rehacer cambios perdidos.
+ï¿½Mas sobre esto luego!
 
 La imagen con la que has estado trabajando es un descendiente de la imagen original de \st-80 creada a finales de los '70.
-¡Algunos de esos objetos han estado allí por decadas!
+ï¿½Algunos de esos objetos han estado all\'i por decadas!
 
-Podrías pensar que la imagen es el mecanismo principal para almacenar proyectos de software, pero estrías equivocado.
-Como veremos pronto, hay muchas mejores herramientas para administar código y compartir software desarrollado por equipos.
-Las imagenes son muy útiles, pero deberías aprender a ser muy caballero acerca de crear y tirar imagenes, dado que herramientas como Monticello ofrecen una mejor forma de administrar versiones y compartir código entre desarrolladores.
+Podr\'ias pensar que la imagen es el mecanismo principal para almacenar proyectos de software, pero estr\'ias equivocado.
+Como veremos pronto, hay muchas mejores herramientas para administar c\'odigo y compartir software desarrollado por equipos.
+Las imagenes son muy \'utiles, pero deber\'ias aprender a ser muy caballero acerca de crear y tirar imagenes, dado que herramientas como Monticello ofrecen una mejor forma de administrar versiones y compartir c\'odigo entre desarrolladores.
 
-\dothis{Usando el ratón (y la tecla modificadora apropiada), \metaclick en el \bam.\footnote{Recuerda, quizás tengas que activar la opción \ct{halosEnabled} en el Navegador de Preferencias.}}
-Verás una colección de círculos coloridos que colectivamente son llamados el morphic \subind{Morphic}{halo} de \bam.
-Cada círculo es llamado un \emph{manejador}.
-Haz click en el manejador rosa conteniendo la cruz; el \bam debería haberse ido. 
+\dothis{Usando el rat\'on (y la tecla modificadora apropiada), \metaclick en el \bam.\footnote{Recuerda, quiz\'as tengas que activar la opci\'on \ct{halosEnabled} en el Navegador de Preferencias.}}
+Ver\'as una colecci\'on de c\'irculos coloridos que colectivamente son llamados el morphic \subind{Morphic}{halo} de \bam.
+Cada c\'irculo es llamado un \emph{manejador}.
+Haz click en el manejador rosa conteniendo la cruz; el \bam deber\'ia haberse ido. 
 
 %=================================================================
 \section{Workspaces y Transcripts}
 \seclabel{transcript}
 
-\dothis{Cierra todas las ventanas abiertas. Abre un \ind{transcript} y un \ind{workspace}. (El transcript puede ser abierto desde \menu{World{\go}Tools ...} submenú.)}
+\dothis{Cierra todas las ventanas abiertas. Abre un \ind{transcript} y un \ind{workspace}. (El transcript puede ser abierto desde \menu{World{\go}Tools ...} submen\'u.)}
 
-\dothis{Posiciona y cambia el tamaño de la ventana transcript y de al ventana workspace para que el workspace se superponga al transcript.}
-Puedes cambiar el tamaño de las ventanas arrstarndo una de sus esquinas, o \metaclick{ing} la ventana para hacer aparecer el morphic halo, y arrastrando el manejador amarillo (abajo a la derecha).
+\dothis{Posiciona y cambia el tamaï¿½o de la ventana transcript y de al ventana workspace para que el workspace se superponga al transcript.}
+Puedes cambiar el tamaï¿½o de las ventanas arrstarndo una de sus esquinas, o \metaclick{ing} la ventana para hacer aparecer el morphic halo, y arrastrando el manejador amarillo (abajo a la derecha).
 
-Al mismo tiempo sólo una venta está activa; está en el frente y tiene sus bordes iluminados.
+Al mismo tiempo s\'olo una venta est\'a activa; est\'a en el frente y tiene sus bordes iluminados.
 % The mouse cursor must be in the window in which you wish to type.
 
 El transcript es un objeto que a menudo es usado para emitir mensajes de sistema.
@@ -321,9 +321,9 @@ Es una clase de ``consola de sistema''.
 %In addition the transcript is not thread-safe so you may experience strange problems if multiple objects write concurrently to the transcript.
 % ON: I think the transcript has been made thread-safe now, right?
 
-Workspaces son útiles para escribir porciones de código \st con las que te gustaría experimentar.
-Puedes tambien usar workspaces simplemente para escribir texto arbitrario que te gustaría recordar, como una lista de tareas o instrucciones para alguien q ue usará tu imagen.
-Workspaces son a menudo usados para mantener documentación acerca de una imagen capturada, como es el caso de la imagen estandar que descargamos anteriormente (see \figref{startup}).
+Workspaces son \'utiles para escribir porciones de c\'odigo \st con las que te gustar\'ia experimentar.
+Puedes tambien usar workspaces simplemente para escribir texto arbitrario que te gustar\'ia recordar, como una lista de tareas o instrucciones para alguien q ue usar\'a tu imagen.
+Workspaces son a menudo usados para mantener documentaci\'on acerca de una imagen capturada, como es el caso de la imagen estandar que descargamos anteriormente (see \figref{startup}).
 
 \dothis{Escribe el siguiente texto en el workspace:}
 \begin{code}{}
@@ -331,34 +331,34 @@ Transcript show: 'hello world'; cr.
 \end{code}
 
 Intenta hacer doble-\click{ing} en el workspace en varios puntos en el texto que acabas de escribir.
-Notarás como una palabra entera, una cadena de caracteres entera, o el texto completo es seleccionado, dependiendo si haces \click en una palabra, al final de una cadena de caractere, o al final de toda la expresión.
+Notar\'as como una palabra entera, una cadena de caracteres entera, o el texto completo es seleccionado, dependiendo si haces \click en una palabra, al final de una cadena de caractere, o al final de toda la expresi\'on.
 
 \dothis{Selecciona el texto que acabas de escribir y haz \actclick.
 Selecciona \menu{do it (d)}.}
-Notarás como el texto ``hello world'' aparece en la ventana transcript
+Notar\'as como el texto ``hello world'' aparece en la ventana transcript
 (\figref{helloworld}).
 Hazlo nuevamente.
-(La \menu{(d)} en el item de menú \menu{do it (d)} dice que el atajo de teclado para \emph{do it} es \short{d}. ¡Mas sobre esto en la siguiente sección!)
+(La \menu{(d)} en el item de men\'u \menu{do it (d)} dice que el atajo de teclado para \emph{do it} es \short{d}. ï¿½Mas sobre esto en la siguiente secci\'on!)
 
 \begin{figure}[htb]
 \centerline {\includegraphics[width=\textwidth]{HelloWorld}}
-\caption{Superponiendo ventanas. El workspace está activo.\figlabel{helloworld}}
+\caption{Superponiendo ventanas. El workspace est\'a activo.\figlabel{helloworld}}
 \end{figure}
 
 %=================================================================
 \section{Atajos de teclado}
 
-Si quieres evaluar una expresión, no siempre tienes que hacer \actclick. En su lugar, puedes usar \ind{atajos de teclado}. Estos son las expresiones entre paréntesis en el menú. Dependiendo de la plataforma, puedes tener que presionar una de las teclas modificadoras (control, alt, command, o meta).
-(Indicaremos estas genéricamten como \short{\emph{tecla}}.)
+Si quieres evaluar una expresi\'on, no siempre tienes que hacer \actclick. En su lugar, puedes usar \ind{atajos de teclado}. Estos son las expresiones entre par\'entesis en el men\'u. Dependiendo de la plataforma, puedes tener que presionar una de las teclas modificadoras (control, alt, command, o meta).
+(Indicaremos estas gen\'ericamten como \short{\emph{tecla}}.)
 
-\dothis{Evalua la expresión en el workspace nuevamente, pero usando el atajo de teclado: \short{d}.}
+\dothis{Evalua la expresi\'on en el workspace nuevamente, pero usando el atajo de teclado: \short{d}.}
 \index{keyboard shortcut!do it}
 
-Además de \menu{do it}, habrás notado \menu{print it}, \menu{inspect it} y \menu{explore it}. Hechemos una rápida mirada a cada una de estas
+Adem\'as de \menu{do it}, habr\'as notado \menu{print it}, \menu{inspect it} y \menu{explore it}. Hechemos una r\'apida mirada a cada una de estas
 
 \dothis{Escribe \ct{3 + 4} en el workspace. Ahora \menu{do it} con el atajo de teclado.}
 
-¡No te sorprendas si no viste nada ocurrir! Lo que acabas de hacer es enviar el mensaje \ct{+} con el argumento \ct{4} al número \ct{3}. Normalmente el resultado \ct{7} habrá sido sido computedo y retornado a ti, pero dado que el workspace sabía que hacer con la respuesta, simplemente se deshizo de la respuesta. Si queires ver el resultado, deberías elejir en su lugar \menu{print it}. \menu{print it} realmente compila la expresión, la ejecuta, envia el mensaje \ct{printString} al resultado, y muestra la cadena de caracteres resultante.
+ï¿½No te sorprendas si no viste nada ocurrir! Lo que acabas de hacer es enviar el mensaje \ct{+} con el argumento \ct{4} al n\'umero \ct{3}. Normalmente el resultado \ct{7} habr\'a sido sido computedo y retornado a ti, pero dado que el workspace sab\'ia que hacer con la respuesta, simplemente se deshizo de la respuesta. Si queires ver el resultado, deber\'ias elejir en su lugar \menu{print it}. \menu{print it} realmente compila la expresi\'on, la ejecuta, envia el mensaje \ct{printString} al resultado, y muestra la cadena de caracteres resultante.
 
 \dothis{selecciona \ct{3+4} y selecciona \menu{print it} (\short{p}).}
 Esta vez vemos el resultado esperado (\figref{printit}).
@@ -375,13 +375,13 @@ Esta vez vemos el resultado esperado (\figref{printit}).
 3 + 4 --> 7
 \end{code}
 \noindent
-Usamos la notación \ct{-->} como una convención en este libro para indicar que una expresión particular en \pharo devuelve un resultado dado cuando usas \menu{print it}.
+Usamos la notaci\'on \ct{-->} como una convenci\'on en este libro para indicar que una expresi\'on particular en \pharo devuelve un resultado dado cuando usas \menu{print it}.
 
-\dothis{Borra el texto iluminado ``\ct{7}'' (\pharo debería haberlo seleccionado, entonces simplemente puedes presionar la tecla delete). Selecciona \ct{3+4} nuevamente y esta vez usa \menu{inspect it} (\short{i}).}
+\dothis{Borra el texto iluminado ``\ct{7}'' (\pharo deber\'ia haberlo seleccionado, entonces simplemente puedes presionar la tecla delete). Selecciona \ct{3+4} nuevamente y esta vez usa \menu{inspect it} (\short{i}).}
 \noindent
-Ahora deberías ver una nueva ventana, llamada un \emphind{inspector}, con el encabezado \ct{SmallInteger: 7} (\figref{inspectit}).
-El inspector es una herramienta extremadamente útil que te permitirá navegar e interactuar con cualquier objeto en el sistema.
-El título nos dice que \ct{7} es una instancia de la clase \clsind{SmallInteger}.
+Ahora deber\'ias ver una nueva ventana, llamada un \emphind{inspector}, con el encabezado \ct{SmallInteger: 7} (\figref{inspectit}).
+El inspector es una herramienta extremadamente \'util que te permitir\'a navegar e interactuar con cualquier objeto en el sistema.
+El t\'itulo nos dice que \ct{7} es una instancia de la clase \clsind{SmallInteger}.
 El panel izquierdo nos permite navegar variables de instancia del objeto, los valores de los cuales son mostrados en el panel derecho.
 El panel inferior puede ser usado para escribir expresiones para enviar mensajes al objeto.
 
@@ -393,13 +393,13 @@ El panel inferior puede ser usado para escribir expresiones para enviar mensajes
 \dothis{Escribe \ct{self squared} en el panel inferior del inspector en \ct{7} y usa \menu{print it}.}
 
 \needlines{2}
-\dothis{Cierra el inspector. Escribe la expresión \ct{Object} en un workspace y esta vez usa \menu{explore it} (\short{I}, mayúscula de i).}
+\dothis{Cierra el inspector. Escribe la expresi\'on \ct{Object} en un workspace y esta vez usa \menu{explore it} (\short{I}, may\'uscula de i).}
 \index{keyboard shortcut!explore it}
 \index{explorer}
 
-Esta vez deberías ver una ventana llamada \clsind{Object} conteninedo el texto
+Esta vez deber\'ias ver una ventana llamada \clsind{Object} conteninedo el texto
 \mbox{$\triangleright$ \ct{root: Object}}.
-Haz clic en el triángulo para abrirla (\figref{exploreit}).
+Haz clic en el tri\'angulo para abrirla (\figref{exploreit}).
 
 \begin{figure}[htb]
 \centerline {\includegraphics[width=0.7\textwidth]{ExploreIt}}
@@ -408,14 +408,14 @@ Haz clic en el triángulo para abrirla (\figref{exploreit}).
 
 El explorador es similar al inspector, pero este ofrece una vista de arbol de un objeto complejo.
 En este caso el objeto que estamos mirando es la clase \ct{Object}.
-Podemos ver directamente toda la información almacenada en la clase, y podemos facilmente navegar todas sus partes.
+Podemos ver directamente toda la informaci\'on almacenada en la clase, y podemos facilmente navegar todas sus partes.
 
 %=================================================================
 \section{El navegador de clases}
 
-El \ind{browser} de clases\footnote{Confusamente, esto es referido varias veces como el ``navegador del sistema'' o el ``navegador de código''. \pharo usa la implementación \ind{OmniBrowser} para el navegador, el cual puede ser también conocido como ``OB'' o el ``navegador de paquetes''.
-En este libro simplemente usaremos el término ``navegador'', o, en caso de ambiguedad, el ``navegador de clases''.} es una de las heramientas clave usada para programar.
-Como podemos ver, hay varios navegadores disponibles para \pharo, pero este es el navegador básico que buscarás en cualquier imagen.
+El \ind{browser} de clases\footnote{Confusamente, esto es referido varias veces como el ``navegador del sistema'' o el ``navegador de c\'odigo''. \pharo usa la implementaci\'on \ind{OmniBrowser} para el navegador, el cual puede ser tambi\'en conocido como ``OB'' o el ``navegador de paquetes''.
+En este libro simplemente usaremos el t\'ermino ``navegador'', o, en caso de ambiguedad, el ``navegador de clases''.} es una de las heramientas clave usada para programar.
+Como podemos ver, hay varios navegadores disponibles para \pharo, pero este es el navegador b\'asico que buscar\'as en cualquier imagen.
 \seeindex{class browser}{browser}
 
 \dothis{Abre un navegador seleccionando \menu{World \go Class browser}.\footnote{Si el navegador browser que abres no luce como el mostrado en \figref{classBrowser}, necesitas cambiar el navegador por defecto. Vea \faqref{packagebrowser}.}}
@@ -424,15 +424,15 @@ Como podemos ver, hay varios navegadores disponibles para \pharo, pero este es e
 \ifluluelse
 	{\centerline {\includegraphics[width=\textwidth]{ClassBrowser1}}}
 	{\centerline {\includegraphics[width=0.7\textwidth]{ClassBrowser1}}}
-\caption{El navegador mostrando el método \ct{printString} del objeto class.
+\caption{El navegador mostrando el m\'etodo \ct{printString} del objeto class.
 \figlabel{classBrowser}}
 \end{figure}
 
 Podemos ver un navegador en \figref{classBrowser}.
-La barra de título indica que estamos navegando la clase \clsind{Object}.
+La barra de t\'itulo indica que estamos navegando la clase \clsind{Object}.
 %\footnote{If the browser you have seems to differ from the one described in this book, you may be using an image with a different default browser. See \faqref{omnibrowser}.}
 
-Cuando el navegador se abre por primera vez, todos los paneles están vacios menos el mas izquierdo.
+Cuando el navegador se abre por primera vez, todos los paneles est\'an vacios menos el mas izquierdo.
 El primer panel lista todo los \emph{paquetes} conocidos, los cuales contienen grupos de clases relacionadas.
 \index{category}
 
@@ -440,31 +440,31 @@ El primer panel lista todo los \emph{paquetes} conocidos, los cuales contienen g
 Esto causa que el segundo panel muestre una lista de todas las clases en el paquete seleccionado.
 
 \dothis{Selecciona la clase \clsind{Object}.}
-Ahora los dos paneles restantes se completarán con texto.
+Ahora los dos paneles restantes se completar\'an con texto.
 El tercer panel muestra los \emph{protocolos} de la clase actualmente seleccionada.
-Estos son agrupaciones convenientes de métodos relacionados.
-Si ningún \ind{protocolo} es seleccionado deberías ver todos los métodos en el cuarto panel.
+Estos son agrupaciones convenientes de m\'etodos relacionados.
+Si ning\'un \ind{protocolo} es seleccionado deber\'ias ver todos los m\'etodos en el cuarto panel.
 
 \dothis{Selecciona el protocolo \protind{printing}.}
-Quizás necesites desplazarte hacia abajo para encontrarlo.
-Verás en el cuarto panel sólo métodos relacionado con impresión.
+Quiz\'as necesites desplazarte hacia abajo para encontrarlo.
+Ver\'as en el cuarto panel s\'olo m\'etodos relacionado con impresi\'on.
 
-\dothis{Selecciona el método \mthind{Object}{printString}.}
-Vemos en el panel inferior el código fuente del método \ct{printString}, compartido por todos los objetos en el sistema (excepto por aquellos que los sobreescriben).
+\dothis{Selecciona el m\'etodo \mthind{Object}{printString}.}
+Vemos en el panel inferior el c\'odigo fuente del m\'etodo \ct{printString}, compartido por todos los objetos en el sistema (excepto por aquellos que los sobreescriben).
 
 %=================================================================
 \section{Encontrando clases}
 
-Hay varias formas de encontrar una clase en \pharo. La primera, como acabamos de ver, es conocer (o adivinar) en qué categoría está, y navegar hacia ella usando el navegador.
+Hay varias formas de encontrar una clase en \pharo. La primera, como acabamos de ver, es conocer (o adivinar) en qu\'e categor\'ia est\'a, y navegar hacia ella usando el navegador.
 \index{browser}
 \seeindex{browser!finding classes}{class, finding}
 \index{class!finding}
 
-Una segunda forma es enviar el mensaje \ct{browse} a la clase, pidiéndole que abra un navegador en ella misma. Supongamos que queremos navegar la clase \clsind{Boolean}.
+Una segunda forma es enviar el mensaje \ct{browse} a la clase, pidi\'endole que abra un navegador en ella misma. Supongamos que queremos navegar la clase \clsind{Boolean}.
 
 \dothis{Escribe \ct{Boolean browse} dentro de un workspace y \menu{do it}.}
-Se abrirá un navegador con la clase Boolean (\figref{browseBoolean}).
-Hay también un \ind{atajo de teclado} \short{b} (browse) que puedes usar en cualquier herramienta donde encuentres un nombre de clase;
+Se abrir\'a un navegador con la clase Boolean (\figref{browseBoolean}).
+Hay tambi\'en un \ind{atajo de teclado} \short{b} (browse) que puedes usar en cualquier herramienta donde encuentres un nombre de clase;
 \index{keyboard shortcut!browse it}
 Selecciona el nombre y escribe \short{b}.
 
@@ -472,13 +472,13 @@ Selecciona el nombre y escribe \short{b}.
 
 \begin{figure}[hbt]
 \centerline {\includegraphics[width=\textwidth]{Kernel-objects-boolean}}
-\caption{El navegador mostrando la definición de la clase Boolean.
+\caption{El navegador mostrando la definici\'on de la clase Boolean.
 \figlabel{browseBoolean}}
 \end{figure}
 
-Cuando la clase \ct{Boolean} es seleccionada pero ningún protocolo o método es seleccionado, en lugar del código fuente de un método, vemos una \emph{definición de clase} (\figref{browseBoolean}).
-Esto no es mas que un mensaje \st ordinario que es enviado a la clase padre, pidiéndolea crear una subclase.
-Aquí vemos que a la clase \ct{Object} se le pide crear una subclase llamada \ct{Boolean} sin variables de instancia, variables de clase o ``pool dictionaries'', y poner la clase \ct{Boolean} en la categoría \scatind{Kernel-Objects}.
+Cuando la clase \ct{Boolean} es seleccionada pero ning\'un protocolo o m\'etodo es seleccionado, en lugar del c\'odigo fuente de un m\'etodo, vemos una \emph{definici\'on de clase} (\figref{browseBoolean}).
+Esto no es mas que un mensaje \st ordinario que es enviado a la clase padre, pidi\'endolea crear una subclase.
+Aqu\'i vemos que a la clase \ct{Object} se le pide crear una subclase llamada \ct{Boolean} sin variables de instancia, variables de clase o ``pool dictionaries'', y poner la clase \ct{Boolean} en la categor\'ia \scatind{Kernel-Objects}.
 % The lower pane shows the \emph{class comment} --- a piece of plain text describing the class.
 Si haces \click en el \button{?} al pie del panel de clase, puedes ver \subind{class}{comment} en un panel dedicado (ver \figref{classComment}).
 
@@ -488,11 +488,11 @@ Si haces \click en el \button{?} al pie del panel de clase, puedes ver \subind{c
 \figlabel{classComment}}
 \end{figure}
 
-A menudo, la forma mas rápida de encontrar una clase es buscarla por nombre. Por ejemplo, supongamo que estás buscando una clase que represente fechas y horas.
+A menudo, la forma mas r\'apida de encontrar una clase es buscarla por nombre. Por ejemplo, supongamo que est\'as buscando una clase que represente fechas y horas.
 
-\dothis{Pon el ratón en el panel de paquete del navegador y escribe \short{f}, o selecciona \menu{find class \ldots (f)} haciendo \actclick{ing}. Escribe ``time'' en el cuadro de diálogo y acéptalo.} 
+\dothis{Pon el rat\'on en el panel de paquete del navegador y escribe \short{f}, o selecciona \menu{find class \ldots (f)} haciendo \actclick{ing}. Escribe ``time'' en el cuadro de di\'alogo y ac\'eptalo.} 
 \noindent
-Se presentará una lista de clases cuyos nombre contienen ``time'' (ver \figref{findit}). Elige una, digamos, \ct{Time}, y el navegador la mostrará, junto con comentario de clase que sugiere otras clases que pueden ser útiles. Si quieres navegar una de las otras, selecciona su nombre (en caulquier panel), y escribe \short{b}.
+Se presentar\'a una lista de clases cuyos nombre contienen ``time'' (ver \figref{findit}). Elige una, digamos, \ct{Time}, y el navegador la mostrar\'a, junto con comentario de clase que sugiere otras clases que pueden ser \'utiles. Si quieres navegar una de las otras, selecciona su nombre (en caulquier panel), y escribe \short{b}.
 \index{keyboard shortcut!find ...}
 \index{keyboard shortcut!browse it}
 
@@ -506,93 +506,93 @@ Se presentará una lista de clases cuyos nombre contienen ``time'' (ver \figref{f
 \figlabel{findit}}
 \end{figure}
 
-Si escribes el nombre completo (respetando mayúsculas y minúsculas) de una clase en el cuadro de diálogo de búsqueda, el navegador irá directamente a esa clase sin mostrarle la lista de opciones.
+Si escribes el nombre completo (respetando may\'usculas y min\'usculas) de una clase en el cuadro de di\'alogo de b\'usqueda, el navegador ir\'a directamente a esa clase sin mostrarle la lista de opciones.
 
 %=================================================================
-\section{Encontrando métodos}
+\section{Encontrando m\'etodos}
 \seclabel{quick:methodFinder}
 
-Algunas veces puedes adivinar el nombre de un método, o al menos parte del nombre de un método, mas facilmente que el nombre de una clase. Por ejemplo, si estás interesado en la hora actual, quizás esperas que haya un método llamado ``now'', o conteniendo ``now'' como parte de su nombre. Pero ¿dónde podría estar?
-El \emphind{buscador de métodos} puede ayudarte.
+Algunas veces puedes adivinar el nombre de un m\'etodo, o al menos parte del nombre de un m\'etodo, mas facilmente que el nombre de una clase. Por ejemplo, si est\'as interesado en la hora actual, quiz\'as esperas que haya un m\'etodo llamado ``now'', o conteniendo ``now'' como parte de su nombre. Pero ï¿½d\'onde podr\'ia estar?
+El \emphind{buscador de m\'etodos} puede ayudarte.
 \seeindex{browser!finding methods}{method, finding}
 \index{method!finding}
 
 \dothis{Selecciona \menu{World \go Tools ... \go Method finder}.
 Escribe ``now'' en el panel superior izquierdo, y luego \menu{accept} (o simplemente presiona la tecla \textsc{return}).}
-El buscador de métodos mostrará una lista de todos los nombres de los métodos que contienen la palabra ``now''.
-Para desplazar hasta \ct{now}, mueve el cursor en la lista y escribe ``\ct{n}''; este truco funciona en todas las ventanas con desplazamiento. Selecciona ``now'' y el panel derecho mostrará las clases que definen un método con este nombre, como se muestra en \figref{MethodFinder}. Seleccionando cualquiera de ellas se abrirá un navegador en ella.
+El buscador de m\'etodos mostrar\'a una lista de todos los nombres de los m\'etodos que contienen la palabra ``now''.
+Para desplazar hasta \ct{now}, mueve el cursor en la lista y escribe ``\ct{n}''; este truco funciona en todas las ventanas con desplazamiento. Selecciona ``now'' y el panel derecho mostrar\'a las clases que definen un m\'etodo con este nombre, como se muestra en \figref{MethodFinder}. Seleccionando cualquiera de ellas se abrir\'a un navegador en ella.
 
 \begin{figure}[hbt]
 \centerline {\includegraphics[width=0.7\textwidth]{methodFinder-now}}
-\caption{El buscador de métodos mostrando todas las clases que definen un método llamado \ct{now}.
+\caption{El buscador de m\'etodos mostrando todas las clases que definen un m\'etodo llamado \ct{now}.
 \figlabel{MethodFinder}}
 \end{figure}
 
-Otras veces quizás tienes idea que un métod existe, pero no tendrás idea cuál es su nombre.
-¡El buscador de métodos aún puede ayudar! Por ejemplo, supongamos que te gustaría encontrar un método que transforme una cadena de caracteres en mayúsculas, por ejemplo, traduciría \ct{'eureka'} en \ct{'EUREKA'}.
+Otras veces quiz\'as tienes idea que un m\'etod existe, pero no tendr\'as idea cu\'al es su nombre.
+ï¿½El buscador de m\'etodos a\'un puede ayudar! Por ejemplo, supongamos que te gustar\'ia encontrar un m\'etodo que transforme una cadena de caracteres en may\'usculas, por ejemplo, traducir\'ia \ct{'eureka'} en \ct{'EUREKA'}.
 
-\dothis{Escribe \ct{'eureka' . 'EUREKA'} en el búscador de métodos y presiona 
+\dothis{Escribe \ct{'eureka' . 'EUREKA'} en el b\'uscador de m\'etodos y presiona 
   la tecla \textsc{return}, como se muestra en 
   \figref{methodFinder-example1}.}
 \noindent
-El buscador de métodos sugerirá un método que hace lo que quieres.\footnote{Si una ventana es desplegada con una advertencia aerca de una método deprecado, no tengas miedo --- el buscador de métodos está simplemente está probando todos los posibles candidatos, incluyendo métodos deprecados. Simplemente \click ~\button{Proceed}.}
+El buscador de m\'etodos sugerir\'a un m\'etodo que hace lo que quieres.\footnote{Si una ventana es desplegada con una advertencia aerca de una m\'etodo deprecado, no tengas miedo --- el buscador de m\'etodos est\'a simplemente est\'a probando todos los posibles candidatos, incluyendo m\'etodos deprecados. Simplemente \click ~\button{Proceed}.}
 
-Un asterico al comienzo de una linea en el panel derecho del buscador de métodos indica que este método de los que fué realmente usado para obtener el resultado solicitado. 
-El asterisco delante de \ct{String asUppercase} nos permite saber que el métodous \mthind{String}{asUppercase} definido en la clase \clsind{String} fue executado y retornó el resultado buscado. Los métodpós que no tiene un asterisco son los otros métodos que tiene el mismo nombre que los métodos que retornaron el resultado esperado. \cmind{Character}{asUppercase} no fue ejecutado en nuestro ejemplo, porque \ct{'eureka'} no es un objeto \clsind{Character}.
+Un asterico al comienzo de una linea en el panel derecho del buscador de m\'etodos indica que este m\'etodo de los que fu\'e realmente usado para obtener el resultado solicitado. 
+El asterisco delante de \ct{String asUppercase} nos permite saber que el m\'etodous \mthind{String}{asUppercase} definido en la clase \clsind{String} fue executado y retorn\'o el resultado buscado. Los m\'etodp\'os que no tiene un asterisco son los otros m\'etodos que tiene el mismo nombre que los m\'etodos que retornaron el resultado esperado. \cmind{Character}{asUppercase} no fue ejecutado en nuestro ejemplo, porque \ct{'eureka'} no es un objeto \clsind{Character}.
 
 \begin{figure}[hbt]
 \centerline {\includegraphics[width=\textwidth]{MethodFinder-example1}}
-\caption{Encontrando un método mediante un ejemplo.
+\caption{Encontrando un m\'etodo mediante un ejemplo.
 \figlabel{methodFinder-example1}}
 \end{figure}
 
-Puede también usar el nuscador de métodos con argumentos; por ejemplo, si estás buscando un métod que encuentre el máximo factor común entre dos enteros, puedes probar \ct{25. 35. 5} como ejemplo. Puedes darle al buscador de métodos múltiples ejemplos para reducir el espacio de búsqueda; el texto de ayuda en el panel inferior explica cómo.
+Puede tambi\'en usar el nuscador de m\'etodos con argumentos; por ejemplo, si est\'as buscando un m\'etod que encuentre el m\'aximo factor com\'un entre dos enteros, puedes probar \ct{25. 35. 5} como ejemplo. Puedes darle al buscador de m\'etodos m\'ultiples ejemplos para reducir el espacio de b\'usqueda; el texto de ayuda en el panel inferior explica c\'omo.
 
 %=================================================================
-\section{Definiendo un nuevo método}
+\section{Definiendo un nuevo m\'etodo}
 
-El advenimiento de \ind{Test Driven Development}\cite{Beck03a} (TDD) ha cambiado la forma que escribimos código.
-La idea detrás de TDD es que escribimos una prueba que define el comportamiento deseado de nuestro código \emph{antes} de escribir el propio código.
-Sólo entonces escribimos el código que satisface la prueba.
+El advenimiento de \ind{Test Driven Development}\cite{Beck03a} (TDD) ha cambiado la forma que escribimos c\'odigo.
+La idea detr\'as de TDD es que escribimos una prueba que define el comportamiento deseado de nuestro c\'odigo \emph{antes} de escribir el propio c\'odigo.
+S\'olo entonces escribimos el c\'odigo que satisface la prueba.
 \seeindex{Behavior Driven Development}{Test Driven Development}
 % \orla{describe the technique where we write a test hat ... subsequently we write ...}
 
-Supongamos que nuestra tarea es ecribir un método que ``decir algo fuerte y con énfasis''. ¿Qué podría significar esto exactamente? ¿Cuál sería un buen nombre para el método? ¿Cómo podemos estar seguros que los programadores quienes quizás tengan que mantener nuestro método en el futuro tendrán una descripción unívoca de lo que el método debería hacer? Podemos responder todas estas preguntas dando un ejemplo:
+Supongamos que nuestra tarea es ecribir un m\'etodo que ``decir algo fuerte y con \'enfasis''. ï¿½Qu\'e podr\'ia significar esto exactamente? ï¿½Cu\'al ser\'ia un buen nombre para el m\'etodo? ï¿½C\'omo podemos estar seguros que los programadores quienes quiz\'as tengan que mantener nuestro m\'etodo en el futuro tendr\'an una descripci\'on un\'ivoca de lo que el m\'etodo deber\'ia hacer? Podemos responder todas estas preguntas dando un ejemplo:
 
 \begin{quote}
-Cuando enviamos el mensaje \ct{shout} a la cadena de caracteres ``Don't panic'' el resultado debería ser ``DON'T PANIC!''.
+Cuando enviamos el mensaje \ct{shout} a la cadena de caracteres ``Don't panic'' el resultado deber\'ia ser ``DON'T PANIC!''.
 \end{quote}
 
 \noindent
-Para hacer de este ejemplo en algo que el sistema pueda usar, lo ponemos dentro de un método de prueba:
+Para hacer de este ejemplo en algo que el sistema pueda usar, lo ponemos dentro de un m\'etodo de prueba:
 \index{testing}
 \index{SUnit}
 
 \needlines{3}
-\begin{method}[testShout]{Una prueba para un método gritar}
+\begin{method}[testShout]{Una prueba para un m\'etodo gritar}
 testShout
 	self assert: ('Don''t panic' shout = 'DON''T PANICBANG')
 \end{method} % BANG is the escape for !
 
-¿Cómo creamos un nuevo método en \pharo? Primero, tenemos que decidir a que clase debería pertencer el métodoto.
-En este caso, el método \ct{shout} que estamos probando irá en la clase \clsind{String}, por lo que la prueba correspondiente irá, por convención, en una clase llamada \clsind{StringTest}.
+ï¿½C\'omo creamos un nuevo m\'etodo en \pharo? Primero, tenemos que decidir a que clase deber\'ia pertencer el m\'etodoto.
+En este caso, el m\'etodo \ct{shout} que estamos probando ir\'a en la clase \clsind{String}, por lo que la prueba correspondiente ir\'a, por convenci\'on, en una clase llamada \clsind{StringTest}.
 
 \begin{figure}[hbt]
 \centerline {\includegraphics[width=\textwidth]{StringTest-newMethodTemplate}}
-\caption{El nuevo método en la clase \ct{StringTest}.
+\caption{El nuevo m\'etodo en la clase \ct{StringTest}.
 \figlabel{newMethodTemplate}}
 \end{figure}
 
-\dothis{Abre un navegador en la clase \ct{StringTest}, y selecciona el protocolo apropiado para nuestro método, en este caso \menu{tests - converting}, como se muestra en \figref{newMethodTemplate}.
-El texto seleccionado en el panel inferior es una plantilla que te recuerda cómo luce un método \st.
-Borralo y escribe el código del método \mthref{testShout}.}
-Una vez que hayas escrito el texto en el navegador, notarás que el panel inferior se torna rojo. Esto es un recordatorio de que el panel contien cambios sin guardar.
-Selecciona \menu{accept (s)} haciendo \actclick{ing} en el panel inferior, o simpelmente escribe \short{s}, para compilar y guardar el método.
+\dothis{Abre un navegador en la clase \ct{StringTest}, y selecciona el protocolo apropiado para nuestro m\'etodo, en este caso \menu{tests - converting}, como se muestra en \figref{newMethodTemplate}.
+El texto seleccionado en el panel inferior es una plantilla que te recuerda c\'omo luce un m\'etodo \st.
+Borralo y escribe el c\'odigo del m\'etodo \mthref{testShout}.}
+Una vez que hayas escrito el texto en el navegador, notar\'as que el panel inferior se torna rojo. Esto es un recordatorio de que el panel contien cambios sin guardar.
+Selecciona \menu{accept (s)} haciendo \actclick{ing} en el panel inferior, o simpelmente escribe \short{s}, para compilar y guardar el m\'etodo.
 \index{keyboard shortcuts}
 \index{keyboard shortcut!accept}
 \seeindex{accept it}{keyboard shortcut, accept}
 
-Si esta es la priera vez que has guardado código en tu imagen, probablemente te pedirá que ingreses tu nombre. Dado que mucha gente ha contribuido con código a la imagen, es importante mantener un seguimiento de cualquiera que cree o modifique métodos. Simplemente ingresa tu nombre y apellido, sin espacios, o separados por un punto.
+Si esta es la priera vez que has guardado c\'odigo en tu imagen, probablemente te pedir\'a que ingreses tu nombre. Dado que mucha gente ha contribuido con c\'odigo a la imagen, es importante mantener un seguimiento de cualquiera que cree o modifique m\'etodos. Simplemente ingresa tu nombre y apellido, sin espacios, o separados por un punto.
 
 %\begin{figure}[hbt]
 %\centerline {\includegraphics[width=0.35\textwidth]{initials}}
@@ -600,8 +600,8 @@ Si esta es la priera vez que has guardado código en tu imagen, probablemente te 
 %\figlabel{initials}}
 %\end{figure}
 
-Debido a que no existe todavía ningún método llamado \ct{shout}, el navegador te pedirá confirmar que este es el nombre que realmente quieres\,---\,y te sugerirá algunos otros nombres que podrías haber intentado (\figref{testShoutConfirm}).
-Esto puede ser bastante útil si has cometido un error al escribir, realmente \emph{queremos} decir \ct{shout}, dado que es el método que estamos a punto de crear, por lo que tenemos que confirmar esto seleccionando la primera opción del menú de opciones, como se ve en \figref{testShoutConfirm}. 
+Debido a que no existe todav\'ia ning\'un m\'etodo llamado \ct{shout}, el navegador te pedir\'a confirmar que este es el nombre que realmente quieres\,---\,y te sugerir\'a algunos otros nombres que podr\'ias haber intentado (\figref{testShoutConfirm}).
+Esto puede ser bastante \'util si has cometido un error al escribir, realmente \emph{queremos} decir \ct{shout}, dado que es el m\'etodo que estamos a punto de crear, por lo que tenemos que confirmar esto seleccionando la primera opci\'on del men\'u de opciones, como se ve en \figref{testShoutConfirm}. 
 
 
 %\begin{figure}[htb]
@@ -623,7 +623,7 @@ Esto puede ser bastante útil si has cometido un error al escribir, realmente \em
 
 \begin{figure}[htb]
 \centerline {\includegraphics[width=\textwidth]{testShoutConfirm}}
-\caption{Aceptando el método \ct{testShout} en la clase \ct{StringTest}.\figlabel{testShoutConfirm}}
+\caption{Aceptando el m\'etodo \ct{testShout} en la clase \ct{StringTest}.\figlabel{testShoutConfirm}}
 \end{figure}
 
 
@@ -635,11 +635,11 @@ Esto puede ser bastante útil si has cometido un error al escribir, realmente \em
 %\figlabel{testShoutConfirm}}
 %\end{figure}
 
-\dothis{Ejecuta la prueba creada: abre el \ind{SUnit} \emphind{TestRunner} desde el menú \menu{World}.}
+\dothis{Ejecuta la prueba creada: abre el \ind{SUnit} \emphind{TestRunner} desde el men\'u \menu{World}.}
 
-Los paneles mas a la izquierda son similares a los paneles superiores en el navegador. El panel izquierdo contiene una lista de categorías, pero estas están restringidas a aquellas categorías que contienen clases de prueba.
+Los paneles mas a la izquierda son similares a los paneles superiores en el navegador. El panel izquierdo contiene una lista de categor\'ias, pero estas est\'an restringidas a aquellas categor\'ias que contienen clases de prueba.
 
-\dothis{Selecciona \scat{CollectionsTests-Text} y el panel a la derecha mostrará todos las clases de prueba en la categoría, las cuales incluyen la clase \ct{StringTest}. Los nombres de las clases ya están seleccionados, por lo que haz \click en \menu{Run Selected} para ejecutar todas estas pruebas.}
+\dothis{Selecciona \scat{CollectionsTests-Text} y el panel a la derecha mostrar\'a todos las clases de prueba en la categor\'ia, las cuales incluyen la clase \ct{StringTest}. Los nombres de las clases ya est\'an seleccionados, por lo que haz \click en \menu{Run Selected} para ejecutar todas estas pruebas.}
 
 \begin{figure}[hbt]
 \centerline {\includegraphics[width=\textwidth]{testRunnerOnStringTest}}
@@ -647,15 +647,15 @@ Los paneles mas a la izquierda son similares a los paneles superiores en el nave
 \figlabel{testRunnerTestShout}}
 \end{figure}
 
-Deberías ver un mensaje cómo el mostrado en \figref{testRunnerTestShout}, el cual indica que hubo un error en la ejecución de las pruebas. La lista de pruebas que dieron lugar a los errores se muestra en el panel inferior derecho; como puedes ver, \ct{StringTest>>>#testShout} es el culpable.
-(Notar que \ct{StringTest>>#testShout} es la manera en Smalltalk de identificar el método \mthind{StringTest}{testShout} de la clase \ct{StringTest}.)
-Si haces \click en esa linea de texto, la prueba errónea se ejecutará de nuevo, esta vez in such a way that you see the error happen: ``\ct{MessageNotUnderstood: ByteString>>>shout}''.
+Deber\'ias ver un mensaje c\'omo el mostrado en \figref{testRunnerTestShout}, el cual indica que hubo un error en la ejecuci\'on de las pruebas. La lista de pruebas que dieron lugar a los errores se muestra en el panel inferior derecho; como puedes ver, \ct{StringTest>>>#testShout} es el culpable.
+(Notar que \ct{StringTest>>#testShout} es la manera en Smalltalk de identificar el m\'etodo \mthind{StringTest}{testShout} de la clase \ct{StringTest}.)
+Si haces \click en esa linea de texto, la prueba err\'onea se ejecutar\'a de nuevo, esta vez in such a way that you see the error happen: ``\ct{MessageNotUnderstood: ByteString>>>shout}''.
 \seeindex{\ct{>>}}{Behavior, \ct{>>}}
 \cmindex{Behavior}{>>}
 
 La ventana que se abre con el mensaje de error es el depurador de \st (Ver \figref{predebugger}).
 % \ab{Well, it's actually the \emph{pre-}debugger.  Does this matter?}\damien{I don't think it's important at this point.}
-Miraremos el \ind{debugger} y cómo usarlo en \charef{env}.
+Miraremos el \ind{debugger} y c\'omo usarlo en \charef{env}.
 
 \begin{figure}[hbt]
 \centerline {\includegraphics[width=\textwidth]{Predebugger}}
@@ -663,30 +663,30 @@ Miraremos el \ind{debugger} y cómo usarlo en \charef{env}.
 \figlabel{predebugger}
 \end{figure}
 
-El error es, por supuesto, exactamente lo que esperabamos: ejecutar la prueba genera un error porque aún no hemos escrito un método que le diga a las cadenas de caracteres como \ct{shout}.  
-Nevertheless, es una buena práctica estar seguros que la prueba falla porque confirma que tenemos configurada la maquinaria de pruebas correctamente y que la nueva prueba está realmente siendo ejecutada.
-Una vez que has visto el error, puedes dejar la prueba ejecutándose haciendo clic en \button{Abandon}, lo cual cerrará la ventana de depuración.
-Notar que a menudo con Smalltalk puedes definir el método no definido usando el botón \button{Create}, editar el método recientemente creado en el depurador, y ejecutar la prueba hacindo clic en \button{Proceed}.
+El error es, por supuesto, exactamente lo que esperabamos: ejecutar la prueba genera un error porque a\'un no hemos escrito un m\'etodo que le diga a las cadenas de caracteres como \ct{shout}.  
+Nevertheless, es una buena pr\'actica estar seguros que la prueba falla porque confirma que tenemos configurada la maquinaria de pruebas correctamente y que la nueva prueba est\'a realmente siendo ejecutada.
+Una vez que has visto el error, puedes dejar la prueba ejecut\'andose haciendo clic en \button{Abandon}, lo cual cerrar\'a la ventana de depuraci\'on.
+Notar que a menudo con Smalltalk puedes definir el m\'etodo no definido usando el bot\'on \button{Create}, editar el m\'etodo recientemente creado en el depurador, y ejecutar la prueba hacindo clic en \button{Proceed}.
 
-¡AHora definamos un método que hará que la pueba sea exitosa!
+ï¿½AHora definamos un m\'etodo que har\'a que la pueba sea exitosa!
 
-\dothis{Selecciona la clase \clsind{String} en el navegador, selecciona el protocolo \menu{converting}, escribe el texto en \mthref{shout} sobre la plantilla de creación de método, y selecciona \menu{accept}.
+\dothis{Selecciona la clase \clsind{String} en el navegador, selecciona el protocolo \menu{converting}, escribe el texto en \mthref{shout} sobre la plantilla de creaci\'on de m\'etodo, y selecciona \menu{accept}.
 (Nota: para obtener \mbox{\ct{^}}, escribe \caret). }
-\begin{method}[shout]{El método shout}
+\begin{method}[shout]{El m\'etodo shout}
 shout
 	^ self asUppercase, 'BANG'
 \end{method}
 
-La coma es la operación de concatenación de cadenas de caracteres, por lo que el cuerpo del método agrega un signo de exclamación a una versión en mayúsculas de lo que sea el objeto \ct{String} al cual se le envió el mensaje \ct{shout}.
-El $\uparrow$ dice a \pharo que la expresión que sigue es la respuesta a ser retornada desde el método, en este caso la nueva cadena de caracteres concatenada.
+La coma es la operaci\'on de concatenaci\'on de cadenas de caracteres, por lo que el cuerpo del m\'etodo agrega un signo de exclamaci\'on a una versi\'on en may\'usculas de lo que sea el objeto \ct{String} al cual se le envi\'o el mensaje \ct{shout}.
+El $\uparrow$ dice a \pharo que la expresi\'on que sigue es la respuesta a ser retornada desde el m\'etodo, en este caso la nueva cadena de caracteres concatenada.
 \seeindex{comma}{Collection, comma operator}
 \index{Collection!comma operator}
 
-¿Este método funciona? Ejecutémos la prueba y veamos.
+ï¿½Este m\'etodo funciona? Ejecut\'emos la prueba y veamos.
 
-\dothis{Has clic en \menu{Run Selected} nuevamente en el test runner, y esta vez deberías ver una barra verde y un texto indicando que todas las pruebas se ejecutaron sin fallas ni errores.}
+\dothis{Has clic en \menu{Run Selected} nuevamente en el test runner, y esta vez deber\'ias ver una barra verde y un texto indicando que todas las pruebas se ejecutaron sin fallas ni errores.}
 Cuando obtienes uan barra verde\footnotemark, es una buena idea guardar tu trabajo y tomar un descanso.  
-¡Asi que hazlo ahora mismo!
+ï¿½Asi que hazlo ahora mismo!
 %\footnotetext{Actually, you might not get a green bar since some images contains tests for bugs that still need to be fixed.
 %Don't worry about this.
 %\pharo is constantly evolving.
@@ -696,24 +696,24 @@ Cuando obtienes uan barra verde\footnotemark, es una buena idea guardar tu traba
 \ifluluelse
 	{\centerline{\includegraphics[width=\textwidth]{String-Shout}}}
 	{\centerline{\includegraphics[width=0.7\textwidth]{String-Shout}}}
-\caption{EL método \ct{shout} definido en la clase \ct{String}.
+\caption{EL m\'etodo \ct{shout} definido en la clase \ct{String}.
 \figlabel{String-shout}}
 \end{figure}
 
 %=================================================================
-\section{Resumen del capítulo}
-Este capítulo te ha introducidoen el ambiente de \pharo y te ha mostradoand cómo usar la mayoría de las herramientas, como el navegador, el buscador de métodos, y el test runner. Has visto también un poco de la sintaxis de \pharo, aunque puede que la entiendas completamente aún.
+\section{Resumen del cap\'itulo}
+Este cap\'itulo te ha introducidoen el ambiente de \pharo y te ha mostradoand c\'omo usar la mayor\'ia de las herramientas, como el navegador, el buscador de m\'etodos, y el test runner. Has visto tambi\'en un poco de la sintaxis de \pharo, aunque puede que la entiendas completamente a\'un.
 
 \begin{itemize}
-  \item Un sistema \pharo ejecutando consiste en una \emph{máquina virtual}, un archivo \emph{sources}, y unos archivos \emph{image} y \emph{changes}. Sólo estos dos últimos cambian, grabando una instantanea del sistema ejecutando.
-  \item CUando recuperes una imagen de \pharo, te encontrarás en exactamente el mismo estado\,---\,con los mismos objetos ejecutando\,---\,que tenías cuando guardaste por última vez la imagen.
-  \item \pharo está diseñado para trabajar con un ratón de tres botones para hacer \click, hacer \actclick o hacer \metaclick. Si no tienes un ratón de tres botones, puede usar las teclas modificadoras para obtener el mismo efecto.
-  \item Puede hacer \click en el fondo de \pharo para abrir el \emph{menú World} y lanzar varias herramientas.
-  \item Un \emph{workspace} es una herramienta para escribir y evaluar porciones de código. También puedes usarlo para almacenar texto arbitrario.
-  \item Puedes usar \ind{atajos de teclado} en el texto del workspace, o en cualquier otra herramienta, para evaluar código. El mas importante de estos son \menu{do it} (\short{d}), \menu{print it} (\short{p}), \menu{inspect it} (\short{i}), \menu{explore it} (\short{I}) y \menu{browse it} (\short{b}).
+  \item Un sistema \pharo ejecutando consiste en una \emph{m\'aquina virtual}, un archivo \emph{sources}, y unos archivos \emph{image} y \emph{changes}. S\'olo estos dos \'ultimos cambian, grabando una instantanea del sistema ejecutando.
+  \item CUando recuperes una imagen de \pharo, te encontrar\'as en exactamente el mismo estado\,---\,con los mismos objetos ejecutando\,---\,que ten\'ias cuando guardaste por \'ultima vez la imagen.
+  \item \pharo est\'a diseï¿½ado para trabajar con un rat\'on de tres botones para hacer \click, hacer \actclick o hacer \metaclick. Si no tienes un rat\'on de tres botones, puede usar las teclas modificadoras para obtener el mismo efecto.
+  \item Puede hacer \click en el fondo de \pharo para abrir el \emph{men\'u World} y lanzar varias herramientas.
+  \item Un \emph{workspace} es una herramienta para escribir y evaluar porciones de c\'odigo. Tambi\'en puedes usarlo para almacenar texto arbitrario.
+  \item Puedes usar \ind{atajos de teclado} en el texto del workspace, o en cualquier otra herramienta, para evaluar c\'odigo. El mas importante de estos son \menu{do it} (\short{d}), \menu{print it} (\short{p}), \menu{inspect it} (\short{i}), \menu{explore it} (\short{I}) y \menu{browse it} (\short{b}).
 %  \item \sqmap is a tool for loading useful packages from the Internet.
-  \item El \emph{navegador} es la herramienta principal para navegar código \pharo, y para desarrollar nuevo código.
-  \item El \emph{test runner} es una herramienta para ejecutar pruebas unitarias. También soporta Desarrollo Dirigido por Pruebas.
+  \item El \emph{navegador} es la herramienta principal para navegar c\'odigo \pharo, y para desarrollar nuevo c\'odigo.
+  \item El \emph{test runner} es una herramienta para ejecutar pruebas unitarias. Tambi\'en soporta Desarrollo Dirigido por Pruebas.
 \end{itemize}
 
 %=================================================================
