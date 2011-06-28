@@ -11,5 +11,6 @@ mouse = ratón
 pidgin english = ingles macarronico
 pool dictionary = diccionario comun
 radix notation = notacion cientifica
+snippet = fragmento de código
 string = cadena de caracteres
 

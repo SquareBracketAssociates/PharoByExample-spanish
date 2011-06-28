@@ -41,16 +41,16 @@
 	\sloppy
 \fi
 %=================================================================
-\chapter{Una primer aplicación}
+\chapter{Una primer aplicaci\'on}
 \chalabel{firstApp}
 
-En este capítulo vamos a desarrollar un juego simple: \ind{Lights Out}.\footnote{\url{http://en.wikipedia.org/wiki/Lights_Out_(game)}}
-En el camino mostraremos la mayoría de las herramientas que los programadores
+En este cap\'itulo vamos a desarrollar un juego simple: \ind{Lights Out}.\footnote{\url{http://en.wikipedia.org/wiki/Lights_Out_(game)}}
+En el camino mostraremos la mayor\'ia de las herramientas que los programadores
 de \pharo usan para construir y depurar sus programas, y mostraremos como se
 intercambian los programas con otros desarrolladores. Veremos el explorador,
 el inspector de objetos, el depurador y el paquete explorador \ind{Monticello}
-El desarrollo en Smalltalk es eficiente: encontrará que pasa mas tiempo escribiendo código y mucho menos manejando el proceso de desarrollo.
-Esto es en parte porque Smalltalk es muy simple, y en parte porque las herramientas que conforman el entorno de programación están muy bien integradas con el lenguaje.
+El desarrollo en Smalltalk es eficiente: encontrar\'as que pasas m\'as tiempo escribiendo c\'odigo y mucho menos manejando el proceso de desarrollo.
+Esto es en parte porque Smalltalk es muy simple, y en parte porque las herramientas que conforman el entorno de programaci\'on est\'an muy bien integradas con el lenguaje.
 
 %=================================================================
 \section{El juego Lights Out}
@@ -66,7 +66,7 @@ Esto es en parte porque Smalltalk es muy simple, y en parte porque las herramien
 \begin{figure}[ht]
 	\vskip -\baselineskip
 	\centerline{\includegraphics[width=.3\linewidth]{GameBoard}}
-	\caption{El tablero del juego Lights Out. El usuario ha hecho click con el mouse como muestra el cursor.
+	\caption{El tablero del juego Lights Out. El usuario ha hecho clic con el rat\'on como muestra el cursor.
 	\figlabel{gameBoard}}
 \end{figure}
 
@@ -80,9 +80,9 @@ Esto es en parte porque Smalltalk es muy simple, y en parte porque las herramien
 
 Para mostrarle como utilizar las herramientas de \pharo, construiremos un un juego
 sencillo llamado \emph{Lights Out}. El tablero del juego se muesta en \figref{gameBoard};
-consiste en una grilla rectagular de \emph{celdas} amarillas. Cuando haces click
-sobre una celda con el mouse, las cuatro celdas adyacentes se tornan azules. Si
-haces \Click otra vez, se volverán otras vez amarillas. El objetivo del juego
+consiste en una grilla rectagular de \emph{celdas} amarillas. Cuando haces clic
+sobre una celda con el rat\'on, las cuatro celdas adyacentes se tornan azules. Si
+haces \Click otra vez, se volver\'an otras vez amarillas. El objetivo del juego
 es poner azules la mayor cantidad de celdas como sea posible.
 
 % The Lights Out game shown in \figref{gameBoard} is made up of two kinds of
@@ -91,11 +91,11 @@ es poner azules la mayor cantidad de celdas como sea posible.
 % for the cells.  We will now show you how to define these classes using the
 % \pharo programming tools.
 
-En el Lights Out que se muesta \figref{gameBoard} está compuesto por
-dos objetos: el tablero del juego en sí, y 100 objetos celda individuales. El
-código de \pharo para implementar el juego tendrá dos clases: una para el
-juego y otra para las celdas. Ahora veremos cómo definir estas clases usando
-las herramientas de programación de \pharo.
+En el Lights Out que se muesta \figref{gameBoard} est\'a compuesto por
+dos objetos: el tablero del juego en s\'i, y 100 objetos celda individuales. El
+c\'odigo de \pharo para implementar el juego tendr\'a dos clases: una para el
+juego y otra para las celdas. Ahora veremos c\'omo definir estas clases usando
+las herramientas de programaci\'on de \pharo.
 
 \section{Creando un paquete nuevo}
 
@@ -104,8 +104,8 @@ las herramientas de programación de \pharo.
 % will see how to create packages, categories and classes.
 
 Ya hemos visto el \ind{Browser} en \charef{quick}, donde aprendimos como
-navegar clases y métodos, y vimos como definir nuevos métodos. Ahora veremos
-como crear paquetes, categorías y clases.
+navegar clases y m\'etodos, y vimos como definir nuevos m\'etodos. Ahora veremos
+como crear paquetes, categor\'ias y clases.
 
 \index{category!creating}
 \index{package!creating}
@@ -119,10 +119,10 @@ como crear paquetes, categorías y clases.
 
 \dothis{Abre el explorador y seleccione la herramienta package.
 Selecciona \menu{create package}.\footnote{Estamos asumiendo que el explorador
-de paquetes está instalado como el explorador por defecto, lo que
+de paquetes est\'a instalado como el explorador por defecto, lo que
 ocurre en casi todos los casos. Si el navagador que obtienes no se
-ve similar al de \figref{addPackage}, entonces tal vez tienes que cambiar
-el explorador por defecto. Mire \faqref{packagebrowser}.}}
+ve similar al de \figref{addPackage}, entonces tal vez tengas que cambiar
+el explorador por defecto. Mira \faqref{packagebrowser}.}}
 
 \begin{figure}[htb]
 \begin{minipage}[b]{0.48\textwidth}
@@ -146,8 +146,8 @@ el explorador por defecto. Mire \faqref{packagebrowser}.}}
 % dialog box and click \menu{accept} (or just press the return key); the new
 % package is created, and positioned alphabetically in the list of packages.
 
-Escriba el nombre del nuevo paquete (usaremos \scat{PBE-LightsOut}) en
-el cuadro de dialogo y seleccionamos \menu{accept} (o solo pulsamos
+Escribe el nombre del nuevo paquete (usaremos \scat{PBE-LightsOut}) en
+el cuadro de di\'alogo y selecciona \menu{accept} (o solo pulsa
 la tecla enter); El nuevo paquete se ha creado, y se posiciona alfabeticamente
 en la lista de paquetes.
 
@@ -159,9 +159,9 @@ en la lista de paquetes.
 % editing pane displays a template to make it easy to create a new class (see
 % \figref{classTemplate}).
 
-Por supuesto, todavía no hay clases en el nuevo paquete. Aún así, el panel
-principal de edición nos muestra una plantilla para hacer mas sencillo crear
-una nueva clase (vea \figref{classTemplate}).
+Por supuesto, todav\'ia no hay clases en el nuevo paquete. A\'un as\'i, el panel
+principal de edici\'on nos muestra una plantilla para hacer m\'as sencilla la tarea de crear
+una nueva clase (ver \figref{classTemplate}).
 
 
 
@@ -170,13 +170,13 @@ una nueva clase (vea \figref{classTemplate}).
 % new class has no variables, and should belong to the category
 % \scat{PBE-LightsOut}.
 
-Esta plantilla nos nuestra una \st expression que senvía un mensaje a la clases
-que se llama \ct{Object}, solicitandole que genere una subclase llamada
-\ct{NameOfSubClass}. La nueva clase no tendrá variables, y deberá pertenecer
-a la categoría \scat{PBE-LightsOut}.
+Esta plantilla nos muestra una \st expression que env\'ia un mensaje a la clases
+que se llama \ct{Object}, solicit\'andole que genere una subclase llamada
+\ct{NameOfSubClass}. La nueva clase no tendr\'a variables, y deber\'a pertenecer
+a la categor\'ia \scat{PBE-LightsOut}.
 
 % \subsection{On Categories and Packages}
-\subsection{Sobre categorías y paquetes}
+\subsection{Sobre categor\'ias y paquetes}
 \seclabel{categoriesPackages}
 
 % Historically, \st only knows about \emph{categories}, not packages.
@@ -189,18 +189,18 @@ a la categoría \scat{PBE-LightsOut}.
 % \index{package}
 % \index{category}
 
-Historicamente, se trata sobre \emp{categorias}, no paquetes.
-Entonces podrías preguntarte, ?`cual es la diferencia?
-Una categoría es simplemente una collección de clases relacionanadas en
-una \st imagen.
-Un \emp{paquete} es una colleccion de clases relacionadas junto a
-\emph{metodos de extensión} que podrían estar bajo un control de versiones
+Hist\'oricamente, se trata sobre \emph{categor\'ias}, no paquetes.
+Entonces podr\'ias preguntarte, ?`cual es la diferencia?
+Una categor\'ia es simplemente una colecci\'on de clases relacionanadas en
+una \st im\'agen.
+Un \emph{paquete} es una colecci\'on de clases relacionadas junto a
+\emph{m\'etodos de extensi\'on} que podr\'ian estar bajo un control de versiones
 como Monticello.
-Por convención, los nombres de paquetes y categorias son siempre los mismos.
-En la mayoría de los casos no nos preocuparemos por las diferencias, pero
-seremos cuidadosos en la terminología de este libro para utilizar la
-denominación correcta, ya que hay puntos donde de la diferencia es crucial.
-Aprenderemos mas sobre este tema cuando comencemos a trabajar con Monticello.
+Por convenci\'on, los nombres de paquetes y categor\'ias son siempre los mismos.
+En la mayor\'ia de los casos no nos preocuparemos por las diferencias, pero
+seremos cuidadosos en la terminolog\'ia de este libro para utilizar la
+denominaci\'on correcta, ya que hay puntos donde de la diferencia es crucial.
+Aprenderemos m\'as sobre este tema cuando comencemos a trabajar con Monticello.
 \index{package}
 \index{category}
 
@@ -210,13 +210,13 @@ Aprenderemos mas sobre este tema cuando comencemos a trabajar con Monticello.
 
 Solamente modificaremos la plantilla para crear la clase que realmente queremos.
 
-\dothis{Modifique la plantilla de creación de clase como sigue:}
+\dothis{Modifique la plantilla de creaci\'on de clase como sigue:}
 \begin{itemize}
   \item Reemplace \clsind{Object} por \clsind{SimpleSwitchMorph}.
   \item Reemplace \ct{NameOfSubClass} por \clsind{LOCell}.
   \item Añada \ct{mouseAction} a la lista de variables de instancia.
 \end{itemize}
-El resultado devería parecerse a \clsref{firstClassDef}.
+El resultado deber\'ia parecerse a \clsref{firstClassDef}.
 
 \needlines{5}
 \begin{classdef}[firstClassDef]{Defining the class \ct| LOCell|}
@@ -238,13 +238,13 @@ SimpleSwitchMorph subclass: #LOCell
 % \ct{mouseAction} instance variable, which we will use to define what action the
 % cell should take if the mouse should click over it.
 
-Esta nueva definición consiste de una expresión \st que envía un mensaje a la
-clase existente \ct{SimpleSwitchMorph}, pidiéndole que cree una subclase llamada
-\ct{LOCell}. (En realidad, como \ct{LOCell} no existe aún, se le pasa 
+Esta nueva definici\'on consiste de una expresi\'on \st que env\'ia un mensaje a la
+clase existente \ct{SimpleSwitchMorph}, pidi\'endole que cree una subclase llamada
+\ct{LOCell}. (En realidad, como \ct{LOCell} no existe a\'un, se le pasa 
 \emphind{symbol} \ct{#LOCell} como argumento, que indica el nombre de la clase a 
-crear). También le indicamos que las instancias de la nueva clase deberían 
+crear). Tambi\'en le indicamos que las instancias de la nueva clase deber\'ian 
 tener una instancia de variable de \ct{mouseAction}, que usaremos para definir
-que acción debería tomar la celda si se hiciera click sobre esta.
+que acci\'on deber\'ia tomar la celda si se hiciera clic sobre esta.
 
 
 % \emph{At this point you still have not created anything.}
@@ -253,10 +253,10 @@ que acción debería tomar la celda si se hiciera click sobre esta.
 %WIP To actually send this message, you must \menu{accept} it.
 
 \emph {Hasta el momento no has creado nada.}
-Nota que el borde del panel de template de clase cambió a rojo (\figref{acceptClassDef}).
+Nota que el borde del panel de template de clase cambi\'o a rojo (\figref{acceptClassDef}).
 Esto significa que hay cambios \emph {sin guardar.}
-Para enviar este mensaje, debes \menu {aceptarlo}. 
-%ver que hace el \menu, para ver si 'aceptarlo' queda en ingles o castellano
+Para enviar este mensaje, debes seleccionar \menu {accept}. 
+
 
 
 %WIP \begin{figure}[h!t]
@@ -271,19 +271,19 @@ Para enviar este mensaje, debes \menu {aceptarlo}.
 \ifluluelse
   {\centerline {\includegraphics[width=\textwidth]{AcceptClassDef}}}
   {\centerline {\includegraphics[scale=0.7]{AcceptClassDef}}}
-\caption{Template de creación de clase.
+\caption{Template de creaci\'on de clase.
 \figlabel{acceptClassDef}}
 \end{figure}
 
 % \dothis{Accept the new class definition.}
 % Either \actclick and select \menu{accept}, or use the shortcut \short{s} (for ``save'').
 % The message will be sent to \ct{SimpleSwitchMorph}, which will cause the new class to be compiled.
-%WIP \index{keyboard shortcut!accept}
+% \index{keyboard shortcut!accept}
 
-\dothis{Aceptar la definición de la nueva clase.}
-Esto se puede hacer de dos formas: o bien \actclicky selecciona \menu{accept}, o bien
+\dothis{Aceptar la definici\'on de la nueva clase.}
+Esto se puede hacer de dos formas: o bien \actclick y selecciona \menu{accept}, o bien
 usa el atajo \short{s} (para ``guardar'').
-El mensaje será enviado a \ct{SimpleSwitchMorph}, causando que la nueva clase sea compilada.
+El mensaje ser\'a enviado a \ct{SimpleSwitchMorph}, causando que la nueva clase sea compilada.
 \index{keyboard shortcut!accept} % <-- ver si hay que traducir esto.
 
 % Once the class definition is accepted, the class will be created and appear in the classes pane of the browser (\figref{LOCell}).
@@ -291,13 +291,13 @@ El mensaje será enviado a \ct{SimpleSwitchMorph}, causando que la nueva clase s
 % Smalltalkers put a very high value on the readability of their code, and detailed comments in methods are unusual: the philosophy is that the code should speak for itself. (If it doesn't, you should refactor it until it does!) A class \subind{class}{comment} need not contain a detailed description of the class, but a few words describing its overall purpose are vital if programmers who come after you are to know whether to spend time looking at this class.
 % \index{refactoring}
 
-Una vez que la definición de la clase es aceptada, la clase será creada y aparecerá en el panel de clases del navegador (\figref{LOCell}).
-Ahora el panel de edición muestra la definición de la clase, y un pequeño panel debajo te recordará escribir unas pocas palabras describiendo el propósito de la clase. Esto se llama \emph {comentario de la clase}. Es importante escribir un comentario que le de a otros programadores una visión de alto nivel del propósito de la clase.
-Los desarrolladores Smalltalk le dan un gran valor a la legibilidad de su código, y es poco común entcontrar comentarios detallados dentro de los métodos: la filosofía de Smalltalk es que el código debe ser autoexplicativo. (Si no lo es, deberías refactorizarlo hasta que lo sea!) Una clase \subind{clase}{comentario} no debería contener una descripción detallada de la clase, pero unas pocas palabras que describan su propósito de manera general son vitales para que otros programadores sepan si vale la pena invertir tiempo en mirar la clase o no.
-\index{refactoring} % <--ver si se traduce
+Una vez que la definici\'on de la clase es aceptada, la clase ser\'a creada y aparecer\'a en el panel de clases del navegador (\figref{LOCell}).
+Ahora el panel de edici\'on muestra la definici\'on de la clase, y un pequeño panel debajo te recordar\'a escribir unas pocas palabras describiendo el prop\'osito de la clase. Esto se llama \emph {comentario de la clase}. Es importante escribir un comentario que le de a otros programadores una visi\'on de alto nivel del prop\'osito de la clase.
+Los desarrolladores Smalltalk le dan un gran valor a la legibilidad de su c\'odigo, y es poco com\'un entcontrar comentarios detallados dentro de los m\'etodos: la filosof\'ia de Smalltalk es que el c\'odigo debe ser autoexplicativo. (Si no lo es, !`deber\'ias refactorizarlo hasta que lo sea!) Una clase \subind{clase}{comentario} no deber\'ia contener una descripci\'on detallada de la clase, pero unas pocas palabras que describan su prop\'osito de manera general son vitales para que otros programadores sepan si vale la pena invertir tiempo en mirar la clase o no.
+\index{refactoring}
 
 %\dothis{Type a class comment for \ct{LOCell} and accept it; you can always improve it later.}
-\dothis{Escribe un comentario de clase para \ct{LOCell} y guárdalo; siempre se puede mejorar mas tarde.}
+\dothis{Escribe un comentario de clase para \ct{LOCell} y gu\'ardalo; siempre se puede mejorar m\'as tarde.}
 
 \begin{figure}[h!t]
 \ifluluelse
@@ -309,10 +309,10 @@ Los desarrolladores Smalltalk le dan un gran valor a la legibilidad de su códig
 
 %=================================================================
 %\section{Adding methods to a class}
-\section{Agregando métodos a una clase}
+\section{Agregando m\'etodos a una clase}
 
 %Now let's add some methods to our class.
-Ahora agreguemos algunos métodos a nuestra clase.
+Ahora agreguemos algunos m\'etodos a nuestra clase.
 
 % \dothis{Select the protocol \prot{-{}-all-{}-} in the protocol pane.}
 % You will see a template for method creation in the editing pane.
@@ -321,9 +321,9 @@ Ahora agreguemos algunos métodos a nuestra clase.
 % \index{method!creation}
 % \index{browser!defining a method}
 
-\dothis{Selecciona el protocolo \prot{-{}-todo-{}-} en el panel de protocolos.}
-Verás un template para la creaciń de métodos en el panel de edición.
-Selecciónalo y reemplazalo por el texto de \mthref{scbecellinitialize}.
+\dothis{Selecciona el protocolo \prot{-{}-all-{}-} en el panel de protocolos.}
+Ver\'as un template para la creaci\'on de m\'etodos en el panel de edici\'on.
+Selecci\'onalo y reemplazalo por el texto de \mthref{scbecellinitialize}.
 \protindex{all}
 \index{method!creation}
 \index{browser!defining a method}
@@ -347,16 +347,15 @@ initialize
 % Note that the characters \ct{''} on line 3 are two separate single quotes with nothing between them, not a double quote!  \ct{''} denotes the empty string.
 
 \noindent
-Notar que los caracteres \ct{''} en la línea 3 son comillas simples sin nada en el medio, no una doble comilla. \ct{''} es una cadena de caracteres vacía. 
+Notar que los caracteres \ct{''} en la l\'inea 3 son comillas simples sin nada en el medio, no una doble comilla. \ct{''} es una cadena de caracteres vac\'ia. 
 
 %\dothis{\menu{Accept} this method definition.}
 
-\dothis{\menu{Aceptar} la definición de este método.}
+\dothis{\menu{Aceptar} la definici\'on de este m\'etodo.}
 
 %What does the above code do?  We won't go into all of the details here (that's what the rest of the book is for!), but we will give you a quick preview.  Let's take it line by line.
 
-?`Qué hace el código de arriba? No nos adentraremos en los detalles aquí (para eso es el resto del libro!), pero te daremos una rápida introducción. Veámoslo línea por línea.
-\fede{una mejor traducción para 'a quick preview'?}
+?`Qu\'e hace el c\'odigo de arriba? No nos adentraremos en los detalles aqu\'i (para eso es el resto del libro!), pero te daremos una breve introducci\'on. Ve\'amoslo l\'inea por l\'inea.
 
 %Notice that the method is called \mthind{LOCell}{initialize}.
 %The name is very significant!
@@ -366,11 +365,11 @@ Notar que los caracteres \ct{''} en la línea 3 son comillas simples sin nada en
 %\seeindex{Object!initialization}{initialization}
 %\index{initialization}
 
-Notar que el método se llama \mthind{LOCell}{initialize}.
+Notar que el m\'etodo se llama \mthind{LOCell}{initialize}.
 El nombre es muy significativo!
-Por convención, si una clase define un método llamado \ct{initialize}, este será llamado inmediatamente después que el objeto sea creado. 
-Entonces, cuando evaluamos \ct{LOCell new}, el mensaje \ct{initialize} será enviado automáticamente al objeto recién creado. 
-Los métodos "initialize" se usan para establecer el estado de los objetos, normalmente para establecer las variables de instancia; esto es exactamente lo que estamos haciendo acá. 
+Por convenci\'on, si una clase define un m\'etodo llamado \ct{initialize}, este ser\'a llamado inmediatamente despu\'es que el objeto sea creado. 
+Entonces, cuando evaluamos \ct{LOCell new}, el mensaje \ct{initialize} ser\'a enviado autom\'aticamente al objeto reci\'en creado. 
+Los m\'etodos "initialize" se usan para establecer el estado de los objetos, normalmente para establecer las variables de instancia; esto es exactamente lo que estamos haciendo ac\'a. 
 \seeindex{Object!initialization}{initialization}
 \index{initialization}
 
@@ -378,26 +377,26 @@ Los métodos "initialize" se usan para establecer el estado de los objetos, norm
 % The idea here is that any inherited state will be properly initialized by the \ct{initialize} method of the superclass.
 % It is always a good idea to initialize inherited state by sending \ct{super initialize} before doing anything else; we don't know exactly what \ct{SimpleSwitchMorph}'s \ct{initialize} method will do, and we don't care, but it's a fair bet that it will set up some instance variables to hold reasonable default values, so we had better call it, or we risk starting in an unclean state.
 
-Lo primero que hace este método (línea 2) es ejecutar el método \ct{initialize} de su superclase, \ct{SimpleSwitchMorph}.
+Lo primero que hace este m\'etodo (l\'inea 2) es ejecutar el m\'etodo \ct{initialize} de su superclase, \ct{SimpleSwitchMorph}.
 % Superclass lo traducimos como superclase o como clase padre o como? <----
-El objetivo de esto es que cualquier estado heredado sea inicializado adecuadamente por el método \ct{initialize} de la superclase.
-Siempre es buena idea inicializar estado heredado enviando el mensaje \ct{super initialize} antes de hacer cualquier otra cosa; no sabemos exactamente que hará el método \ct{initialize} de \ct{SimpleSwitchMorph}, y no nos importa, pero seguramente inicializará algunas variables de instancia para que contengan valores razonables, por lo que es mejor invocarlo para no arriesgarse a que los objetos empiecen en un estado inválido.
+El objetivo de esto es que cualquier estado heredado sea inicializado adecuadamente por el m\'etodo \ct{initialize} de la superclase.
+Siempre es buena idea inicializar estado heredado enviando el mensaje \ct{super initialize} antes de hacer cualquier otra cosa; no sabemos exactamente que har\'a el m\'etodo \ct{initialize} de \ct{SimpleSwitchMorph}, y no nos importa, pero seguramente inicializar\'a algunas variables de instancia para que contengan valores razonables, por lo que es mejor invocarlo para no arriesgarse a que los objetos empiecen en un estado inv\'alido.
 
 % The rest of the method sets up the state of this object.
 % Sending \ct{self label: ''}, for example, sets the label of this object to the empty string.
 % \pvindex{self}
 
-El resto del método establece el estado del objeto.
-Enviar el mensaje \ct{self label: ''}, por ejemplo, establece la etiqueta de este objeto a la cadena de caracteres vacía.
+El resto del m\'etodo establece el estado del objeto.
+Enviar el mensaje \ct{self label: ''}, por ejemplo, establece la etiqueta de este objeto a la cadena de caracteres vac\'ia.
 \pvindex{self}
 
 % The expression \ct{0@0 corner: 16@16} probably needs some explanation. 
 % \lct{0@0} represents a \clsind{Point} object with $x$ and $y$ coordinates both set to 0.
 % In fact, \ct{0@0} sends the message \ct{@}
 
-La expresión \ct{0@0 corner: 16@16} probablemente necesite un poco de explicación.
+La expresi\'on \ct{0@0 corner: 16@16} probablemente necesite un poco de explicaci\'on.
 \lct{0@0} representa un objeto \clsind{Point} con las coordenadas $x$ e $y$ en 0.
-De hecho, \ct{0@0} envía el mensaje \ct{@}
+De hecho, \ct{0@0} env\'ia el mensaje \ct{@}
 
 % Yuck... the following should be \mthind{Number}{@} 
 %%% THIS IS BROKEN -- don't do it! (on)
@@ -414,31 +413,31 @@ De hecho, \ct{0@0} envía el mensaje \ct{@}
 % Now we send this newly created point the message \ct{corner: 16@16}, which causes it to create a \clsind{Rectangle} with corners \ct{0@0} and \ct{16@16}.
 % This newly created rectangle will be assigned to the \ct{bounds} variable, inherited from the superclass.
 
-al número \ct{0} con parámetro \ct{0}.
-El efecto será que el número \ct{0} le pedirá a la clase \ct{Point} que cree una nueva instancia con coordenadas (0,0).
+al n\'umero \ct{0} con par\'ametro \ct{0}.
+El efecto ser\'a que el n\'umero \ct{0} le pedir\'a a la clase \ct{Point} que cree una nueva instancia con coordenadas (0,0).
 Ahora le enviamos a este nuevo punto el mensaje \ct{corner: 16@16}, que hace que cree un \clsind{Rectangle} con esquinas \ct{0@0} y \ct{16@16}.
-Este nuevo rectángulo será asignado a la variable \ct{bounds}, heredada de la superclase. 
+Este nuevo rect\'angulo ser\'a asignado a la variable \ct{bounds}, heredada de la superclase. 
 
 % Note that the origin of the \pharo screen is the \emph{top left}, and the $y$ coordinate increases \emph{downwards}.
-Nota que el orígen de la pantalla de \pharo es la \emph{esquina izquierda}, y la coordenada $y$ se incrementa hacia \emph{abajo}.
+Nota que el or\'igen de la pantalla de \pharo es la \emph{esquina izquierda}, y la coordenada $y$ se incrementa hacia \emph{abajo}.
 
 % The rest of the method should be self-explanatory.
 % Part of the art of writing good \st code is to pick good method names so that \st code can be read like a kind of pidgin English.
 % You should be able to imagine the object talking to itself and saying ``\ct{Self use square corners!}'', ``\ct{Self turn off!}''.
 
-El resto del método debería ser auto explicativo. 
-Parte de arte de escribir buen código \st es escoger los nombres adecuados para los métodos para que el código pueda ser leido como una especie de inglés macarrónico. 
-Deberías poder imaginar al objeto hablandose a sí mismo y diciendo ``\ct{Self use square corners!}'', ``\ct{Self turn off}''.
+El resto del m\'etodo deber\'ia ser auto explicativo. 
+Parte de arte de escribir buen c\'odigo \st es escoger los nombres adecuados para los m\'etodos para que el c\'odigo pueda ser leido como una especie de ingl\'es macarr\'onico. 
+Deber\'ias poder imaginar al objeto hablandose a s\'i mismo y diciendo ``\ct{Self use square corners!}'', ``\ct{Self turn off}''.
 
 %=================================================================
 % \section{Inspecting an object}
 \section{Inspeccionando un objeto}
 
 % You can test the effect of the code you have written by creating a new \ct{LOCell} object and inspecting it.
-Puedes probar el efecto del código que acabas de escribir creando un nuevo objeto \ct{LOCell} y luego inspeccionándolo. 
+Puedes probar el efecto del c\'odigo que acabas de escribir creando un nuevo objeto \ct{LOCell} y luego inspeccion\'andolo. 
 
 % \dothis{Open a workspace. Type the expression \ct{LOCell new} and \menu{inspect it}.}
-\dothis{Abre un workspace. Tipea la expresión \ct{LOCell new} y \menu{inspect it}.}
+\dothis{Abre un workspace. Tipea la expresi\'on \ct{LOCell new} y \menu{inspect it}.}
 
 %\begin{figure}[htbp]
 %   \centering
@@ -464,7 +463,7 @@ El panel izquierdo de \ind{inpector} muestra una lista de variables de instancia
 %\on{should use the mini workspace instead to send bounds: ?}
 
 % The bottom pane of the inspector is a mini-workspace.  It's useful because in this workspace the pseudo-variable \self is bound to the object selected. 
-El panel inferior del inspector es un mini-workspace. Es muy útil porque en este workspace la pseudo variable \self está ligada al objeto seleccionado.
+El panel inferior del inspector es un mini-workspace. Es muy \'util porque en este workspace la pseudo variable \self est\'a ligada al objeto seleccionado.
 
 % \dothis{
 % Select the LOCell at the root of the inspector window.
@@ -477,13 +476,13 @@ El panel inferior del inspector es un mini-workspace. Es muy útil porque en est
 % (You may have to \actclick{} \menu{refresh} to see the new bounds value.)
 
 \dothis{
-Selecciona LOCell en la raíz de la ventana del inspector.
+Selecciona LOCell en la ra\'iz de la ventana del inspector.
 Tipea el texto \ct{self openInWorld} en el mini-workspace y \menu{do it}.}
-La celda debería aparecer cerca de la esquina superior izquierda de la pantalla, exactamente donde sus \ct{límites} dicen que debería aparecer. 
+La celda deber\'ia aparecer cerca de la esquina superior izquierda de la pantalla, exactamente donde sus \ct{l\'imites} dicen que deber\'ia aparecer. 
 \metaclick en la celda para que aparezca el halo de Morphic \subind{Morphic}. %% <---verificar
-Mueve la celda con el asa marrón (esquina superior derecha) y redimensiónalo con el asa amarilla (abajo a la derecha).
-Nota como los límites reportados por el inspector también cambian. 
-(Tal vez tengas que \actclick{} \menu{refresh} para ver los nuevos valores de los límites.)
+Mueve la celda con el asa marr\'on (esquina superior derecha) y redimensi\'onalo con el asa amarilla (abajo a la derecha).
+Nota como los l\'imites reportados por el inspector tambi\'en cambian. 
+(Tal vez tengas que \actclick{} \menu{refresh} para ver los nuevos valores de los l\'imites.)
 
 % \begin{figure}[htbp]
 % \centering
@@ -503,7 +502,7 @@ Nota como los límites reportados por el inspector también cambian.
 \caption{Redimensiona la celda.\figlabel{cellresize}}
 \end{figure}
 
-\dothis{Borra la celda haciendo click en la \ct{x} en el asa rosa.}
+\dothis{Borra la celda haciendo clic en la \ct{x} en el asa rosa.}
 
 %=================================================================
 % \section{Defining the class LOGame}
@@ -517,7 +516,7 @@ Ahora creemos la otra clase que necesitamos para el juego, que llamaremos \clsin
 % Edit the code so that it reads as follows, and \menu{accept} it.
 
 \dothis{Has visible el template de definici\'on de clases en la ventana principal del navegador.}
-Has esto haciendo click en el nombre del paquete.
+Has esto haciendo clic en el nombre del paquete.
 Edita el c\'odigo para que quede como se muestra a continuaci\'on, y has \menu{accept}.
 
 \needlines{6}
@@ -598,19 +597,18 @@ A continuaci\'on, \pharo se quejar\'a de que no conoce el significado de \ct{cel
 
 \dothis{Elige \menu{declare instance} porque queremos que \ct{cells} sea una variable de instancia.}
 Finalmente, \pharo se quejar\'a del mensaje \ct{newCellAt:at:} en la \'ultima l\'inea; esto tampoco es un error, asi que debes confirmar ese mensaje tambi\'en.
-\index{definici\'on de variable al vuelo} 
-%FR "al vuelo" me pareció lo mejor para "on the fly"
-\index{definici\'on de variable de instancia}
+\index{on the fly variable definition}
+\index{instance variable definition} 
 
 % If you now look at the class definition once again (which you can do by clicking on the \button{instance} button), you will see that the browser has modified it to include the instance variable \ct{cells}.
 
-Si miras ahora a la definici\'on de la clase de nuevo (cosa que puedes hacer haciendo click en el bot\'on \button{nstance}), ver\'as que el navegador la modific\'o para incluir la variable de instancia \ct{cells}.
+Si miras ahora a la definici\'on de la clase de nuevo (cosa que puedes hacer haciendo clic en el bot\'on \button{nstance}), ver\'as que el navegador la modific\'o para incluir la variable de instancia \ct{cells}.
 
 % Let's look at this \ct{initialize} method.
 % The line \ct{| sampleCell width height n |}  declares 4 temporary variables. They are called temporary variables because their scope and lifetime are limited to this method.  Temporary variables with explanatory names are helpful in making code more readable.  Smalltalk has no special syntax to distinguish constants and variables, and in fact all four of these ``variables'' are really constants. 
 % Lines 4--7 define these constants.
 Miremos ahora al m\'etodo \ct{initialize}.
-La l\'inea \ct{| sampleCell width height n |} declara 4 variables temporales. Son llamadas temporarias porque su \'ambito y tiempo de vida son limitados a este m\'etodo. Las variables temporales con nombres explicativos ayudan a hacer el c\'odigo mas legible. SMalltalk no tiene sintaxis especial para distinguir constantes y variables, y en realidad estas cuatro ``variables'' son en realidad constantes.
+La l\'inea \ct{| sampleCell width height n |} declara 4 variables temporales. Son llamadas temporarias porque su \'ambito y tiempo de vida son limitados a este m\'etodo. Las variables temporales con nombres explicativos ayudan a hacer el c\'odigo m\'as legible. SMalltalk no tiene sintaxis especial para distinguir constantes y variables, y en realidad estas cuatro ``variables'' son en realidad constantes.
 Las l\'ineas 4--7 definen estas constantes.
 
 % How big should our game board be?  Big enough to hold some integral number of cells, and big enough to draw a border around them.
@@ -705,7 +703,7 @@ Si has seguido este ejemplo, el tercer panel bien podr\'ia contener el protocolo
 % How does \pharo{} know that this is the right protocol?  Well, in general \pharo{} can't know, but in this case there is also an \ct{initialize} method in a superclass, and \pharo assumes that our \ct{initialize} method should go in the same category as the one that it overrides.
 % \index{method!categorize}
 \dothis{\Actclick en el panel de protocolo y selecciona \menu{various \go categorize automatically} para arreglar esto, y mueve los m\'etodos \ct{initialize} a un nuevo protocolo llamado \protind{initialization}.}
-?`Como sabe \pharo que este es el protocolo correcto? Bueno, en general  \pharo{} no puede saber, pero en este caso tambi\'en hay un m\'etodo \ct{initialize} en una superclase, y \pharo asume que nuestro m\'etodo \ct{initialize deber\'ia ir en la misma categor\'ia que el que est\'a sobreescribiendo. 
+?`Como sabe \pharo que este es el protocolo correcto? Bueno, en general  \pharo{} no puede saberlo, pero en este caso tambi\'en hay un m\'etodo \ct{initialize} en una superclase, y \pharo asume que nuestro m\'etodo \ct{initialize} deber\'ia ir en la misma categor\'ia que el que est\'a sobreescribiendo. 
 \index{method!categorize}
 
 %*** CODIGO COMENTADO EN LA VERSION ORIGINAL ***%
@@ -738,7 +736,7 @@ LOGame>>>cellsPerSide
 \index{constant methods}
 
 % This method could hardly be simpler: it answers the constant 10.  One advantage of representing constants as methods is that if the program evolves so that the constant then depends on some other features, the method can be changed to calculate this value.
-Este m\'etodo no podr\'ia ser mas simple: responde con la constante 10. Una ventaja de representar constantes con m\'etodos es que si el programa evoluciona de manera que la constante depende de otras caracter\'isticas, el m\'etodo puede ser cambiado para calcular el nuevo valor. 
+Este m\'etodo no podr\'ia ser m\'as simple: responde con la constante 10. Una ventaja de representar constantes con m\'etodos es que si el programa evoluciona de manera que la constante depende de otras caracter\'isticas, el m\'etodo puede ser cambiado para calcular el nuevo valor. 
 
 \needlines{10}
 %\begin{method}[newCellAt:at:]{An initialization helper method}
@@ -771,7 +769,7 @@ Confirma la pronunciaci\'on de los nuevos m\'etodos \ct{toggleNeighboursOfCellAt
 \Mthref{newCellAt:at:} devuelve una nueva LOCell, especializada en la posici\'on \ct{(i,j)} en la \clsind{Matriz} de celdas.
 La \'ultima l\'inea define el \ct{mouseAction} de la nueva celda como el \emph{bloque}
 \mbox{\lct{[self toggleNeighboursOfCellAt: i at: j ]}.}
-En efecto, esto define el comportamiento callback cuando se hace click con el rat\'on. 
+En efecto, esto define el comportamiento callback cuando se hace clic con el rat\'on. 
 El m\'etodo correspondiente tambi\'en tiene que ser definido. 
 
 \begin{method}[toggleNeighboursOfCellAt:at:]{The callback method}
@@ -789,7 +787,7 @@ LOGame>>>toggleNeighboursOfCellAt: i at: j
 % \dothis{Place this method in a new protocol called \prot{game logic}. (\Actclick in the protocol pane to add a new protocol.)}
 % To move the method, you can simply click on its name and drag it to the newly-created protocol (\figref{dragMethod}).
 \dothis{Coloca este m\'etodo en un nuevo protocolo llamado \prot{game logic}. (\Actclick en el panel de protocolo para agregar un nuevo protocolo.)}
-Para mover el m\'etodo, puedes hacer click en su nombre y arrastrarlo dentro del nuevo protocolo (\figref{dragMethod}).
+Para mover el m\'etodo, puedes hacer clic en su nombre y arrastrarlo dentro del nuevo protocolo (\figref{dragMethod}).
 
 \begin{figure}[htbp]
    \centering
@@ -801,7 +799,7 @@ Para mover el m\'etodo, puedes hacer click en su nombre y arrastrarlo dentro del
 \end{figure}
 
 % To complete the Lights Out game, we need to define two more methods in class \ct{LOCell} to handle mouse events.
-Para completar el juego Lights Out, necesitamos definir dos m\'etodos mas en la clase \ct{LOCell} para manejar los eventos del rat\'on.
+Para completar el juego Lights Out, necesitamos definir dos m\'etodos m\'as en la clase \ct{LOCell} para manejar los eventos del rat\'on.
 % \begin{method}[mouseAction:]{A typical setter method}
 \begin{method}[mouseAction:]{Un m\'etodo setter t\'ipico}
 LOCell>>>mouseAction: aBlock
@@ -810,7 +808,7 @@ LOCell>>>mouseAction: aBlock
 \cmindex{LOCell}{mouseAction:}
 
 % \Mthref{mouseAction:} does nothing more than set the cell's \ct{mouseAction} variable to the argument, and then answers the new value.
-\Mthref{mouseAction:} no hace nada mas que establecer la variable \ct{mouseAction} de la celda al argumento, y luego retorna el nuevo valor.
+\Mthref{mouseAction:} no hace nada m\'as que establecer la variable \ct{mouseAction} de la celda al argumento, y luego retorna el nuevo valor.
 
 % Any method that \emph{changes} the value of an instance variable in this way is called a \emph{setter method}; a method that \emph{answers} the current value of an instance variable is called a \emph{getter method}.
 Cualquier m\'etodo que \emph{cambie} el valor de una variable de instancia de esta manera se llama \emph{m\'etodo setter}; un m\'etodo que \emph{retorna} el valor actual de una variable de instancia se llama \emph{m\'etodo getter}.
@@ -874,13 +872,13 @@ Si has seguido todos los pasos, deber\'ias poder jugar el juego, que consiste en
 \dothis{En un workspace, tipea \ct{LOGame new openInWorld} y \menu{do it}.}
 
 % The game will open, and you should be able to click on the cells and see how it works.
-El juego se abrir\'a, y deber\'ias poder hacer click en las celdas y ver como funciona. 
+El juego se abrir\'a, y deber\'ias poder hacer clic en las celdas y ver como funciona. 
 
 % Well, so much for theory\ldots{}
 % When you click on a cell, a \emphind{notifier} window called the \clsind{PreDebugWindow}window appears with an error message!
 % As depicted in \figref{lightsOutError}, it says \ct{MessageNotUnderstood: LOGame>>>toggleState}.
 Bueno, demasiada teor\'ia\ldots{}
-Cuando haces click en una celda, una ventana de \emphind{notificaci\'on} llamada ventana \clsind{PreDebugWindow} aparece con un mensaje de error!
+Cuando haces clic en una celda, una ventana de \emphind{notificaci\'on} llamada ventana \clsind{PreDebugWindow} aparece con un mensaje de error!
 Como se muestra en \figref{lightsOutError}, dice \ct{MessageNotUnderstood: LOGame>>>toggleState}.
 
 \begin{figure}[ht]
@@ -888,7 +886,7 @@ Como se muestra en \figref{lightsOutError}, dice \ct{MessageNotUnderstood: LOGam
 	{\centerline{\includegraphics[width=\textwidth]{Error}}}
 	{\centerline{\includegraphics[scale=0.7]{Error}}}
 %\caption{There is a bug in our game when a cell is clicked!
-\caption{'!Hay un bug en nuestro juego cuando se hace click en nuestra celda!
+\caption{'!Hay un bug en nuestro juego cuando se hace clic en nuestra celda!
 \figlabel{lightsOutError}}
 \end{figure}
 
@@ -899,14 +897,14 @@ Como se muestra en \figref{lightsOutError}, dice \ct{MessageNotUnderstood: LOGam
 % \dothis{Click on the \menu{debug} button in the notifer window.}
 % The debugger will appear.
 % In the upper part of the debugger window you can see the execution stack, showing all the active methods; selecting any one of them will show, in the middle pane, the Smalltalk code being executed in that method, with the part that triggered the error highlighted.
-\dothis{Haz click en el bot\'on \menu{debug} en la ventana de notificaci\'on.}
+\dothis{Haz clic en el bot\'on \menu{debug} en la ventana de notificaci\'on.}
 El debugger aparecer\'a.
 En la parte superior de la ventana del debugger puedes ver la pila de ejecuci\'on, mostrando todos los m\'etodos activos; seleccionando alguno de ellos se mostrar\'a, en el panel del medio, el c\'odigo Smalltalk ejecut\'andose en ese m\'etodo, con la parte que dispar\'o el error resaltada. 
 
 % \dothis{Click on the line labelled
 % \ct{LOGame>>>toggleNeighboursOfCellAt:at:} (near the top).}
 % The debugger will show you the \ind{execution context} within this method where the error occurred (\figref{debugToggle}).
-\dothis{Has click en la l\'inea etiquetada 
+\dothis{Has clic en la l\'inea etiquetada 
 \ct{LOGame>>>toggleNeighboursOfCellAt:at:} (near the top).}
 El debugger te mostrar\'a el \ind{contexto de ejecuci\'on} de este m\'etodo donde ocurri\'o el error (\figref{debugToggle}).
 
@@ -976,7 +974,7 @@ Recuerda de \charef{quick} que la manera de hacer \ind{return} de un \subind{met
 
 % Often, you can fix the code directly in the debugger window and click \menu{Proceed} to continue running the application.
 % In our case, because the bug was in the initialization of an object, rather than in the method that failed, the easiest thing to do is to close the debugger window, destroy the running instance of the game (with the \subind{Morphic}{halo}), and create a new one.
-A menudo puedes arreglar el c\'odigo directamente en la ventaba del debugger y hacer click en \menu{Proceed} para continuar corriendo la aplicaci\'on.
+A menudo puedes arreglar el c\'odigo directamente en la ventaba del debugger y hacer clic en \menu{Proceed} para continuar corriendo la aplicaci\'on.
 En nuestro caso, como el bug estaba en la inicializaci\'on de un objeto, y no en el m\'etodo que fall\'o, lo m\'as f\'acil
 es cerrar la ventana de debug, destruir la intancia del juego ejecut\'andose (con el \subind{Morphic}{halo}), y crear una nueva.
 
@@ -987,7 +985,7 @@ es cerrar la ventana de debug, destruir la intancia del juego ejecut\'andose (co
 \dothis{Do: \ct{LOGame new openInWorld} again.}
 
 % Now the game should work properly ... or nearly so.  If we happen to move the mouse between clicking and releasing, then the cell the mouse is over will also be toggled.  This turns out to be behavior that we inherit from \ct{SimpleSwitchMorph}. We can fix this simply by overriding \ct{mouseMove:} to do nothing:
-Ahora el juego deber\'ia funcionar correctamente... o casi. Si hacemos click, y luego movemos el rat\'on antes de soltar el bot\'on, la celda sobre la que esta el rat\'o tambi\'en cambiar\'a. Resulta que esto es comportamiento que heredamos de \ct{SimpleSwitchMorph}. Podemos arreglar esto simplemente sobreescribiendo \ct{moseMove:} para que no haga nada:
+Ahora el juego deber\'ia funcionar correctamente... o casi. Si hacemos clic, y luego movemos el rat\'on antes de soltar el bot\'on, la celda sobre la que esta el rat\'o tambi\'en cambiar\'a. Resulta que esto es comportamiento que heredamos de \ct{SimpleSwitchMorph}. Podemos arreglar esto simplemente sobreescribiendo \ct{moseMove:} para que no haga nada:
 
 % \needlines{6}
 \begin{method}[mouseMove:]{Overriding mouse move actions.}
@@ -995,7 +993,7 @@ LOGame>>>mouseMove: anEvent
 \end{method}
 
 % Finally we are done!
-'!Finalmente terminamos!
+!`Finalmente terminamos!
 
 %\sd{It would be good to have a word about the debugger buttons into, step.... Or to have a separate chapter, we would use the material I wrote for my turtle book, please check it.}
 %\on{I think that is too much for this chapter. It will come soon enough.}
@@ -1014,7 +1012,7 @@ Lo que necesitas es una manera de sacar tu c\'odigo fuente fuera de tu im\'agen 
 % The resulting file is more or less human readable, but is really intended for computers, not humans.
 % You can email this file to your friends, and they can file it into their own \pharo images using the file list browser.
 La manera m\'as sencilla de hacer esto es haciendo \emph{filing out} a nuestro c\'odigo. El men\'u \actclick en el panel de Paquete te dar\'a la opci\'on \menu{various \go{} file out} de todo el paquete \scat{PBE-LightsOut}.
-El archivo resultante es mas o menos humanamente legible, pero est\'a realmente pensado para computadoras, no humanos. 
+El archivo resultante es m\'as o menos humanamente legible, pero est\'a realmente pensado para computadoras, no humanos. 
 Puedes enviar este archivo via email a tus amigos, y ellos pueden archivarlo dentro de sus propias im\'agenes \pharo, usando el explorador de archivos.
 \seeindex{saving code}{categories}
 \seeindex{category!filing out}{file, filing out}
@@ -1054,7 +1052,7 @@ Verifica que el juego ahora funciona en la nueva im\'agen.}
 % These packages are represented as files with names ending in \ct{.mcz}; they are actually zip-compressed bundles that contain the complete code of your \ind{package}.
 \subsection{Paquetes Monticello}
 Por m\'as que los fileouts son una manera conveniente de tomar una fotograf\'ia del c\'odigo que has escrito, son definitivamente de ``la vieja escuela''.
-As\'i como muchos projectos open-source hallan mucho mas conveniente mantener su c\'odigo en un repositorio usando \ind{CVS\footnote{\url{http://www.nongnu.org/cvs}} o \ind{Subversion}\footnote{\url{http://subversion.tigris.org}}, los programadores \pharo encuentran mas conveniente manejar su c\'odigo usando paquetes \ind{Monticello}.
+As\'i como muchos proyectos open-source hallan mucho m\'as conveniente mantener su c\'odigo en un repositorio usando \ind{CVS}\footnote{\url{http://www.nongnu.org/cvs}} o \ind{Subversion}\footnote{\url{http://subversion.tigris.org}}, los programadores \pharo encuentran m\'as conveniente manejar su c\'odigo usando paquetes \ind{Monticello}.
 Estos paquetes se representan como archivos con nombres terminados en \ct{.mcz}; son en realidad paquetes comprimidos en formato zip que contienen el c\'odigo completo de tu \ind{paquete}.
 
 % Using the Monticello package browser, you can save packages to repositories on various types of server, including FTP and HTTP servers; you can also just write the packages to a repository in a local file system directory.
@@ -1115,7 +1113,7 @@ A la izquierda del navegador Monticello hay una lista de paquetes que tienen una
 % \sqsrc is like SourceForge\footnote{\url{http://sourceforge.net}}: it is a web front-end to a HTTP Monticello server that lets you manage your projects.
 % There is a public \sqsrc server at \url{http://www.squeaksource.com}, and a copy of the code related to this book is stored there at \url{http://www.squeaksource.com/PharoByExample.html}. You can look at this project with a web browser, but it's a lot more productive to do so from inside \pharo, using the Monticello browser, which lets you manage your packages.
 Pensamos que la mejor manera de guardar tu c\'odigo y compartirlo es creando una cuenta para tu proyecto en un servidor \sqsrc. \sqsrc es como SourceForge\footnote{\url{http://sourceforge.net}}: es un front-end web para un servidor Monticello HTTP que te permite manejar tus proyectos.
-Hay un servidor \sqsrc p\'ublico en \url{http://www.squeaksource.com}, y hay una copia del c\'odigo en este libro en \url{http://www.squeaksource.com/PharoByExample.html}. Puedes mirar este projecto con un navegador web, pero es m\'as productivo hacerlo desde dentro de \pharo, usando el navegador Monticello, que te permite manejar tus paquetes.
+Hay un servidor \sqsrc p\'ublico en \url{http://www.squeaksource.com}, y hay una copia del c\'odigo en este libro en \url{http://www.squeaksource.com/PharoByExample.html}. Puedes mirar este proyecto con un navegador web, pero es m\'as productivo hacerlo desde dentro de \pharo, usando el navegador Monticello, que te permite manejar tus paquetes.
 
 
 % \dothis{Open a web browser to \url{http://www.squeaksource.com}.
@@ -1130,7 +1128,7 @@ Una vez que tu proyecto haya sido creado en \sqsrc, tienes que indicarle a tu si
 
 %\dothis{With the \ct{PBE-LightsOut} package selected, click the \button{+Repository} button in the Monticello browser.}  You will see a list of the different types of Repository that are available; to add a \sqsrc repository select \menu{HTTP}. You will be presented with a dialog in which you can provide the necessary information about the server.
 % You should copy the presented template to identify your \sqsrc project, paste it into Monticello and supply your initials and password:
-\dothis{Con el paquete \ct{PBE-LightsOut} seleccionado, haz click en el bot\'on \button{+Repository} en el navegador Monticello.}
+\dothis{Con el paquete \ct{PBE-LightsOut} seleccionado, haz clic en el bot\'on \button{+Repository} en el navegador Monticello.}
 Ver\'as una lista con los diferentes tipos de repositorios que est\'an disponibles; para agregar un reposotorio \sqsrc selecciona \menu{HTTP}. Podr\'as proveer la informaci\'on necesaria sobre el servidor. 
 Debes copiar el template mostrado para identificar tu proyecto \sqsrc, pegarlo en Monticello y proveer tus iniciales y contrase\~na:
 
@@ -1178,7 +1176,7 @@ Para cargar el paquete en tu im\'agen, primero debes seleccionar una versi\on pa
 
 % Monticello has many more capabilities, which will be discussed in depth in \charef{env}.
 % You can also look at the on-line documentation for Monticello at \url{http://www.wiresong.ca/Monticello/}.
-Monticello tiene muchas mas capacidades, que ser\'an abordadas con m\'as profundidad en \charef{env}.
+Monticello tiene muchas m\'as capacidades, que ser\'an abordadas con m\'as profundidad en \charef{env}.
 Tambi\'en puedes mirar la documentaci\'on en l\'inea de Monticello en \url{http://www.wiresong.ca/Monticello/}.
 
 %=================================================================
@@ -1207,7 +1205,7 @@ En este cap\'itulo has visto como crear categor\'ias, clases y m\'etodos. Has vi
 %  \item You can share source code \emph{filing out} a category.
   \item Puedes compartir c\'odigo fuente haciendo \emph{file out} de una categor\'ia.
 %  \item A better way to share code is to use Monticello to manage an external repository, for example defined as a \sqsrc project.
-  \item Una mejor manera de compartir c\'odigo es usando Monticello para manejar un reposotorio externo, por ejemplo definido como un projecto \sqsrc.
+  \item Una mejor manera de compartir c\'odigo es usando Monticello para manejar un reposotorio externo, por ejemplo definido como un proyecto \sqsrc.
 \end{itemize}
 
 %=================================================================

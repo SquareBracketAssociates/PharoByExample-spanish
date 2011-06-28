@@ -7,7 +7,7 @@ Patricio Plaza		- Chapter 6: Environment			-> Traducción en curso: 7/44, tira e
 Mirian Quinteros	- Chapter 7: SUnit				-> Traducción completa, tira error al generar el pdf
 Carlos Rodriguez	- Chapter 8: Basic Classes			-> En curso
 Pablo Barrientos	- Chapter 9: Collections			-> Traducción completa, tira error al generar el pdf	
-????			- Chapter 10: Streams				-> Traducción no comenzada
+Nicolas Paez		- Chapter 10: Streams				-> Traducciónen curso 3/14
 Nicolas Paez		- Chapter 11: Morphic				-> Traducción completa	
 Rafael Luque		- Chapter 12: Seaside by Example		-> Traducción en curso: 7/36 pages.
 Jordi Delgado	        - Chapter 13: Classes and Metaclasses		-> Traducción completa, tira error al generar el pdf
