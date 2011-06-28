@@ -1,14 +1,14 @@
-﻿Gabriel Falcone		- Chapter 1: A Quick Tour			-> 16/5/11 - En curso
-Federico Rodriguez 	- Chapter 2: A first application		-> Traducción en curso: 15/22 (tira error al generar el PDF)
+﻿Gabriel Falcone		- Chapter 1: A Quick Tour			-> Traducción completa (tira error al generar el PDF)
+Federico Rodriguez 	- Chapter 2: A first application		-> Traducción completa (tira error al generar el PDF)
 Rafael Luque	        - Chapter 3: Syntax in a Nutshell		-> Traducción completa y revisado por nicopaez
 Pablo Lalloni		- Chapter 4: Understanding Message Syntax	-> Traducción completa
-Max Sarno y Alan Rodas	- Chapter 5: The Smalltalk object model		-> Traducción en curso, (tira error al generar el PDF)
-Patricio Plaza		- Chapter 6: Environment			-> Traducción en curso: 7/44, tira error al generar el pdf
-Mirian Quinteros	- Chapter 7: SUnit				-> Traducción completa, tira error al generar el pdf
-Carlos Rodriguez	- Chapter 8: Basic Classes			-> En curso
-Pablo Barrientos	- Chapter 9: Collections			-> Traducción completa, tira error al generar el pdf	
-Nicolas Paez		- Chapter 10: Streams				-> Traducciónen curso 3/14
+Max Sarno y Alan Rodas	- Chapter 5: The Smalltalk object model		-> Traducción completa (tira error al generar el PDF)
+Patricio Plaza		- Chapter 6: Environment			-> Traducción en curso: 38/44 paginas (tira error al generar el PDF)
+Mirian Quinteros	- Chapter 7: SUnit				-> Traducción completa (tira error al generar el PDF)
+Carlos Rodriguez	- Chapter 8: Basic Classes			-> Traducción completa
+Pablo Barrientos	- Chapter 9: Collections			-> Traducción completa (tira error al generar el PDF)
+Nicolas Paez		- Chapter 10: Streams				-> Traducciónen curso: 3/14 paginas
 Nicolas Paez		- Chapter 11: Morphic				-> Traducción completa	
-Rafael Luque		- Chapter 12: Seaside by Example		-> Traducción en curso: 7/36 pages.
-Jordi Delgado	        - Chapter 13: Classes and Metaclasses		-> Traducción completa, tira error al generar el pdf
+Rafael Luque		- Chapter 12: Seaside by Example		-> Traducción en curso: 26/37 paginas.
+Jordi Delgado	        - Chapter 13: Classes and Metaclasses		-> Traducción completa (tira error al generar el PDF)
 Carlos Rodriguez	- Chapter 14: Reflection			-> Traducción completa
