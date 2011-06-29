@@ -207,19 +207,15 @@ stream upToEnd         --> '143'
 \ct{peekFor:} also returns a boolean
 indicating if the parameter equals the element.
 
-You might have noticed a new way of constructing a stream in
-the above example: one can simply send \mthind{SequenceableCollection}{readStream} to a sequenceable collection to get a reading stream on that particular
+Puede que hayas notado un nuevo modo de construir un stream en el ejemplo anterior: uno puede simplemente enviar 
+\mthind{SequenceableCollection}{readStream} a una colecci\'on secuenciable para obtener un stream de lectura de una colecci\'on particular.
 collection.
 
-\paragraph{Positioning.} There are methods to position the stream
-pointer. If you have the index, you can go directly to it using
-\mthind{PositionableStream}{position:}. You can request the current position using
-\mthind{PositionableStream}{position}. Please remember that a stream is not positioned on an
-element, but between two elements. The index corresponding to the
-beginning of the stream is 0.
+\paragraph{Posicionamiento.} Hay m\'etodos para posicionar el puntero del stream. Si tienes el \'indice, puedes
+usarlo directamente usando \mthind{PositionableStream}{position:}. Puedes pedir la posici\'on usando \mthind{PositionableStream}{position}. 
+Por favor recuerda que un stream no est\'a posicionado en un elemento, sino entre dos elementos. El 'indice correspondiente al comienzo del stream es 0.
 
-You can obtain the state of the stream depicted in
-\figref{ab_cde} with the following code:
+Puede obtener el estado del stream representado en \figref{ab_cde} con el siguiente c\'odigo
 
 \begin{code}{@TEST |stream|}
 stream := 'abcde' readStream.

@@ -589,33 +589,33 @@ Selecciona \menu{WAInputTest} y haz click en el botón \button{Restart} para ver
 No olvides que si activas \button{Toggle Halos}, puedes navegar directamente por el código fuente de los ejemplos usando el navegador de clases de Seaside.
 
 %-----------------------------------------------------------------
-\section{CSS: Cascading style sheets}
+\section{CSS: Hojas de estilo en cascada}
 \seclabel{css}
 
 %\ab{I think that it just needs a few paragraphs telling the reader the key ideas behind CSS, and the new terminology that the CSS folks introduce, before going in to the details of how you define their "thingies".  Now I have forgotten what they call their "thingies" --- I know that there are effectively paragraph styles (divs) and character styles (spans), but I've forgotten what they call them.  So, I think that the text needs to tell the reader, for each thingie, (1) the CSS concept behind the thingie, (2) what it looks like in a CSS style sheet , (3) what it looks like in html, and (4) how to do it in Seaside.   Maybe (3) can be omitted, because it's not needed to use Seaside.}
 % \on{I think we do most of that already.}
 
-Cascading Style Sheets\footnote{\url{http://www.w3.org/Style/CSS/}}, or \ind{CSS} for short, have emerged as a standard way for web applications to separate style from content.
-Seaside relies on CSS to avoid cluttering your rendering code with layout considerations.
+Las hojas de estilo en cascada\footnote{\url{http://www.w3.org/Style/CSS/}}, o \ind{CSS} para abreviar, han surgido como una forma estándar de separar el estilo del contenido para las aplicaciones web.
+Seaside se basa en CSS para evitar llenar tu código de presentación con consideraciones de diseño.
 
-You can set the CSS style sheet for your web components by defining the method \ct{style}, which should return a string containing the CSS rules for that component.
-The styles of all the components displayed on a web page are joined together, so each component can have its own style.
-A better approach can be to define an abstract class for your web application that defines a common style for all its subclasses.
+Puedes establecer la hoja de estilos CSS para tus componentes web definiendo el método \ct{style}, que debería devolver una cadena conteniendo las reglas CSS para ese componente.
+Los estilos de todos los componentes mostrados en una página web se unen entre sí, con lo que cada componente puede tener su propio estilo.
+Una mejor aproximación puede ser definir una clase abstracta para tu aplicación web que defina un estilo común para todas sus subclases.
 
-Actually, for deployed applications, it is more common to define style sheets as external files.
-This way the look and feel of the component is completely separate from its functionality.
-(Have a look at \clsind{WAFileLibrary}, which provides a way to serve static files without the need for a standalone server.)
+En realidad, para las aplicaciones desplegadas, es más habitual definir las hojas de estilos como archivos externos.
+De esta forma el aspecto del componente está completamente separado de su funcionalidad.
+(Echa un vistazo a \clsind{WAFileLibrary}, que proporciona un modo de servir archivos estáticos sin la necesidad de un servidor independiente.)
 
-If you already are familiar with CSS, then that's all you need to know.
-Otherwise, read on for a very brief introduction to CSS.
+Si ya estás familiarizado con CSS, esto es todo lo que necesitas saber.
+En caso contrario, continúa leyendo una breve descripción de CSS.
 
-Instead of directly encoding display attributes in the paragraph and text elements of your web pages, with CSS you will define different classes of elements and place all display considerations in a separate style sheet.
-Paragraph-like entities are called \emph{div}s and text-like entities are \emph{span}s.
-You would then define symbolic names, like ``highlight'' (see example below) for text to be highlighted, and specify how highlighted text is to be displayed in your style sheet.
+En lugar de codificar directamente los atributos de presentación en los elementos de texto y párrafos de tus páginas web, con CSS definirás diferentes clases de elementos y colocarás todas las consideraciones de presentación en una hoja de estilos separada.
+Las entidades de tipo párrafo se llaman \emph{div}s y las entidades de tipo texto son \emph{span}s. 
+Entonces se definen nombres simbólicos, como ``highlight'' (ver ejemplo de abajo), para el texto resaltado y se especifica en la hoja de estilos cómo se va a presentar el texto resaltado.
 
-Basically a CSS style sheet consists of a set of rules that specify how to format given XHTML elements.
-Each rule consists of two parts.
-There is a \emph{selector} that specifies which XHTML elements the rule applies to, and there is a \emph{declaration} which sets a number of attributes for that element.
+Fundamentalmente una hoja de estilos CSS consiste en un conjunto de reglas que especifican cómo formatear los elementos XHTML dados.
+Cada regla consta de dos partes.
+Existe un \emph{selector} que especifica a qué elementos XHTML aplica la regla y una \emph{declaración} que define un número de atributos para esos elementos.
 
 \begin{figure}[tb]
 \begin{code}{}
@@ -649,57 +649,58 @@ td {
 .field { background-color: lightgrey; }
 '
 \end{code}
-\caption{\lct{SeasideDemoWidget} common style sheet.
+\caption{Hoja de estilo común de \lct{SeasideDemoWidget}.
 \figlabel{democss}}
 \end{figure}
-\figref{democss} illustrates a simple style sheet for the rendering demo shown earlier in \figref{RenderingDemo}.
-The first rule specifies a preference for the fonts to use for the \ct{body} of the web page.
-The next few rules specify properties of second-level headings (\ct{h2}), tables (\ct{table}), and table data (\ct{td}).
 
-The remaining rules have selectors that will match XHTML elements that have the given ``class'' or ``id'' attributes.
-CSS selectors for class attributes start with a ``\ct{.}'' and those for id attributes with ``\ct{#}''.
-The main difference between class and id attributes is that many elements may have the same class, but only one element may have a given id (\ie an \emph{identifier}). 
-So, whereas a class attribute, such as \ct{highlight}, may occur multiple times on any page, an id must identify a \emph{unique} element on the page, such as a particular menu, the modified date, or author.
-Note that a particular XHTML element may have multiple classes, in which case all the applicable display attributes will be applied in sequence.
+La \figref{democss} representa una hoja de estilo sencilla para la demo de presentación mostrada anteriormente en la \figref{RenderingDemo}.
+La primera regla especifica una preferencia para la tipografía a utilizar por el \ct{body} de la página web.
+Las siguientes reglas especifican propiedas de las cabeceras de segundo nivel (\ct{h2}), tablas (\ct{table}) y datos de las tablas (\ct{td}).
+
+El resto de reglas tienen selectores que corresponden con los elementos XHTML que tengan los atributos ``class'' o``id''.
+Los selectores CSS para los atributos clase comienzan con un ``\ct{.}'' y aquellos para los atributos id con ``\ct{#}''.
+La principal diferencia entre los atributos clase e id es que muchos elementos pueden tenir la misma clase, pero sólo un elemento muy tener un id dado (\ie un \emph{identificador}). 
+Así que, mientras un atributo clase, como \ct{highlight}, puede aparecer varias veces en cualquier página, un id debe identificar un elemento \emph{único} en la página, como un menú particular, la fecha de modificación o el autor.
+Ten en cuanta que un elemento XHTML concreto puede tener varias clases, en cuyo caso todos los atributos de presentación se aplicarán en secuencia.
 
 % This style sheet expects at most one element to specify the \emph{author} of the web page.
 
-Selector conditions may be combined, so the selector \ct{div.subcomponent} will only match an XHTML element if it is both a div \emph{and} it has a class attribute equal to ``subcomponent''.
+Las condiciones de los selectores pueden combinarse, con lo que el selector \ct{div.subcomponent} sólo se aplicará a aquellos elementos XHTML que sean un div \emph{y} tengan una atributo clave igual a ``subcomponent''.
 
-It is also possible to specify nested elements, though this is seldom necessary.
-For example, the selector ``\ct{p span}'' will match a span within a paragraph but not within a div.
+También es posible especificar elementos anidados, aunque rara vez es necesario.
+Por ejemplo, el selector ``\ct{p span}'' aplicará a un span dentro de un párrafo, pero no dentro de un div.
 
-There are numerous books and web sites to help you learn CSS.
-For a dramatic demonstration of the power of CSS, we recommend you to have a look at the CSS Zen Garden\footnote{\url{http://www.csszengarden.com/}}, which shows how the same content can be rendered in radically different ways simply by changing the CSS style sheet.
+Existen muchos libros y sitios web que pueden ayudarte a aprender CSS.
+Para una espectacular demostración del poder de CSS, te recomendamos que eches un vistazo al Jardín Zen CSS\footnote{\url{http://www.csszengarden.com/}}, que muestra cómo el mismo contenido puede presentarse de maneras radicalmente diferentes simplemente cambiando la hoja de estilos CSS.
 
 %-----------------------------------------------------------------
-\section{Managing control flow}
+\section{Gestión del control del flujo}
 
-Seaside makes it particularly easy to design web applications with non-trivial control flow.
-There are basically two mechanisms that you can use:
+Seaside hace especialmente fácil diseñar aplicaciones web con un control de flujo no trivial.
+Fundamentalmente existen dos mecanismos que puedes utilizar:
 
 \begin{enumerate}
-  \item A component can \emph{call} another component by sending \ct{caller call: callee}.
-  The caller is temporarily replaced by the callee, until the callee returns control by sending \ct{answer:}.
-  The caller is usually \ct{self}, but could also be any other currently visible component.
+  \item Un componente puede \emph{llamar} a otro componente enviando \ct{visitante call: visitado}.
+El visitante es reemplazado temporalmente por el visitado, hasta que el visitado devuelve el control enviando \ct{answer:}.
+El visitante normalmente es \ct{self}, pero también podría ser cualquier otro componente visible actualmente.
 
-  \item A workflow can be defined as a \emphsubind{Seaside}{task}.
-  This is a special kind of component that subclasses \clsind{WATask} (instead of \clsind{WAComponent}). \seclabel{task}
-  Instead of defining \ct{renderContentOn:}, it defines no content of its own, but rather defines a \ct{go} method that sends a series of \ct{call:} messages to activate various subcomponents in turn.
+  \item Un flujo de trabajo puede definirse como una \emphsubind{Seaside}{tarea}.
+  Esta es un caso especial de componente que hereda de \clsind{WATask} (en lugar de \clsind{WAComponent}). \seclabel{tarea}
+  En lugar de definir \ct{renderContentOn:}, no define ningún contenido, sino que define un método \ct{go} que envía una serie de mensajes \ct{call:} para activar varios subcomponentes.
 \end{enumerate}
-\index{Seaside!control flow}
+\index{Seaside!control de flujo}
 
 %-----------------------------------------------------------------
-\subsection{Call and answer}
+\subsection{LLamada y respuesta}
 
-Call and answer are used to realize simple dialogues.
+Llamada y respuesta se usan para producir diálogos sencillos.
 
-There is a trivial example of \ct{call:} and \ct{answer:} in the rendering demo of \figref{RenderingDemo}.
-The component \ct{SeasideEditCallDemo} displays a text field and an \emph{edit} link.
-The callback for the edit link calls a new instance of \ct{SeasideEditAnswerDemo} initialized to the value of the text field.
-The callback also updates this text field to the result which is sent as an answer.
+Hay un ejemplo trivial de \ct{call:} y \ct{answer:} en la demo de presentación de la \figref{RenderingDemo}.
+El componente \ct{SeasideEditCallDemo} muestra un campo de texto y un vínculo \emph{edit}.
+La retrollamada para el vínculo \emph{edit} llama a una nueva instancia de \ct{SeasideEditAnswerDemo} inicializada con el valor del campo de texto.
+La retrollamada también actualiza este campo de texto con el resultado que se envía como respuesta.
 
-(We underline the \ct{call:} and \ct{answer:} sends to draw attention to them.)
+(Subrayamos los mensajes \ct{call:} y \ct{answer:} enviados para llamar la atención sobre ellos.)
 
 \begin{code}{}
 SeasideEditCallDemo>>>renderContentOn: html 
@@ -712,15 +713,15 @@ SeasideEditCallDemo>>>renderContentOn: html
 		with: 'edit'
 \end{code}{}
 
-What is particularly elegant is that the code makes absolutely no reference to the new web page that must be created.
-At run-time, a new page is created in which the \ct{SeasideEditCallDemo} component is replaced by a \ct{SeasideEditAnswerDemo} component; the parent component and the other peer components are untouched.
+Lo que resulta especialmente elegante es que el código no hace absolutamente ninguna referencia a la nueva página web que debe crearse.
+En tiempo de ejecución, se crea una nueva página en la que el componente \ct{SeasideEditCallDemo} es reemplazado por un componente \ct{SeasideEditAnswerDemo}; el componente padre y el resto de componentes no se ven modificados.
 
-\important{\mthind{WAComponent}{call:} and \mthind{WAComponent}{answer:} should never be used while rendering.
-They may safely be sent from within a \subind{Seaside}{callback}, or from within the \mthind{WATask}{go} method of a task.}
+\important{\mthind{WAComponent}{call:} y \mthind{WAComponent}{answer:} nunca deben usarse durante la presentación.
+Pueden ser enviados de forma segura desde una \subind{Seaside}{retrollamada} o desde el método \mthind{WATask}{go} de una tarea.}
 
-The \ct{SeasideEditAnswerDemo} component is also remarkably simple.
-It just renders a form with a text field.
-The submit button is bound to a callback that will answer the final value of the text field.
+El componente \ct{SeasideEditAnswerDemo} también es extraordinariamente sencillo.
+Simplemente presenta un formulario con un campo de texto.
+El botón de envío está vinculado con una retrollamada que responderá el valor final del campo de texto.
 
 \begin{code}{}
 SeasideEditAnswerDemo>>>renderContentOn: html
@@ -733,30 +734,31 @@ SeasideEditAnswerDemo>>>renderContentOn: html
 		]
 \end{code}{}
 
-That's it.
+Eso es todo.
 
-Seaside takes care of the control flow and the correct rendering of all the components.
-Interestingly, the ``back'' button of the browser will also work just fine (though side effects are not rolled back unless we take additional steps).
+Seaside se ocupa del control del flujo y de la correcta presentación de todos los componentes.
+Curiosamente, el botón ``volver'' del navegador también funcionará correctamente (aunque los efectos colaterales no se deshacen a no ser que añadamos algunos pasos adicionales).
 
 %-----------------------------------------------------------------
-\subsection{Convenience methods}
+\subsection{Métodos de utilidad}
+\luq{convenience methods como métodos de utilidad?}
 
-Since certain call--answer dialogues are very common, Seaside provides some convenience methods to save you the trouble of writing components like \ct{SeasideEditAnswerDemo}.
-The generated dialogues are shown in \figref{dialogs}.
-We can see these convenience methods being used within \ct{SeasideDialogDemo>>>renderContentOn:}
-\index{Seaside!convenience methods}
+Puesto que ciertos diálogos llamada--respuesta son muy comunes, Seaside proporciona algunos métodos de utilidad para ahorrarte el problema de escribir componentes como \ct{SeasideEditAnswerDemo}.
+Los diálogos generados se muestran en la \figref{dialogs}.
+Podemos ver los métodos de utilidad empleados en \ct{SeasideDialogDemo>>>renderContentOn:}
+\index{Seaside!métodos de utilidad}
 
 \begin{figure}[b]
 \begin{center}
 \includegraphics[width=\textwidth]{dialogs}
-\caption{Some standard dialogs}
+\caption{Algunos diálogos estándar}
 \figlabel{dialogs}
 \end{center}
 \end{figure}
 
-The message \mthind{WAComponent}{request:} performs a call to a component that will let you edit a text field.
-The component answers the edited string.
-An optional label and default value may also be specified.
+El mensaje \mthind{WAComponent}{request:} realiza una llamada a un componente que te permitirá editar un campo de texto.
+El componente responde con la cadena editada.
+También pueden especificarse opcionalmente una etiqueta y un valor por defecto.
 
 \needlines{3}
 \begin{code}{}
@@ -767,8 +769,8 @@ SeasideDialogDemo>>>renderContentOn: html
 ...
 \end{code}
 
-The message \mthind{WAComponent}{inform:} calls a component that simply displays the argument message and waits for the user to click ``ok''.
-The called component just returns \ct{self}.
+El mensaje \mthind{WAComponent}{inform:} llama a un componente que simplemente muestra el mensaje del argumento y espera a que el usuario pulse en ``ok''.
+El componente llamada simplemente retorna \ct{self}.
 
 \begin{code}{}
 ...
@@ -779,8 +781,8 @@ The called component just returns \ct{self}.
 ...
 \end{code}
 
-The message \mthind{WAComponent}{confirm:} asks a questions and waits for the user to select either ``Yes'' or ``No''.
-The component answers a boolean, which can be used to perform further actions.
+El mensaje \mthind{WAComponent}{confirm:} realiza una pregunta y espera a que el usuario seleccione ``Yes'' o ``No''.
+El componente responde con un booleano, que puede utilizarse para realizar otras acciones.
 
 \begin{code}{}
 ...
@@ -794,16 +796,16 @@ The component answers a boolean, which can be used to perform further actions.
 		with: 'self confirm:'.
 \end{code}
 
-A few further convenience methods, such as \mthind{WAComponent}{chooseFrom:caption:}, are defined in the \prot{convenience} protocol of \clsind{WAComponent}.
+Algunos otros métodos de utilidad, como \mthind{WAComponent}{chooseFrom:caption:}, se definen en el protocolo \prot{convenience} de \clsind{WAComponent}.
 
 %-----------------------------------------------------------------
-\subsection{Tasks}
+\subsection{Tareas}
 
-A \subind{Seaside}{task} is a component that subclasses \clsind{WATask}.
-It does not render anything itself, but simply calls other components in a control flow defined by implementing the method \mthind{WATask}{go}.
+Una \subind{Seaside}{tarea} es un componente que hereda de \clsind{WATask}.
+No presenta nada por sí misma, sino que simplemente llama a otros componentes en un control de flujo definido implementando el método \mthind{WATask}{go}.
 
-\clsind{WAConvenienceTest} is a simple example of a task defined in the category \scat{Seaside-Tests-Functional}.
-To see its effect, just point your browser to \url{http://localhost:8080/seaside/tests/alltests}, select \menu{WAConvenienceTest} and click \button{Restart}.
+\clsind{WAConvenienceTest} es un ejemplo sencillo de una tarea definida en la categoría \scat{Seaside-Tests-Functional}.
+Para ver sus efectos, simplemente dirige tu navegador a \url{http://localhost:8080/seaside/tests/alltests}, selecciona \menu{WAConvenienceTest} y haz click en \button{Restart}.
 
 \begin{code}{}
 WAConvenienceTest>>>go
@@ -812,8 +814,8 @@ WAConvenienceTest>>>go
 	self informCheese
 \end{code}
 
-This task calls in turn three components.
-The first, generated by the convenience method \mthind{WAComponent}{chooseFrom: caption:}, is a \clsind{WAChoiceDialog} that asks the user to choose a cheese.
+Esta tarea llamada a su vez a tres componentes.
+El primero, generado por el método de utilidad \mthind{WAComponent}{chooseFrom: caption:}, es un \clsind{WAChoiceDialog} que pide al usuario que escoja un queso.
 
 \begin{code}{}
 WAConvenienceTest>>>chooseCheese
@@ -825,71 +827,71 @@ WAConvenienceTest>>>chooseCheese
 
 % \alex{Is there a situation where cheese may be nil? Maybe if a browser authorizes an empty selection...}
 
-The second is a \clsind{WAYesOrNoDialog} to confirm the choice (generated by the convenience method \mthind{WAComponent}{confirm:}).
+El segundo es un \clsind{WAYesOrNoDialog} para confirmar la elección (generado por el método de utilidad \mthind{WAComponent}{confirm:}).
 
 \begin{code}{}
 WAConvenienceTest>>>confirmCheese
 	^self confirm: 'Is ', cheese,  ' your favorite cheese?'
 \end{code}
 
-Finally a \clsind{WAFormDialog} is called (via the convenience method \mthind{WAComponent}{inform:}).
+Finalmente se llama a un \clsind{WAFormDialog} (por medio del método de utilidad \mthind{WAComponent}{inform:}).
 
 \begin{code}{}
 WAConvenienceTest>>>informCheese
 	self inform: 'Your favorite cheese is ', cheese, '.'
 \end{code}
 
-The generated dialogues are shown in \figref{chooseCheese}.
+Los diálogos generados se muestran en la \figref{chooseCheese}.
 
 \begin{figure}[ht]
 \begin{center}
 \includegraphics[width=\textwidth]{chooseCheese}
-\caption{A simple task}
+\caption{Una tarea sencilla}
 \figlabel{chooseCheese}
 \end{center}
 \end{figure}
 
 %-----------------------------------------------------------------
-\subsection{Transactions}
+\subsection{Transacciones}
 
-We saw in \secref{backtracking} that Seaside can keep track of the correspondence between the state of components and individual web pages by having components register their state for backtracking:
-all that a component need do is implement the method \ct{states} to answer an array of all the objects whose state must be tracked.
+Como vimos en la \secref{backtracking}, Seaside puede realizar un seguimiento de la correspondencia entre el estado de los componentes y las páginas web individuales por medio de componentes que registran sus estados para la vuelta atrás:
+todo lo que un componente necesita es implementar el método \ct{states} para devolver un array con todos los objetos cuyo estado debe seguirse.
 
-Sometimes, however, we do not want to backtrack state: instead we want to \emph{prevent} the user from accidentally undoing effects that should be permanent.
-This is often referred to as ``the shopping cart problem''.
-Once you have checked-out your shopping cart and paid for the items you have purchased, it should not be possible to go ``back'' with the browser and add more items to the shopping cart!
+Sin embargo, algunas veces, no queremos volver atrás el estado: en su lugar queremos \emph{evitar} que el usuario accidentalmente deshaga los efectos que deberían ser permanentes.
+A esto nos referimos frecuentemente como ``el problema del carrito de la compra''.
+Una vez que has validado tu carrito de la compra y pagado por los elementos que has comprado, no debería ser posible volver ``atrás'' con el navegador y añadir más elementos al carrito.
 
-Seaside allows you to prevent this by defining a task within which certain actions are grouped together as \emph{transactions}.
-You can backtrack within a transaction, but once a transaction is complete, you can no longer go back to it.
-The corresponding pages are \emph{invalidated}, and any attempt to go back to them will cause Seaside to generate a warning and redirect the user to the most recent valid page.
+Seaside te permite evitar esto definiendo una tarea en la que ciertas acciones están agrupadas como \emph{transacciones}.
+Puedes volver atrás dentro de una transacción, pero una vez que una transacción está completa, ya no puedes deshacerla.
+Las páginas correspondientes están \emph{invalidadas} y cualquier intento de volver a ellas causará que Seaside genere un aviso y redirija al usuario a la página válida más reciente.
 
 \begin{figure}[ht]
 \begin{center}
 \includegraphics[width=\textwidth]{sushiStore}
-\caption{The Sushi Store}
+\caption{La tienda de Sushi}
 \figlabel{sushiStore}
 \end{center}
 \end{figure}
 
-The Seaside \emphsubind{Seaside}{Sushi Store} is sample application that illustrates many of the features of Seaside, including transactions.
-This application is bundled with your installation of Seaside, so you can try it out by pointing your browser at
-\url{http://localhost:8080/seaside/examples/store}.\footnote{If you cannot find it in your image, there is a version of the sushi store available on SqueakSource from \url{http://www.squeaksource.com/SeasideExamples/}.}
+La aplicación de Seaside \emphsubind{Seaside}{Sushi Store} es una aplicación de ejemplo que ilustra muchas de las características de Seaside, incluyendo las transacciones.
+La aplicación está incluída con tu instalación de Seaside, así que puedes probarla dirigiendo tu navegador a
+\url{http://localhost:8080/seaside/examples/store}.\footnote{Si no puedes encontrarla en tu imagen, existe una versión de la tienda de sushi disponible en SqueakSource en \url{http://www.squeaksource.com/SeasideExamples/}.}
 
-The sushi store supports the following workflow:
+La tienda de sushi soporta el siguiente flujo:
 \begin{enumerate}[itemsep=0pt]
-  \item Visit the store.
-  \item Browse or search for sushi.
-  \item Add sushi to your shopping cart.
-  \item Checkout.
-  \item Verify your order.
-  \item Enter shipping address.
-  \item Verify shipping address.
-  \item Enter payment information.
-  \item Your fish is on its way!
+  \item Visita la tienda.
+  \item Navega o busca sushi.
+  \item Añade sushi a tu carrito de la compra.
+  \item Lanza el pedido.
+  \item Verifica tu pedido.
+  \item Introduce la dirección de entrega.
+  \item Verifica la dirección de entrega.
+  \item Introduce la información del pago.
+  \item ¡Tu pescado está en camino!
 \end{enumerate}
 
-If you toggle the \subind{Seaside}{halos}, you will see that the top-level component of the sushi store is an instance of \clsind{WAStore}.
-It does nothing but render the title bar, and then it renders \ct{task}, an instance of \clsind{WAStoreTask}.
+Si activas los \subind{Seaside}{halos}, verás que el componente de primer nivel de la tienda de sushi es una instancia de \clsind{WAStore}.
+No hace nada, salvo presentar la barra de título y entonces presenta \ct{task}, una instancia de  \clsind{WAStoreTask}.
 
 \begin{code}{}
 WAStore>>>renderContentOn: html
@@ -897,14 +899,14 @@ WAStore>>>renderContentOn: html
 	html div id: 'body'; with: task
 \end{code}
 
-\clsind{WAStoreTask} captures this workflow sequence. At a couple of points it is critical that the user not be able to go back and change the submitted information.
+\clsind{WAStoreTask} captura la secuencia de este flujo. En un par de puntos es crítico que el usuario no sea capaz de volver atrás y cambiar la información enviada.
 
-\dothis{\,``Purchase'' some sushi and then use the ``back'' button to try to put more sushi into your cart.
-You will get the message ``That page has expired.''}
+\dothis{\,``Compra'' algo de sushi y entonces usa el botón ``atrás'' para intentar añadir más sushi al carrito.
+Obttendrás el mensaje ``That page has expired.''}
 
-Seaside lets the programmer say that a certain part of a workflow act like a transaction: once the transaction is complete, the user cannot go back and undo it.
-You say this by sending \mthind{WAComponent}{isolate:} to a task with the transactional block as its argument.
-We can see this in the sushi store workflow as follows:
+Seaside permite al programador declarar que cierta parte de un flujo de trabajo actúa como una transacción: una vez que la transacción se completa, el usuario no puede volver atrás y deshacerla.
+Declaras esto enviando \mthind{WAComponent}{isolate:} a una tarea con el bloque transaccional como su argumento.
+Podemos ver esto en el flujo de trabajo de la tienda de sushi a continuación:
 
 \begin{code}{}
 WAStoreTask>>>go
@@ -926,17 +928,17 @@ WAStoreTask>>>go
 	self displayConfirmation.
 \end{code}
 
-Here we see quite clearly that there are two transactions.
-The first fills the cart and closes the shopping phase.
-(The helper methods \ct{fillCart} \etc take care of instantiating and calling the right subcomponents.)
-Once you have confirmed the contents of the cart you cannot go back without starting a new session.
-The second transaction completes the shipping and payment data.
-You can navigate back and forth within the second transaction until you confirm payment.
-However, once both transactions are complete, any attempt to navigate back will fail.
+Aquí vemos bastante claramente que existen dos transacciones.
+La primera rellena el carrito y cierra la fase de compra.
+(Los métodos auxiliares \ct{fillCart} \etc se ocupan de instanciar y llamar a los componentes adecuados.)
+Una vez que has confirmado los contenidos del carrito no puedes volver atrás sin iniciar una nueva sesión.
+La segunda transacción cumplimenta los datos de envío y pago.
+Puedes navegar atrás y adelante dentro de la segunda transacción hasta que confirmas el pago.
+Sin emgargo, una vez que ambas transacciones estás completas, cualquier intento de navegar atrás fallará.
 
-Transactions may also be nested.
-A simple demonstration of this is found in the class \clsind{WANestedTransaction}.
-The first \ct{isolate:} takes as argument a block that contains another, nested \ct{isolate:}
+Las transacciones también pueden anidarse.
+Una demostración sencilla de estos se encuentra en la clase \clsind{WANestedTransaction}.
+El primer \ct{isolate:} recibe como argumento un bloque que contiene otro \ct{isolate:} anidado.
 
 \begin{code}{}
 WANestedTransaction>>>go
@@ -948,9 +950,9 @@ WANestedTransaction>>>go
 	self inform: 'Outside parent txn'
 \end{code}
 
-\dothis{Go to \url{http://localhost:8080/seaside/tests/alltests}, select \menu{WATransactionTest} and click on \button{Restart}.
-Try to navigate back and forth within the parent and child transaction by clicking the \button{back} button and then clicking \button{ok}.
-Note that as soon as a transaction is complete, you can no longer go back inside the transaction without generating an error upon clicking \button{ok}.}
+\dothis{Ve a \url{http://localhost:8080/seaside/tests/alltests}, selecciona \menu{WATransactionTest} y pulsa en \button{Restart}.
+Prueba a navegar atrás y adelante dentro de las transacciones padre e hija pulsando el botón \button{atrás} y después en \button{ok}.
+Observa que tan pronto como una transacción se completa, ya no puedes volver atrás dentro de la transacción sin generar un error al pulsar \button{ok}.}
 
 %=================================================================
 \section{A complete tutorial example}
