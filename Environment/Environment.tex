@@ -48,7 +48,9 @@
 El objetivo de este cap\'itulo es mostrar la forma de desarrollar programas en el entorno de programaci\'on \pharo.
 Ya se ha visto como definir m\'etodos y clases usando el buscador; este cap\'itulo mostrar\'a m\'as caracter\'isticas del buscador, e introducir\'a algunos de los dem\'as buscadores.
 
-Por supuesto, ocasionalmente puede suceder que el programa no realice la funci\'on que de \'el se espera. Por ello, \pharo tiene un excelente depurador, pero al igual que otras herramientas poderosas, puede resultar confuso cuando se lo usa por primera vez. En este cap\'itulo se dar\'a un ejemplo de depuraci\'on y se demostrar\'an algunas de las caracter\'isticas de esta herramienta.
+Por supuesto, ocasionalmente puede suceder que el programa no realice la
+funci\'on que de \'el se espera. Por ello, \pharo tiene un excelente debugger,
+pero al igual que otras herramientas poderosas, puede resultar confuso cuando se lo usa por primera vez. En este cap\'itulo se dar\'a un ejemplo de depuraci\'on y se demostrar\'an algunas de las caracter\'isticas de esta herramienta.
 
 Una de las caracter\'isticas \'unicas de Smalltalk es que mientras se est\'a programando, uno pertenece a un mundo de objetos vivos, muy distinto al de los programas est\'aticos. Esto hace posible obtener feedback de forma instant\'anea mientras se programa, lo cual permite al programador ser m\'as productivo. Hay dos herramientas que permiten analizar, e incluso cambiar, los objetos vivos: el \emph{inspector} y el \emph{explorer}.
 
@@ -81,7 +83,7 @@ Para empezar, se ver\'an las herramientas principales de \pharo.
 	
 	\item{El \menu{Monticello Browser}} es el punto de partida para cargar c\'odigo desde, o guardar c\'odigo en, los paquetes \ind{Monticello}.
 
-	\item{El \menu{Process Browser} permite ver todos los procesos en (\emph{threads}) que se est\'an ejecutando en Smalltalk.}
+	\item{El \menu{Process Browser} permite ver todos los procesos(o \emph{threads}) que se est\'an ejecutando en Smalltalk.}
 	\index{process browser}
 	
 	\item{El \menu{Test Runner}} le permite correr y depurar las pruebas \SUnit, y se describe en \charef{SUnit}.
@@ -173,9 +175,9 @@ de la cual quiere crear una nueva subclase, reemplace
 \ct{NameOfSubclass} por el nombre que desea darle a la nueva
 subclase, y complete los nombres de las variables de instancia si los
 conoce.  La categor\'ia de la nueva clase es por defecto la del paquete
-que est\'e seleccionado\footnote{Recuerde que los paquetes y categor\'ias no son exactamente lo mismo. Se ver\'a la relaci\'on precisa en \secref{packages}}, pero puede cambiar esto tambi\'n si as\'i lo desea.  Si
-ya tiene el navegador centrado en la clase de la que desea una
-subclase, puede obtener la misma plantilla con unas pequeÃ±as diferencias en la
+que est\'e seleccionado\footnote{Recuerde que los paquetes y categor\'ias no son
+exactamente lo mismo. Se ver\'a la relaci\'on precisa en \secref{packages}}, pero puede cambiar esto tambi\'en si as\'i lo desea.  Si ya tiene el navegador centrado en la clase de la que desea una
+subclase, puede obtener la misma plantilla con unas peque\~nas diferencias en la
 inicializaci\'on mediante \actclick{ing} en el panel de clase, y
 seleccionando \menu{class templates \ldots \go subclass template}.  Tambi\'en puede solo
 editar la definici\'on de una clase existente, cambiando el nombre de la clase a
@@ -183,7 +185,7 @@ uno nuevo.  En todas las clases, cuando acepta la nueva definici\'on, la
 nueva clase (aquella cuyo nombre est\'a a continuacion de \ct{#}) es creada (as\'i como
 su correspondiente metaclase).  Crear una clase tambi\'en crea una variable global
 que referencia a la clase, que es por lo que uno puede referirse a todas las
-clases existentes por medio de usar sus nombres.  \index{class!creation}
+clases existentes por medio del uso sus nombres.  \index{class!creation}
 \index{browser!defining a class}
 
 Puede ver por qu\'e el nombre de la nueva clase tiene que aparecer como un \clsind{Symbol} (\ie antecedido por \ct{#}) en la plantilla de creaci\'on de la clase, pero despu\'es de que la clase ha sido creada, el c\'odigo puede referirse a la clase mediante usar el nombre como identificador (\ie sin el \ct{#})?
@@ -205,7 +207,9 @@ El proceso de creaci\'on de un nuevo m\'etodo es similar. Primero selecciona la 
 \subsection{Navegando los espacios de c\'odigo}
 
 El navegador provee varias herramientas para explorar y analizar c\'odigo.
-Estas herramientas pueden ser accedidas \actclick{ing} en varios de los men\'ues contextuales, o en el caso de las herramientas mÃ¡s frecuentemente usadas, por medio de un acceso directo de teclado.
+Estas herramientas pueden ser accedidas \actclick{ing} en varios de los men\'ues
+contextuales, o en el caso de las herramientas m\'as frecuentemente usadas, por
+medio de un atajo de teclado.
 
 \subsubsection{Abriendo un nueva ventana del navegador}
 \seclabel{browsing}
@@ -264,10 +268,10 @@ Si est\'as buscando los senders de \ct{drawOn:} en \ct{AtomMorph>>>drawOn:}, ver
 
 Ahora mire el sexto sender en la lista, \ct{Canvas>>>draw} , mostrado en la \figref{CanvasDraw}.
 Puedes ver que este m\'etodo env\'ia \ct{drawOn:}para cualquier objeto que se le pasa como un argumento, lo que potencialmente podr\'ia ser una instancia de cualquier clase.
-Un an\'alisis de flujo puede ayudar a entender la clase del receptor de algunos mensajes, pero en general, no existe una manera sencilla para que el navegador pueda saber cual menssaje-sends puede causar que los m\'etodos ser\'an ejecutados.
-Por esta raz\'on, los ``senders''en el navegador muestran exactamente lo que sugiere su nombre: todos los emisores de los mensajes con el selector elegido.
-El navegador de senders es sin embargo extremadamente \'util cuando necesitas comprender c\'omo puedes \emph{usar} un m\'etodo: te permite navegar r\'apidamente a trav\'es del ejemplo utilizado.
-Dado que todos los m\'etodos con el mismo selector deben usarse de la misma manera, todos los usos de un determinado mensaje tienen que ser similares.
+Un an\'alisis de flujo puede ayudar a entender la clase del receptor de algunos
+mensajes, pero en general, no existe una manera sencilla para que el navegador
+pueda saber cual env\'io de mensaje puede causar que los m\'etodos ser\'an
+ejecutados. Por esta raz\'on, los ``senders''en el navegador muestran exactamente lo que sugiere su nombre: todos los emisores de los mensajes con el selector elegido. El navegador de senders es sin embargo extremadamente \'util cuando necesitas comprender c\'omo puedes \emph{usar} un m\'etodo: te permite navegar r\'apidamente a trav\'es del ejemplo utilizado. Dado que todos los m\'etodos con el mismo selector deben usarse de la misma manera, todos los usos de un determinado mensaje tienen que ser similares.
 \index{browser!senders}
 
 \index{browser!implementors}
@@ -294,12 +298,13 @@ El panel superior muestra una l\'inea para cada versi\'on del m\'etodo, en el qu
 Tambi\'en se proporcionan botones para mostrar las diferencias entre el m\'etodo seleccionado y la versi\'on actual, y para volver a la versi\'on seleccionada.
 % El checkbox \menu{prettyDiffs} es \'util si ha habido cambios en el diseño: este imprime muy bonito ambas versiones antes de la diferenciaci\'on, de modo que las diferencias que se observan excluyen los cambios del formato.
 
-La existencia de las \ind{versiones del navegador} significa que nunca tendr\'as que preocuparte de preservar el c\'odigo que piensas que tal ves ya no sea necesario: simplemente suprimalo. Si encuentr\'as que lo \emph{necesitas}, siempre puedes volver a la versi\'on anterior, o copiar el fragmento de la versi\'on anterior y pegarlo en otro m\'etodo.
-Se acostumbra a utilizar versiones;  ``comentando'' el c\'odigo que ya no es necesario es una mala pr\'actica porque hace que el actual c\'odigo sea m\'as dif\'icil de leer.
-La tasa de legilibilidad de c\'odigo de Smalltalkers es extremadamente alta.
+La existencia de las \ind{versiones del navegador} significa que nunca tendr\'as
+que preocuparte de preservar el c\'odigo que piensas que tal ves ya no sea
+necesario: simplemente supr\'imelo. Si encuentras que lo \emph{necesitas},
+siempre puedes volver a la versi\'on anterior, o copiar el fragmento de la versi\'on anterior y pegarlo en otro m\'etodo. Se acostumbra a utilizar versiones;  ``comentar'' el c\'odigo que ya no es necesario es una mala pr\'actica porque hace que el actual c\'odigo sea m\'as dif\'icil de leer. La tasa de legilibilidad de c\'odigo de Smalltalkers es extremadamente alta.
 
 \hint{Que pasa si se elimina completamente un m\'etodo?, y luego decides que deseas recuperarlo?  Puedes encontrar lo borrado en un change set, donde puedes pedir ver las versiones por \actclick{ing}.
-El conjunto de cambio est\'a descrito en \secref{env:changeSet}}
+El change set est\'a descrito en \secref{env:changeSet}}
 
 \subsubsection{Sobre escribiendo m\'etodos}
 \seclabel{overriding}
@@ -402,7 +407,7 @@ La Refactorizaci\'on estuvo previamente disponible solamente en un navegador esp
 \end{figure}
 
 %---------------------------------------------------------
-\subsection{Los men\'us de navegaci\'on}
+\subsection{Los men\'ues de navegaci\'on}
 
 Muchas funciones adicionales est\'an disponibles por \actclick{ing} en los paneles del navegador.
 Incluso si las etiquetas sobre los \'items del men\'u son los mismos, su \emph{significado} puede ser dependiente del contexto.
@@ -453,7 +458,8 @@ SystemNavigation default browseAllImplementorsOf: #drawOn:
 \end{code}
 
 Para conocer m\'as acerca de lo que est\'a disponible, explorar la clase \ct{SystemNavigation} con el navegador.
-Adicionales ejemplos de navegaci\'on pueden ser encontrados en las preguntas frecuentes FAQ (\appref{faq}).
+Ejemplos adicionales de navegaci\'on pueden ser encontrados en las preguntas
+frecuentes FAQ (\appref{faq}).
 
 %=========================================================
 \section{Monticello}
@@ -605,9 +611,10 @@ Para crear un paquete con Monticello, tienes que hacer dos cosas: escribir alg\'
 
 Para decirle a Monticello acerca de tus paquetes, clic en el bot\'on \button{+Package}, y escriba el nombre del paquete, en este caso ``PBE''.  Monticello agregar\'a \ct{PBE} a su lista de paquetes; la entrada del paquete ser\'a marcada con un asterisco para mostrar que la versi\'on en la imagen todav\'ia no se ha escrito a cualquier repositorio. Tenga en cuenta que ahora deber\'as tener dos paquetes en Monticello, uno llamado \ct{PBE} y el otro llamado \ct{PBE-Monticello}. Esto esta bien, porque \ct{PBE} contendr\'a \ct{PBE-Monticello}, y otros paquetes a partir de \ct{PBE-}.
 
-Inicialmente, el \'unico repositorio asociado con este paquete ser\'a su cache del paquete, como se muestra en \figref{MC+PBE}.  Esto esta bien: todav\'ia puedes guardar el c\'odigo, lo que causar\'a que se escriba el la cache del paquete.
-Simplemente haz clic en el bot\'on \button{Save} y ser\'as invitado a proporcionar un registro de la versi\'on del paquete que est\'as a punto de guardar, como se muestra en \figref{PBE-on}; cuando aceptas el mensaje, Monticello guardar\'a tu paquete.
-Para indicar esto, el asterisco decorando el nombre en el paquete en el panel de Monticello ser\'a eliminado, y se agregar\'a el n\'umero de la versi\'on.
+Inicialmente, el \'unico repositorio asociado con este paquete ser\'a su cache
+del paquete, como se muestra en \figref{MC+PBE}.  Esto esta bien: todav\'ia
+puedes guardar el c\'odigo, lo que causar\'a que se escriba el el package-cache.
+Simplemente haz clic en el bot\'on \button{Save} y ser\'as invitado a proporcionar un registro de la versi\'on del paquete que est\'as a punto de guardar, como se muestra en \figref{PBE-on}; cuando aceptas el mensaje, Monticello guardar\'a tu paquete. Para indicar esto, el asterisco decorando el nombre en el paquete en el panel de Monticello ser\'a eliminado, y se agregar\'a el n\'umero de la versi\'on.
 
 Si a continuaci\'on haces un cambio en el paquete\,---\, por ejemplo agregando un m\'etodo a una de las clases\,---\, el asterisco volver\'a a aparecer, mostrando que tienes cambios que no han sido guardados.  Si abres un navegador de repositorio en el cach\'e de paquetes, puedes seleccionar la versi\'on guardada, y usar el bot\'on \button{Changes} y otros botones.
 Tambi\'en puedes por su puesto guardar la nueva versi\'on al respositorio; una vez refrescada con el bot\'on \button{Refresh} la vista del repositorio, esta deber\'ia verse como \figref{package-cache-browser}.
@@ -633,12 +640,12 @@ Tambi\'en puedes por su puesto guardar la nueva versi\'on al respositorio; una v
 	\begin{center}
 	\includegraphics[width=\textwidth]{package-cache-browser}
 	\end{center}
-	\caption{Dos versiones de nuestro paquete est\'an ahora en el cache del paquete.}
+	\caption{Dos versiones de nuestro paquete est\'an ahora en el package-chache.}
 	\figlabel{package-cache-browser}
 \end{figure}
 
-Para guardar el nuevo paquete de un repositorio que no sea el cache de paquetes, es necesario que te asegures primero que Monticello sepa sobre el repositorio, agreg\'andolo si es necesario.
-Entonces cuando usas el bot\'on \button{Copy} en el navegador del repositorio de package-cache, y seleccionas el repositorio al cual el paquete deber\'ia ser copiado.
+Para guardar el nuevo paquete de un repositorio que no sea el package-cache, es
+necesario que te asegures primero que Monticello sepa sobre el repositorio, agreg\'andolo si es necesario. Entonces cuando usas el bot\'on \button{Copy} en el navegador del repositorio de package-cache, y seleccionas el repositorio al cual el paquete deber\'ia ser copiado.
 Tambi\'en puedes asociar el repositorio deseado con el paquete  \actclick{ing} en el repositorio y seleccionando \menu{add to package \ldots}, como se muestra en \figref{associateRepository}.
 Una vez que el paquete sabe acerca de un repositorio, puedes guardar una nueva versi\'on seleccionando el repositorio y el paquete en el navegador de Monticello, y dando un clic en el bot\'on \button{Save}.
 Por supuesto , debes tener permiso para escribir a un repositorio.
@@ -655,7 +662,9 @@ Esto es especialmente \'util como un mecanismo para compartir tu c\'odigo con am
 \end{figure}
 
 Si tratas de guardar a un repositorio donde no tienes permiso de escritura, una versi\'on se escribir\'a al package-cache de todas maneras.
-As\'i puedes recuperar mediante la edici\'on de la informaci\'on del repositorio (\actclick en el navegador Monticello ) o escogiendo un diferente repositorio, y entonces usando el bot\'on \button{Copy} desde el navegador cach\'e-paquete.
+As\'i puedes recuperar mediante la edici\'on de la informaci\'on del repositorio
+(\actclick en el navegador Monticello ) o escogiendo un diferente repositorio, y
+entonces usando el bot\'on \button{Copy} desde el navegador package-cache.
 
 %=========================================================
 \section{El inspector y el Explorador}
@@ -666,7 +675,7 @@ Cualquiera de estos objetos puede ser examinado por el programador, e, incluso, 
 Experimente por todos los medios, pero guarde la imagen primero!
 
 %---------------------------------------------------------
-\subsection{The Inspector}
+\subsection{El Inspector}
 
 \dothis{Como una ilustraci\'on de lo que se puede hacer con un \ind{inspector}, escriba  \ct{TimeStamp now} en un workspace, y entonces \actclick y seleccione \menu{inspect it}.}
 (No es necesario seleccionar el texto antes de utilizar el men\'u; si no hay texto seleccionado, las operaciones del men\'u trabajan en la totalidad de la l\'inea actual.
@@ -785,7 +794,7 @@ Para demostrar el depurador, comencemos por crear un error!
 \dothis{Usando el navegador, agregue el siguiente m\'etodo a la clase \ct{String}:}
 
 \needlines{7}
-\begin{method}[buggy]{A buggy method}
+\begin{method}[buggy]{Un m\'etodo defectuoso}
 suffix
 	"Se supone que soy un nombre de archivo, y respondo con mi sufijo, la parte despu\'es del \'ultimo punto"
 	| dot dotPosition |
@@ -861,8 +870,8 @@ Esto puede ser \'util si quieres ver c\'omo una variable cambia mientras ejecuta
 \index{keyboard shortcut!inspect it}
 \index{keyboard shortcut!explore it}
 
-Mirando hacia atr\'as a la ventana del m\'etodo, vemos que esper\'abamos la pen\'ultima l\'inea del m\'etodo para encontrar el \ct{punto} en el string \ct{'readme.txt'}, y que la ejecuci\'on nunca deber\'ia haver llegado a la \'ultima l\'inea.
-\pharo no nos permite correr una ejecuci\'on hacia atr\'as, pero esto nos permite comenzar un m\'etodo de nuevo, que funciona muy bien en el c\'odigo, como este que no muta objetos, pero en su lugar crea otros nuevos.
+Mirando hacia atr\'as a la ventana del m\'etodo, vemos que esper\'abamos la
+pen\'ultima l\'inea del m\'etodo para encontrar el \ct{punto} en el string \ct{'readme.txt'}, y que la ejecuci\'on nunca deber\'ia haber llegado a la \'ultima l\'inea. \pharo no nos permite correr una ejecuci\'on hacia atr\'as, pero esto nos permite comenzar un m\'etodo de nuevo, que funciona muy bien en el c\'odigo, como este que no muta objetos, pero en su lugar crea otros nuevos.
 
 \dothis{Clic \button{Restart}, y ver\'as que el lugar de ejecuci\'on vuelve a la primera declaraci\'on del m\'etodo actual.
 El resaltado en azul muestra que el pr\'oximo mensaje a ser enviado ser\'a {\ct{do:}} (ver \figref{RestartDetectIfNone}).}
@@ -877,22 +886,24 @@ El resaltado en azul muestra que el pr\'oximo mensaje a ser enviado ser\'a {\ct{
 	\figlabel{RestartDetectIfNone}
 \end{figure}
 
-Los botones \button{Into} y \button{Over} nos brindan dos diferentes maneras de paso a trav\'es de la ejecuci\'on.  Si hace clic en el bot\'on \button{Over}, \pharo ejecuta el actual message-send (en este caso el \ct{do:}) en un paso, a menos que exista un error.
- As\'i \button{Over} nos llevar\'a al pr\'oximo env\'io-mensaje en el actual m\'etodo, el cual es \ct{value}\,---\,este est\'a exactamente donde comenzamos, y no ayudan mucho.
-Lo que debemos hacer es averiguar porque el \ct{do:} no est\'a encontrando el caracter que estamos buscando.
+Los botones \button{Into} y \button{Over} nos brindan dos diferentes maneras de
+paso a trav\'es de la ejecuci\'on.  Si hace clic en el bot\'on \button{Over},
+\pharo ejecuta el actual env\'io de mensaje (en este caso el \ct{do:}) en un
+paso, a menos que exista un error. As\'i \button{Over} nos llevar\'a al pr\'oximo env\'io-mensaje en el actual m\'etodo, el cual es \ct{value}\,---\,este est\'a exactamente donde comenzamos, y no ayudan mucho. Lo que debemos hacer es averiguar porque el \ct{do:} no est\'a encontrando el caracter que estamos buscando.
 
 \dothis{Despu\'es de hacer clic en \button{Over}, hacer clic en \button{Restart} para volver a la situaci\'on mostrada en \figref{RestartDetectIfNone}.}
 
-\dothis{Clic \button{Into}; \pharo ingresar\'a en el m\'etodo correspondiente al message-send resaltado, en este caso, \ct{Collection>>>do:}.}
+\dothis{Clic \button{Into}; \pharo ingresar\'a en el m\'etodo correspondiente al env\'io de mensaje resaltado, en este caso, \ct{Collection>>>do:}.}
 
-Sin embargo, resulta que esto no es una gran ayuda: podemos estar bastante seguros de que  \ct{Collection>>>do:} no es quebrado.  El error es mucho m\'as probable que est\'e en \emph{que} estamos pidiendo hacer a \pharo.
-\button{Through} es el bot\'on apropiado para utilizar en este caso: queremos ignorar los detalles de \ct{do:} en s\'i y centrarse en la ejecuci\'on del argumento del bloque.
+Sin embargo, resulta que esto no es una gran ayuda: podemos estar bastante
+seguros de que  \ct{Collection>>>do:} no es lo que rompe.  El error es mucho
+m\'as probable que est\'e en \emph{que} estamos pidiendo hacer a \pharo. \button{Through} es el bot\'on apropiado para utilizar en este caso: queremos ignorar los detalles de \ct{do:} en s\'i y centrarse en la ejecuci\'on del argumento del bloque.
 
 \dothis{Seleccione el m\'etodo \ct{detect:ifNone:} de nuevo y el bot\'on \button{Restart} para volver al estado mostrado en \figref{RestartDetectIfNone}.
 Ahora haga clic en \button{Through} un par de veces.  Seleccione \ct{each} en la ventana del contexto, al hacerlo, ver\'as en \ct{each} una cuenta regresiva desde \ct{10} en la medida que se ejecuta el m\'etodo \ct{do:} .}
 
-Cuando \ct{each} es \ct{7} esperamos que el block \ct{ifTrue:} sea ejecutado, pero no es as\'i.
-Para ver qu\'e es lo que va mal, vaya a \button{Into} la ejecuci\'on de \ct{value:} como se ilustra en \figref{steppingIntoValue}.
+Cuando \ct{each} es \ct{7} esperamos que el bloque \ct{ifTrue:} sea ejecutado,
+pero no es as\'i. Para ver qu\'e es lo que va mal, vaya a \button{Into} la ejecuci\'on de \ct{value:} como se ilustra en \figref{steppingIntoValue}.
 
 \begin{figure}[btp]
 	\begin{center}
@@ -961,7 +972,8 @@ Solamente existe un segundo trabajo al hacer clic en el bot\'on \button{Run Fail
 	\begin{center}
 		\includegraphics[width=\textwidth]{fixOffByOne}
 	\end{center}
-	\caption{Cambiando el m\'etodo \ct{suffix} en el depurador: corrigiendo el error off-by-one despu\'es de una \sunit de afirmaci\'on de error (assertion failure)}
+	\caption{Cambiando el m\'etodo \ct{suffix} en el debugger: corrigiendo el error
+	off-by-one despu\'es de una \sunit de afirmaci\'on de error (assertion failure)}
 	\figlabel{fixOffByOne}
 \end{figure}
 
@@ -976,8 +988,8 @@ testSuffixFound
 Por qu\'e esta es una mejor prueba?  Porque esta le dice al lector lo que el m\'etodo debe hacer si hay mas de un punto en el string de destino.
 
 Hay algunas otras maneras de entrar en el depurador adem\'as de detectar los errores y afirmaciones de errores.
-Si ejecutas el c\'odigo que entra en un infinito bucle, puedes interrunpirlo y abrir un depurador en el c\'alculo escribiendo \short{.} (eso es una detenci\'on completa o un per\'iodo, dependiendo donde aprendi\'o Ingles).\footnote{Tambi\'en es \'util saber que puede hacer aparecer un depurador de emergencia en cualquier momento escribiendo \short{{\sc shift--}.}}
-Tambi\'en puedes solo editar el c\'odigo sospechoso a insertar \ct{self halt}.
+Si ejecutas el c\'odigo que entra en un bucle infinito, puedes interrumpirlo y
+abrir un depurador en el c\'alculo escribiendo \short{.} (eso es una detenci\'on completa o un per\'iodo, dependiendo donde aprendi\'o Ingles).\footnote{Tambi\'en es \'util saber que puede hacer aparecer un depurador de emergencia en cualquier momento escribiendo \short{{\sc shift--}.}} Tambi\'en puedes solo editar el c\'odigo sospechoso a insertar \ct{self halt}.
 As\'i, por ejemplo, podr\'iamos editar el m\'etodo \ct{suffix} para leer de la siguiente manera:
 \index{process!interrupting}
 
@@ -1017,7 +1029,9 @@ Vamos a aprender m\'as sobre SUnit en \charef{SUnit}.
 \section{El Navegador de Procesos}
 
 \st es un sistema multi-hebras: hay muchos procesos ligeros (tambi\'en conocidos como hebras) ejecut\'andose simult\'aneamente en tu imagen.
-En el futuro la m\'aquina virtual de \pharo puede tomar ventaja de los multiprocesadores cuando est\'en disponibles, pero en la actualidad la concurrencia esta implementada por tiempo de fragmentaci\'on (time-slicing).
+En el futuro la m\'aquina virtual de \pharo puede tomar ventaja de los
+multiprocesadores cuando est\'en disponibles, pero en la actualidad la
+concurrencia esta implementada por divisi\'on de tiempo (time-slicing).
 
 \begin{figure}[btp]
 	\begin{center}
@@ -1032,14 +1046,16 @@ En el futuro la m\'aquina virtual de \pharo puede tomar ventaja de los multiproc
 El \subind{navegador}{procesos} es un primo del depurador que te permite echar un vistazo a los diversos procesos que se ejecutan dentro de \pharo.
 \figref{processBrowser} muestra un pantallazo.
 La parte superior del panel de la izquierda lista todos los procesos en \pharo, en orden de prioridad, de la interrupci\'on del temporizador vigilante con prioridad 80 al proceso inactivo con prioridad 10.
-Por supuesto, un monoprocesador, el \'unico proceso que puede estar corriendo cuando miras es el proceso UI; todos los dem\'as estar\'an esperando por alg\'un tipo de evento.
+Por supuesto, en un monoprocesador, el \'unico proceso que puede estar corriendo
+cuando miras es el proceso UI; todos los dem\'as estar\'an esperando por alg\'un tipo de evento.
 %:===> Process browser context menu is broken!
-\on{broken -- to be fixed!}
+%\on{broken -- to be fixed!}
 Por defecto, la vizualizaci\'on del proceso es est\'atica; este puede ser actualizado por \actclick{ing} y seleccionando \menu{turn on auto-update (a)}
 
-Si seleccionas un proceso en la partes superior del panel de la izquierda, la traza de la pila se muestra en la parte superior del panel de la derecha, al igual que con el depurador.
-Si seleccionas un frame de la pila, el m\'etodo correspondiente se muestra en el panel inferior.
-El navegador de procesos no esta equipado con mini-inspectores para \self y \lct{thisContext}, pero \actclick{ing} en los frames de la pila proporciona funcionalidad equivalente.
+Si seleccionas un proceso en la parte superior del panel de la izquierda, la
+traza de la pila se muestra en la parte superior del panel de la derecha, al
+igual que con el debugger. Si seleccionas un frame de la pila, el m\'etodo
+correspondiente se muestra en el panel inferior. El navegador de procesos no esta equipado con mini-inspectores para \self y \lct{thisContext}, pero \actclick{ing} en los frames de la pila proporciona funcionalidad equivalente.
 
 %=========================================================
 \section{Buscando m\'etodos}
@@ -1064,7 +1080,7 @@ Esto puede ser abrumador.
 
 \index{message names browser}
 El navegador \emph{message names} tiene m\'as limitada funcionalidad de b\'usqueda: puedes escribir un fragmento de selector de mensajes en el cuadro de b\'usqueda, y el navegador lista todos los m\'etodos que contienen ese fragmento en sus nombres, como se muestra en \figref{methodNamesRandom}.
-Sin embargo, es un completo navegador:
+Sin embargo, es un navegador completo:
 Si seleccionas uno de los nombres en el panel izquierdo , todos los m\'etodos con ese nombre son listados en el panel derecho, y pueden ser consultados en el panel inferior.
 Al igual como ocurre con el navegador, el navegador de mensajes de nombres tiene una barra de botones que puede ser usada para abrir otros navegadores sobre el m\'etodo seleccionado o sus clases.
 
@@ -1075,13 +1091,19 @@ Al igual como ocurre con el navegador, el navegador de mensajes de nombres tiene
 \section{Change Set y Change Sorter}
 \seclabel{env:changeSet} % (fold)
 
-Cuando estas trabajando en \pharo, cualquier cambio que hagas a los métodos y clases son almacenados en un Change Set \ct{change set}.
-Esto incluye crear nuevas clases, renombrar clases, cambiar categorías, agregar métodos a clases ya existentes\,---\,todo aquello que sea significcativo.
-De cualquier modo, los \emph{doits} arbitrarios no son incluídos, entonces si, por ejemplo, creas una nueva variable global asignandola en un workspace, la creación de la variable no aparecerá en el archivo \subind{file}{change set}.
+Cuando estas trabajando en \pharo, cualquier cambio que hagas a los m\'etodos y
+clases son almacenados en un Change Set \ct{change set}. Esto incluye crear
+nuevas clases, renombrar clases, cambiar categor\'ias, agregar métodos a clases
+ya existentes\,---\,todo aquello que sea significativo. De cualquier modo, los
+\emph{doits} arbitrarios no son inclu\'idos, entonces si, por ejemplo, creas una
+nueva variable global asignandola en un workspace, la creaci\'on de la variable
+no aparecer\'a en el archivo \subind{file}{change set}.
 \index{change sorter}
 
-En cualquier momento,existen muchos Change sets, pero solo uno de ellos\,---\,\ct{ChangeSet current}\,---\,esta juntando los cambios que estan siendo realizados en la imagen.
-Puedes ver cuál Conjunto de Cambios esta activo y examinar todos los conjuntos de cambios usando Change Sorter, disponible al seleccionar \menu{World \go Tools \ldots \go Change Sorter}.
+En cualquier momento,existen muchos Change sets, pero solo uno de
+ellos\,---\,\ct{ChangeSet current}\,---\,est\'a juntando los cambios que estan
+siendo realizados en la imagen. Puedes ver cu\'al Change Set esta
+activo y examinar todos los conjuntos de cambios usando Change Sorter, disponible al seleccionar \menu{World \go Tools \ldots \go Change Sorter}.
 
 \begin{figure}[btp]
 	\begin{center}
@@ -1091,70 +1113,77 @@ Puedes ver cuál Conjunto de Cambios esta activo y examinar todos los conjuntos d
 	\figlabel{changeSorter}
 \end{figure}
 
-\figref{changeSorter} muestra este navegador.  La barra de títulos muestra que Change set está activo, este change set esta seleccionado cuando el change sorter es abierto.
+\figref{changeSorter} muestra este navegador.  La barra de t\'itulos muestra que
+Change set est\'a activo, este change set est\'a seleccionado cuando el change
+sorter es abierto.
 
-Otros change sets pueden ser seleccionados en el panel superior izquierdo; el menu \actclick te permite configurar a un change set distinto como activo, o crear un nuevo change set.
-El siguiente panel lista todas las clases afectadas por el change set seleccionado (con sus categorías).
-Al seleccionar una de esas calses se muestra los nombres de aquellos métodos que estan también incluidos en el change set (\emph{no} todos los métodos en la clase) en el panel central zquierdo, y seleccionando el nombre de un método se muestra la definición del método en el panel inferior.
-Adviertase que el change sorter \emph{no} muestra si la creación de la clase misma es parte del change set, aunque esta información es alamacenada en la estructura de objetos que es usada para representar el change set.
+Otros change sets pueden ser seleccionados en el panel superior izquierdo; el
+menu \actclick{ing} te permite configurar a un change set distinto como activo,
+o crear un nuevo change set. El siguiente panel lista todas las clases afectadas por el change set seleccionado (con sus categorías). Al seleccionar una de esas clases se muestra los nombres de aquellos m\'etodos
+que estan tambi\'en incluidos en el change set (\emph{no} todos los m\'etodos en
+la clase) en el panel central izquierdo, y seleccionando el nombre de un
+m\'etodo se muestra la definici\'on del método en el panel inferior. Adviertase
+que el change sorter \emph{no} muestra si la creaci\'on de la clase misma es
+parte del change set, aunque esta informaci\'on es alamacenada en la estructura
+de objetos que es usada para representar el change set.
 
-El change sorter también te permite borrar clases y métodos desde el change set
-haciendo \actclick en los items corrrespondientes.
+El change sorter tambi\'en te permite borrar clases y m\'etodos desde el change
+set haciendo \actclick{ing} en los items corrrespondientes.
 % However, for more elaborate editing of change sets, you should use a second
 % tool,
 % the \textit{change sorter}, available by selecting \menu{World\go{}open \ldots \go{}dual change sorter}, which is shown in \figref{changeSorter}.
 % The change sorter is essentially two change set browsers side by side; each side can focus on a different change set, class, or method.
 
-EL change sorter te permite ver simultáneamente dos change sets, uno a la
-izquierda y otro a la derecha. Esta disposición responde a la mayor
+El change sorter te permite ver simult\'aneamente dos change sets, uno a la
+izquierda y otro a la derecha. Esta disposici\'on responde a la mayor
 funcionalidad del change sorter, que es la habilidad de mover o copiar cambios
-de un set a otro, como se muestra al hacer \actclick en \figref{changeSorter}.
-También es posible copiar métodos individuales de un lado a otro.
+de un set a otro, como se muestra \actclick{ing} en
+\figref{changeSorter}. Tambi\'en es posible copiar m\'etodos individuales de un lado a otro.
 
-Te estarás preguntando porque debería importarte la composición de un change
-set.La respuesta es que los change sets proveen un mecanismo sencillo para
-exportar código desde \pharo al sistema de archivos, desde donde puede ser
-importado en otra imagen de \pharo, on en otro no-\pharo \st. La exportación de
-un change set es conocida como``filing-out'', y puede lograrse haciendo
-\actclick en cualquier change set, clase o método en cualquier navegador.
+Te estar\'as preguntando porque deber\'ia importarte la composici\'on de un
+change set.La respuesta es que los change sets proveen un mecanismo sencillo para
+exportar c\'odigo desde \pharo al sistema de archivos, desde donde puede ser
+importado en otra imagen de \pharo, on en otro no-\pharo \st. La exportaci\'on
+de un change set es conocida como``filing-out'', y puede lograrse
+\actclick{ing} en cualquier change set, clase o m\'etodo en cualquier navegador.
 File outs repetidos crean nuevas versiones del archivo, pero los change
 sets no son una herramienta de versionado como Monticello: ellos no
 mantienen registro de las dependencias.
 \index{file!filing out}
 
 Antes de la llegada de Monticello, los change set eran los principales
-medios para intercambiar código entre usuarios de \pharo{}. Tienen la ventaja de
-la simplicidad (el file out es simplemente un archivo de texto,
+medios para intercambiar c\'odigo entre usuarios de \pharo{}. Tienen la ventaja
+de la simplicidad (el file out es simplemente un archivo de texto,
 aunque \emph{no}te recomendamos que trates de editarlo con un editor de texto),
 y un grado de portabilidad.
 %It's also quite easy to create a change set that makes changes to many different, unrelated parts of the system\,---\,something that Monticello is not yet equipped to do.
 %\ab{Or is it?}
 %\on{you mean something different than extensions to foreign packages using the *package protocol notation?}
 
-La principal desventaja de los cahnge set, comparados con los paquetes de
-\ind{Monticello}, es que no soportan la noción de dependencias. Un change set al
-que se le ha hecho un file out es un conjunto de \emph{acciones} que cambian
+La principal desventaja de los change set, comparados con los paquetes de
+\ind{Monticello}, es que no soportan la noci\'on de dependencias. Un change set
+al que se le ha hecho un file out es un conjunto de \emph{acciones} que cambian
 cualquier imagen en la que sea cargado. Cargar exitosamente un change set
-requiere que la imagen esté en u estado apropiado. Por ejemplo, el change set
-podría contener una acción para agregar un método a una clase; eso sólo
-puede ser logrado si dicha clase ya está definida en la imagen. En forma
-similar, el change set podría renombrar o re-categorizar una clase, lo cual
-obviamente solo funcionaraá si la calse está presente en la imagen; los métodos
-podrían usar variables de instancia que fueron declaradas cuando se realizo el
-file out, pero que no existen en la imagen a la cual son importadas.El problema
-es que los change sets no describen explícitamente las condiciones bajo las
-cuales pueden ser importados: el proceso de importación solo espera lo
-mejor,usualmente resultando en un mensaje críptico de error y un stack trace
-cuando las cosas salen mal.Aún si la importación funciona, un change set podría
-deshacer silenciosamente un cambio hecho por otro change set.
+requiere que la imagen est\'e en u estado apropiado. Por ejemplo, el change set
+podr\'ia contener una acción para agregar un m\'etodo a una clase; eso s\'olo
+puede ser logrado si dicha clase ya est\'a definida en la imagen. En forma
+similar, el change set podr\'ia renombrar o re-categorizar una clase, lo cual
+obviamente solo funcionar\'a si la clase está presente en la imagen; los
+m\'etodos podr\'ian usar variables de instancia que fueron declaradas cuando se
+realizo el file out, pero que no existen en la imagen a la cual son importadas.El problema
+es que los change sets no describen expl\'icitamente las condiciones bajo las
+cuales pueden ser importados: el proceso de importaci\'on solo espera lo
+mejor,usualmente resultando en un mensaje cr\'iptico de error y una traza de
+pila cuando las cosas salen mal.A\'un si la importaci\'on funciona, un change
+set podr\'ia deshacer silenciosamente un cambio hecho por otro change set.
 
-En contraste, los paquetes de Monticello representan código de forma
-declarativa: ellos describen el estado en el que la imagen debería estar después
-de ser cargados.Esto permite a Monticello advertirte sobre conflictos
+En contraste, los paquetes de Monticello representan c\'odigo de forma
+declarativa: ellos describen el estado en el que la imagen deber\'ia estar
+despu\'es de ser cargados.Esto permite a Monticello advertirte sobre conflictos
 (cuando dos paquetes requieren estados finales contradictorios)y ofrecerte
 cargar series de paquetes en orden de dependencia.
 
-A pesar de estos defectos,los change sets aún tienen sus usos; en particular,
+A pesar de estos defectos,los change sets a\'un tienen sus usos; en particular,
 puedes encontrar change sets en Internet que quieras mirar y tal vez usar.
 Entonces,habiendo exportado un change set usando el change sorter, ahora te
 diremos como importarlo.Esto requiere el uso de otra herramienta, el navegador
@@ -1176,24 +1205,24 @@ de lista de archivos.
 \end{figure}
 
 El \ind{navegador de lista de archivos} es de hecho una herramienta de
-propósito general para navegar en el sisema de archivos(y también servidores
+prop\'osito general para navegar en el sisema de archivos(y tambi\'en servidores
 FTP) desde \pharo. Puedes abrirlo desde el menu \menu{World\go{}Tools \ldots
 \go{}File Browser}. Lo que veas depende por supuesto del contenido de tu sistema
-de archivos local, pero una vista típica es mostrada en \figref{fileList}.
+de archivos local, pero una vista t\'ipica es mostrada en \figref{fileList}.
 \seeindex{file!browsing}{file list browser}
 
-Cuando abres por primera vez un navegador de lista de archivos estará enfocado
+Cuando abres por primera vez un navegador de lista de archivos estar\'a enfocado
 en el directorio actual, esto es,aquel desde el cual iniciaste \pharo. La
-barra de títulos muestra la dirección hacia este directorio.El panel más largo a
-la izquierda puede ser usado para navegar el sistema de archivos de modo
+barra de t\'itulos muestra la direcci\'on hacia este directorio.El panel m\'as
+largo a la izquierda puede ser usado para navegar el sistema de archivos de modo
 convencional.Cuando un directorio es seleccionado,los archivos que contiene
 (pero no los directorios) son mostrados a la derecha. Esta lista de archivos
 puede ser filtrada ingresando un patrón estilo Unix en el pequeño recuadro en la
-esquina superior izquierda de la ventana.Inicialmente, este patrón es \ct{*},
-el cual matchea (?) con todos los nombres de archivo, pero puedes tipear una
-cadena de caracteres ahi y hacer accept it, cambiando el patrón. (Nótese que un
-\ct{*} es implicitamente añadido adelante y concatenado al patrón que tipeaste.)
-El criterio de ordenamiento de los archivos puede ser cambiado
+esquina superior izquierda de la ventana.Inicialmente, este patr\'on es \ct{*},
+el cual coincide con todos los nombres de archivo, pero puedes tipear una
+cadena de caracteres ahi y hacer accept it, cambiando el patr\'on. (N\'otese que
+un \ct{*} es impl\'icitamente añadido adelante y concatenado al patr\'on que
+tipeaste.) El criterio de ordenamiento de los archivos puede ser cambiado
 usando los botones \button{name}, \button{date} y \button{size}. El resto de
 los botones depende del nombre del archivo seleccionado en el navegador. En
  \figref{fileList}, el nombre del archivo tine el sufijo \ct{.cs}, por lo
@@ -1201,16 +1230,16 @@ los botones depende del nombre del archivo seleccionado en el navegador. En
  \button{install}(el cual lo \textit{importa} a un nuevo change set
  cuyo nombre se deriva del nombre del archivo), para navegar por los cambios
  \button{changes} en el archivo, para examinar el código \button{code} en el
- archivo, y para importar \button{filein} el código al change set \emph{actual}.
- Podrías pensar que el botón \button{conflicts} te mostraría cosas sobre
- aquellos cambios en el change que generaron conflictos con el código existente
- en la imagen, pero no lo hace.
+ archivo, y para importar \button{filein} el c\'odigo al change set
+ \emph{actual}. Podr\'ias pensar que el bot\'on \button{conflicts} te
+ mostrar\'ia cosas sobre aquellos cambios en el change que generaron conflictos
+ con el c\'odigo existente en la imagen, pero no lo hace.
  
 \ab{Does anyone know what it does do?  I've never found it useful.}
 \on{I tried it and found that it complained about linefeeds.}
-En cambio solo chequea potenciales problemas en el archivo que podrían
-indicar que el archivo no puede ser cargado correctamente (como la
-presencia de avances de línea.
+En cambio solo chequea potenciales problemas en el archivo que podr\'ian
+indicar que \'este no puede ser cargado correctamente (como la
+presencia de avances de l\'inea).
 
 \begin{figure}[btp]
 	\begin{center}
@@ -1222,52 +1251,52 @@ presencia de avances de línea.
 	\figlabel{fileContentsBrowser}
 \end{figure}
 
-Debido a que la elección de botones a mostrar depende del \emph{nombre} del
-archivo, y no de su contenido, algunas veces el botón que quieres no
-estará en la pantalla. De todos moodos, el conjunto completo de opciones está
+Debido a que la elecci\'on de botones a mostrar depende del \emph{nombre} del
+archivo, y no de su contenido, algunas veces el bot\'on que quieres no
+estar\'a en la pantalla. De todos moodos, el conjunto completo de opciones está
 siempre disponible desde el menu \actclick \menu{more \ldots},asi que puedes
-resolver este problema fácilmente.
+resolver este problema f\'acilmente.
 
-El botón \button{code} es quizás el más útil para trabajar con change sets; abre
-un navegad del archivo del change set; un ejemplo se muestra en la
+El bot\'on \button{code} es quiz\'as el m\'as \'util para trabajar con change
+sets; abre un navegad del archivo del change set; un ejemplo se muestra en la
 \figref{fileContentsBrowser}. El navegador de contenidos de archivos es
-similar al navegador excepto que no muestra categorías,solo clases, protocolos y
-métodos. Para clase, el navegador te dirá si la la clase ya existe en el sistema
-y si está definida en el archivo (pero \emph{no} si las definiciones son
-idénticas). Mostrará los métodos en cada clase, y (como se muestra en
-\figref{fileContentsBrowser}) te mostrará las diferencias entre la versión
-actual y la versión en el archivo. Los items del menu contextual en cada uno de
-los cuatro paneles te permirá también importarel change set entero, o la
-correspondiente clase, protocolo, o método.
+similar al navegador excepto que no muestra categorias,solo clases, protocolos
+y m\'etodos. Para clase, el navegador te dir\'a si la la clase ya existe en el
+sistema y si está definida en el archivo (pero \emph{no} si las definiciones son
+id\'enticas). Mostrar\'a los m\'etodos en cada clase, y (como se muestra en
+\figref{fileContentsBrowser}) te mostrar\'a las diferencias entre la versi\'on
+actual y la versi\'on en el archivo. Los items del menu contextual en cada uno
+de los cuatro paneles te permir\'an tambi\'en importar el change set entero, o
+la correspondiente clase, protocolo, o m\'etodo.
 
 %=========================================================
 <<<<<<< HEAD
-\section{En Smalltalk, no puedes perder código}
+\section{En Smalltalk, no puedes perder c\'odigo}
 \seclabel{cantLoseCode} % (fold)
 
-Es bastante romper \pharo: al ser un sistema experimental, \pharo te permite
-cambiar todo, ¡incluyendo cosas que son vitales para hacer que \pharo funcione!
+Es bastante posible romper \pharo: al ser un sistema experimental, \pharo te
+permite cambiar todo, ¡incluyendo cosas que son vitales para hacer que \pharo funcione!
 
-\dothis{Para romper \pharo malévolamente, intenta \ct{Object become: nil}.}
+\dothis{Para romper \pharo maliciosamente, intenta \ct{Object become: nil}.}
 
-La buena noticia es que nunca necesitas perder ningún trabajo, aún si lo
-rompes y vuelves a la última versión guardada de tu imagen, que puede ser de
-hace horas. Esto es porque todo el código que ejecutaste es guardado en el
-archivo \emph{.changes}. ¡Todo! Esto incluye las líneas que evaluas en el
-workspace, asi como el código que agregas a una clase mientras programas.
+La buena noticia es que nunca necesitas perder ning\'un trabajo, a\'un si lo
+rompes y vuelves a la \'ultima versi\'on guardada de tu imagen, que puede ser de
+hace horas. Esto es porque todo el c\'odigo que ejecutaste es guardado en el
+archivo \emph{.changes}. ¡Todo! Esto incluye las l\'ineas que evaluas en el
+workspace, asi como el c\'odigo que agregas a una clase mientras programas.
 
 \index{changes}
 
-Entonces, aqui están las instrucciones de como recuperar tu codigo. No hay
+Entonces, aqui est\'an las instrucciones de como recuperar tu c\'odigo. No hay
 necesidad de leer esto hasta que lo necesites.De cualquier modo, cuando lo
-necesites, lo encontrarás aquí esperándote.
+necesites, lo encontrar\'as aqu\'i esper\'andote.
 
 En el peor caso, puedes usar un editor de texto en el archivo \emph{.changes},
 pero como tiene varios megabytes de tamaño, eso puede ser lento y no es
 recomendado. \pharo ofrece mejores formas.
 
 %---------------------------------------------------------
-\subsection{Cómo recuperar tu código}
+\subsection{C\'omo recuperar tu c\'odigo}
 Reinicia \pharo desde la captura más reciente, y selecciona
 \menu{World\go{}Tools \ldots \go{}Recover lost changes}.
 =======
@@ -1309,35 +1338,40 @@ Reinicie \pharo desde el m\'as reciente snapshot, y seleccione \menu{World\go{}T
 % If you execute \ct{ChangeList browseRecentLog}, you will be given
 
 <<<<<<< HEAD
-Esto dará la oportunidad de decidir cuán atrás en el timepo deseas
-navegar.Normalmente, basta con navergar por los cambios tan atras como este la
-última captura. (Puedes obtener el mismo efecto editando \ct{ChangeList
-browseRecent: 2000} de manera que el número \ct{2000} se convierta en otra cosa,
-usando prueba y error.)
+Esto dar\'a la oportunidad de decidir cu\'an atr\'as en el tiempo deseas
+navegar.Normalmente, basta con navegar por los cambios tan atr\'as como est\'e
+la \'ultima captura. (Puedes obtener el mismo efecto editando \ct{ChangeList
+browseRecent: 2000} de manera que el n\'umero \ct{2000} se convierta en otra
+cosa, usando prueba y error.)
 
 Una vez que tienes un navegador con los \emph{cambios recientes}, mostrando,
-digamos, cambios tan antiguos como tu última captura, tendrás la lista de
+digamos, cambios tan antiguos como tu \'ultima captura, tendr\'as la lista de
 todo lo que hayas hecho a \pharo durante ese tiempo. Puedes borrar elementos
-de esa lista usando el menu \actclick. Cuando estés satisfecho, puedes importar
-lo que es resta, incorporando así los cambios a tu nueva imagen. Es una
-buena idea empezar un nuevo change set, usando el navegasdor de change set
-ordinario, antes de hacer la importación,de modo que todo tu código recuperado
-estará en un nuevo change set. Luego puedes exportar este change set.
+de esa lista mediante \actclick{ing}. Cuando est\'es satisfecho, puedes importar
+lo que es resta, incorporando as\'i los cambios a tu nueva imagen. Es una
+buena idea empezar un nuevo change set, usando el navegador de change set
+ordinario, antes de hacer la importaci\'on,de modo que todo tu c\'odigo
+recuperado estar\'a en un nuevo change set. Luego puedes exportar este change
+set.
 
-One useful thing to do in the \emph{recent changes} browser is to \menu{remove
-doIts}. Usually, you won't want to file in (and thus re-execute) doIts.
-However, there is an exception.
-Creating a class shows up as a \menu{doIt}.
-\emph{Before you can file in the methods for a class, the class must exist.}
-So, if you have created any new classes, \emph{first} file-in the class creation doIts, then \menu{remove doIts} and file in the methods.
-\lr{Maybe mention that class renames are not logged and completely screw up the change-set mechanism. (p. 174)}
-=======
-Esto te dar\'a la oportunidad para decidir cu\'anto tiempo atr\'as en la historia deseas examinar.
-Normalmente, basta con examinar los cambios hasta el \'ultimo snapshot. (Puedes conseguir el mismo efecto mediante la edici\'on de \ct{ChangeList browseRecent: 2000} por lo que el n\'umero \ct{2000} se vuelve algo m\'as, mediante prueba y error.)
+¿Una cosa \'util de hacer en el navegador de \emph{cambios recientes} es
+ \menu{remove doIts}. Usualmente, no querr\'as importar (y de este modo
+ re-ejecutar) doIts. De todos modos, hay una excepci\'on. La creaci\'on de una
+ clase se muestra como un \menu{doIt}.
+\emph{Antes de que puedas importar los m\'etodos para un clase,la clase debe
+existir.} Entonces, si has creado nuevas clases,  \emph{primero} importa
+de los doIts de crecaci\'on de clases, luego \menu{remove doIts} e importa
+de los m\'etodos.
+\lr{Tal vez mecionar que los renombramientos de clases no se archivan y arruinan
+completamente el mecanismo del change set (p. 174)} 
 
-Uno tiene un navegador \emph{recent changes}, mostrando, digamos, cambios nuevos hasta tu \'ultimo snapshot, tendr\'as una lista de todo lo que haz hecho en \pharo durante ese tiempo.
-Puedes borrar los \'items desde esta lista usando el men\'u \actclick.
-Cuando est\'es satisfecho, puedes archivar lo que queda, por lo tanto incorporando los cambios en tu nueva imagen.
+======= 
+
+Esto te dar\'a la oportunidad para decidir cu\'anto tiempo atr\'as en la historia deseas examinar. Normalmente, basta con examinar los cambios hasta el \'ultimo snapshot. (Puedes conseguir el mismo efecto mediante la edici\'on de \ct{ChangeList browseRecent: 2000} por lo que el n\'umero \ct{2000} se vuelve algo m\'as, mediante prueba y error.)
+
+Uno tiene un navegador \emph{recent changes}, mostrando, digamos, cambios nuevos
+hasta tu \'ultimo captura, tendr\'as una lista de todo lo que haz hecho en
+\pharo durante ese tiempo. Puedes borrar los \'items desde esta lista usando el men\'u \actclick. Cuando est\'es satisfecho, puedes archivar lo que queda, por lo tanto incorporando los cambios en tu nueva imagen.
 Es una buena idea comenzar un nuevo change set, usando el ordinario navegador del change set, antes de hacer el archivo, de manera que todo tu c\'odigo recuperado ser\'a un nuevo change sets.
 Puedes entonces sacar este change sets.
 
@@ -1361,19 +1395,35 @@ Con el fin de desarrollar eficazmente con \pharo, es importante invertir alg\'un
 \begin{itemize}
   \item El \emph{navegador} est\'andar es tu principal interfaz para navegar por las existentes categor\'ias, clases, m\'etodos y protocolos de m\'etodos, y para definir nuevos.
       El navegador ofrece varios botones pr\'acticos para saltar directamente a los senders o implementors de un mensaje, versiones de un m\'etodo, y as\'i sucesivamente.
-  \item Existen varios diferentes navegadores (tales como el OmniBrowser y el navegador de Refactorizaci\'on), y varios navegadores especializados (tales como el navegador jer\'arquico) que proporciona distintos puntos de vista de m\'etodos y clases.
+  \item Existen varios navegadores diferentes (tales como el OmniBrowser y el
+  navegador de Refactorizaci\'on), y varios navegadores especializados (tales como el navegador jer\'arquico) que proporciona distintos puntos de vista de m\'etodos y clases.
   \item Desde cualquiera de las herramientas, puedes resaltar el nombre de una clase o un m\'etodo e inmediatamente saltar a un navegador usando un acceso r\'apido de teclado \short{b}.
   \item Tambi\'en puedes navegar en el sistema \st program\'aticamente enviando mensajes por defecto a \ct{SystemNavigation }.
   \item \emph{Monticello} es una herramienta para exportaci\'on, importaci\'on, versionamiento y compartir paquetes de clases y m\'etodos.
-      Un paquete de Monticello consiste de una categor\'ia, subcategor\'ia, y relacionados protocolos de m\'etodos en otras categor\'ias.
+      Un paquete de Monticello consiste de una categor\'ia, subcategor\'ia, y
+      protocolos relacionados de m\'etodos en otras categor\'ias.
   \item El \emph{inspector} y el \emph{explorador} son dos herramientas que son \'utiles para explorar e interactuar con objetos vivos en tu imagen.
-      Incluso puedes inspeccionar herramientas por \metaclick{ing} para iniciar el halo de su morphic y seleccionando manejador de depuraci\'on \debugHandle.
-  \item El \emph{depurador} es una herramienta que no solo te permite inspeccionar la pila en tiempo de ejecuci\'on de tu programa cuando se genera un error, sino que tambi\'en te permite interactuar con todos los objetos de tu aplicaci\'on, inclu\'ido el c\'odigo fuente. En muchos casos, puedes modificar el c\'odigo fuente desde depurador y continuar la ejecuci\'on. El depurador es especialmente efectivo como una herramienta de apoyo a las primeras pruebas de desarrollo junto a SUnit (\charef{SUnit}).
+      Incluso puedes inspeccionar herramientas por \metaclick{ing} para iniciar
+      el halo de su morphic y seleccionando el manejador de depuraci\'on \debugHandle.
+  \item El \emph{debugger} es una herramienta que no solo te permite
+  inspeccionar la pila en tiempo de ejecuci\'on de tu programa cuando se genera
+  un error, sino que tambi\'en te permite interactuar con todos los objetos de
+  tu aplicaci\'on, inclu\'ido el c\'odigo fuente. En muchos casos, puedes
+  modificar el c\'odigo fuente desde depurador y continuar la ejecuci\'on. El
+  debugger es especialmente efectivo como una herramienta de apoyo a las primeras pruebas de desarrollo junto a SUnit (\charef{SUnit}).
   \item El \emph{navegador de procesos} te permite monitorear, consultar e interactuar con los procesos actuales que est\'an corriendo en tu imagen.
-  \item El \emph{buscador de m\'etodos} y el \emph{navegador de nombres de mensajes} son dos herramientas para localizar m\'etodos. El primero de ellos es m\'as \'util cuando no est\'as seguro del nombre , pero no saben el comportamiento esperado. La segunda ofrece una interface de navegaci\'on mas avanzada cuando conoces al menos un fragmento del nombre.
-  \item \emph{Changes Set} se generan autom\'aticamente registros de todos los cambios en el c\'odigo fuente de tu imagen. En gran parte han sido reemplazados por Monticello como un medio para almacenar e intercambiar las versiones de tu c\'odigo fuente, pero a\'un son \'utiles, especialmente para la recuperaci\'on de fallas catastr\'oficas, sin embargo es muy raro que esto suceda.
-  \item El \emph{navegador de lista de archivo} es una herramienta que permite navegar por el sistema de archivo. Tambi\'en te permite para \menu{filein} el c\'odigo fuente del sistema de archivo.
-  \item En el caso de que tu imagen se caiga antes de que puedas guardarla o respaldar tu c\'odigo fuente con Monticello, siempre puedes recuperar tus m\'as recientes cambios usando un \emph{navegador de lista de cambios}. Puedes seleccionar los cambios que deseas reproducir y presentarlas en la copia mas reciente de tu imagen.
+  \item El \emph{buscador de m\'etodos} y el \emph{navegador de nombres de
+  mensajes} son dos herramientas para localizar m\'etodos. El primero de ellos es m\'as \'util cuando no est\'as seguro del nombre , pero no saben el comportamiento esperado. La segunda ofrece una interfaz de navegaci\'on mas avanzada cuando conoces al menos un fragmento del nombre.
+  \item Los \emph{Change Sets} son registros de todos los cambios en el c\'odigo
+  fuente de tu imagen que se generan autom\'aticamente . En gran parte han sido reemplazados por Monticello como un medio para almacenar e intercambiar las versiones de tu c\'odigo fuente, pero a\'un son \'utiles, especialmente para la recuperaci\'on de fallas catastr\'oficas, sin embargo es muy raro que esto suceda.
+  \item El \emph{navegador de lista de archivo} es una herramienta que permite
+  navegar por el sistema de archivos. Tambi\'en te permite hacer \menu{filein}
+  de c\'odigo fuente del sistema de archivos.
+  \item En el caso de que tu imagen se caiga antes de que puedas guardarla o
+  respaldar tu c\'odigo fuente con Monticello, siempre puedes recuperar tus
+  cambios m\'as recientes usando un \emph{navegador de lista de cambios}. Puedes
+  seleccionar los cambios que deseas reproducir y presentarlos en la copia m\'as
+  reciente de tu imagen.
 \end{itemize}
 
 %=================================================================
