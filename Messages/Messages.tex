@@ -35,7 +35,7 @@
 	\sloppy
 \fi
 \renewcommand\yellowbox[1]{\relax}
-\renewcommand\nnbb[2]{\relax} 
+\renewcommand\nnbb[2]{\relax}
 
 %=================================================================
 \chapter{Comprendiendo la sintaxis de los mensajes}
@@ -43,21 +43,21 @@
 
 Aunque la sintaxis de los mensajes de \st es extremadamente simple, no es convencional y puede llevar alg\'un tiempo sentirse familiarizado con ella.
 Este cap\'itulo ofrece alguna gu\'ia para ayudarte a estar aclimatado a esta sintaxis especial de env\'io de mensajes.
-Si ya te sientes c\'omodo con la sintaxis, puedes elegir saltear este cap\'itulo, o volver al mismo mas tarde.
+Si ya te sientes c\'omodo con la sintaxis, puedes elegir saltarte este cap\'itulo, o volver al mismo mas tarde.
 
 %=============================================================
 \section{Identificando mensajes}
 
 En \st, excepto para los elementos sint\'acticos listados en \charef{syntax} (\ct+:= ^ . ; # () {} [ : | ]+), todo es un env\'io de mensaje.
 Como en \ind{C++}, puedes definir operadores como \ct{+} para tus propias clases, pero todos los operadores tienen la misma precedencia.
-Adem\'as, no puedes cambiar la aridad de un m\'etodo. ``\ct{-}'' es siempre un mensaje binario; no hay ninguna manera de tener un `` \ct{-}'' unario con una sobrecarga diferente.
+Adem\'as, no puedes cambiar la aridad \pp{el n\'umero de argumentos} de un m\'etodo. ``\ct{-}'' es siempre un mensaje binario; no hay ninguna manera de tener un `` \ct{-}'' unario con una sobrecarga diferente.
 
 En \st el orden en el cual los mensajes se env\'ian es determinado por el tipo de mensaje. Hay solo tres tipos de mensajes: mensajes \emphsubind{mensaje}{unarios}, mensajes \emphsubind{mensaje}{binarios}, y mensajes \emphsubind{mensaje}{keyword}. Los mensajes unarios siempre se env\'ian primero, luego los mensajes binarios y finalmente los mensajes keyword. Como en la mayor\'ia de los lenguajes, los \ind{par\'entesis} pueden ser utilizados para cambiar el orden de evaluaci\'on. Estas reglas hacen el c\'odigo \st lo mas f\'acil de leer posible. Y en la mayor parte del tiempo no tienes que estar pensando en las reglas.
 
-Como la mayor parte del c\'omputo en \st se realiza a trav\'es del pasaje de mensajes, identificar correctamente los mismos es crucial. La siguiente terminolog\'ia va a ayudarnos:
+Como la mayor parte del c\'omputo en \st se realiza a trav\'es del pasaje \pp{pase}de mensajes, identificar correctamente los mismos es crucial. La siguiente terminolog\'ia va a ayudarnos:
 
 \begin{itemize}
-  \item Un mensaje se compone con un \emphsubind{mensaje}{selector} de mensaje y opcionalmente con argumentos de mensaje.
+  \item Un mensaje se compone \pp{est\'a compuesto} con un \emphsubind{mensaje}{selector} de mensaje y opcionalmente con argumentos de mensaje.
   \item Un mensaje es enviado a un \emphsubind{mensaje}{receptor}.
   \item La combinaci\'on de un mensaje y su receptor es denominada \emphsubind{mensaje}{env\'io} \emph{de mensaje} como se muestra en \figref{firstScriptMessage}.
 %  \item We call expression a message send, a variable, an assignment, a literal or a block.
@@ -90,7 +90,7 @@ Como la mayor parte del c\'omputo en \st se realiza a trav\'es del pasaje de men
 %sd-this is not totally right because we do not cover assignment but ok for now
 
 Para ayudarte a identificar el receptor de un mensaje, te lo subrayaremos.
-Tambi\'en vamos a rodear cada env\'io de mensaje con una elipse con el n\'umero de env\'io de mensaje, comenzando por el primero que ser\'a enviado, para ayudarte a ver el orden en el cual los mensajes son enviados. 
+Tambi\'en vamos a rodear cada env\'io de mensaje con una elipse con el n\'umero de env\'io de mensaje, comenzando por el primero que ser\'a enviado, para ayudarte a ver el orden en el cual los mensajes son enviados.
 
 %\begin{figure}[!ht]
 %\begin{center}
@@ -138,7 +138,7 @@ Un receptor puede ser el primer elemento de un mensaje, como \ct{100} en el env\
 \end{table}
 
 La \tabref{messageExamples} muestra varios ejemplos de env\'ios de mensajes.
-Deber\'ias notar que no todos los env\'ios de mensaje tienen argumentos. Los mensajes unarios como \ct{open} no tienen argumentos. Los mensajes keyword simples y los mensajes binarios como \ct{go: 100} y \ct{+ 20} tienen un argumento. 
+Deber\'ias notar que no todos los env\'ios de mensaje tienen argumentos. Los mensajes unarios como \ct{open} no tienen argumentos. Los mensajes keyword simples y los mensajes binarios como \ct{go: 100} y \ct{+ 20} tienen un argumento.
 Tambi\'en hay mensajes simples y compuestos. \ct{Color yellow} y \ct{100 + 20} son simples:  un mensaje es enviado a un objeto, mientras que el env\'io de mensaje \ct{aPen go: 100 + 20} est\'a compuesto por dos mensajes: \ct{+ 20} es enviado a \ct{100} y \ct{go:} es enviado a \ct{aPen} con el argumento que haya resultado del primer mensaje.
 Un receptor puede ser una expresi\'on (como una asignaci\'on, un env\'io de mensaje o un literal) que devuelva un objeto. En \ct{Pen new go: 100}, el mensaje \ct{go: 100} es enviado al objeto que resulta de la ejecuci\'on del env\'io del mensaje \ct{Pen new}.
 
@@ -146,10 +146,10 @@ Un receptor puede ser una expresi\'on (como una asignaci\'on, un env\'io de mens
 %=============================================================
 \section{Tres tipos de mensajes}
 
-\st define unas pocas reglas simples para determinar el orden en el cual los mensajes son enviados. Estas reglas est\'an basadas en la distinci\'on entre 3 tipos diferentes de mensajes: 
+\st define unas pocas reglas simples para determinar el orden en el cual los mensajes son enviados. Estas reglas est\'an basadas en la distinci\'on entre 3 tipos diferentes de mensajes:
 \begin{itemize}
-\item Los \emph{Mensajes Unarios} son mensajes que se env\'ian a un objeto sin mas informaci\'on. Por ejemplo en \ct{3 factorial}, \ct{factorial} es un mensaje unario. 
-\item Los \emph{Mensajes Binarios} son mensajes que consisten de operadores (frecuentemente aritm\'eticos). Son binarios porque siempre involucran s\'olo dos objetos: el receptor y el objeto argumento. Por ejemplo en \ct{10 + 20}, \ct{+} es un mensaje binario enviado al receptor \ct{10} con el argumento \ct{20}. 
+\item Los \emph{Mensajes Unarios} son mensajes que se env\'ian a un objeto sin m\'as informaci\'on. Por ejemplo en \ct{3 factorial}, \ct{factorial} es un mensaje unario.
+\item Los \emph{Mensajes Binarios} son mensajes que consisten de operadores (frecuentemente aritm\'eticos). Son binarios porque siempre involucran s\'olo dos objetos: el receptor y el objeto argumento. Por ejemplo en \ct{10 + 20}, \ct{+} es un mensaje binario enviado al receptor \ct{10} con el argumento \ct{20}.
 \item Los \emph{Mensajes Keyword} son mensajes que consisten de una o mas palabras clave, cada una terminada por dos puntos (\ct{:}) y tomando un argumento. Por ejemplo en \ct{anArray at: 1 put: 10}, la palabra clave \ct{at:} toma el argumento \ct{1} y la palabra clave \ct{put:} toma el argumento \ct{10}.
 \end{itemize}
 
@@ -171,7 +171,7 @@ Object class --> Object class  "The class of Object is Object class (BANG)"
 \lct{receptor \textbf{selector}}}
 
 %-------------------------------------------------------------
-\subsection{Mensajes Binarios} 
+\subsection{Mensajes Binarios}
 Los mensajes binarios son mensajes que requieren exactamente un argumento \emph{y} cuyo selector consiste en una sequencia de uno o mas caracteres del conjunto: \ct{+}, \ct{-}, \ct{*}, \ct{/}, \ct{&}, \ct{=}, \ct{>}, \ct{|}, \ct{<}, \ct{~}, y \ct{@}. Nota que \ct{--} no est\'a permitido por razones de an\'alisis sint\'actico.
 
 \begin{code}{@TEST}
@@ -187,9 +187,9 @@ Los mensajes binarios son mensajes que requieren exactamente un argumento \emph{
 \lct{receptor \textbf{selector} argumento}}
 
 %-------------------------------------------------------------
-\subsection{Mensajes Keyword} 
+\subsection{Mensajes Keyword}
 
-Los mensajes keyword son mensajes que requieren uno o m\'as argumentos y cuyo selector consiste en una o mas palabras clave cada una terminada en dos puntos (\ct{:}). Los mensajes keyword siguen el modelo sint\'actico:  \lct{receptor \textbf{selectorPalabraUno:} argUno \textbf{palabraDos:} argDos}.
+Los mensajes keyword son mensajes que requieren uno o m\'as argumentos y cuyo selector consiste en una o m\'as palabras clave cada una terminada en dos puntos (\ct{:}). Los mensajes keyword siguen el modelo sint\'actico:  \lct{receptor \textbf{selectorPalabraUno:} argUno \textbf{palabraDos:} argDos}.
 
 Cada palabra clave toma un argumento. Entonces \ct{r:g:b:} es un m\'etodo con tres argumentos, \ct{playFileNamed:} y \ct{at:} son m\'etodos con un argumento, y \ct{at:put:} es un m\'etodo con dos argumentos. Para crear una instancia de la clase \ct{Color} se puede utilizar el m\'etodo \ct{r:g:b:} como en \ct{Color r: 1 g: 0 b: 0}, que crea el color rojo. Nota que los dos puntos son parte del selector.
 
@@ -215,9 +215,9 @@ nums --> #(6 2 3 4 5)
 Los tres tipos de mensajes tienen diferente precedencia, lo cual permite que sean compuestos de manera elegante.
 
 \begin{enumerate}
-\item Los mensajes unarios son siempre enviados primero, luego los mensajes binarios y finalmente los mensajes keyword. 
+\item Los mensajes unarios son siempre enviados primero, luego los mensajes binarios y finalmente los mensajes keyword.
 \item Los mensajes entre \ind{par\'entesis} son enviados antes que cualquier otro tipo de mensaje.
-\item Los mensajes del mismo tipo son evaluados de izquierda a derecha. 
+\item Los mensajes del mismo tipo son evaluados de izquierda a derecha.
 \end{enumerate}
 \index{mensaje!orden de evaluaci\'on}
 
@@ -265,8 +265,8 @@ Solamente necesitamos par\'entesis para enviar el mensaje binario \ct{>>}, el cu
 %Pen new go: 30 + 50          "create a turtle and moves it forward 80 pixels"
 %Display restoreAfter: [WarpBlt test4] 					
 %	"Keyword message, try test1, test12, test3, test4 and test 5"
-%#($t $e $s $t) at: 3 --> $s 
-%#($a $b $c $d) at: 2 factorial put: $z 
+%#($t $e $s $t) at: 3 --> $s
+%#($a $b $c $d) at: 2 factorial put: $z
 %\end{code}
 
 %As you can see the syntax and in particular the keyword messages as in
@@ -276,7 +276,7 @@ Solamente necesitamos par\'entesis para enviar el mensaje binario \ct{>>}, el cu
 
 \paragraph{Ejemplo.}
 En el mensaje \ct{aPen color: Color yellow}, encontramos el mensaje \emph{unario} \ct{yellow} enviado a la clase \ct{Color} y el mensaje \emph{keyword} \ct{color:} enviado a \ct{aPen}. Los mensajes unarios se env\'ian primero, en consecuencia \ct{Color yellow} es enviado al comienzo de la evaluaci\'on (1). El env\'io realizado devuelve un objeto color, el cual es pasado como argumento del mensaje \ct{aPen color: aColor} (2) como se muestra en el \egref{decColor}.
-La \figref{uKeyUn} muestra graficamente c\'omo son enviados los mensajes.
+La \figref{uKeyUn} muestra gr\'aficamente c\'omo son enviados los mensajes.
 
 \needlines{5}
 \begin{example}[decColor]{Descomponiendo la evaluaci\'on de \ct{aPen color: Color yellow}}{}
@@ -290,7 +290,7 @@ La \figref{uKeyUn} muestra graficamente c\'omo son enviados los mensajes.
 El \egref{decGo} muestra como es ejecutado el todo el env\'io de mensajes.
 
 \begin{example}[decGo]{Descomponiendo \ct{aPen go: 100 + 20}}{}
-      aPen go: 100 + 20   
+      aPen go: 100 + 20
 (1)                 100 + 20           "mensaje binario enviado primero"
                    -->   120
 (2)  aPen go: 120                   "luego el mensaje keyword"
@@ -315,13 +315,13 @@ El \egref{decGo} muestra como es ejecutado el todo el env\'io de mensajes.
 \end{figure}
 
 %\begin{figure}[ht]
-%\centerline{\includegraphics[width=6cm]{uKeyBin}} 
+%\centerline{\includegraphics[width=6cm]{uKeyBin}}
 %\caption{Unary messages are sent first so \ct{Color yellow} is sent. This returns a color object which is passed as argument of the message \ct{aPen color:}.\figlabel{uKeyBin}}
 %\end{figure}
 
 %\paragraph{Example 3.}
 %The message \ct{aPen penSize: aPen penSize + 2} contains one unary message \ct{penSize}, one binary message \ct{+},  and one keyword message \ct{penSize:}.
-%The unary message \ct{aPen penSize} is sent first (1), this message returns a number representing the current size of the receiver pen. Then the binary message is sent (2), the returned number is sent the message \ct{+ 2} which in its turn returns another number. Finally the keyword message 
+%The unary message \ct{aPen penSize} is sent first (1), this message returns a number representing the current size of the receiver pen. Then the binary message is sent (2), the returned number is sent the message \ct{+ 2} which in its turn returns another number. Finally the keyword message
 %\ct{penSize:} is sent with the last number as argument. The expression increases the receiver pen size by two pixels. \Egref{decpen} illustrates the decomposition of message evaluation.
 
 % penSize does not exist on Pen
@@ -333,7 +333,7 @@ El \egref{decGo} muestra como es ejecutado el todo el env\'io de mensajes.
 %                              $\arrow$  aNumber
 %(2)                              aNumber + 2	             "binary"
 %                                    $\arrow$   anotherNumber	
-%(3)   aPen penSize: anotherNumber           "keyword"      
+%(3)   aPen penSize: anotherNumber           "keyword"
 %\end{scriptfigwithsize}
 
 \paragraph{Ejemplo.} Como ejercicio te proponemos descomponer la evaluaci\'on del mensaje \ct{Pen new go: 100 + 20} el cual est\'a compuesto por un mensaje unario, un mensaje keyword y un mensaje binario (ver \figref{unKeyBin}).
@@ -360,7 +360,7 @@ El \egref{decGo} muestra como es ejecutado el todo el env\'io de mensajes.
 
 Aquí necesitamos los \ind{paréntesis} para forzar el envío de \ct{lowMajorScaleOn:} antes del envío de \ct{play}.
 \begin{code}{}
-(FMSound lowMajorScaleOn: FMSound clarinet) play 
+(FMSound lowMajorScaleOn: FMSound clarinet) play
 "(1) enviar el mensaje clarinet a la clase FMSound para crear un sonido de clarinete.
  (2) enviar este sonido a FMSound como argumento del mensaje keyword lowMajorScaleOn:.
  (3) reproducir el sonido resultante."
@@ -375,7 +375,7 @@ Aquí necesitamos los \ind{paréntesis} para forzar el envío de \ct{lowMajorSca
 %   'www.altavista.digital.com/av/pix/default/av-adv.gif') display
 
 \paragraph{Ejemplo.}
-El mensaje \ct{(65@325 extent: 134 @ 100) center} retorna el centro de un rectángulo cuya esquina superior izquierda es $(65, 325)$ y cuyo tamaño es $134{\times}100$. El \egref{decExtent} muestra cómo el mensaje es descompuesto y enviado. Primero es enviado el mensaje entre paréntesis: contiene los mensajes binarios \ct{65@325} y \ct{134@100} que son enviados primero y retornan objetos punto, y el mensaje keyword \ct{extent:} que es enviado a continuación y retorna un rectángulo. Finalmente es enviado al rectángulo el mensaje unario \ct{center} y entonces un nuevo punto es retornado por este. 
+El mensaje \ct{(65@325 extent: 134 @ 100) center} retorna el centro de un rectángulo cuya esquina superior izquierda es $(65, 325)$ y cuyo tamaño es $134{\times}100$. El \egref{decExtent} muestra cómo el mensaje es descompuesto y enviado. Primero es enviado el mensaje entre paréntesis: contiene los mensajes binarios \ct{65@325} y \ct{134@100} que son enviados primero y retornan objetos punto, y el mensaje keyword \ct{extent:} que es enviado a continuación y retorna un rectángulo. Finalmente es enviado al rectángulo el mensaje unario \ct{center} y entonces un nuevo punto es retornado por este.
 Evaluar el mensaje sin paréntesis llevaría a un error porque el objeto \ct{100} no comprende el mensaje \ct{center}.
 
 \needlines{9}
@@ -392,12 +392,12 @@ Evaluar el mensaje sin paréntesis llevaría a un error porque el objeto \ct{100
 \end{example}
 
 \subsection{De izquierda a derecha}
-Ahora sabemos cómo son manejados los mensajes de distintos tipos o prioridades. La pregunta final que resta por ser respondida es cómo son enviados los mensajes con la misma prioridad. Son enviados de izquierda a derecha. Debes notar que ya viste este comportamiento en \egref{decExtent} donde los dos mensajes (\ct{@}) de creación de puntos fueron enviados primero.
+Ahora sabemos cómo son manejados los mensajes de distintos tipos o prioridades. La pregunta final que resta por ser respondida es cómo son enviados los mensajes con la misma prioridad. Son enviados de izquierda a derecha. Debes notar que ya viste este comportamiento en \pp{el} \egref{decExtent} donde los dos mensajes (\ct{@}) de creación de puntos fueron enviados primero.
 
 \important{{\textbf{Regla Tres.} Cuando los mensajes son del mismo tipo, el orden de evaluación es de izquierda a derecha.}}
 
 %\begin{figure}
-%\centerline{\includegraphics[width=8cm]{ucompoUn}} 
+%\centerline{\includegraphics[width=8cm]{ucompoUn}}
 %\caption{The message \ct{Pen new east} is composed of two unary messages. Therefore the leftmost one, \ct{new},  is sent and it returns a new robot to which the second message \ct{east} is sent. \figlabel{compoUn}}
 %\end{figure}
 
@@ -406,7 +406,7 @@ Ahora sabemos cómo son manejados los mensajes de distintos tipos o prioridades.
 \begin{figure}
 	\centering
 	\includegraphics[width=8cm]{ucompoUn}
-	\caption{Decomposing \ct{Pen new down}\figlabel{unaryMessages}}
+	\caption{Decomponiendo \ct{Pen new down}\figlabel{unaryMessages}}
 \end{figure}
 
 %-------------------------------------------------------------
@@ -415,7 +415,7 @@ Las reglas de composición de mensajes son simples pero producen inconsistencias
 
 \needlines{6}
 \begin{code}{@TEST}
-3 + 4 * 5      --> 35    "(no resulta 23)  Los mensajes binarios se envian de izquierda a derecha"
+3 + 4 * 5      --> 35    "(no resulta 23)  Los mensajes binarios se env\'ian de izquierda a derecha"
 3 + (4 * 5)    --> 23
 1 + 1/3         --> (2/3)    "no resulta 4/3"
 1 + (1/3)       --> (4/3)
@@ -423,13 +423,13 @@ Las reglas de composición de mensajes son simples pero producen inconsistencias
 (1/3) + (2/3)  --> 1
 \end{code}
 
-\paragraph{Ejemplo.} 
+\paragraph{Ejemplo.}
 En los envíos de mensajes \ct{20 + 2 * 5}, están presenta solamente los mensajes binarios \ct{+} y \ct{*}. En \st no hay prioridades específicas para las operaciones \ct{+} y \ct{*}. Son sólo mensajes binarios, entonces \ct{*} no tiene prioridad por sobre \ct{+}. Aquí el mesaje mas a la izquierda \ct{+} es enviado primero (1) y luego se envía al resultado el mensaje \ct{*} como se muestra en \egref{binaryMessages1}.
 
 \begin{example}[binaryMessages1]{Descomponiendo \ct{20 + 2 * 5}}{}
-"Debido a que no hay prioridades entre los mensajes binarios, el mensaje de la izquierda + es evaluado primero, aun cuando para las reglas de la aritmetica el * deberia ser enviado antes."
+"Debido a que no hay prioridades entre los mensajes binarios, el mensaje de la izquierda + es evaluado primero, aun cuando para las reglas de la aritm\'etica el * deber\'ia ser enviado antes."
 
-      20 + 2 * 5 
+      20 + 2 * 5
 (1)  20 + 2 --> 22
 (2)  22       * 5 --> 110
 \end{example}
@@ -442,9 +442,9 @@ Como se muestra en \egref{binaryMessages1} el resultado de este envío de mensaj
 
 \needlines{4}
 \begin{example}[mathcorrect]{Descomponiendo \ct{20 + (2 * 5)}}{}
-"Los mensajes rodeados con parentesis son evaluados primero, en consecuencia * se envia antes que + lo cual produce el comportamiento correcto."
+"Los mensajes rodeados con par\'entesis son evaluados primero, en consecuencia * se env\'ia antes que + lo cual produce el comportamiento correcto."
 
-    20 + (2 * 5) 
+    20 + (2 * 5)
 (1)        (2 * 5) --> 10
 (2) 20 + 10      --> 30
 \end{example}
@@ -496,27 +496,27 @@ Se debe notar que la primera regla que determina que los mensajes unarios sean e
 \end{figure}
 
 %=============================================================
-\section{Hints for identifying keyword messages}
+\section{Sugerencias para identificar los mensajes keyword}
 Frecuentemente los principiantes tienen problemas para comprender cuándo es necesario utilizar paréntesis. Veamos cómo son reconocidos los mensajes keyword por el compilador.
 
 %-------------------------------------------------------------
 \subsection{Paréntesis o no?}
-Los caracteres \ct{[}, \ct{]}, \ct{(} y \ct{)} delimitan diferentes áreas. En de cada una de dichas áreas, un mensaje keyword es la secuencia más larga de palabras terminadas por \ct{:} que no sea cortada por los caracteres \ct{.} o \ct{;}. 
+Los caracteres \ct{[}, \ct{]}, \ct{(} y \ct{)} delimitan diferentes áreas. En de cada una de dichas áreas, un mensaje keyword es la secuencia más larga de palabras terminadas por \ct{:} que no sea cortada por los caracteres \ct{.} o \ct{;}.
 Cuando los caracteres \ct{[}, \ct{]}, \ct{(} y \ct{)} rodean un conjunto de palabras terminadas con dos puntos, estas palabras participan en el mensaje keyword \emph{local} al área definida.
 
 En este ejemplo, hay dos mensajes keyword diferentes: \ct{rotatedBy:magnify:smoothing:} y \ct{at:put:}.
 
 \begin{code}{}
 aDict
-   at: (rotatingForm 
+   at: (rotatingForm
           rotateBy: angle	
-          magnify: 2 
+          magnify: 2
           smoothing: 1)
    put: 3
 \end{code}
 
 \important{
-Los caracteres \lct{[}, \lct{]}, \lct{(} y \lct{)} delimitan diferentes áreas. Dentro de cada una de dichas áreas, un mensaje keyword está compuesto por la secuencia más larga de palabras terminadas por \lct{:} que no sea cortada por los caracteres \lct{.},  o \lct{;}. 
+Los caracteres \lct{[}, \lct{]}, \lct{(} y \lct{)} delimitan diferentes áreas. Dentro de cada una de dichas áreas, un mensaje keyword está compuesto por la secuencia más larga de palabras terminadas por \lct{:} que no sea cortada por los caracteres \lct{.},  o \lct{;}.
 Cuando los caracteres \lct{[}, \lct{]}, \lct{(} y \lct{)} rodean algunas palabras terminadas por dos puntos, estas palabras participan en el mensaje keyword local al área definida.}
 
 \on{Suena terriblemente complicado.}
@@ -529,7 +529,7 @@ El siguiente trozo de código no requiere paréntesis porque el envío de mensaj
    ifTrue:[...]
 \end{code}
 
-El siguiente trozo de código requiere paréntesis porque los mensajes \ct{includes:} y \ct{ifTrue:} son ambos mensajes keyword. 
+El siguiente trozo de código requiere paréntesis porque los mensajes \ct{includes:} y \ct{ifTrue:} son ambos mensajes keyword.
 \begin{code}{}
 ord := OrderedCollection new.
 (ord includes: $a)
@@ -583,7 +583,7 @@ Transcript cr.
 \emph{es equivalente a:}
 \begin{minipage}{0.35\textwidth}
 \begin{code}{}
-Transcript        
+Transcript
    show: 'Pharo is';
    show: 'fun ';
    cr
@@ -604,16 +604,16 @@ Point new setX: 25 setY: 35; isZero --> false
 \item Un mensaje es siempre enviado a un objeto llamado el \emph{receptor} que puede ser el resultado de otro mensaje enviado.
 
 \item Los mensajes unarios son mensajes que no requiren argumento.\\
-Son de la forma \lct{receptor \textbf{selector}}-
+Son de la forma \lct{receptor \textbf{selector}}.
 
-\item Los mensajes binarios son mensajes que involucran dos objetos, el receptor y otro objeto \emph{y} cuyo selector está compuesto de uno o más de caracteresers de la siguiente lista: \ct{+}, \ct{-}, \ct{*}, \ct{/}, \ct{|}, \texttt{\&}, \ct{=}, \ct{>}, \ct{<}, \texttt{\~}, y \ct{@}.
+\item Los mensajes binarios son mensajes que involucran dos objetos, el receptor y otro objeto \emph{y} cuyo selector está compuesto de uno o más de caracteres de la siguiente lista: \ct{+}, \ct{-}, \ct{*}, \ct{/}, \ct{|}, \texttt{\&}, \ct{=}, \ct{>}, \ct{<}, \texttt{\~}, y \ct{@}.
 Son de la forma: \lct{receptor \textbf{selector} argumento}
 
-\item Los mensajes de palabra clave son mensajes que involucran a más de un objeto y que contienen al menos un caracter dos puntos (\ct{:}). \\
+\item Los mensajes keyword son mensajes que involucran a más de un objeto y que contienen al menos un caracter dos puntos (\ct{:}). \\
 Son de la forma:
 \lct{receptor \textbf{selectorPalabraUno:} argumentoUno \textbf{palabraDos:} argumentoDos}
 
-\item \textbf{Regla Uno.} Los mensajes unarios son enviados primero, luego los binarios y finalmente los de palabra clave.
+\item \textbf{Regla Uno.} Los mensajes unarios son enviados primero, luego los binarios y finalmente los keyword.
 \item \textbf{Regla Dos.} Los mensajes en paréntesis son enviados antes que cualquier otro.
 \item \textbf{Regla Tres.} Cuando los mensajes enviados son del  mismo tipo, el orden de evaluación de de izquierda a derecha.
 \item En \st, tradicional, la aritmética de operadores como + y * tienen la misma prioridad. \ct{+} y \ct{*} son solo mensaje binarios, por lo tanto \ct{*} no tienen prioridad sobre \ct{+}. Debes usar paréntesis para obtener un resultado diferente.
