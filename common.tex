@@ -20,10 +20,10 @@
 \usepackage{theorem}
 \usepackage[spanish]{babel}
 %%
-% El contenido de label en enumitem no admite ordenes frágiles. 
-% Está corregido en la versión 5.0, pero una solución para la 4 
+% El contenido de label en enumitem no admite ordenes frágiles.
+% Está corregido en la versión 5.0, pero una solución para la 4
 % es la siguiente:
-% iref: http://www.tex-tipografia.com/spanish.html 
+% iref: http://www.tex-tipografia.com/spanish.html
 \makeatletter
 \let\savees@listquot\es@listquot
 \def\es@listquot{\protect\savees@listquot}
@@ -160,6 +160,7 @@
 \newcommand{\nicopaez}[1]{\nnbb{NicoPaez}{#1}} % NicoPaez
 \newcommand{\mmp}[1]{\nnbb{Mariano}{#1}} % MartinezPeck
 \newcommand{\pil}[1]{\nnbb{Pablo}{#1}} % Lalloni
+\newcommand{\pp}[1]{\nnbb{Patricio}{#1}} % Plaza
 
 %=============================================================
 %:Abbreviation macros
@@ -168,7 +169,7 @@
 \newcommand{\etc}{etc.\xspace}
 %=============================================================
 %:Cross reference macros
-\newcommand{\charef}[1]{Chap\'itulo~\ref{cha:#1}\xspace}
+\newcommand{\charef}[1]{Cap\'itulo~\ref{cha:#1}\xspace}
 \newcommand{\secref}[1]{Secci\'on~\ref{sec:#1}\xspace}
 \newcommand{\figref}[1]{figura~\ref{fig:#1}\xspace}
 \newcommand{\Figref}[1]{Figura~\ref{fig:#1}\xspace}
@@ -262,17 +263,17 @@
 \iftoshelse{
 	\usepackage{marginnote}
 		\renewcommand*{\marginfont}{\footnotesize}
-	\newcommand{\vartriangleout}{\ifthenelse{\isodd{\thepage}}{\vartriangleright}{\vartriangleleft}}
-	\newcommand{\dothisicon}{\fcolorbox{blue!65}{white}{\highlight{$\vartriangleout$}}}
+	 \newcommand{\vartriangleout}{\ifthenelse{\isodd{\thepage}}{\vartriangleright}{\vartriangleleft}}
+	 \newcommand{\dothisicon}{\fcolorbox{blue!65}{white}{\highlight{$\vartriangleout$}}}
 	\newcommand{\dothis}[1]{%
 		\noindent\par\noindent
 		{\reversemarginpar
-			\marginnote{\fcolorbox{blue!65}{white}{\highlight{$\vartriangleout$}}}}
+			 \marginnote{\fcolorbox{blue!65}{white}{\highlight{$\vartriangleout$}}}}
 		%\MarginLabel{do this}
 		\noindent\emph{#1}
 		\nopagebreak}
 }{
-	\newcommand{\dothisicon}{\raisebox{-.5ex}{\includegraphics[height=1.2em]{pharo}}}
+	 \newcommand{\dothisicon}{\raisebox{-.5ex}{\includegraphics[height=1.2em]{pharo}}}
 	\newcommand{\dothis}[1]{%
 		\medskip
 		\noindent\dothisicon
@@ -286,7 +287,7 @@
 %=============================================================
 %:Reader hints (hint)
 %
-% Indicates a non-obvious consequence 
+% Indicates a non-obvious consequence
 \newcommand{\hint}[1]{\vspace{1ex}\noindent\fbox{\textsc{Hint}} \emph{#1}}
 %=================================================================
 % graphics for Morphic handles
@@ -581,7 +582,7 @@ Damien Pollet},
 %\newcommand{\clsindmain}[1]{\index{#1@\textsf{#1} (class)}\ct{#1}\xspace}
 \newcommand{\clsindmain}[1]{\index{#1!\#@(class)}\ct{#1}\xspace} % class main
 \newcommand{\clsindexmain}[1]{\index{#1!\#@(class)}} % class main index only
-\newcommand{\indexmain}[1]{\index{#1}} 
+\newcommand{\indexmain}[1]{\index{#1}}
 %=============================================================
 %:Code macros
 % some constants
