@@ -192,11 +192,19 @@ number := stream upToEnd.
 number. --> '143'
 \end{code}
 \noindent
-This code sets the boolean variable \ct{negative} according to the sign of the
-number in the stream and \ct{number} to its absolute value. The method
-\mthind{ReadStream}{upToEnd} returns everything from the current position to the end
-of the stream and sets the stream to its end. This code can be
-simplified using \mthind{PositionableStream}{peekFor:}, which moves forward if the following element equals the parameter and doesn't move otherwise.
+
+%$
+
+% This code sets the boolean variable \ct{negative} according to the sign of the
+% number in the stream and \ct{number} to its absolute value. The method
+% \mthind{ReadStream}{upToEnd} returns everything from the current position to the end
+% of the stream and sets the stream to its end. This code can be
+% simplified using \mthind{PositionableStream}{peekFor:}, which moves forward if the following element equals the parameter and doesn't move otherwise.
+Este c\'odigo establece la variable booleana \ct{negative} de acuerdo al signo del n\'umero
+en el stream y \ct{number} a su valor absoluto. El m\'etodo \mthind{ReadStream}{upToEnd} devuelve
+todo desde la posici\'on actual hasta el final del stream y establece el stream hasta su final. 
+Este c\'odigo puede ser simplificado usando \mthind{PositionableStream}{peekFor:}, que adelanta si el siguiente
+elemento es igual al par\'ametro y no se mueve en otro caso.
 
 \begin{code}{@TEST |stream negative number|}
 stream := '-143' readStream.
@@ -204,8 +212,11 @@ stream := '-143' readStream.
 stream upToEnd         --> '143'
 \end{code}
 \noindent
-\ct{peekFor:} also returns a boolean
-indicating if the parameter equals the element.
+
+%$
+%\ct{peekFor:} also returns a boolean
+%indicating if the parameter equals the element.
+\ct{peekFor:} tambi\'en devuelve un booleano indicanto si el par\'ametro es igual al elemento.
 
 Puede que hayas notado un nuevo modo de construir un stream en el ejemplo anterior: uno puede simplemente enviar 
 \mthind{SequenceableCollection}{readStream} a una colecci\'on secuenciable para obtener un stream de lectura de una colecci\'on particular.
@@ -213,32 +224,36 @@ collection.
 
 \paragraph{Posicionamiento.} Hay m\'etodos para posicionar el puntero del stream. Si tienes el \'indice, puedes
 usarlo directamente usando \mthind{PositionableStream}{position:}. Puedes pedir la posici\'on usando \mthind{PositionableStream}{position}. 
-Por favor recuerda que un stream no est\'a posicionado en un elemento, sino entre dos elementos. El 'indice correspondiente al comienzo del stream es 0.
+Por favor recuerda que un stream no est\'a posicionado en un elemento, sino entre dos elementos. El \'indice correspondiente al comienzo del stream es 0.
 
-Puede obtener el estado del stream representado en \figref{ab_cde} con el siguiente c\'odigo
+Puedes obtener el estado del stream representado en \figref{ab_cde} con el siguiente c\'odigo
 
 \begin{code}{@TEST |stream|}
 stream := 'abcde' readStream.
 stream position: 2.
 stream peek --> $c
 \end{code}
+%$
 
 \begin{figure}[h!t]
 \centerline{\includegraphics[scale=0.5]{ab_cdeStef}}
-\caption{A stream at position 2}
+\caption{Un stream en la posici\'on 2}
 \figlabel{ab_cde}
 \vspace{.2in}
 \end{figure}
 
-To position the stream at the beginning or the end,
-% If you want to go to the beginning or at the end is what you want, 
-you can use
-\mthind{PositionableStream}{reset} or \mthind{PositionableStream}{setToEnd}. \mthind{PositionableStream}{skip:} and \mthind{PositionableStream}{skipTo:} are used to
-go forward to a location relative to the current position: \ct{skip:}
-accepts a number as argument and skips that number of elements whereas
-\ct{skipTo:} skips all elements in the stream until it finds an
-element equal to its parameter. Note that it positions the stream
-after the matched element.
+%To position the stream at the beginning or the end, you can use
+Para posicionar el stream al principio o al final, puedes usar \mthind{PositionableStream}{reset} \'o \mthind{PositionableStream}{setToEnd}.
+\mthind{PositionableStream}{skip:} y \mthind{PositionableStream}{skipTo:} son usados para
+% go forward to a location relative to the current position: \ct{skip:}
+% accepts a number as argument and skips that number of elements whereas
+% \ct{skipTo:} skips all elements in the stream until it finds an
+% element equal to its parameter. Note that it positions the stream
+% after the matched element.
+adelantar hasta una posici\'on relativa a la posici\'on actual: \ct{skip:}
+toma un n\'umero como par\'ametro y saltea ese n\'umero de elementos, mientras que
+\ct{skipTo:} saltea todos los elementos en el stream hasta que encuentra un elemento
+igual a su par\'ametro. Notar que posiciona el stream despu\'es del elemento encontrado.
 
 \begin{code}{@TEST |stream|}
 stream := 'abcdef' readStream.
@@ -253,15 +268,23 @@ stream skipTo: $e.                      "stream is just after the e now"
 stream next.        --> $f
 stream contents. --> 'abcdef'
 \end{code}
+%$
+%As you can see, the letter \ct{e} has been skipped.
+Como puedes ver, la letra \ct{e} ha sido salteada. 
 
-As you can see, the letter \ct{e} has been skipped.
+%The method \mthind{PositionableStream}{contents} always returns a copy of the entire stream.
+El m\'etodo \mthind{PositionableStream}{contents} siempre devuelve una copia completa del stream.
 
-The method \mthind{PositionableStream}{contents} always returns a copy of the entire stream.
+%\paragraph{Testing.} Some methods allow you to test the state of the current stream:
+%\mthind{PositionableStream}{atEnd} returns true if and only if no more elements can be read whereas \mthind{PositionableStream}{isEmpty} returns true if and only if there is no element at all in the collection.
+\paragraph{Testing.} Algunos m\'etodos te permiten probar el estado del stream actual:
+%Traducimos Testing?
+\mthind{PositionableStream}{atEnd} devuelve verdadero si y solo si no hay m\'as elementos que puedan ser le\'idos, 
+mientras que \mthind{PositionableStream}{isEmpty} devuelve verdadero si y solo si no hay m\'as elementos en la colecci\'on.
 
-\paragraph{Testing.} Some methods allow you to test the state of the current stream:
-\mthind{PositionableStream}{atEnd} returns true if and only if no more elements can be read whereas \mthind{PositionableStream}{isEmpty} returns true if and only if there is no element at all in the collection.
-
-Here is a possible implementation of an algorithm using \ct{atEnd} that takes two sorted collections as parameters and merges those collections into another sorted collection:
+%Here is a possible implementation of an algorithm using \ct{atEnd} that takes two sorted collections as parameters and merges those collections into another sorted collection:
+Aqu\'i hay una posible implementaci\'on de un algoritmo usando \ct{{atEnd} que toma dos colecciones ordenadas como 
+par\'ametros y las mezcla, creando otra colecci\'on ordenada. 
 
 \needlines{4}
 \begin{code}{@TEST |stream1 stream2 result|}
@@ -285,13 +308,17 @@ result. -->   an OrderedCollection(1 1 2 3 4 4 5 9 10 11 12 13 13 14 15)
 \end{code}
 
 %-----------------------------------------------------------------
-\subsection{Writing to collections}
+%\subsection{Writing to collections}
+\subsection{Escribiendo colecciones}
 
-We have already seen how to read a collection by iterating over its
-elements using a \ct{ReadStream}. We'll now learn how to create
-collections using \clsindmain{WriteStream}{}s.
+% We have already seen how to read a collection by iterating over its
+% elements using a \ct{ReadStream}. We'll now learn how to create
+% collections using \clsindmain{WriteStream}{}s.
+Ya hemos visto como leer una colecci\'on iterando sobre sus elementos, usando un \ct{ReadStream}. 
+Ahora aprenderemos como crear colecciones usando \clsindmain{WriteStream}{}s.
 
-\ct{WriteStream}s are useful for appending a lot of data to a collection at various locations. They are often used to construct strings that are based on static and dynamic parts as in this example:
+%\ct{WriteStream}s are useful for appending a lot of data to a collection at various locations. They are often used to construct strings that are based on static and dynamic parts as in this example:
+Los \ct{WriteStream}s son \'utiles para agregar muchos datos a una colecci\'on en varias posiciones. A menudo son usados para construir cadenas de caracteres basadas en partes est\'aticas o din\'amicas, como en este ejemplo:
 
 \begin{code}{NB: can't be tested due to the changing number of classes}
 stream := String new writeStream.
@@ -306,10 +333,13 @@ stream contents. --> 'This Smalltalk image contains: 2322 classes.
 This is really a lot.'
 \end{code}
 
-This technique is used in the different implementations of the method
-\ct{printOn:} for example. There is a simpler and more efficient way
-of creating streams if you are only interested in the content of the
-stream:
+% This technique is used in the different implementations of the method
+% \ct{printOn:} for example. There is a simpler and more efficient way
+% of creating streams if you are only interested in the content of the
+% stream:
+Esta t\'ecnica es usada en diferentes implementaciones del m\'etodo \ct{printOn:} por ejemplo.
+Hay una manera m\'as simple y eficiente de crear streams, si solo estas interesado en el contenido
+del stream:
 
 \begin{code}{@TEST |string|}
 string := String streamContents:
@@ -324,34 +354,45 @@ string := String streamContents:
                  print: 3.	].
 string. -->   '#(1 2 3) size = 3'
 \end{code}
+%$
+%The method \mthind{SequenceableCollection class}{streamContents:} \seclabel{streamContents} creates a collection and a stream on
+%that collection for you. It then executes the block you gave passing
+%the stream as a parameter. When the block ends, \ct{streamContents:}
+%returns the content of the collection.
+El m\'etodo \mthind{SequenceableCollection class}{streamContents:} \seclabel{streamContents} crea una colecci\'on y un stream
+en esa colecci\'on por ti. Luego ejecuta el bloque que le has indicado, pasandoo el stream como par\'ametro. Cuado el bloque
+termina, \ct{streamContents:} devuelve el contenido de la colecci\'on.
 
-The method \mthind{SequenceableCollection class}{streamContents:} \seclabel{streamContents} creates a collection and a stream on
-that collection for you. It then executes the block you gave passing
-the stream as a parameter. When the block ends, \ct{streamContents:}
-returns the content of the collection.
-
-The following \ct{WriteStream} methods are especially useful in this context:
+%The following \ct{WriteStream} methods are especially useful in this context:
+Los siguientes m\'etodos \ct{WriteStream} son especialmente \'utiles en este contexto:
 
 \begin{description}
-\item[\lct{nextPut:}] adds the parameter to the stream;
-\item[\lct{nextPutAll:}] adds each element of the collection, passed as a
-  parameter, to the stream;
-\item[\lct{print:}] adds the textual representation of the parameter to the
-  stream.
+%\item[\lct{nextPut:}] adds the parameter to the stream;
+\item[\lct{nextPut:}] agrega el par\'ametro al stream;
+%\item[\lct{nextPutAll:}] adds each element of the collection, passed as a parameter, to the stream;
+\item[\lct{nextPutAll:}] agrega cada elemento de la colecci\'on, pasado como par\'ametro, al stream;
+%\item[\lct{print:}] adds the textual representation of the parameter to the stream.
+\item[\lct{print:}] agrega la representaci\'on textual del par\'ametro al stream.
 	\cmindex{Stream}{print:}
 \end{description}
 
-There are also methods useful for printing different kinds of characters to
-the stream like \mthind{WriteStream}{space}, \mthind{WriteStream}{tab} and
-\mthind{WriteStream}{cr} (carriage return). Another useful
-method is \mthind{WriteStream}{ensureASpace} which ensures that the last character
-in the stream is a space; if the last character isn't a space it adds one.
+% There are also methods useful for printing different kinds of characters to
+% the stream like \mthind{WriteStream}{space}, \mthind{WriteStream}{tab} and
+% \mthind{WriteStream}{cr} (carriage return). Another useful
+% method is \mthind{WriteStream}{ensureASpace} which ensures that the last character
+% in the stream is a space; if the last character isn't a space it adds one.
+Tambi\'en hay m\'etodos \'utiles para imprimir diferentes tipos de caracteres en el stream, 
+como \mthind{WriteStream}{space}, \mthind{WriteStream}{tab} y \mthind{WriteStream}{cr} (carriage return).
+Otro m\'etodo de utilidad es \mthind{WriteStream}{ensureASpace}, que asegura que el \'ultimo caracter
+en el stream es un espacio; si el \'ultimo caracter no es un espacio, agrega uno. 
 
-\paragraph{About Concatenation.}
-Using \mthind{WriteStream}{nextPut:} and \mthind{WriteStream}{nextPutAll:} on a \ct{WriteStream} is often the best way to
-concatenate characters. Using the comma concatenation operator (\ct{,}) is far
-less efficient:
-\index{Collection!comma operator}
+%\paragraph{About Concatenation.}
+\paragraph{Sobre la Concatenaci\'on.}
+%Using \mthind{WriteStream}{nextPut:} and \mthind{WriteStream}{nextPutAll:} on a \ct{WriteStream} is often the best way to
+%concatenate characters. Using the comma concatenation operator (\ct{,}) is far
+%less efficient:
+%\index{Collection!comma operator}
+Usar \mthind{WriteStream}{nextPut:} y \mthind{WriteStream}{nextPutAll:} en un \ct{WriteStream} es a menudo la mejora forma de concatenar caracteres. Usar el operador de concatenaci\'on por comas (\ct{,}) es mucho menos eficiente. 
 
 \begin{code}{}
 [| temp |
@@ -690,7 +731,7 @@ This creates a 4x4 checkerboard as shown in \figref{checkerboard4x4}.
 \end{figure}
 
 %=============================================================
-\section{Chapter summary}
+%\section{Chapter summary}
 
 Streams offer a better way than collections to incrementally read and write a sequence of elements. There are easy ways to convert back and forth between streams and collections.
 
