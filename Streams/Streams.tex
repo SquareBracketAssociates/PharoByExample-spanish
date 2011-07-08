@@ -407,15 +407,20 @@ Usar \mthind{WriteStream}{nextPut:} y \mthind{WriteStream}{nextPutAll:} en un \c
   temp contents] timeToRun --> 1262 "(milliseconds)"
 \end{code}
 
-The reason that using a stream can be much more efficient is that 
-comma creates a new string containing
-the concatenation of the receiver and the argument, so it must copy both of them.
-When you repeatedly concatenate onto the same receiver, it gets longer and longer each time,
-so that the number of characters that must be copied goes up exponentially.
-This also creates a lot of garbage, which must be collected. Using
-a stream instead of string concatenation is a well-known optimization.
-\lr{About Concatenation. This is not true for real world examples (the example benchmark is unrealistic). Most of the time concatenation is simpler, cleaner and much faster, for example when being used on a small number of longer strings. (p. 257)}
-In fact, you can use \mthind{SequenceableCollection class}{streamContents:} (mentioned on page \pageref{sec:streamContents}) to help you do this:
+% The reason that using a stream can be much more efficient is that 
+% comma creates a new string containing
+% the concatenation of the receiver and the argument, so it must copy both of them.
+% When you repeatedly concatenate onto the same receiver, it gets longer and longer each time,
+% so that the number of characters that must be copied goes up exponentially.
+% This also creates a lot of garbage, which must be collected. Using
+% a stream instead of string concatenation is a well-known optimization.
+% \lr{About Concatenation. This is not true for real world examples (the example benchmark is unrealistic). Most of the time concatenation is simpler, cleaner and much faster, for example when being used on a small number of longer strings. (p. 257)}
+% In fact, you can use \mthind{SequenceableCollection class}{streamContents:} (mentioned on page \pageref{sec:streamContents}) to help you do this:
+La raz\'on por la que usar un stream puede ser mucho m\'as eficiente es que la coma crea una nuva cadena de caracteres conteniendo la concatenaci\'on del receptor del mensaje y el argumento, por lo que tiene que copiar ambos.
+Cuando concatenas repetidamente en el mismo receptor, se hace cada vez m\'as largo, por lo que el n\'umero de caracteres que hay que copiar crece exponencialmente. 
+Esto tambi\'en crea mucha basura, que debe ser recolectada. Usar un stream en lugar de concatenaci\'on de cadenas es una optimizaci\'on conocida.
+%No traduzco el comentario de lr
+
 
 \begin{code}{}
 String streamContents: [ :tempStream |
@@ -424,65 +429,79 @@ String streamContents: [ :tempStream |
 \end{code}
 
 %-----------------------------------------------------------------
-\subsection{Reading and writing at the same time}
+% \subsection{Reading and writing at the same time}
+\subsection{Leyendo y escribiendo al mismo tiempo}
 
-It's possible to use a stream to access a collection for reading and
-writing at the same time.
-Imagine you want to create an \ct{History} class which will manage
-backward and forward buttons in a web browser.
-A history would react as in figures from \ref{fig:emptyStream} to
-\ref{fig:page4}.
+% It's possible to use a stream to access a collection for reading and
+% writing at the same time.
+% Imagine you want to create an \ct{History} class which will manage
+% backward and forward buttons in a web browser.
+% A history would react as in figures from \ref{fig:emptyStream} to
+% \ref{fig:page4}.
+Es posible usar un stream para acceder a una colecci\'on para leer y escribir al mismo tiempo. 
+Imagina que quieres crear una clase \ct{History} que manejar\'a los botones adelante y atr\'as en un navegador web.
+El historial reaccionar\'a como en las figuras \ref{fig:emptyStream} a \ref{fig:page4}.
 
 \begin{figure}[!ht]
 \centerline{\includegraphics[scale=0.5]{emptyStef}}
-\caption{A new history is empty. Nothing is displayed in the web browser.}
+%\caption{A new history is empty. Nothing is displayed in the web browser.}
+\caption{El nuevo historial est\'a vac\'io. No se muestra nada en el navegador web.}
 \figlabel{emptyStream}
 \vspace{.2in}
 \end{figure}
 
 \begin{figure}[!ht]
 \centerline{\includegraphics[scale=0.5]{page1Stef}}
-\caption{The user opens to page 1.}
+%\caption{The user opens to page 1.}
+\caption{El usuario abre la p\'agina 1.}
 \figlabel{page1}
 \vspace{.2in}
 \end{figure}
 
 \begin{figure}[!ht]
 \centerline{\includegraphics[scale=0.5]{page2Stef}}
-\caption{The user clicks on a link to page 2.}
+% \caption{The user clicks on a link to page 2.}
+\caption{El usuario hace clic en un enlace a la p\'agina 2.}
 \figlabel{page2}
 \vspace{.2in}
 \end{figure}
 
 \begin{figure}[!ht]
 \centerline{\includegraphics[scale=0.5]{page3Stef}}
-\caption{The user clicks on a link to page 3.}
+% \caption{The user clicks on a link to page 3.}
+\caption{El usuario hace clic en un enlace a la p\'agina 3.}
 \figlabel{page3}
 \vspace{.2in}
 \end{figure}
 
 \begin{figure}[!ht]
 \centerline{\includegraphics[scale=0.5]{page2_Stef}}
-\caption{The user clicks on the back button. He is now viewing page 2 again.}
+% \caption{The user clicks on the back button. He is now viewing page 2 again.}
+\caption{El usuario hace clic en el bot\'on atr\'as. Ahora est\'a viendo la p\'agina 2 nuevamente.}
 \figlabel{page2_}
 \vspace{.2in}
 \end{figure}
 
 \begin{figure}[!ht]
 \centerline{\includegraphics[scale=0.5]{page1_Stef}}
-\caption{The user clicks again the back button. Page 1 is now displayed.}
+% \caption{The user clicks again the back button. Page 1 is now displayed.}
+\caption{El usuario hace clic nuevamente en el bot\'on atr\'as. Ahora se muestra la p\'agina 1.}
 \figlabel{page1_}
 \vspace{.2in}
 \end{figure}
 
 \begin{figure}[!ht]
 \centerline{\includegraphics[scale=0.5]{page4Stef}}
-\caption{From page 1, the user clicks on a link to page 4. The history forgets pages 2 and 3.}
+% \caption{From page 1, the user clicks on a link to page 4. The history forgets pages 2 and 3.}
+\caption{Desde la p\'agina 1, el usuario hace clic en un enlace a la p\'agina 4. El historial olvida las p\'aginas 2 y 3.}
 \figlabel{page4}
 \vspace{.2in}
 \end{figure}
 
-This behaviour can be implemented using a \clsind{ReadWriteStream}.
+% This behaviour can be implemented using a \clsind{ReadWriteStream}.
+Este comportamiento puede ser implementado usando un \clsind{ReadWriteStream}.
+
+%%%%%REVISAR%%%%%
 
 \needlines{6}
 \begin{code}{}
