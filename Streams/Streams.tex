@@ -58,7 +58,7 @@ Los Streams pueden ser f\'acilmente convertidos en colecciones y vice versa.
 Una buena met\'afora para entender un stream es las siguiente: Un stream puede ser representado como dos secuencias de elementos: una secuencia de 
 elementos pasados y una secuencias de elementos futuros.
 El stream es posicionado entre las dos secuencias. Entender este modelo es importante ya que toda operaci\'on en \st se basa en el.
-The stream is positioned between the two
+% The stream is positioned between the two
 
 Por esta raz\'on, la mayoria de las classes \clsind{Stream} son subclases de \clsind{PositionableStream}.
 \figref{_abcde} presenta un stream con cinco caracteres. Este stream est\'a es su posici\'on original, \ie no hay elementos anteriores. 
@@ -499,7 +499,7 @@ El historial reaccionar\'a como en las figuras \ref{fig:emptyStream} a \ref{fig:
 \end{figure}
 
 % This behaviour can be implemented using a \clsind{ReadWriteStream}.
-Este comportamiento puede ser implementado usando un \clsind{ReadWriteStream}.
+\noindent Este comportamiento puede ser implementado usando un \clsind{ReadWriteStream}.
 
 %%%%%REVISAR%%%%%
 
@@ -516,10 +516,11 @@ History>>initialize
     stream := ReadWriteStream on: Array new.
 \end{code}
 
-Nothing really difficult here, we define a new class which contains a
-stream. The stream is created during the \ct{initialize} method.
-
-We need methods to go backward and forward:
+%Nothing really difficult here, we define a new class which contains a
+%stream. The stream is created during the \ct{initialize} method.
+%We need methods to go backward and forward:
+Nada realmente dif\'icil, definimos una nueva clase que contiene un stream. El stream es creado durante el m\'etodo \ct{initialize}.
+Necesitamos m\'etodos para ir hacia adelante y hacia atr\'as.
 
 \begin{code}{}
 History>>goBackward
@@ -532,19 +533,25 @@ History>>goForward
   ^ stream next
 \end{code}
 
-Until then, the code was pretty straightforward. Now, we have to deal
-with the \ct{goTo:} method which should be activated when the user
-clicks on a link. A possible solution is:
+%Until then, the code was pretty straightforward. Now, we have to deal
+%with the \ct{goTo:} method which should be activated when the user
+%clicks on a link. A possible solution is:
+Hasta ac\'a, el c\'odigo era bastante directo. Ahora tenemos que tratar con el m\'etodo \ct{goTo:}, que deber\'ia 
+ser activado cuando el usuario hace clic en un enlace. Una posible soluci\'on es:
 
 \begin{code}{}
 History>>goTo: aPage
     stream nextPut: aPage.
 \end{code}
 
-This version is incomplete however. This is because when the user
-clicks on the link, there should be no more future pages to go to,
-\ie the forward button must be deactivated. To do this, the simplest
-solution is to write \ct{nil} just after to indicate the history end:
+%This version is incomplete however. This is because when the user
+%clicks on the link, there should be no more future pages to go to,
+%\ie the forward button must be deactivated. To do this, the simplest
+%solution is to write \ct{nil} just after to indicate the history end:
+Sin embargo esta vers\'ion est\'a incompleta. Esto es porque cuando el usuario
+hace clic en el enlace, no deber\'ia haber m\'as p\'aginas donde ir hacia adelante, 
+\ie el bot\'on adelante debe ser desactivado. Para esto, la soluci\'on m\'as simple
+es escribir \ct{nil} justo despu\'es para indicar el final del historial.
 
 \begin{code}{}
 History>>goTo: anObject
@@ -553,12 +560,15 @@ History>>goTo: anObject
   stream back.
 \end{code}
 
-Now, only methods \ct{canGoBackward} and \ct{canGoForward} have to be
-implemented.
+%Now, only methods \ct{canGoBackward} and \ct{canGoForward} have to be implemented.
+Ahora, solo queda implementar los m\'etodos \ct{canGoBackward} y \ct{canGoForward}.
 
-A stream is always positioned between two elements. To go backward,
-there must be two pages before the current position: one page is the
-current page, and the other one is the page we want to go to.
+%A stream is always positioned between two elements. To go backward,
+%there must be two pages before the current position: one page is the
+%current page, and the other one is the page we want to go to.
+Un stream siempre se posiciona entre dos elementos. Para ir hacia atr\'as,
+debe haber dos p\'aginas antes de la posici\'on actual: una es la p\'agina actual,
+y la otra es la p\'agina a la que queremos ir. 
 
 \begin{code}{}
 History>>canGoBackward
@@ -568,13 +578,15 @@ History>>canGoForward
   ^ stream atEnd not and: [stream peek notNil]
 \end{code}
 
-Let us add a method to peek at the contents of the stream:
+%Let us add a method to peek at the contents of the stream:
+Agreguemos un m\'etodo para ver los cotenidos del stream:
 \begin{code}{}
 History>>contents
   ^ stream contents
 \end{code}
 
-And the history works as advertised:
+%And the history works as advertised:
+Y el historial funciona como anunciamos:
 \begin{code}{}
 History new
 	goTo: #page1;
@@ -587,16 +599,23 @@ History new
 \end{code}
 
 %=============================================================
-\section{Using streams for file access}
+%\section{Using streams for file access}
+\section{Usando streams para acceso a archivos}
 
-You have already seen how to stream over collections of elements. It's
-also possible to stream over files on your hard disk.
-Once created, a stream on a file is really like a stream on a
-collection: you will be able to use the same protocol to read, write
-or position the stream.
-The main difference appears in the creation of the stream.
-There are several different ways to create file streams, as we shall now see.
-
+% You have already seen how to stream over collections of elements. It's
+% also possible to stream over files on your hard disk.
+% Once created, a stream on a file is really like a stream on a
+% collection: you will be able to use the same protocol to read, write
+% or position the stream.
+% The main difference appears in the creation of the stream.
+% There are several different ways to create file streams, as we shall now see.
+Ya has visto como stream over collections of elements. Tambi\'en es posible
+stream over archivos en tu disco. 
+Una vez creado, un stream en un archivo es como un stream en una colecci\'on:
+podr\'as usar el mismo protocolo para leer, escribir o posicionar el stream.
+La diferencia m\'as importante aparece en la creaci\'on del stream.
+Hay muchas formas diferentes de crear streams de archivos, como veremos a continuaci\'on.
+ 
 %-----------------------------------------------------------------
 \subsection{Creating file streams}
 \seclabel{creat-file-stre}
