@@ -158,7 +158,7 @@ Un buen lugar para comenzar es el men\'u \ind{world} mostrado en \figref{threeBu
 %\figlabel{colouredMouse}
 %\end{wrapfigure}
 
-\st fu\'e diseñado originalmente para computadoras con un \ind{rat\'on de tres botones}. Si tu rat\'on tiene menos de tres botones, tendr\'as que presionar teclas extras mientras haces \click con el rat\'on para simular los botones faltantes. Un rat\'on de dos botones funciona bastante bien con \pharo, pero si tienes un rat\'on de un solo bot\'on, deber\'ias considerar seriamente comprar un rat\'on de dos botones con rueda de desplazamiento que permita hacer clic: har\'a que trabajar con \pharo sea mucho mas placentero.
+\st fu\'e dise\~nado originalmente para computadoras con un \ind{rat\'on de tres botones}. Si tu rat\'on tiene menos de tres botones, tendr\'as que presionar teclas extras mientras haces \click con el rat\'on para simular los botones faltantes. Un rat\'on de dos botones funciona bastante bien con \pharo, pero si tienes un rat\'on de un solo bot\'on, deber\'ias considerar seriamente comprar un rat\'on de dos botones con rueda de desplazamiento que permita hacer clic: har\'a que trabajar con \pharo sea mucho mas placentero.
 
 \pharo evita t\'erminos como ``clic con el bot\'on izquierdo'' porque en diferentes computadoras, ratones, teclados y configuraciones personales significa que diferentes usuarios necesitar\'an presionar diferentes botones para lograr el mismo efecto.
 Originalmente \st introdujo colores para representar los diferentes botones del rat\'on.\footnote{Los colores de los botones eran \emph{rojo}, \emph{amarillo} y \emph{azul}. Los autores de este libro nunca podieron recordar qu\'e color refer\'ia a qu\'e bot\'on.}
@@ -169,7 +169,7 @@ Dado que muchos usuarios usar\'an teclas modificadoras (\emph{control}, \emph{AL
 \begin{description}
 \item [hacer \click:] este es el bot\'on del reat\'on mas usado, y es equivalente a hacer \click con un rat\'on de un solo bot\'on sin ninguna tecla modificadora; haz \click en la imagen para para que aparezca el men\'u ``World'' (\figref{threeButtons:click}).
 \item [hacer \actclick:] este es el segundo bot\'on mas usado; es usado para que aparezca el men\'u contextual, esto es, un men\'u que ofrece diferentes conjuntos de acciones dependiendo en d\'nde est\'a apuntando el rat\'on; ver \figref{threeButtons:actclick}. Si no tienes un rat\'on multi-botones, normalmente configurar\'as la tecla modificadora \emph{control} para hacer \actclick con el bot\'on del rat\'on.
-\item [hacer \metaclick:] finalmente, puedes hacer \metaclick en cualquier objeto mostrado en la imagen para activar el ``morphic \subind{Morphic}{halo}'', un vector de manejadores que son usados para realizar operaciones en los objetos en pantalla, como por ejemplo rotarlos o cambiarles el tamaño; ver \figref{threeButtons:metaclick}.\footnote{Notar que manejadores morphic est\'n inactivos por defecto en \pharo, pero puedes activarlos usando el Navegador de Preferencias, el cual veremos pronto.}
+\item [hacer \metaclick:] finalmente, puedes hacer \metaclick en cualquier objeto mostrado en la imagen para activar el ``morphic \subind{Morphic}{halo}'', un vector de manejadores que son usados para realizar operaciones en los objetos en pantalla, como por ejemplo rotarlos o cambiarles el tama\~no; ver \figref{threeButtons:metaclick}.\footnote{Notar que manejadores morphic est\'n inactivos por defecto en \pharo, pero puedes activarlos usando el Navegador de Preferencias, el cual veremos pronto.}
 Si dejas el rat\'on sobre un manejador, un globo de ayuda te explicar\'a su funci\'on.
 En \pharo, c\'mo hacer \metaclick depende de tu sistema operativo:
 o bien debes mantener las teclas {\sc shift} + \emph{ctrl} o bien {\sc shift} + \emph{option} mientras haces clic.
@@ -291,7 +291,7 @@ La mayor parte de las veces no necesitar\'as preocuparte por este archivo para n
 Como podemos ver, sin embargo, el archivo \emph{.changes} puede ser muy \'util para recuperaci\'on de errores, o rehacer cambios perdidos.
 ¡Mas sobre esto luego!
 
-La imagen con la que haz estado trabajando es un descendiente de la imagen original de \st-80 creada a finales de los años 70.
+La imagen con la que haz estado trabajando es un descendiente de la imagen original de \st-80 creada a finales de los a\~nos 70.
 ¡Algunos de esos objetos han estado all\'i por d\'ecadas!
 
 Podr\'ias pensar que la imagen es el mecanismo principal para almacenar proyectos de software, pero estr\'ias equivocado.
@@ -309,8 +309,8 @@ Haz click en el manejador rosa conteniendo la cruz; el \bam deber\'ia haberse id
 
 \dothis{Cierra todas las ventanas abiertas. Abre un \ind{transcript} y un \ind{workspace}. (El transcript puede ser abierto desde \menu{World{\go}Tools ...} submen\'u.)}
 
-\dothis{Posiciona y cambia el tamaño de la ventana transcript y de la ventana workspace para que el workspace se superponga al transcript.}
-Puedes cambiar el tamaño de las ventanas arrstrando una de sus esquinas, o haciendo \metaclick en la ventana para hacer aparecer el morphic halo, y arrastrando el manejador amarillo (abajo a la derecha).
+\dothis{Posiciona y cambia el tama\~no de la ventana transcript y de la ventana workspace para que el workspace se superponga al transcript.}
+Puedes cambiar el tama\~no de las ventanas arrstrando una de sus esquinas, o haciendo \metaclick en la ventana para hacer aparecer el morphic halo, y arrastrando el manejador amarillo (abajo a la derecha).
 
 Al mismo tiempo s\'olo una venta est\'a activa; est\'a en el frente y tiene sus bordes iluminados.
 % The mouse cursor must be in the window in which you wish to type.
@@ -707,7 +707,7 @@ Este cap\'itulo te ha introducido en el ambiente de \pharo y te ha mostrado c\'o
 \begin{itemize}
   \item Un sistema \pharo ejecutando consiste en una \emph{m\'aquina virtual}, un archivo \emph{sources}, y unos archivos \emph{image} y \emph{changes}. S\'olo estos dos \'ultimos cambian, grabando una instantanea del sistema ejecutando.
   \item Cuando recuperes una imagen de \pharo, te encontrar\'as en exactamente el mismo estado\,---\,con los mismos objetos ejecutando\,---\,que ten\'ias cuando guardaste por \'ultima vez la imagen.
-  \item \pharo est\'a diseñado para trabajar con un rat\'on de tres botones para hacer \click, hacer \actclick o hacer \metaclick. Si no tienes un rat\'on de tres botones, puede usar las teclas modificadoras para obtener el mismo efecto.
+  \item \pharo est\'a dise\~nado para trabajar con un rat\'on de tres botones para hacer \click, hacer \actclick o hacer \metaclick. Si no tienes un rat\'on de tres botones, puede usar las teclas modificadoras para obtener el mismo efecto.
   \item Puede hacer \click en el fondo de la ventana de \pharo para abrir el \emph{men\'u World} y lanzar varias herramientas.
   \item Un \emph{workspace} es una herramienta para escribir y evaluar porciones de c\'odigo. Tambi\'en puedes usarlo para almacenar texto arbitrario.
   \item Puedes usar \ind{atajos de teclado} en el texto del workspace, o en cualquier otra herramienta, para evaluar c\'odigo. El mas importante de estos son \menu{do it} (\short{d}), \menu{print it} (\short{p}), \menu{inspect it} (\short{i}), \menu{explore it} (\short{I}) y \menu{browse it} (\short{b}).
