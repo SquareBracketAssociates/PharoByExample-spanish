@@ -609,8 +609,8 @@ History new
 % or position the stream.
 % The main difference appears in the creation of the stream.
 % There are several different ways to create file streams, as we shall now see.
-Ya has visto como stream over collections of elements. Tambi\'en es posible
-stream over archivos en tu disco. 
+Ya has visto como usar streams con colecciones de elementos. Tambi\'en es posible
+usar streams con archivos en tu disco. 
 Una vez creado, un stream en un archivo es como un stream en una colecci\'on:
 podr\'as usar el mismo protocolo para leer, escribir o posicionar el stream.
 La diferencia m\'as importante aparece en la creaci\'on del stream.
@@ -618,46 +618,71 @@ Hay muchas formas diferentes de crear streams de archivos, como veremos a contin
  
 %-----------------------------------------------------------------
 \subsection{Creating file streams}
+\subsection{Creando streams de archivos}
 \seclabel{creat-file-stre}
 
-To create file streams, you will have to use one of the following
-instance creation methods offered by the class \clsindmain{FileStream}:
+% To create file streams, you will have to use one of the following
+% instance creation methods offered by the class \clsindmain{FileStream}:
+Para crear streams de archivos, tendr\'as que usar uno de los 
+m\'etodos de instanciaci\'on que ofrece la clase \clsindmain{FileStream}:
 
 \begin{description}
 
-\item[\lct{fileNamed:}] Open a file with the given name for reading and
-  writing. If the file already exists, its prior contents may be
-  modified or replaced, but the file will not be truncated on
-  close. If the name has no directory part, then the file will be
-  created in the default directory.
-  \cmindex{FileStream class}{fileNamed:}
-  
-\item[\lct{newFileNamed:}] Create a new file with the given name,
-  and answer a stream opened for writing on that file. If the file
-  already exists, ask the user what to do.
+% \item[\lct{fileNamed:}] Open a file with the given name for reading and
+%   writing. If the file already exists, its prior contents may be
+%   modified or replaced, but the file will not be truncated on
+%   close. If the name has no directory part, then the file will be
+%   created in the default directory.
+%   \cmindex{FileStream class}{fileNamed:}
+\item[\lct{fileNamed:}] Abre un archivo con el nombre dado para lectura y escritura.
+    Si el archivo existe, su contenido previo puede ser modificado o reemplazado, pero 
+    el archivo no ser\'a truncado al cerrarse. Si el nombre no contiene la ruta, el archivo 
+    se crear\'a en el directorio por defecto.    
+    \cmindex{FileStream class}{fileNamed:}
+
+% \item[\lct{newFileNamed:}] Create a new file with the given name,
+%   and answer a stream opened for writing on that file. If the file
+%   already exists, ask the user what to do.
+%   \cmindex{FileStream class}{newFileNamed:}
+\item[\lct{newFileNamed:}] Crea un nuevo archivo con el nombre dado, y devuelve
+    un stream abierto para escritura en ese archivo. Si el archivo ya existe
+    pregunta al usuario que hacer.
   \cmindex{FileStream class}{newFileNamed:}
-  
-\item[\lct{forceNewFileNamed:}] Create a new file with the given
-  name, and answer a stream opened for writing on that file. If the
-  file already exists, delete it without asking before creating the
-  new file.
-  \cmindex{FileStream class}{forceNewFileNamed:}
 
-\item[\lct{oldFileNamed:}] Open an existing file with the given
-  name for reading and writing. If the file already exists, its prior
-  contents may be modified or replaced, but the file will not be
-  truncated on close. If the name has no directory part, then the file
-  will be created in the default directory.
-  \cmindex{FileStream class}{oldFileNamed:}
+% \item[\lct{forceNewFileNamed:}] Create a new file with the given
+%   name, and answer a stream opened for writing on that file. If the
+%   file already exists, delete it without asking before creating the
+%   new file.
+%   \cmindex{FileStream class}{forceNewFileNamed:}
+\item[\lct{forceNewFileNamed:}] Crea un nuevo archivo con el nombre dado, y devuelve
+    un stream abierto para escritura en ese archivo. Si el archivo ya existe lo borra 
+    sin preguntar.
+    \cmindex{FileStream class}{forceNewFileNamed:}
 
-\item[\lct{readOnlyFileNamed:}] Open an existing file with the
-  given name for reading.
-  \cmindex{FileStream class}{readOnlyFileNamed:}
+% \item[\lct{oldFileNamed:}] Open an existing file with the given
+%   name for reading and writing. If the file already exists, its prior
+%   contents may be modified or replaced, but the file will not be
+%   truncated on close. If the name has no directory part, then the file
+%   will be created in the default directory.
+%   \cmindex{FileStream class}{oldFileNamed:}
+\item[\lct{oldFileNamed:}] Abre un archivo existente con el nombre dado para 
+    lectura y escritura. Si el archivo existe, su contenido previo puede ser
+    modificado o reemplazado, pero el archivo no ser\'a truncado al cerrarse.
+    Si el nombre no especifica la ruta, el archivo se crear\'a en el directorio por defecto.
+    \cmindex{FileStream class}{oldFileNamed:}
+
+% \item[\lct{readOnlyFileNamed:}] Open an existing file with the
+%   given name for reading.
+%   \cmindex{FileStream class}{readOnlyFileNamed:}
+\item[\lct{readOnlyFileNamed:}] Abre un archivo existente con el nombre dado solo para lectura.
+    \cmindex{FileStream class}{readOnlyFileNamed:}
 
 \end{description}
 
-You have to remember that each time you open a stream on a file, you
-have to close it too. This is done through the \mthind{FileStream}{close} method.
+% You have to remember that each time you open a stream on a file, you
+% have to close it too. This is done through the \mthind{FileStream}{close} method.
+Recuerda que cada vez que abres un stream sobre un archivo, tambi\'en debes cerrarlo. 
+Esto se hace con el m\'etodo \mthind{FileStream}{close}.
 
 \begin{code}{@TEST |stream|}
 stream := FileStream forceNewFileNamed: 'test.txt'.
@@ -678,15 +703,21 @@ stream close.
 %	ifAbsent: [ 'Could not delete ', fileName ] ]
 %	value: 'test.txt'
 
-The method \mthind{FileStream}{localName} answers the last component of the name of the file. You can
-also access the full path name using the method
-\mthind{StandardFileStream}{fullName}.
+% The method \mthind{FileStream}{localName} answers the last component of the name of the file. You can
+% also access the full path name using the method
+% \mthind{StandardFileStream}{fullName}.
+El m\'etodo \mthind{FileStream}{localName} devuelve el \'ultimo componente del nombre del archivo. 
+Puedes acceder al nombre completo con el m\'etodo \mthind{StandardFileStream}{fullName}.
+ 
+% You will soon notice that manually closing the file stream is
+% painful and error-prone. That's why \ct{FileStream} offers a message called \mthind{FileStream class}{forceNewFileNamed:do:} to
+% automatically close a new stream after evaluating a block that
+% sets its contents.
+Pronto notar\'as que cerrar los stream de archivos manualmente es doloroso y propenso a errores. 
+Es por eso que ct{FileStream} ofrece un mensaje llamado \mthind{FileStream class}{forceNewFileNamed:do:} 
+para cerrar autom\'aticamente un nuevo stream luego de evaluar un bloque que modifica sus contenidos. 
 
-You will soon notice that manually closing the file stream is
-painful and error-prone. That's why \ct{FileStream} offers a message called \mthind{FileStream class}{forceNewFileNamed:do:} to
-automatically close a new stream after evaluating a block that
-sets its contents.
-
+ 
 \begin{code}{@TEST |string|}
 FileStream
     forceNewFileNamed: 'test.txt'
@@ -700,12 +731,18 @@ string := FileStream
 string --> 'This text is written in a file named ''test.txt'''
 \end{code}
 
-The stream-creation methods that take a block as an argument first
-create a stream on a file, then execute the block with the stream
-as an argument, and finally close the stream. These methods return what
-is returned by the block, which is to say, the value of the last
-expression in the block. This is used in the previous example to get
-the content of the file and put it in the variable \ct{string}.
+% The stream-creation methods that take a block as an argument first
+% create a stream on a file, then execute the block with the stream
+% as an argument, and finally close the stream. These methods return what
+% is returned by the block, which is to say, the value of the last
+% expression in the block. This is used in the previous example to get
+% the content of the file and put it in the variable \ct{string}.
+Los m\'etodos de creaci\'on de streams que toman un bloque como argumento
+primero crean un stream sobre un archivo, luego ejecutan el bloque con 
+el stream como argumento, y finalmente cierran el stream. Estos m\'etodos
+devuelven lo que es devuelto por el bloque, o sea, el valor de la \'ultima
+expresi\'on del bloque. Esto es usado en el ejemplo anterior para obtener
+el contenido del archivo y colocarlo en la variable \ct{string}.
 
 %-----------------------------------------------------------------
 \subsection{Binary streams}
