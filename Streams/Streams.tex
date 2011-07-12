@@ -746,17 +746,24 @@ el contenido del archivo y colocarlo en la variable \ct{string}.
 
 %-----------------------------------------------------------------
 \subsection{Binary streams}
+\subsection{Streams binarios}
 \seclabel{binary-streams}
 
-By default, created streams are text-based which means you will read
-and write characters. If your stream must be binary, you have to send
-the message \mthind{FileStream}{binary} to your stream.
-
-When your stream is in binary mode, you can only write numbers from 0
-to 255 (1 Byte). If you want to use \ct{nextPutAll:} to write more
-than one number at a time, you have to pass a \clsind{ByteArray} as
-argument.
-
+% By default, created streams are text-based which means you will read
+% and write characters. If your stream must be binary, you have to send
+% the message \mthind{FileStream}{binary} to your stream.
+Por defecto, los streams se crean en texto, lo que significa que leer\'as 
+y escribir\'as caracteres. Si tu stream debe ser binario, 
+tienes que enviar el mensaje \mthind{FileStream}{binary} a tu stream.
+ 
+% When your stream is in binary mode, you can only write numbers from 0
+% to 255 (1 Byte). If you want to use \ct{nextPutAll:} to write more
+% than one number at a time, you have to pass a \clsind{ByteArray} as
+% argument.
+Cuando tu stream est\'a en modo binario, solo puedes escribir n\'umeros
+desde 0 a 255 (1 byte). Si quieres usar \ct{nextPutAll:} para escribir
+m\'as de un n\'umero al mismo tiempo, tienes que pasar un \clsind{ByteArray} como argumento. 
+ 
 \begin{code}{@TEST}
 FileStream
   forceNewFileNamed: 'test.bin'
@@ -775,8 +782,10 @@ FileStream
       ].
 \end{code}
 
-Here is another example which creates a picture in a file named
-``test.pgm'' (portable graymap file format). You can open this file with your favorite drawing program.
+% Here is another example which creates a picture in a file named
+% ``test.pgm'' (portable graymap file format). You can open this file with your favorite drawing program.
+Aqu\'i hay otro ejemplo que crea una im\'agen en un archivo llamado
+``test.pgm`` (formato de archivo Portable Graymap). Puedes abrir este archivo con tu programa de dibujo favorito.
 
 % The following does not assert anything, but @TEST is used to ensure
 % that no error is thrown.
@@ -796,26 +805,36 @@ FileStream
 	]
 \end{code}
 
-This creates a 4x4 checkerboard as shown in \figref{checkerboard4x4}.
+% This creates a 4x4  checkerboard as shown in \figref{checkerboard4x4}.
+Esto crea un checkerboard de 4x4, como se ve en \figref{checkerboard4x4}.
 
 \begin{figure}[!ht]
 \centerline{\includegraphics[width=0.25\textwidth]{checkerboard4x4}}
-\caption{A 4x4 checkerboard you can draw using binary streams.}
+% \caption{A 4x4 checkerboard you can draw using binary streams.}
+\caption{Un checkerboard de 4x4 que puedes dibujar usando streams binarios.}
 \figlabel{checkerboard4x4}
 \vspace{.2in}
 \end{figure}
 
 %=============================================================
 %\section{Chapter summary}
+\section{Res\'umen del cap\'itulo}
 
-Streams offer a better way than collections to incrementally read and write a sequence of elements. There are easy ways to convert back and forth between streams and collections.
+% Streams offer a better way than collections to incrementally read and write a sequence of elements. There are easy ways to convert back and forth between streams and collections.
+Los streams ofrecen una mejor manera que las colecciones para leer y escribir incrementalmente una secuencia de elementos.
+Hay maneras sencillas de convertir streams en colecciones y viceversa.
 
 \begin{itemize}
-  \item Streams may be either readable, writeable or both readable and writeable.
-  \item To convert a collection to a stream, define a stream ``on'' a collection, \eg \ct{ReadStream on: (1 to: 1000)}, or send the messages \ct{readStream}, \etc to the collection.
-  \item To convert a stream to a collection, send the message \ct{contents}.
-  \item To concatenate large collections, instead of using the comma operator, it is more efficient to create a stream, append the collections to the stream with \ct{nextPutAll:}, and extract the result by sending \ct{contents}.
-  \item File streams are by default character-based. Send \ct{binary} to explicitly make them binary.
+%   \item Streams may be either readable, writeable or both readable and writeable.
+  \item Los streams pueden ser de escritura, de lectura o ambos al mismo tiempo. 
+%   \item To convert a collection to a stream, define a stream ``on'' a collection, \eg \ct{ReadStream on: (1 to: 1000)}, or send the messages \ct{readStream}, \etc to the collection.
+  \item Para convertir una colecci\'on en un stream, define un stream ``en'' una colecci\'on, \eg \ct{ReadStream on: (1 to: 1000)}, o env\'ia los mensajes \ct{readStream}, \etc a la colecci\'on.
+%   \item To convert a stream to a collection, send the message \ct{contents}.
+  \item Para convertir un stream en una colecci\'on, env\'ia el mensaje \ct{contents}.
+%   \item To concatenate large collections, instead of using the comma operator, it is more efficient to create a stream, append the collections to the stream with \ct{nextPutAll:}, and extract the result by sending \ct{contents}.
+  \item para concatenar colecciones largas, en lugar de usar el operador coma, es m\'as eficiente crear un stream, anexar las colecciones al stream con \ct{nextPutAll:}, y extraer el resultado enviando \ct{contents}.
+%   \item File streams are by default character-based. Send \ct{binary} to explicitly make them binary.
+  \item Los streams de archivos son por defecto basados en texto. Env\'ia \ct{binary} para hacerlos binarios expl\'icitamente.
 \end{itemize}
 
 %=================================================================
