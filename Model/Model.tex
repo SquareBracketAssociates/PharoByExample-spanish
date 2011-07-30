@@ -35,7 +35,7 @@
 % --------------------------------------------
     \graphicspath{{figures/} {../figures/}}
 	\begin{document}
-	\renewcommand{\nnbb}[2]{} % Disable editorial comments
+	% \renewcommand{\nnbb}[2]{} % Disable editorial comments
 	\sloppy
 \fi
 %=================================================================
@@ -84,7 +84,7 @@ Los n\'umeros enteros, por ejemplo, son objetos verdaderos, por lo tanto puedes 
 
 
 \begin{code}{@TEST}
-3 + 4            --> 7    ``env\'\i{}a '+ 4' to 3, yielding 7''
+3 + 4            --> 7    ``env\'ia '+ 4' to 3, yielding 7''
 20 factorial  --> 2432902008176640000   "send factorial, yielding a big number"
 \end{code}
 
@@ -99,7 +99,6 @@ Esto significa que \pharo es un sistema verdaderamente reflectivo, lo que da un 
 
 M\'as produndo en la implementaci\'on, hay tres tipos diferentes de objetos. Existen (1) objetos ordinarios con variables de instancia que son pasadas por referencia, existen (2) \emph{small integers} %VER COMO TRADUZCO ESTO
 que son pasados por valor, y existen objetos indexables como arrays que contienen una porci\'on continua de memoria. La belleza de \st es que normalmente no tienes que preocuparte por las diferencias de estos tres tipos de objetos. 
-
 
 %=========================================================
 \section{Todo objeto es instancia de una clase}
@@ -152,8 +151,6 @@ provee una forma de pedirle a otro objeto el valor de sus variables de instancia
 
 Las variables de instancia pueden ser accedidas por nombre desde cualquier m\'etodo de instancia de la clase que las define y tambi\'en desde los m\'etodos definidos en sus subclases. Esto significa que las variables de instancia de \st son similares a las variables  \emph{protegidas} de C++ y Java.      
 No obstante, preferimos decir que son privadas, pues en \st es considerado un mal estilo acceder directamente a las variables de instancia desde una subclase.  
-
-
 
 \subsubsection{Ejemplo}
 
@@ -245,12 +242,13 @@ Por el contrario, el b\'oton  \button{class} permite navegar y editar la metacla
 
 Los m\'etodos de clase pueden ser muy \'utiles; puedes navegar \ct{Color class} para ver unos buenos ejemplos.
 Ver\'as que hay dos tipos de \subind{class}{m\'etodos} definidos en una clase: aquellos que crean instancias de la clase, como \cmind{Color class}{blue} y aquellos que llevan a cabo una funci\'on de utilidad, como \cmind{Color class}{showColorCube}. 
-Esto es lo t\'\i{}pico, aunque ocasionalmente encontrar\'as m\'etodos de clase usados para otra cosa.  
+Esto es lo t\'ipico, aunque ocasionalmente encontrar\'as m\'etodos de clase usados para otra cosa.  
 
 Es conveniente poner los m\'etodos de utilidad \subind{browser}{del lado de clase} porque pueden ser ejecutados sin tener que crear ning\'un objeto primero.
-De hecho, la mayor\'\i{}a de ellos tendr\'an un comentario cuyo objetivo es hacer m\'as f\'acil su ejecuci\'on.
+De hecho, la mayor\'ia de ellos tendr\'an un comentario cuyo objetivo es hacer m\'as f\'acil su ejecuci\'on.
 
-\dothis{Navegue el m\'etodo  \ct{Color class>>>showColorCube}, doble clic justo adentro de las comillas del comentario  \ct{"Color showColorCube"} y tipee \short{d}.}
+\dothis{Navegue el m\'etodo  \ct{Color class>>>showColorCube}, doble clic justo adentro de las comillas del comentario \ct{"Color showColorCube"} y tipee \short{d}.}
+
 Ver\'as el efecto de ejecutar este m\'etodo. (Seleccione \menu{World \go \ind{restore display}~(r)} para deshacer los cambios.)
 
 
@@ -335,8 +333,8 @@ De manera similar, las instancias puede acceder a las variables de instancia de 
 Las variables est\'aticas de Java y \ind{C++} son m\'as parecidas a las variables de clase de \st, que discutiremos en la \secref{classVars}: todas las subclases y todas sus instancias comparten la misma variable est\'atica.
 
 
-%Traduzco Singleton ? como ?
 \paragraph{Ejemplo: Definiendo un Singleton.}
+\nicopaez{Singleton no se traduce pues en este caso es un nombre propio, esta haciendo referencia al nombre de patron conocido}
 El \ind{patr\'on Singleton}~\cite{Alpe98a} provee un t\'\i{}pico ejemplo del uso de variables de instancia de clase y de m\'etodos de clase.
 Imagine que quisi\'eramos implementar la clase \ct{WebServer} y usar el patr\'on Singleton para asegurarnos que tenga una \'unica instancia. 
 
@@ -384,7 +382,6 @@ Note que el c\'odigo de creaci\'on de instancias adentro del condicional en el \
 Note tambi\'en que \ct{WebServer} y \ct{ReliableWebServer} van a tener, cada uno, sus propias variables de instancia de clase llamadas
 \ct{uniqueInstance}.  Esas dos variables van a tener obviamente distintos valores.
 
-
 %=========================================================
 \section{Toda clase tiene una superclase}
 
@@ -428,6 +425,7 @@ Traits son colecciones de m\'etodos que pueden ser reutilizados por m\'ultiples 
 
 
 %---------------------------------------------------------
+
 \subsection{M\'etodos abstractos y clases abstractas}
 
 Una clase \subind{clase}{abstracta}  es una clase que existe para ser subclasificada, m\'as que instanciada. 
@@ -448,15 +446,10 @@ Si te olvidas de sobreescribir alguno, y es ejecutado, una excepci\'on ser\'a la
 Una clase es considerada abstracta si al menos uno de sus m\'etodos es abstracto.
 En realidad, nada te previene de crear una instancia de una clase abstracta: todo va a andar bien hasta que un m\'etodo abstracto sea invocado. 
 
-
 \subsubsection{Ejemplo: la clase \ct{Magnitude}.}
 
 
-\clsind{Magnitude} is an abstract class that helps us to  define objects that can be compared to each other. Subclasses of \ct{Magnitude} should implement the methods \ct{<}, \ct{=} and \ct{hash}. Using such messages \ct{Magnitude} defines other methods such as \ct{>}, \ct{>=}, \ct{<=}, \ct{max:}, \ct{min:} \ct{between:and:} and others for comparing objegraphses. The method \mthind{Magnitude}{<} is abstract and defined as shown in \mthref{MagnitudeLessThan}.
-
-
-\clsind{Magnitude} es una clase abstracta que nos ayuda a definir objetos que pueden ser comparados con otros. Las subclases de \ct{Magnitude} deber\'\i{}an implementar los m\'etodos \ct{<}, \ct{=} and \ct{hash}. Usando esos mensajes \ct{Magnitude} define otros m\'etodos como \ct{>}, \ct{>=}, \ct{<=}, \ct{max:}, \ct{min:} \ct{between:and:} y otros para comparar grafos de objetos.  El m\'etodo  \mthind{Magnitude}{<}  es abstracto y definido como se muestra en  \mthref{MagnitudeLessThan}.
-
+\clsind{Magnitude} es una clase abstracta que nos ayuda a definir objetos que pueden ser comparados con otros. Las subclases de \ct{Magnitude} deber\'ian implementar los m\'etodos \ct{<}, \ct{=} and \ct{hash}. Usando esos mensajes \ct{Magnitude} define otros m\'etodos como \ct{>}, \ct{>=}, \ct{<=}, \ct{max:}, \ct{min:} \ct{between:and:} y otros para comparar grafos de objetos.  El m\'etodo  \mthind{Magnitude}{<}  es abstracto y definido como se muestra en  \mthref{MagnitudeLessThan}.
 
 \begin{method}[MagnitudeLessThan]{\ct{Magnitude>>><}}
 Magnitude>>>< aMagnitude 
@@ -484,8 +477,6 @@ Character>>>< aCharacter
 	"Answer true if the receiver's value < aCharacter's value."
 	^self asciiValue < aCharacter asciiValue
 \end{method}
-
-
 
 %---------------------------------------------------------
 \subsection{Traits}
@@ -588,13 +579,10 @@ No le decimos al \ct{SmallInteger} \ct{3} o al \ct{Point} \ct{1@2} como responde
 Cada uno tiene su propio m\'etodo para \ct{+}, y responde a \ct{+ 4} como corresponde.
 
 Una de las consecuencias del modelo de env\'io de mensajes de \st's es que fomenta un estilo en el cual los objetos tienden a tener m\'etodos muy peque\~nos y delegan tareas a otros objetos, en lugar de implementar m\'etodos procedurales enormes que asumen demasiada responsabilidad.
-Joseph Pelrine
-\ab{Citation?}
-\on{sorry, just personal communication and my own lecture notes!}
-expresa este principio de la siguiente manera:
+Joseph Pelrine expresa este principio de la siguiente manera:
 
 \important{No haga nada que pueda recaer en alguien mas.}
-\important{Don't do anything that you can push off onto someone else.}
+\nicopaez{ La frase anterior es la traduccion de: Don't do anything that you can push off onto someone else.}
 \index{Pelrine, Joseph}
 
 Muchos lenguajes orientados a proporcionan operaciones para objetos tanto estaticas como din\'amicas; en \st hay \'unicamente env\'ios de mensajes din\'amicos. En lugar de proporcionar operaciones de clase est\'aticas, por ejemplo, las clases son objetos y sencillamente les mandamos mensajes.
@@ -606,8 +594,7 @@ En alg\'un punto la acci\'on debe llevarse a cabo:
   		De hecho, las declaraciones de variable \subind{variable} ni siquiera son ejecutables.
   		Declarar una variable solo provoca que se asigne espacio para una referencia al objeto.
   \item Las\emph{asignaciones} no son envios de mensajes.
-  		Una \ind{asignaci\'on} a una variable provoca que ese nombre de variable 
-		An \ind{assignment} to a variable causes that variable name to be freshly bound in the scope of its definition.
+  		Una \ind{asignaci\'on} a una variable provoca que ese nombre de variable sea vinculada en el contexto \nicopaez{aqui contexto es la traduccion de scope} de esa definici\'on.
   \item Los \emph{Returns} no son envios de mensajes.
   		Un \ind{return} simplemente hace que el resultado computado sea devuelto al emisor.
   \item Los \emph{primitivos} no son envios de mensajes.
@@ -707,7 +694,7 @@ Esto sugiere que \mthref{openInWorld} es equivalente a \mthref{openInWorldReturn
 \begin{method}[openInWorldReturnSelf]{Explicitly returning self}
 Morph>>>openInWorld
 	"A\~nade este morph al mundo."
-	
+
     self openInWorld: self currentWorld
 	^ self		"No hagas esto a menos que sea tu intenci\'on!"
 \end{method}
@@ -756,6 +743,7 @@ BorderedMorph>>>initialize
 
 \important{Un m\'etodo \ct{initialize} siempre deber\'ia comenzar enviando \ct{super initialize}.}
 
+%---------------------------------------------------------
 %---------------------------------------------------------
 \subsection{Env\'io de mensajes a self y super}
 
@@ -1077,6 +1065,8 @@ Todo es un objeto, y practicamente todo sucede mediante el envio de mensajes.
 		Deber\'ias evitar las variables compartidas tanto como te sea posible.
 
 \end{itemize}
+
+
 
 %=========================================================
 \ifx\wholebook\relax\else
