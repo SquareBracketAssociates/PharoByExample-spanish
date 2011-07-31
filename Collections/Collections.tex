@@ -21,7 +21,6 @@
 		vmargin={.75in,1in},
 		ignoreheadfoot
 	]{geometry}
-	\usepackage[spanish]{babel}
 	\input{../common.tex}
 	\pagestyle{headings}
 	\setboolean{lulu}{true}
@@ -47,7 +46,7 @@
 %\on{recycled some material from \url{https://www.iam.unibe.ch/scg/svn_repos/Lectures/ST-H07/03StandardClasses.ppt}}
 %\sd{Did a first pass: I should have a look at Xavier Briffault's book and at the material mentionned by andrew + lalonde book?}
 %=============================================================
-\section{Introducción}
+\section{Introducci\'on}
 
 Las clases de colecciones forman un grupo vagamente definido de subclases de prop\'osito general de \clsindmain{Collection} y de \clsind{Stream}. El grupo de clases que aparecen en el ``\ind{Blue Book}''~\cite{Gold83a} contiene 17 subclases de \ct{Collection} y 9 subclases de \ct{Stream}, para un total de 28 clases, y ya hab\'ia sido redise\~{n}ado varias veces antes que el sistema \st-80 fuera publicado. \'Este grupo de clases a menudo se considerada un ejemplo paradigm\'atico de dise\~{n}o orientado a objetos.
 
@@ -988,7 +987,7 @@ La jerarqu\'ia de colecciones de \st provee un vocabulario com\'un para manipula
   \item Puede convertir la mayor\'ia de las colecciones en otro tipo de colecci\'on envi\'andoles los mensajes \ct{asArray}, \ct{asOrderedCollection} \etc.
   \item Para ordenar una colecci\'on, enviar el mensaje \ct{asSortedCollection}.
   \item Los \ct{Array}s literales son creados con una sintaxis especial \ct{#( ... )}.  Los \ct{Array}s din\'amicos son creador con la sintaxis \ct|{ ... }|.
-  \item Un \ct{Dictionary} compara las claves por igualdad. Es m{as {util cuando las claves sin instancias de \ct{String}. Un \ct{IdentityDictionary} sin embargo usa la identidad de los objetos para comparar las claves. Es m\'as adecuado cuando los s\'imbolos (\ct{Symbol}s) son usados como claves, o cuando mapping object references to values.
+  \item Un \ct{Dictionary} compara las claves por igualdad. Es m\'as \'util cuando las claves sin instancias de \ct{String}. Un \ct{IdentityDictionary} sin embargo usa la identidad de los objetos para comparar las claves. Es m\'as adecuado cuando los s\'imbolos (\ct{Symbol}s) son usados como claves, o cuando mapping object references to values.
   \item Las cadenas de caracteres (\ct{String}s) tambi\'en entienden los mensajes usuales de colecciones.  Adem\'as, una cadena de caracteres soporta una forma simple de \textit{pattern-matching}. Para una aplicaci\'on m\'as avanzada, buscar en el paquete RegEx.
   \item El mensaje b\'asico de iteraci\'on es \ct{do:}. Es \'util para c\'odigo imperativo, tal como la modificaci\'on de cada elemento de una colecci\'on, o el env\'io de un mensaje a cada elemento.
   \item En vez de usar \ct{do:}, es m\'as usual usar \ct{collect:}, \ct{select:}, \ct{reject:}, \ct{includes:}, \ct{inject:into:} y otros mensajes de alto nivel para procesar colecciones de manera uniforme.
