@@ -1,4 +1,4 @@
-% $Author$
+% $Author$	
 % $Date$
 % $Revision$
 
@@ -422,8 +422,9 @@ Destacadamente, los n\'umeros en Smalltalk no son datos primivitos sino objetos 
 
 \begin{figure}[ht]
 \centerline {\includegraphics[width=8cm]{NumberHierarchy}}
-\caption{La Jerarqu\'ia de Number \figlabel{numbers}}
+\caption{The Number Hierarchy \figlabel{numbers}}
 \end{figure}
+
 
 Los n\'umeros pueden ser encontrados en la categor\'ia \scatind{Kernel-Numbers}. 
 La ra\'iz abstracta de su jerarqu\'ia es \clsind{Magnitude}, la cual representa todos los tipos de clases que soportan los operadores de comparaci\'on. \ct{Number} agrega varios operadores aritm\'eticos y otros como m\'etodos abstractos. \clsind{Float} y \clsind{Fraction} representan, respectivamente, n\'umeros en punto flotante y valores fraccionarios.  \clsind{Integer} es tambi\'enabstractro, debiendo distinguirse entre las subclases \clsind{SmallInteger}, \clsind{LargePositiveInteger} y \clsind{LargeNegativeInteger}. La mayor\'ia de los usuarios no necesitan estar alertas entre las tres clases \ct{Integer} ya que los valores son autom\'aticamente convertidos seg\'un sea necesario.
@@ -565,7 +566,7 @@ los caracteres no imprimibles son generados por varios m\'etodos de clase.  \mbo
 Character space = (Character value: Character space asciiValue) --> true
 \end{code}
 
-El m\'etodo \mthind{Character}{printOn:} es suficientemente inteligente para saber cual de las tres formas de generar caracteres es la que ofrece la representaci\'on m\as apropiada:
+El m\'etodo \mthind{Character}{printOn:} es suficientemente inteligente para saber cual de las tres formas de generar caracteres es la que ofrece la representaci\'on m\'as apropiada:
 
 \begin{code}{@TEST}
 Character value: 1   --> Character home

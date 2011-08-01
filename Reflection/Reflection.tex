@@ -43,60 +43,60 @@
 \fi
 
 %=================================================================
-\chapter{Reflexión}\chalabel{reflection}
+\chapter{Reflexi\'on}\chalabel{reflection}
 
 \indexmain{reflection}
-\st es un lenguaje de programación con reflexión computacional.
+\st es un lenguaje de programaci\'on con reflexi\'on computacional.
 En pocas palabras, quiere decir que los programas son capaces de
-«reflexionar» sobre su propia ejecución y estructura.
+«reflexionar» sobre su propia ejecuci\'on y estructura.
 % \lr{not only on execution, also on the static model}
 % pp 301 cesar
-En un sentido más técnico, esto significa que
-los \emphind{metaobjetos} del sistema en tiempo de ejecución
+En un sentido m\'as t\'ecnico, esto significa que
+los \emphind{metaobjetos} del sistema en tiempo de ejecuci\'on
 pueden \emph{reificarse} como objetos ordinarios, a los cuales se
 puede consultar e inspeccionar.  Los metaobjetos en \st son las
-clases, metaclases, diccionarios de métodos, métodos compilados, la
-pila al momento de ejecución, y otros.  Esta forma de reflexión
-también se denomina \emphind{introspección}, y muchos lenguajes
-modernos de programación la permiten.
+clases, metaclases, diccionarios de m\'etodos, m\'etodos compilados, la
+pila al momento de ejecuci\'on, y otros.  Esta forma de reflexi\'on
+tambi\'en se denomina \emphind{introspecci\'on}, y muchos lenguajes
+modernos de programaci\'on la permiten.
 
 \begin{figure}[ht]\centering
         \includegraphics[width=\linewidth]{reflect}
-        \caption{Reificación y reflexión.\figlabel{reflect}} % \lr{not referenced, not sure if I understand it}
+        \caption{Reificaci\'on y reflexi\'on.\figlabel{reflect}} % \lr{not referenced, not sure if I understand it}
 \end{figure}
 
 En el sentido contrario, en \st resulta posible modificar los
 metaobjetos reificados y \emph{reflejar} esos cambios de vuelta al
-sistema en ejecución (puedes verlo en la \figref{reflect}).  Esta
-actividad también se denomina \emph{intercesión}. La intercesión está
-presente principalmente en los lenguajes de programación dinámicos
-mientras que los lenguajes estáticos sólo la admiten en un grado muy
+sistema en ejecuci\'on (puedes verlo en la \figref{reflect}).  Esta
+actividad tambi\'en se denomina \emph{intercesi\'on}. La intercesi\'on est\'a
+presente principalmente en los lenguajes de programaci\'on din\'amicos
+mientras que los lenguajes est\'aticos s\'olo la admiten en un grado muy
 limitado.
 
-Un programa que manipula otros programas (o se manipula a sí mismo) es
-un \emphind{metaprograma}.  Para que un lenguaje de programación sea
-capaz de reflexión computacional debe permitir tanto la
-\ind{introspección} como la \ind{intercesión}.  La introspección es la
+Un programa que manipula otros programas (o se manipula a s\'i mismo) es
+un \emphind{metaprograma}.  Para que un lenguaje de programaci\'on sea
+capaz de reflexi\'on computacional debe permitir tanto la
+\ind{introspecci\'on} como la \ind{intercesi\'on}.  La introspecci\'on es la
 capacidad de \emph{examinar} las estructuras de datos que definen el
-lenguaje, como los objetos, clases, métodos y la pila de ejecución.
-La intercesión es la capacidad de \emph{modificar} dichas estructuras,
-o sea, de alterar la semántica del lenguaje y el comportamiento del
-programa desde el interior del propio programa.  La \emph{reflexión
+lenguaje, como los objetos, clases, m\'etodos y la pila de ejecuci\'on.
+La intercesi\'on es la capacidad de \emph{modificar} dichas estructuras,
+o sea, de alterar la sem\'antica del lenguaje y el comportamiento del
+programa desde el interior del propio programa.  La \emph{reflexi\'on
   estructural} examina y modifica la estructura del sistema de tiempo
-de ejecución y la \emphind{reflexión de comportamiento} modifica la
-interpretación de esas estructuras.
+de ejecuci\'on y la \emphind{reflexi\'on de comportamiento} modifica la
+interpretaci\'on de esas estructuras.
 
-En este capítulo nos enfocaremos principalmente en la \ind{reflexión
-  estructural}. Vamos a explorar muchos ejemplos prácticos que
-ilustrarán como \st permite la introspección y la metaprogramación.
+En este cap\'itulo nos enfocaremos principalmente en la \ind{reflexi\'on
+  estructural}. Vamos a explorar muchos ejemplos pr\'acticos que
+ilustrar\'an como \st permite la introspecci\'on y la metaprogramaci\'on.
 
 %======================================
-\section{Introspección}
+\section{Introspecci\'on}
 
 Mediante el inspector, puedes mirar dentro de un objeto, cambiar los
 valores de sus variables de instancia, e incluso enviarle mensajes.
 
-\dothis{Evalúa el siguiente código en un workspace:}
+\dothis{Eval\'ua el siguiente c\'odigo en un workspace:}
 \begin{code}{| w |}
 w := Workspace new.
 w openLabel: 'My workspace'.
@@ -108,38 +108,38 @@ muestra el estado interno de este nuevo espacio de trabajo, lista sus
 variables de instancia en la parte izquierda (\ct!dependents!,
 \ct!contents!, \ct!bindings!, \ldots) y en la parte derecha se ve el
 valor de la variable de instancia seleccionada.  La variable de
-instancia \ct!contents! representa lo que se muestra en el área de
-texto del espacio de trabajo, así que si lo seleccionas, la parte
-derecha va a mostrar una cadena vacía.
+instancia \ct!contents! representa lo que se muestra en el \'area de
+texto del espacio de trabajo, as\'i que si lo seleccionas, la parte
+derecha va a mostrar una cadena vac\'ia.
 
 \begin{figure}[ht]\centering
         \includegraphics[width=\linewidth]{workspaceInspector}
-        \caption{Inspección de un \ct!Workspace!.\figlabel{workspaceInspector}}
+        \caption{Inspecci\'on de un \ct!Workspace!.\figlabel{workspaceInspector}}
 \end{figure}
 
-\dothis{Ahora escribe \ct!'hello'! en lugar de esa cadena vacía, y
+\dothis{Ahora escribe \ct!'hello'! en lugar de esa cadena vac\'ia, y
   luego \emph{ac\'eptala}.}
 
 El valor de la variable \ct!contents! va a cambiar, pero la ventana
-del espacio de trabajo no se percata de ello, así que no se vuelve a
+del espacio de trabajo no se percata de ello, as\'i que no se vuelve a
 regenerar lo que muestra.  Para que se refresque el contenido en la
-ventana, evalúa \ct!self contentsChanged!  en la parte inferior del
+ventana, eval\'ua \ct!self contentsChanged!  en la parte inferior del
 inspector.
 
 %-----------------------------------------------------------------
-\subsection{Cómo se accede a las variables de instancia}
+\subsection{C\'omo se accede a las variables de instancia}
 
 
-¿Cómo funciona el inspector?  En \st, todas las variables de instancia
-son protegidas.  En teoría, es imposible accederlas desde otro objeto
-si la clase no define sus accesores.  En la práctica, el
+¿C\'omo funciona el inspector?  En \st, todas las variables de instancia
+son protegidas.  En teor\'ia, es imposible accederlas desde otro objeto
+si la clase no define sus accesores.  En la pr\'actica, el
 inspector puede acceder a las variables de instancia sin necesidad de
-accesores, porque usa las capacidades de reflexión computacional de
+accesores, porque usa las capacidades de reflexi\'on computacional de
 \st.  En \st, las clases definen variables de instancia o bien
-mediante un nombre o bien mediante un índice numérico.  El inspector
-usa métodos definidos en la clase \ct!Object! para accederlas:
+mediante un nombre o bien mediante un \'indice num\'erico.  El inspector
+usa m\'etodos definidos en la clase \ct!Object! para accederlas:
 \lct{instVarAt: \emph{index}} y \lct{instVarNamed: \emph{aString}} se
-usan para acceder al valor de la variable de instancia en la posición
+usan para acceder al valor de la variable de instancia en la posici\'on
 \lct{\emph{index}} o aquella cuyo nombre es \lct{\emph{aString}},
 respectivamente; para asignar nuevos valores a esas variables de
 instancia utiliza \ct!instVarAt:put:! y \ct!instVarNamed:put:!.
@@ -147,24 +147,24 @@ instancia utiliza \ct!instVarAt:put:! y \ct!instVarNamed:put:!.
 \mthindex{Object}{instVarAt:put:} \mthindex{Object}{instVarNamed:put:}
 
 Por ejemplo, puedes cambiar el valor asociado a \ct!w! en el primer
-espacio de trabajo mediante la evaluación de:
+espacio de trabajo mediante la evaluaci\'on de:
 \begin{code}{}
 w instVarNamed: 'contents' put: 'howdy!'; contentsChanged
 \end{code}
 
-\important{\emph{Precaución:} Aunque estos métodos resultan útiles
+\important{\emph{Precauci\'on:} Aunque estos m\'etodos resultan \'utiles
   para construir herramientas de desarrollo, es una mala idea usarlos
-  para desarrollar aplicaciones convencionales: estos métodos de
-  reflexión computacional violan los límites de la encapsulación de
-  los objetos y por lo tanto pueden hacer que tu código sea mucho más
-  difícil de comprender y mantener.}
+  para desarrollar aplicaciones convencionales: estos m\'etodos de
+  reflexi\'on computacional violan los l\'imites de la encapsulaci\'on de
+  los objetos y por lo tanto pueden hacer que tu c\'odigo sea mucho m\'as
+  dif\'icil de comprender y mantener.}
   % \lr{Why? The access does not show up when looking for all
   %   readers/writers in the code browser.}
 
-Tanto \ct!instVarAt:! como \ct!instVarAt:put:! son \ind{métodos
-  primitivos}, lo que significa que están implementados como
-operaciones primitivas de la máquina virtual de \pharo.  Si revisas el
-código de esos métodos verás la sintaxis especial \ind{pragma}
+Tanto \ct!instVarAt:! como \ct!instVarAt:put:! son \ind{m\'etodos
+  primitivos}, lo que significa que est\'an implementados como
+operaciones primitivas de la m\'aquina virtual de \pharo.  Si revisas el
+c\'odigo de esos m\'etodos ver\'as la sintaxis especial \ind{pragma}
 \ct!<primitive: N>! donde \ct!N! es un entero.
 % \lr{actually this is the syntax of pragmas (method annotations),
 %   \ct!primitive:! is just a special kind of pragma}
@@ -178,12 +178,12 @@ Object>>>instVarAt: index
         ^self basicAt: index - self class instSize
 \end{code}
 
-En el caso más usual no se ejecuta el código que sigue a la invocación
-de la primitiva.  Sólo se ejecuta si la primitiva falla.  En este caso
-específico, si tratamos de acceder una variable que no existe entonces
-se ejecuta el código que sigue a la primitiva.  De este modo se
-permite también que el debugger se inicie sobre métodos primitivos.
-Aunque es posible modificar el código de los métodos primitivos, debes
+En el caso m\'as usual no se ejecuta el c\'odigo que sigue a la invocaci\'on
+de la primitiva.  S\'olo se ejecuta si la primitiva falla.  En este caso
+espec\'ifico, si tratamos de acceder una variable que no existe entonces
+se ejecuta el c\'odigo que sigue a la primitiva.  De este modo se
+permite tambi\'en que el debugger se inicie sobre m\'etodos primitivos.
+Aunque es posible modificar el c\'odigo de los m\'etodos primitivos, debes
 entender que es una actividad de alto riesgo para la estabilidad de tu
 sistema \pharo.
 
@@ -192,34 +192,34 @@ sistema \pharo.
         \caption{Vista de todas las variables de instancia de un \ct!Workspace!.\figlabel{allInstanceVariables}}
 \end{figure}
 
-La \figref{allInstanceVariables} muestra cómo pueden verse los valores
+La \figref{allInstanceVariables} muestra c\'omo pueden verse los valores
 de las variables de instancia de una instancia arbitraria (\ct!w!) de
-la clase \ct!Workspace!.  El método \ct!allInstVarNames! retorna todos
+la clase \ct!Workspace!.  El m\'etodo \ct!allInstVarNames! retorna todos
 los nombres de las variables de instancia de una clase dada.
 
 De manera similar, es posible conseguir las instancias que tienen
-ciertas propiedades específicas.  Por ejemplo, para obtener todas las
+ciertas propiedades espec\'ificas.  Por ejemplo, para obtener todas las
 instancias de la clase \ct!SketchMorph! cuya variable de instancia
-\ct!owner! está asociada al morph mundo (o sea, las imágenes que se
-muestran en este momento), prueba la siguiente expresión:
+\ct!owner! est\'a asociada al morph mundo (o sea, las im\'agenes que se
+muestran en este momento), prueba la siguiente expresi\'on:
 \begin{code}{}
 SketchMorph allInstances select: [:c | (c instVarNamed: 'owner') isWorldMorph]
 \end{code}
 
 %-----------------------------------------------------------------
-\subsection{Cómo recorrer las variables de instancia}
+\subsection{C\'omo recorrer las variables de instancia}
 
 \mthindex{Object}{instanceVariableValues}
 Consideremos el mensaje \ct!instanceVariableValues!, que devuelve una
-colección de todos los valores de variables de instancia definidos en
+colecci\'on de todos los valores de variables de instancia definidos en
 dicha clase, sin tener en cuenta las variables de instancia
 heredadas.  Por ejemplo:
 \begin{code}{@TEST}
 (1@2) instanceVariableValues --> an OrderedCollection(1 2)
 \end{code}
 
-El método está implementado en \ct{Object} como se muestra a
-continuación:
+El m\'etodo est\'a implementado en \ct{Object} como se muestra a
+continuaci\'on:
 \needlines{9}
 \begin{code}{}
 Object>>>instanceVariableValues
@@ -232,19 +232,19 @@ Object>>>instanceVariableValues
         ^ c
 \end{code}
 
-Este método itera sobre los índices de las variables de instancia que
-están definidas en la clase; el primer valor corresponde al primer
-índice no usado por la superclase.  (El método \ct!instSize! retorna
+Este m\'etodo itera sobre los \'indices de las variables de instancia que
+est\'an definidas en la clase; el primer valor corresponde al primer
+\'indice no usado por la superclase.  (El m\'etodo \ct!instSize! retorna
 la cantidad de variables de instancia nominadas que define una clase)
 
 %-----------------------------------------------------------------
-\subsection{Cómo consultar clases e interfaces}
+\subsection{C\'omo consultar clases e interfaces}
 
 Tods las herramientas de desarrollo de \pharo (code browser,
-debugger, inspector\ldots) utilizan las características de reflexión
+debugger, inspector\ldots) utilizan las caracter\'isticas de reflexi\'on
 computacional que hemos visto hasta ahora.
 
-Se muestran a continuación otros mensajes que pueden resultar útiles
+Se muestran a continuaci\'on otros mensajes que pueden resultar \'utiles
 para construir herramientas de desarrollo:
 
 \lct{isKindOf: \emph{aClass}} retorna true si el receptor es una
@@ -259,7 +259,7 @@ ejemplo:
 \mthindex{Object}{isKindOf:}
 
 \lct{respondsTo: \emph{aSymbol}} returna true si el receptor tiene un
-método cuyo selector es \lct{\emph{aSymbol}}.
+m\'etodo cuyo selector es \lct{\emph{aSymbol}}.
 Por ejemplo:
 \needlines{3}
 \begin{code}{@TEST}
@@ -269,16 +269,16 @@ Exception respondsTo: #, --> true    "las clases de exception se pueden agrupar"
 \end{code}
 \mthindex{Object}{respondsTo:}
 
-\important{\emph{Precaución:} Aunque estas características resultan
-  especialmente útiles para escribir herramientas de desarrollo,
-  normalmente no son apropiadas para escribir aplicaciones típicas.
+\important{\emph{Precauci\'on:} Aunque estas caracter\'isticas resultan
+  especialmente \'utiles para escribir herramientas de desarrollo,
+  normalmente no son apropiadas para escribir aplicaciones t\'ipicas.
   Cuando uno consulta a un objeto para saber su clase o para saber
-  a cuáles mensajes responde, estamos en presencia de señales típicas
+  a cu\'ales mensajes responde, estamos en presencia de señales t\'ipicas
   que apuntan a problemas de diseño, pues estas consultas violan el
-  principio de encapsulación.  Las herramientas de desarrollo, sin
+  principio de encapsulaci\'on.  Las herramientas de desarrollo, sin
   embargo, no son aplicaciones normales, pues su dominio es el del
-  software en sí mismo.  Por ello, estas herramientas tienen derecho a
-  indagar profundamente en los detalles internos del código.}
+  software en s\'i mismo.  Por ello, estas herramientas tienen derecho a
+  indagar profundamente en los detalles internos del c\'odigo.}
 
 % There also exist mechanisms for introspecting on various parts of
 % the run-time system, such as the process scheduler, the memory
@@ -288,18 +288,18 @@ Exception respondsTo: #, --> true    "las clases de exception se pueden agrupar"
 %   this if we don't actually write such a chapter!}
 
 %-----------------------------------------------------------------
-\subsection{Métricas de código}
+\subsection{M\'etricas de c\'odigo}
 
-Veamos cómo podemos usar las características de introspección de \st
-para extraer rápidamente algunas métricas de código.  Las
-\ind{métricas} de código miden aspectos tales como la profundidad de
-la jerarquía de herencia, la cantidad directa e indirecta de
-subclases, la cantidad de métodos o de variables de instancia en cada
-clase, o la cantidad de métodos o variables de instancia definidos
-localmente.  A continuación se muestran unas métricas para la clase
-\ct!Morph!, que es la superclase de todos los objetos gráficos en
+Veamos c\'omo podemos usar las caracter\'isticas de introspecci\'on de \st
+para extraer r\'apidamente algunas m\'etricas de c\'odigo.  Las
+\ind{m\'etricas} de c\'odigo miden aspectos tales como la profundidad de
+la jerarqu\'ia de herencia, la cantidad directa e indirecta de
+subclases, la cantidad de m\'etodos o de variables de instancia en cada
+clase, o la cantidad de m\'etodos o variables de instancia definidos
+localmente.  A continuaci\'on se muestran unas m\'etricas para la clase
+\ct!Morph!, que es la superclase de todos los objetos gr\'aficos en
 \pharo, y que revelan que se trata de una clase enorme, y que es la
-raíz de una enorme jerarquía. ¡Tal vez está necesitada de un poco de
+ra\'iz de una enorme jerarqu\'ia. ¡Tal vez est\'a necesitada de un poco de
 refactoring!
 
 \mthindex{Behavior}{allSuperclasses}
@@ -321,29 +321,29 @@ Morph allSubclasses size.      -->  326 "total de subclases"
 Morph linesOfCode.               --> 5968 "cantidad total de lineas de codigo"
 \end{code}
 
-Una de las métricas más interesantes en el dominio de los lenguajes
-orientados a objetos es la cantidad de métodos que extienden métodos
-heredados desde la superclase.  Ella nos informa de la relación entre
-la clase y sus superclases.  En las siguientes secciones veremos cómo
+Una de las m\'etricas m\'as interesantes en el dominio de los lenguajes
+orientados a objetos es la cantidad de m\'etodos que extienden m\'etodos
+heredados desde la superclase.  Ella nos informa de la relaci\'on entre
+la clase y sus superclases.  En las siguientes secciones veremos c\'omo
 aprovechar nuestro conocimiento de la estructura de tiempo de
-ejecución para responder estas cuestiones.
+ejecuci\'on para responder estas cuestiones.
 
 %======================================
-\section{Cómo navegar por el código}
+\section{C\'omo navegar por el c\'odigo}
 
 En \st, todo es un objeto.  En particular, las clases son objetos que
-nos proporcionan mecanismos útiles para navegar entre sus instancias.
-La mayoría de los mensajes que vamos a estudiar están implementados en
+nos proporcionan mecanismos \'utiles para navegar entre sus instancias.
+La mayor\'ia de los mensajes que vamos a estudiar est\'an implementados en
 \ct{Behavior} y por lo tanto todas las clases responden a ellos.
 
 Como ya vimos antes, puedes obtener una instancia de una clase dada si
-le envías el mensaje \ct!#someInstance!.
+le env\'ias el mensaje \ct!#someInstance!.
 \mthindex{Behavior}{someInstance}
 \begin{code}{@TEST} % Possibly fragile!
 Point someInstance --> 0@0
 \end{code}
 
-Además, puedes obtener todas las instancias con \ct!#allInstances!, y
+Adem\'as, puedes obtener todas las instancias con \ct!#allInstances!, y
 la cantidad de instancias activas en memoria con \ct!#instanceCount!.
 
 \alex{In a Pharo0.1-10342dev09.96.3, I have "ByteString instanceCount
@@ -357,20 +357,20 @@ ByteString instanceCount    --> 104565
 String allSubInstances size -->  101675
 \end{code}
 
-Estas características pueden resultar muy útiles al depurar una
-aplicación, porque puedes solicitar a una clase que enumere aquellos
-de sus métodos que exhiben ciertas propiedades.
+Estas caracter\'isticas pueden resultar muy \'utiles al depurar una
+aplicaci\'on, porque puedes solicitar a una clase que enumere aquellos
+de sus m\'etodos que exhiben ciertas propiedades.
 \begin{itemize}
 \item \mthind{Behavior}{whichSelectorsAccess:} retorna la lista de
-  todos los selectores de métodos que leen o escriben la variable de
+  todos los selectores de m\'etodos que leen o escriben la variable de
   instancia nombrada por el argumento
 \item \mthind{Behavior}{whichSelectorsStoreInto:} retorna los
-  selectores de métodos que modifican el valor de una variable de
+  selectores de m\'etodos que modifican el valor de una variable de
   instancia dada
 \item \mthind{Behavior}{whichSelectorsReferTo:} retorna los selectores
-  de métodos que envían un dado mensaje
+  de m\'etodos que env\'ian un dado mensaje
 \item \mthind{Behavior}{crossReference} asocia cada mensaje con el
-  conjunto de métodos que lo envían.
+  conjunto de m\'etodos que lo env\'ian.
 \end{itemize}
 
 \begin{code}{} % TOO FRAGILE TO TEST
@@ -399,7 +399,7 @@ Rectangle unreferencedInstanceVariables            --> #()
 \end{code}
 
 \clsind{SystemNavigation} es una fachada [facade] que incluye varios
-métodos útiles para consultar y navegar a través del código fuente del
+m\'etodos \'utiles para consultar y navegar a trav\'es del c\'odigo fuente del
 sistema.  \ct{SystemNavigation} \mthind{SystemNavigation
   class}{default} retorna una instancia que puedes usar para navegar
 por el sistema.  Por ejemplo:
@@ -420,28 +420,28 @@ SystemNavigation default allUnsentMessages size      --> 6431
 SystemNavigation default allUnimplementedCalls size --> 270
 \end{code}
 
-Que un mensaje esté implementado y que nadie lo envíe no es
-necesariamente una señal de un mensaje inútil, pues puede ser que se
-lo envíe implícitamente (por ejemplo, mediante \ct{perform:}).  Los
-mensajes que se envían pero no están implementados son más
-problemáticos, porque los métodos que envían esos mensajes van a
-fallar en tiempo de ejecución.  Son la señal de una implementación sin
+Que un mensaje est\'e implementado y que nadie lo env\'ie no es
+necesariamente una señal de un mensaje in\'util, pues puede ser que se
+lo env\'ie impl\'icitamente (por ejemplo, mediante \ct{perform:}).  Los
+mensajes que se env\'ian pero no est\'an implementados son m\'as
+problem\'aticos, porque los m\'etodos que env\'ian esos mensajes van a
+fallar en tiempo de ejecuci\'on.  Son la señal de una implementaci\'on sin
 terminar, APIs obsoletas o bibliotecas faltantes.
 
 \mthindex{SystemNavigation}{allCallsOn:}
 \ct!SystemNavigation default allCallsOn: #Point! retorna todos los
-mensajes enviados explícitamente a \ct!Point! como receptor.
+mensajes enviados expl\'icitamente a \ct!Point! como receptor.
 
-Todas estas características están integradas en el entorno de
-programación de \pharo, en particular en los navegadores de código.
-Como ya conocerás, hay atajos de teclado convenientes para navegar por
+Todas estas caracter\'isticas est\'an integradas en el entorno de
+programaci\'on de \pharo, en particular en los navegadores de c\'odigo.
+Como ya conocer\'as, hay atajos de teclado convenientes para navegar por
 todos los i\underline{m}plementors (\short{m}) y se\underline{n}ders
 (\short{n}) de un mensaje dado.  Lo que tal vez no resulte tan
-conocido es que hay muchas consultas preparadas que están
-implementadas como métodos de la clase \ct{SystemNavigation} en el
+conocido es que hay muchas consultas preparadas que est\'an
+implementadas como m\'etodos de la clase \ct{SystemNavigation} en el
 protocolo \prot{browsing}.  Por ejemplo, puedes encontrar
-programáticamente todos los implementadores del mensaje \ct{ifTrue:}
-mediante la evaluación de:
+program\'aticamente todos los implementadores del mensaje \ct{ifTrue:}
+mediante la evaluaci\'on de:
 \mthindex{SystemNavigation}{browseAllImplementorsOf:}
 \begin{code}{}
 SystemNavigation default browseAllImplementorsOf: #ifTrue:
@@ -452,10 +452,10 @@ SystemNavigation default browseAllImplementorsOf: #ifTrue:
         \caption{Implementadores de \ct!\#ifTrue:!.\figlabel{implementors}}
 \end{figure}
 
-Los métodos \ct{browseAllSelect:} y
-\lct{browseMethodsWithSourceString:} son particularmente útiles.  A
-continuación se muestran dos manera diferentes de revisar todos los
-métodos en el sistema que envían mensajes a super (la primera es más
+Los m\'etodos \ct{browseAllSelect:} y
+\lct{browseMethodsWithSourceString:} son particularmente \'utiles.  A
+continuaci\'on se muestran dos manera diferentes de revisar todos los
+m\'etodos en el sistema que env\'ian mensajes a super (la primera es m\'as
 bien por fuerza bruta; la segunda es mejor y elimina algunos falsos
 positivos):
 \mthindex{SystemNavigation}{browseMethodsWithSourceString:}
@@ -466,44 +466,44 @@ SystemNavigation default browseAllSelect: [:method | method sendsToSuper ].
 \end{code}
 
 %======================================
-\section{Clases, dicionarios de métodos y métodos}
+\section{Clases, dicionarios de m\'etodos y m\'etodos}
 
 Como las clases son objetos, podemos inspeccionarlas o explorarlas
 como a cualquier otro objeto.
 
 \mthindex{Object}{explore}
-\dothis{Evalúa \ct{Point explore}.}
+\dothis{Eval\'ua \ct{Point explore}.}
 
 En \figref{CompiledMethod}, el \ind{explorer} muestra la estructura de
-la clase \clsind{Point}.  Puedes ver que la clase almacena sus métodos
+la clase \clsind{Point}.  Puedes ver que la clase almacena sus m\'etodos
 en un diccionario, indexados por su selector.  El selector \ct{#*}
 apunta al \ind{bytecode} descompilado de \ct!Point>>>*!.
 
 \begin{figure}[ht]\centering
         \includegraphics[width=.5\linewidth]{CompiledMethod}
-        \caption{Explorer:la clase \ct!Point! y el bytecode de su método \ct!\#*!.\figlabel{CompiledMethod}}
+        \caption{Explorer:la clase \ct!Point! y el bytecode de su m\'etodo \ct!\#*!.\figlabel{CompiledMethod}}
 \end{figure}
 
-Vamos a considerar la relación entre clases y métodos.  En
+Vamos a considerar la relaci\'on entre clases y m\'etodos.  En
 \figref{MethodsAsObjects} vemos que las clases y metaclases tienen en
-común a la superclase \ct{Behavior}.  Aquí es donde se define a
-\mthind{Behavior}{new}, entre otros métodos para las clases.  Cada
-clase tiene un diccionario de métodos, el cual mapea selectores de
-métodos en \ind{métodos compilados}.  Cada método compilado conoce la
-clase en la cual está instalado.  En \figref{CompiledMethod} podemos
+com\'un a la superclase \ct{Behavior}.  Aqu\'i es donde se define a
+\mthind{Behavior}{new}, entre otros m\'etodos para las clases.  Cada
+clase tiene un diccionario de m\'etodos, el cual mapea selectores de
+m\'etodos en \ind{m\'etodos compilados}.  Cada m\'etodo compilado conoce la
+clase en la cual est\'a instalado.  En \figref{CompiledMethod} podemos
 ver incluso que esto se almacena en una asociacion en \ct{literal5}.
 
 \begin{figure}[ht]\centering
         \includegraphics[width=\linewidth]{MethodsAsObjects}
-        \caption{Clases, diccionarios de métodos y métodos compilados\figlabel{MethodsAsObjects}}
+        \caption{Clases, diccionarios de m\'etodos y m\'etodos compilados\figlabel{MethodsAsObjects}}
 \end{figure}
 
-Podemos aprovechar las relaciones entre clases y métodos para realizar
-consultas sobre el sistema.  Por ejemplo, para descubrir cuáles
-métodos han sido recientemente incorporados por una dada clase (o sea,
-métodos que no sobrecargan métodos de las superclases) podemos navegar
-desde la clase al dicionario de métodos como se muestra a
-continuación:
+Podemos aprovechar las relaciones entre clases y m\'etodos para realizar
+consultas sobre el sistema.  Por ejemplo, para descubrir cu\'ales
+m\'etodos han sido recientemente incorporados por una dada clase (o sea,
+m\'etodos que no sobrecargan m\'etodos de las superclases) podemos navegar
+desde la clase al dicionario de m\'etodos como se muestra a
+continuaci\'on:
 \mthindex{Behavior}{methodDict}
 \begin{code}{}
 [:aClass| aClass methodDict keys select: [:aMethod |
@@ -511,25 +511,25 @@ continuación:
   --> an IdentitySet(#threeDigitName #printStringBase:nDigits: ...)
 \end{code}
 
-El método compilado no almacena solamente los bytecodes del método.
-Es un objeto que proporciona muchos métodos útiles para consultar el
-sistema.  Uno de tales métodos es \ct{isAbstract} (que nos indica si
-el método envía \ct{subclassResponsibility}).  Podemos usarlo para
-identificar todos los métodos abstractos de una clase abstracta.
+El m\'etodo compilado no almacena solamente los bytecodes del m\'etodo.
+Es un objeto que proporciona muchos m\'etodos \'utiles para consultar el
+sistema.  Uno de tales m\'etodos es \ct{isAbstract} (que nos indica si
+el m\'etodo env\'ia \ct{subclassResponsibility}).  Podemos usarlo para
+identificar todos los m\'etodos abstractos de una clase abstracta.
 \needlines{4}
 \begin{code}{}
 [:aClass| aClass methodDict keys select: [:aMethod |
   (aClass>>aMethod) isAbstract ]] value: Number
   --> an IdentitySet(#storeOn:base: #printOn:base: #+ #- #* #/ ...)
 \end{code}
-Advierte como este código envía el mensaje \ct{>>} a una clase para
-obtener el método compilado de un selector dado.
+Advierte como este c\'odigo env\'ia el mensaje \ct{>>} a una clase para
+obtener el m\'etodo compilado de un selector dado.
 
 % As a slightly more complex example, we can browse
 
-Para pasear por los sends a super dentro de una jerarquía dada, por
-ejemplo dentro de la jerarquía de Collection, podemos realizar una
-consulta más sofisticada:
+Para pasear por los sends a super dentro de una jerarqu\'ia dada, por
+ejemplo dentro de la jerarqu\'ia de Collection, podemos realizar una
+consulta m\'as sofisticada:
 \begin{code}{}
 class := Collection.
 SystemNavigation default
@@ -539,54 +539,54 @@ SystemNavigation default
       thenCollect: [:assoc | MethodReference class: each selector: assoc key]])
   name: 'Supersends of ' , class name , ' and its subclasses'
 \end{code}
-Nota como navegamos desde las clases a los diccionarios de métodos,
-hasta los métodos compilados para identificar los métodos en los
+Nota como navegamos desde las clases a los diccionarios de m\'etodos,
+hasta los m\'etodos compilados para identificar los m\'etodos en los
 cuales estamos interesados.  El \ct{MethodReference} es un proxy
-liviano para un método compilado; muchas herramientas utilizan estos
-proxys.  Hay un método de facilitación llamado
+liviano para un m\'etodo compilado; muchas herramientas utilizan estos
+proxys.  Hay un m\'etodo de facilitaci\'on llamado
 \clsmthind{CompiledMethod}{methodReference} que retorna la referencia
-de método de un método compilado.
+de m\'etodo de un m\'etodo compilado.
 \begin{code}{@TEST}
 (Object>>#=) methodReference methodSymbol --> #=
 \end{code}
 
 %======================================
-\section{Entornos de navegación}
+\section{Entornos de navegaci\'on}
 
-Aún cuando \clsind{SystemNavigation} ofrece algunas maneras
-programáticas que resultan útiles a la hora de consultar y navegar por
-el código del sistema mediante, hay otro método mejor.  El
-\ind{Refactoring Browser}, que está integrado en \pharo, proporciona
-tanto una vía interactiva como una programática para realizar
+A\'un cuando \clsind{SystemNavigation} ofrece algunas maneras
+program\'aticas que resultan \'utiles a la hora de consultar y navegar por
+el c\'odigo del sistema mediante, hay otro m\'etodo mejor.  El
+\ind{Refactoring Browser}, que est\'a integrado en \pharo, proporciona
+tanto una v\'ia interactiva como una program\'atica para realizar
 consultas complejas.
 
-Supongamos que queremos averiguar cuáles de los métodos dentro de la
-jerarquía \lct{Collection} envían un mensaje a \super que sea diferente
-del selector del método.  Esto se considera un mal \ind{olor de
-  código} [code smell], porque el send a \super normalmente debería
-poder reemplazarse por un send a \self. (Piénsalo por un momento: la
+Supongamos que queremos averiguar cu\'ales de los m\'etodos dentro de la
+jerarqu\'ia \lct{Collection} env\'ian un mensaje a \super que sea diferente
+del selector del m\'etodo.  Esto se considera un mal \ind{olor de
+  c\'odigo} [code smell], porque el send a \super normalmente deber\'ia
+poder reemplazarse por un send a \self. (Pi\'ensalo por un momento: la
 \emph{necesidad} de \super se debe a que lo utilizamos para extender
-el método que estamos sobrecargando; ¡todos los otros métodos
+el m\'etodo que estamos sobrecargando; ¡todos los otros m\'etodos
 heredados se pueden acceder mediante mensajes a \self!
 
 El navegador de refactoreo [refactoring browser] nos proporciona una
-manera elegante de restringir la consulta sólo a las clases y métodos
+manera elegante de restringir la consulta s\'olo a las clases y m\'etodos
 en los cuales estamos interesados.
 
 
-En \figref{sendDifferentSuper} podemos ver que hay 19 métodos con esas
-caracerísticas dentro de la jerarquía \ct{Collection}, entre los
-cuales está \ct{Collection>>>printNameOn:}, que envía el mensaje
+En \figref{sendDifferentSuper} podemos ver que hay 19 m\'etodos con esas
+caracer\'isticas dentro de la jerarqu\'ia \ct{Collection}, entre los
+cuales est\'a \ct{Collection>>>printNameOn:}, que env\'ia el mensaje
 \ct{super printOn:}.
 \begin{figure}[ht]\centering
         \includegraphics[width=\linewidth]{sendDifferentSuper}
-        \caption{Cómo encontrar métodos que envían un mensaje a \super diferente.\figlabel{sendDifferentSuper}}
+        \caption{C\'omo encontrar m\'etodos que env\'ian un mensaje a \super diferente.\figlabel{sendDifferentSuper}}
 \end{figure}
 
-Los entornos de navegación también se pueden crear programáticamente.
-A continuación, por ejemplo, vamos a crear un nuevo
+Los entornos de navegaci\'on tambi\'en se pueden crear program\'aticamente.
+A continuaci\'on, por ejemplo, vamos a crear un nuevo
 \clsind{BrowserEnvironment} para \clsind{Collection} y sus subclases,
-seleccionaremos los métodos que envían mensajes a \super y abriremos
+seleccionaremos los m\'etodos que env\'ian mensajes a \super y abriremos
 el entorno resultante.
 \needlines{4}
 \begin{code}{}
@@ -596,11 +596,11 @@ el entorno resultante.
         open.
 \end{code}{}
 
-Puedes notar cómo esta forma es considerablemente más compacta que la
+Puedes notar c\'omo esta forma es considerablemente m\'as compacta que la
 anterior, cuando usamos \ct{SystemNavigation}.
 
-Por último, podemos buscar aquellos métodos que envían un \super
-diferente en forma programática como se muestra a continuación:
+Por \'ultimo, podemos buscar aquellos m\'etodos que env\'ian un \super
+diferente en forma program\'atica como se muestra a continuaci\'on:
 \needlines{6}
 \begin{code}{}
 ((BrowserEnvironment new forClasses: (Collection withAllSubclasses))
@@ -611,40 +611,40 @@ diferente en forma programática como se muestra a continuación:
         open
 \end{code}
 
-En este caso solicitamos a cada método compilado su árbol sintáctico
-(del Refactoring Browser) para ver cuáles de los mensajes a \super
-difieren del selector del método.  Para ver qué se puede hacer con los
-árboles sintácticos, echa una mirada al protocolo \prot{querying} de
+En este caso solicitamos a cada m\'etodo compilado su \'arbol sint\'actico
+(del Refactoring Browser) para ver cu\'ales de los mensajes a \super
+difieren del selector del m\'etodo.  Para ver qu\'e se puede hacer con los
+\'arboles sint\'acticos, echa una mirada al protocolo \prot{querying} de
 la clase \ct{RBProgramNode}.
 
 %======================================
-\section{Cómo acceder al contexto de tiempo de ejecución}
+\section{C\'omo acceder al contexto de tiempo de ejecuci\'on}
 
-Ya hemos visto como las capacidades de reflexión de \st nos permiten
-consultar y explorar objetos, clases y métodos.  ¿Y qué podemos hacer
-con el entorno de ejecución?
+Ya hemos visto como las capacidades de reflexi\'on de \st nos permiten
+consultar y explorar objetos, clases y m\'etodos.  ¿Y qu\'e podemos hacer
+con el entorno de ejecuci\'on?
 
 %-----------------------------------------------------------------
-\subsection{Contexto de los métodos}
+\subsection{Contexto de los m\'etodos}
 
-De hecho, el contexto de tiempo de ejecución de un método que está
-corriendo reside en la máquina virtual --- ¡ni siquiera está en la
+De hecho, el contexto de tiempo de ejecuci\'on de un m\'etodo que est\'a
+corriendo reside en la m\'aquina virtual --- ¡ni siquiera est\'a en la
 imagen!  Por otro lado, el \ind{debugger} obviamente tiene acceso a
-esta información, y podemos explorar con facilidad el contexto de
-tiempo de ejecución, al igual que hacemos con cualquier otro objeto.
-¿Cómo puede ser esto posible?
+esta informaci\'on, y podemos explorar con facilidad el contexto de
+tiempo de ejecuci\'on, al igual que hacemos con cualquier otro objeto.
+¿C\'omo puede ser esto posible?
 
 En realidad, no hay nada de magia en el depurador.  El secreto es la
 seudovariable \pvind{thisContext}, que ya hemos visto antes, aunque
-sólo de pasada.  Cuando se referencia a \ct{thisContext} dentro de un
-método en ejecución, se reifica el contexto completo de ejecución de
-dicho método y a ese objeto se lo deja accesible a la imagen en la
+s\'olo de pasada.  Cuando se referencia a \ct{thisContext} dentro de un
+m\'etodo en ejecuci\'on, se reifica el contexto completo de ejecuci\'on de
+dicho m\'etodo y a ese objeto se lo deja accesible a la imagen en la
 forma de una serie de objetos \clsind{MethodContext} encadenados.
 
 Podemos hacer unos experimentos on este mecanismo.
 
-\dothis{Cambia la definición de \ct{Integer>>>factorial}, para ello
-  inserta la expresión subrayada que se muestra más abajo:}
+\dothis{Cambia la definici\'on de \ct{Integer>>>factorial}, para ello
+  inserta la expresi\'on subrayada que se muestra m\'as abajo:}
 
 \mthindex{Object}{halt}
 \begin{code}{}
@@ -655,18 +655,18 @@ Integer>>>factorial
         self error: 'Not valid for negative integers'
 \end{code}
 
-\dothis{Ahora evalúa \ct{3 factorial} en un espacio de trabajo.
-  Deberías ver tanto una ventana de depurador como un explorador, tal
+\dothis{Ahora eval\'ua \ct{3 factorial} en un espacio de trabajo.
+  Deber\'ias ver tanto una ventana de depurador como un explorador, tal
   como se muestra en \figref{exploringThisContext}.}
 
 \begin{figure}[ht]\centering
         \includegraphics[width=\linewidth]{exploringThisContext}
-        \caption{ Cómo explorar
+        \caption{ C\'omo explorar
           \lct{thisContext}.\figlabel{exploringThisContext}}
 \end{figure}
 
 ¡Bienvenido al depurador del pobre!
-Si navegas ahora por la clase del objeto explorado (evalúa \ct{self browse}
+Si navegas ahora por la clase del objeto explorado (eval\'ua \ct{self browse}
 en el panel inferior del explorador) vas a descubrir que es
 una instancia de la clase \lct{MethodContext}, tal como cada uno de
 los \ct{sender} en la cadena.
@@ -678,19 +678,19 @@ los \ct{sender} en la cadena.
 %   every method activation, no matter if they are accessed using
 %   \ct{thisContext} or not.}
 
-\ct{thisContext} no está pensado para usarse en la programación
-cotidiana, pero es esencial en la implementación de herramientas tales
-como los depuradores, y para acceder a la información de la pila de
-llamadas.  Puedes evaluar la siguiente expresión para descubrir cuáles
-métodos utilizan a \ct{thisContext}:
+\ct{thisContext} no est\'a pensado para usarse en la programaci\'on
+cotidiana, pero es esencial en la implementaci\'on de herramientas tales
+como los depuradores, y para acceder a la informaci\'on de la pila de
+llamadas.  Puedes evaluar la siguiente expresi\'on para descubrir cu\'ales
+m\'etodos utilizan a \ct{thisContext}:
 
 \begin{code}{}
 SystemNavigation default browseMethodsWithSourceString: 'thisContext'
 \end{code}
 
-Como puedes ver, una de las aplicaciones más comunes es para descubrir
-el remitente de un mensaje.  A continuación se muestra una aplicación
-típica:
+Como puedes ver, una de las aplicaciones m\'as comunes es para descubrir
+el remitente de un mensaje.  A continuaci\'on se muestra una aplicaci\'on
+t\'ipica:
 \begin{code}{}
 Object>>>subclassResponsibility
         "This message sets up a framework for the behavior of the class' subclasses.
@@ -699,11 +699,11 @@ Object>>>subclassResponsibility
         self error: 'My subclass should have overridden ', thisContext sender selector printString
 \end{code}
 
-Por convención, los métodos en \st que envían \ct{self subclassResponsibility}
-se consideran abstractos.  Ahora bien, ¿cómo
+Por convenci\'on, los m\'etodos en \st que env\'ian \ct{self subclassResponsibility}
+se consideran abstractos.  Ahora bien, ¿c\'omo
 hace \clsmthind{Object}{subclassResponsibility} para proporcionar un
-mensaje de error útil que indique cuál de los métodos abstractos ha
-sido invocado?  Muy simple, preguntando cuál es el \ct{thisContext}
+mensaje de error \'util que indique cu\'al de los m\'etodos abstractos ha
+sido invocado?  Muy simple, preguntando cu\'al es el \ct{thisContext}
 del remitente.
 
 \lr{I think co-routines and continuations should at least mentioned
@@ -717,23 +717,23 @@ del remitente.
   be an introduction may be we should have a Reflection applied
   chapter} \lr{I would love to help writing such a chapter}
 %-----------------------------------------------------------------
-\subsection{Puntos de interrupción inteligentes}
+\subsection{Puntos de interrupci\'on inteligentes}
 
 \mthindex{Object}{halt}
 
-La manera a la \st de crear un punto de interrupción [breakpoint]
-consiste en evaluar \ct{self halt} en una posición interesante de un
-método.  Esto hace que \ct{thisContext} se reifique y que se abra una
-ventana de \ind{debugger} sobre el punto de interrupción.
-Desafortunadamente, esto plantea problemas para los métodos
+La manera a la \st de crear un punto de interrupci\'on [breakpoint]
+consiste en evaluar \ct{self halt} en una posici\'on interesante de un
+m\'etodo.  Esto hace que \ct{thisContext} se reifique y que se abra una
+ventana de \ind{debugger} sobre el punto de interrupci\'on.
+Desafortunadamente, esto plantea problemas para los m\'etodos
 intensamente usados en el sistema.
 
-Supongamos, por ejemplo, que deseamos explorar la ejecución de
-\ct{OrderedCollection>>>add:}.  Resulta problemático configurar un
-punto de interrupción en este método.
+Supongamos, por ejemplo, que deseamos explorar la ejecuci\'on de
+\ct{OrderedCollection>>>add:}.  Resulta problem\'atico configurar un
+punto de interrupci\'on en este m\'etodo.
 
 \dothis{Toma una imagen \emph{fresca} y configura los siguientes
-  puntos de interrupción:}
+  puntos de interrupci\'on:}
 \needlines{3}
 \begin{code}{}
 OrderedCollection>>>add: newObject
@@ -744,20 +744,20 @@ OrderedCollection>>>add: newObject
 ¡La imagen se congela de inmediato!  Ni siquiera aparece una ventana
 del navegador.  El problema se aclara cuando comprendemos que
 (\textsc{I}) el sistema usa a \ct{OrderedCollection>>>add:} en muchas
-partes, y por lo tanto el punto de interrupción se dispara un momento
-después de aceptar el cambio, y además (\textsc{II}) \emph{el propio
-  depurador} envía \ct{add:} a una instancia de
+partes, y por lo tanto el punto de interrupci\'on se dispara un momento
+despu\'es de aceptar el cambio, y adem\'as (\textsc{II}) \emph{el propio
+  depurador} env\'ia \ct{add:} a una instancia de
 \ct{OrderedCollection}, lo cual impide que se abra la ventana del
 depurador.  Lo que necesitamos es una forma de \emph{hacer un halt
-  condicional} sólo si nos encontramos en un contexto que sea de
-nuestro interés.  Esto es exactamente lo que ofrece
+  condicional} s\'olo si nos encontramos en un contexto que sea de
+nuestro inter\'es.  Esto es exactamente lo que ofrece
 \clsmthind{Object}{haltIf:}.
 
-Supongamos que sólo queremos un halt si \ct{add:} es enviado desde,
+Supongamos que s\'olo queremos un halt si \ct{add:} es enviado desde,
 digamos, el contexto de \ct{OrderedCollectionTest>>>testAdd}.
 
 \dothis{Levanta una imagen fresca de nuevo, y configura el siguiente
-  punto de interrupción:}
+  punto de interrupci\'on:}
 \begin{code}{}
 OrderedCollection>>>add: newObject
         !\underline{self haltIf: \#testAdd.}!
@@ -765,10 +765,10 @@ OrderedCollection>>>add: newObject
 \end{code}
 
 Esta vez la imagen no se congela.  Prueba de correr el
-\ct{OrderedCollectionTest}.  (Lo puedes encontrar en la categoría
+\ct{OrderedCollectionTest}.  (Lo puedes encontrar en la categor\'ia
 \scat{CollectionsTests-Sequenceable}.) 
 
-¿Cómo funciona esto?  Echemos una mirada a
+¿C\'omo funciona esto?  Echemos una mirada a
 \clsmthind{Object}{haltIf:}: 
 \begin{code}{}
 Object>>>haltIf: condition
@@ -785,63 +785,63 @@ Object>>>haltIf: condition
 \end{code}
 
 Para cada contexto, desde \ct!thisContext!, \ct!haltIf:! hacia arriba
-en la pila de ejecución, se comprueba si el nombre del método que hace
-la llamada es el mismo símbolo que el recibido como parámetro.  Si se
-da el caso, se levanta una excepción, que de manera predeterminada
+en la pila de ejecuci\'on, se comprueba si el nombre del m\'etodo que hace
+la llamada es el mismo s\'imbolo que el recibido como par\'ametro.  Si se
+da el caso, se levanta una excepci\'on, que de manera predeterminada
 apremia al depurador.
 
-También se puede proporcionar un valor booleano o un bloque booleano
+Tambi\'en se puede proporcionar un valor booleano o un bloque booleano
 como argumento de \ct{haltIf:}, pero esos casos son sencillos y no
 utilizan a \ct{thisContext}.
 
 %======================================
-\section{Cómo interceptar los mensajes no definidos}
+\section{C\'omo interceptar los mensajes no definidos}
 \seclabel{msgnotunderstood}
 
-Hasta ahora utilizamos las capacidades de reflexión computacional de
-\st principalmente para consultar y explorar objetos, clases, métodos
-y la pila de tiempo de ejecución.  Ahora veremos cómo usar nuestro
+Hasta ahora utilizamos las capacidades de reflexi\'on computacional de
+\st principalmente para consultar y explorar objetos, clases, m\'etodos
+y la pila de tiempo de ejecuci\'on.  Ahora veremos c\'omo usar nuestro
 conocimiento de la estructua del sistema \st para interceptar mensajes
-y modificar comportamiento al momento de ejecución.
+y modificar comportamiento al momento de ejecuci\'on.
 
 Cuando un objeto recibe un mensaje, revisa primero en el diccionario
-de métodos de su clase para encontrar el método correspondiente que
-responda al mensaje.  Si no existe un método tal, continúa revisando
-hacia arriba en la jeraquía de clases, hasta que llega a \ct{Object}.
-Si no se encuentra ningún método para ese mensaje, el objeto \emph{se
-  envía a sí mismo} el mensaje \ct{doesNotUnderstand:} con el selector
+de m\'etodos de su clase para encontrar el m\'etodo correspondiente que
+responda al mensaje.  Si no existe un m\'etodo tal, contin\'ua revisando
+hacia arriba en la jeraqu\'ia de clases, hasta que llega a \ct{Object}.
+Si no se encuentra ning\'un m\'etodo para ese mensaje, el objeto \emph{se
+  env\'ia a s\'i mismo} el mensaje \ct{doesNotUnderstand:} con el selector
 del mensaje como su argumento.  El proceso se inicia de nuevo, hasta
 que se encuentra a \clsmthind{Object}{doesNotUnderstand:} y se lanza
 el depurador.
 
-¿Pero qué sucede si \ct{doesNotUnderstand:} está sobrecargado en una
+¿Pero qu\'e sucede si \ct{doesNotUnderstand:} est\'a sobrecargado en una
 de las subclases de \ct{Object} en la ruta que se revisa?  Como
-veremos, ésta es una manera conveniente de realizar ciertas clases de
-comportamiento muy dinámico.  Un objeto que no responde [does not
+veremos, \'esta es una manera conveniente de realizar ciertas clases de
+comportamiento muy din\'amico.  Un objeto que no responde [does not
 understand] a un mensaje puede sobrecargar \ct{doesNotUnderstand:}
 para proporcionar una estrategia alternativa para responder al mensaje
 de marras.
 
-Hay dos aplicaciones muy comunes de esta técnica: (1) para implementar
+Hay dos aplicaciones muy comunes de esta t\'ecnica: (1) para implementar
 \ind{proxies livianos} [\ind{lightweight proxies}] para los objetos, y
-(2) para compilar o cargar código faltante.
+(2) para compilar o cargar c\'odigo faltante.
 
 %-----------------------------------------------------------------
 \subsection{Proxies livianos}
 
-En el primer caso, vamos a a introducir un «\ind{objeto mínimo}»
-[\ind{minimal object}] para que actúe como proxy a favor de un objeto
-existente.  Como el proxy prácticamente no implementa métodos propios,
-cualquier mensaje que se le envíe será interceptado por
+En el primer caso, vamos a a introducir un «\ind{objeto m\'inimo}»
+[\ind{minimal object}] para que act\'ue como proxy a favor de un objeto
+existente.  Como el proxy pr\'acticamente no implementa m\'etodos propios,
+cualquier mensaje que se le env\'ie ser\'a interceptado por
 \ct{doesNotUnderstand:}.  Al implementar este mensaje, el proxy puede
-realizar una acción especial antes de delegar el mensaje al objeto
+realizar una acci\'on especial antes de delegar el mensaje al objeto
 real del cual es un proxy.
 
-Veamos ahora cómo puede implementarse esta idea\footnote{También
+Veamos ahora c\'omo puede implementarse esta idea\footnote{Tambi\'en
   puedes cargar \pkg{PBE-Reflection} desde
   \url{http://www.squeaksource.com/PharoByExample/}}.
 
-Definimos el \ct{LoggingProxy} como se muestra a continuación:
+Definimos el \ct{LoggingProxy} como se muestra a continuaci\'on:
 \begin{code}{}
 ProtoObject subclass: #LoggingProxy
         instanceVariableNames: 'subject invocationCount'
@@ -850,8 +850,8 @@ ProtoObject subclass: #LoggingProxy
         category: 'PBE-Reflection'
 \end{code}
 Creamos la subclase de \ct{ProtoObject}, en lugar de hacerlo desde
-\ct{Object} porque no queremos que nuestro proxy herede ¡más de 400
-métodos! de \ct{Object}.
+\ct{Object} porque no queremos que nuestro proxy herede ¡m\'as de 400
+m\'etodos! de \ct{Object}.
 
 \begin{code}{}
 Object methodDict size --> 408
@@ -883,7 +883,7 @@ LoggingProxy>>>doesNotUnderstand: aMessage
         ^ aMessage sendTo: subject
 \end{code}
 
-Aquí va un poquito de magia.  Creamos un nuevo objeto \ct{Point} y un
+Aqu\'i va un poquito de magia.  Creamos un nuevo objeto \ct{Point} y un
 nuevo \ct{LoggingProxy}, y luego hacemos que el proxy se transforme
 (\mthind{ProtoObject}{become:}) en el objeto punto:
 \seeindex{\ct{become:}}{\ct{ProtoObject>>>become:}}
@@ -894,7 +894,7 @@ LoggingProxy new !\underline{become:}! point.
 
 Esto tiene el efecto de intercambiar todas las referencias en la
 imagen que apuntaban al punto y ahora apuntan al proxy, y viceversa.
-Lo más importante: ¡ahora la variable de instancia \ct{subject} va a
+Lo m\'as importante: ¡ahora la variable de instancia \ct{subject} va a
 referirse al punto!
 
 \begin{code}{}
@@ -903,27 +903,27 @@ point + (3@4)             --> 4@6
 point invocationCount --> 1
 \end{code}
 
-Esto funciona muy bien en la mayoría de los casos, pero hay algunas
+Esto funciona muy bien en la mayor\'ia de los casos, pero hay algunas
 desventajas: 
 \begin{code}{}
 point class --> LoggingProxy
 \end{code}
 
-Resulta curioso que el método \ct{class} no está implementado ni
+Resulta curioso que el m\'etodo \ct{class} no est\'a implementado ni
 siquiera en \ct{ProtoObject} sino en \ct{Object}, ¡del cual no hereda
 \ct{LoggingProxy}!  La respuesta a este acertijo es que \ct{class}
-nunca se envía como mensaje, sino que la respuesta la da directamente
-la máquina virtual.\footnote{\ct{yourself} tampoco se envía,
+nunca se env\'ia como mensaje, sino que la respuesta la da directamente
+la m\'aquina virtual.\footnote{\ct{yourself} tampoco se env\'ia,
   verdaderamente.  Hay otros mensajes que pueden ser interpretados
-  directamente por la máquina virtual, que dependen del receptor,
-  entre ellos están:
+  directamente por la m\'aquina virtual, que dependen del receptor,
+  entre ellos est\'an:
 \ct{+- < > <= >= = ~= * / \ ==}
 \ct{@ bitShift: // bitAnd: bitOr:}
 \ct{at: at:put: size}
 \ct{next nextPut: atEnd}
 \ct{blockCopy: value value: do: new new: x y}.
-Hay selectores que nunca se envían, porque el compilador los compila
-en l\'inea y los transforma a bytecodes de comparación y salto:
+Hay selectores que nunca se env\'ian, porque el compilador los compila
+en l\'inea y los transforma a bytecodes de comparaci\'on y salto:
 \ct{ifTrue: ifFalse: ifTrue:ifFalse: ifFalse:ifTrue:}
 \ct{and: or:}
 \ct{whileFalse: whileTrue: whileFalse whileTrue}
@@ -932,13 +932,13 @@ en l\'inea y los transforma a bytecodes de comparación y salto:
 \ct{ifNil: ifNotNil:  ifNil:ifNotNil: ifNotNil:ifNil:}
 Si sobrecargamos \ct{mustBeBoolean} en el receptor se pueden
 interceptar los intentos de enviar esos mensajes a objetos que no son
-booleanos y continuar la ejecución sobre un valor booleano válido.
-Otra forma de hacerlo es capturar la excepción
+booleanos y continuar la ejecuci\'on sobre un valor booleano v\'alido.
+Otra forma de hacerlo es capturar la excepci\'on
 \ct{NonBooleanReceiver}}% NB: Notes by Lukas Renggli 
 
-Aún si podemos ignorar tales envíos especiales de mensajes, exite otro
+A\'un si podemos ignorar tales env\'ios especiales de mensajes, exite otro
 problema fundamental que no se puede sobrellevar mediante este
-enfoque:  los envíos a \self no pueden interceptarse:
+enfoque:  los env\'ios a \self no pueden interceptarse:
 \begin{code}{}
 point := 1@2.
 LoggingProxy new become: point.
@@ -947,34 +947,34 @@ point rect: (3@4)        --> 1@2 corner: 3@4
 point invocationCount --> 1
 \end{code}
 
-Nuestro proxy ha sido estafado por dos envíos a \self en el
-método \ct{rect:}
+Nuestro proxy ha sido estafado por dos env\'ios a \self en el
+m\'etodo \ct{rect:}
 \begin{code}{}
 Point>>>rect: aPoint
         ^ Rectangle  origin: (self min: aPoint) corner: (self max: aPoint)
 \end{code}
 
-Aún cuando los proxies pueden interceptar mensajes mediante el uso de
-esta técnica, uno debe ser conciente de las limitaciones inherentes al
-utilizar un proxy.  En \secref{wrapper} veremos otro enfoque, más
+A\'un cuando los proxies pueden interceptar mensajes mediante el uso de
+esta t\'ecnica, uno debe ser conciente de las limitaciones inherentes al
+utilizar un proxy.  En \secref{wrapper} veremos otro enfoque, m\'as
 general, para interceptar mensajes.
 
 %-----------------------------------------------------------------
-\subsection{Cómo generar los métodos faltantes}
+\subsection{C\'omo generar los m\'etodos faltantes}
 
-La otra aplicación más popular de la intercepción de mensajes no
-definidos es la carga o generación dinámica de los métodos faltantes.
+La otra aplicaci\'on m\'as popular de la intercepci\'on de mensajes no
+definidos es la carga o generaci\'on din\'amica de los m\'etodos faltantes.
 Considere una biblioteca muy extensa de clases que tiene muchos
-métodos.  En lugar de cargar la biblioteca completa, podemos cargar un
+m\'etodos.  En lugar de cargar la biblioteca completa, podemos cargar un
 empalme para cada clase de la biblioteca.  Los empalmes saben
-dónde encontrar el código fuente de todos sus métodos.  Los
-empalmes simplemente interceptan todos los mensajes no entendidos y cargan dinámicamente los métodos faltantes a medida que son necesarios.  En algún momento posterior se puede desactivar este comportamiento, y grabar el código cargado como el mínimo subconjunto necesario para la aplicación cliente.
+d\'onde encontrar el c\'odigo fuente de todos sus m\'etodos.  Los
+empalmes simplemente interceptan todos los mensajes no entendidos y cargan din\'amicamente los m\'etodos faltantes a medida que son necesarios.  En alg\'un momento posterior se puede desactivar este comportamiento, y grabar el c\'odigo cargado como el m\'inimo subconjunto necesario para la aplicaci\'on cliente.
 
 % \on{Stef sez: check ObjectOut -- I looked, but this seems to be very
 %   old. Depends on SqueakPage.}
 
-Vamos a estudiar una variante simple de esta técnica donde tenemos una
-clase que agrega automáticamente los accesores para sus variables de
+Vamos a estudiar una variante simple de esta t\'ecnica donde tenemos una
+clase que agrega autom\'aticamente los accesores para sus variables de
 instancia cuando sean necesarios:
 % \lr{the last statement should return the result of the message,
 %   otherwise you cannot proceed with the debugger}
@@ -998,21 +998,21 @@ DynamicAcccessors>>>doesNotUnderstand: aMessage
                         ^ aMessage sendTo: self ].
         ^ super doesNotUnderstand: aMessage
 \end{code}
-Cualquier mensaje no definido se intercepta aquí.  Si existe una
+Cualquier mensaje no definido se intercepta aqu\'i.  Si existe una
 variable de instancia con el mismo nombre del mensaje, entonces
 solicitamos a nuestra clase que compile un accesor para esa variable
 de instancia y reenviamos el mensaje.
 
 Supongamos que la clase \ct{DynamicAcccessors} tiene una variable de
 instancia (sin inicializar) llamada \ct{x} pero la misma no tiene un
-accesor predefinido.  Entonces el código siguiente va a generar el
-accesor dinámicamente y a recuperar su valor:\needlines{2}
+accesor predefinido.  Entonces el c\'odigo siguiente va a generar el
+accesor din\'amicamente y a recuperar su valor:\needlines{2}
 \begin{code}{}
 myDA := DynamicAccessors new.
 myDA x --> nil
 \end{code}
 
-Vayamos paso a paso para ver lo que sucede la primera vez que se envía
+Vayamos paso a paso para ver lo que sucede la primera vez que se env\'ia
 el mensaje \ct{x} a nuestro objeto (mira \figref{DynamicAccessors}).
 
 \begin{figure}[ht]\centering
@@ -1023,24 +1023,24 @@ el mensaje \ct{x} a nuestro objeto (mira \figref{DynamicAccessors}).
 \end{figure}
 
 (1) Enviamos \ct{x} a \ct{myDA}, (2) el mensaje se busca desde la
-clase hacia arriba en la jerarquía, y (3) no se lo encuentra allí.
-(4) Esto genera un \ct{self doesNotUnderstand: #x} que se envía de
-vuelta al objeto, (5) lo que dispara una nueva búsqueda.  Esta vez, se
+clase hacia arriba en la jerarqu\'ia, y (3) no se lo encuentra all\'i.
+(4) Esto genera un \ct{self doesNotUnderstand: #x} que se env\'ia de
+vuelta al objeto, (5) lo que dispara una nueva b\'usqueda.  Esta vez, se
 encuentra a \ct{doesNotUnderstand:} inmediatamente en
 \ct{DynamicAccessors}, (6) el cual pide a su clase que compile la
-cadena \ct{'x ^ x'}.  El método \ct{compile} se busca hacia arriba
+cadena \ct{'x ^ x'}.  El m\'etodo \ct{compile} se busca hacia arriba
 (7), y (8) finalmante se encuantra en \ct{Behavior}, el cual (9--10)
-agrega el nuevo método compilado al diccionario de métodos de
-\ct{DynamicAccessors}.  Por último, (11--13) el mensaje se reenvía, y
+agrega el nuevo m\'etodo compilado al diccionario de m\'etodos de
+\ct{DynamicAccessors}.  Por \'ultimo, (11--13) el mensaje se reenv\'ia, y
 esta vez se lo encuentra.
 
-La misma técnica se puede usar para generar setters para las variables
-de instancia, u otros tipos de código basado en plantillas, como los
-métodos de visita de un Visitor.
+La misma t\'ecnica se puede usar para generar setters para las variables
+de instancia, u otros tipos de c\'odigo basado en plantillas, como los
+m\'etodos de visita de un Visitor.
 
 Se puede advertir el uso de \clsmthind{Object}{perform:} en el paso
 (13), que se puede utilizar para enviar mensajes compuestos al momento
-de ejecución:
+de ejecuci\'on:
 \begin{code}{@TEST}
 5 perform: #factorial                                             --> 120
 6 perform: ('fac', 'torial') asSymbol                       --> 720
@@ -1048,31 +1048,31 @@ de ejecución:
 \end{code}
 
 %======================================
-\section{Los objetos como métodos wrappers}
+\section{Los objetos como m\'etodos wrappers}
 \seclabel{wrapper}
 
-Ya hemos visto que los métodos compilados son objetos ordinarios en
-\st, y que admiten ciertos métodos para permitir que el programador
-consulte el sistema de tiempo de ejecución.  Lo que tal vez cause un
+Ya hemos visto que los m\'etodos compilados son objetos ordinarios en
+\st, y que admiten ciertos m\'etodos para permitir que el programador
+consulte el sistema de tiempo de ejecuci\'on.  Lo que tal vez cause un
 poco de sorpresa es que \emph{cualquier objeto}  puede jugar el rol de
-un método compilado.  Todo lo que debe hacer es responder al mensaje
-\ct{run:with:in:} y otros pocos más mensajes importantes.
+un m\'etodo compilado.  Todo lo que debe hacer es responder al mensaje
+\ct{run:with:in:} y otros pocos m\'as mensajes importantes.
 
-\dothis{Define una clase vacía \ct{Demo}.  Evalúa \ct{Demo new
-    answer42} y nota cómo se dispara el error usual ``Message Not
+\dothis{Define una clase vac\'ia \ct{Demo}.  Eval\'ua \ct{Demo new
+    answer42} y nota c\'omo se dispara el error usual ``Message Not
   Understood''.}
 
 
 Ahora vamos a instalar un objeto llano de \st en el diccionario de
-métodos de nuestra clase \ct{Demo}.
+m\'etodos de nuestra clase \ct{Demo}.
 
 
-\dothis{Evalúa \lct{Demo methodDict at: \#answer42 put:
+\dothis{Eval\'ua \lct{Demo methodDict at: \#answer42 put:
     ObjectsAsMethodsExample new.} Ahora intenta obtener de nuevo el resultado de \ct{Demo new
   answer42}.  Esta vez obtenemos la respuesta \ct{42}.}
 
 Si echamos una mirada a la clase \clsind{ObjectsAsMethodsExample}
-vamos a encontrar los siguientes métodos:
+vamos a encontrar los siguientes m\'etodos:
 
 %\alex{I would prefer having return 42 in the run:with:in: method, and not having answer42 defined in ObjectsAsMethodsExample, this could be confusing I imagine}
 %\on{ObjectsAsMethodsExample is part of the standard pharo image -- it is not in PBE-Reflection}
@@ -1086,32 +1086,32 @@ run: oldSelector with: arguments in: aReceiver
 \end{code}
 
 Cuando nuestra instancia de \ct{Demo} recibe el mensaje \ct{answer42},
-la búsqueda del método procede como es usual, sin embargo, la máquina
-virtual detecta que en lugar de un método compilado hay un objeto
+la b\'usqueda del m\'etodo procede como es usual, sin embargo, la m\'aquina
+virtual detecta que en lugar de un m\'etodo compilado hay un objeto
 ordinario tratando de ocupar su lugar.
 
-La VM enviará a este objeto un nuevo mensaje \ct{run:with:in:} con el
-selector del método original, los argumentos y el receptor como sus
+La VM enviar\'a a este objeto un nuevo mensaje \ct{run:with:in:} con el
+selector del m\'etodo original, los argumentos y el receptor como sus
 argumentos.
-Como  \ct{ObjectsAsMethodsExample} implementa este método, intercepta
-el mensaje y lo delega a sí mismo.
+Como  \ct{ObjectsAsMethodsExample} implementa este m\'etodo, intercepta
+el mensaje y lo delega a s\'i mismo.
 
 
-Ahora podemos eliminar el método extraño con:
+Ahora podemos eliminar el m\'etodo extraño con:
 \begin{code}{}
 Demo methodDict removeKey: #answer42 ifAbsent: []
 \end{code}
 
-Si miramos con atención en \ct{ObjectsAsMethodsExample}, veremos que
-su superclase también implementa los métodos \ct{flushcache},
-\ct{methodClass:} y \lct{selector:}, pero que están todos vacíos.
-Estos mensajes se pueden enviar a los métodos compilados, y por lo
+Si miramos con atenci\'on en \ct{ObjectsAsMethodsExample}, veremos que
+su superclase tambi\'en implementa los m\'etodos \ct{flushcache},
+\ct{methodClass:} y \lct{selector:}, pero que est\'an todos vac\'ios.
+Estos mensajes se pueden enviar a los m\'etodos compilados, y por lo
 tanto deben ser implementados por cualquier objeto que pretenda
-hacerse pasar por un método compilado.  (\ct{flushcache} es el método
-más importante que se debe implementar; los otros pueden llegar a ser
-necesarios pero eso depende de si el método se instala mediante
+hacerse pasar por un m\'etodo compilado.  (\ct{flushcache} es el m\'etodo
+m\'as importante que se debe implementar; los otros pueden llegar a ser
+necesarios pero eso depende de si el m\'etodo se instala mediante
 \clsmthind{Behavior}{addSelector:withMethod:} o directamente mediante
-la utilización de \clsmthind{MethodDictionary}{at:put:}.)
+la utilizaci\'on de \clsmthind{MethodDictionary}{at:put:}.)
 
 
 %-------------------------------------------------------------------------
@@ -1121,7 +1121,7 @@ Los m\'etodos wrappers son una t\'ecnica bastante conocida para interceptar mens
 
 En Pharo, los \ind{m\'etodos wrappers} pueden ser implementados m\'as facilmente al implementar \ct{run:with:in:} como instancia de la la subclase \ct{CompiledMethod}. De hecho, existe una implementaci\'on ligera de objetos como m\'etodos wrappers\footnote{http://www.squeaksource.com/ObjectsAsMethodsWrap.html}, pero esto no forma parte de Pharo estandar al momento de escribir esto.
 
-Sin embargo, el Pharo Test Runner usa precisamente esta técnica para evaluar la cobertura de los test. Hechemos un vistazo al funcionamiento de esto:
+Sin embargo, el Pharo Test Runner usa precisamente esta t\'ecnica para evaluar la cobertura de los test. Hechemos un vistazo al funcionamiento de esto:
 
 El punto de entrada para la prueba de cobertura es el m\'etodo \clsmthind{TestRunner}{runCoverage}:
 \begin{code}{}
@@ -1193,7 +1193,7 @@ y en memoization (opcionalmente haciendo cache de valores computados por los m\'
 %======================================
 \section{Pragmas}
 
-Un \emphind{pragma} es una anotación que espec\'ifica informaci\'on espec\'ifica sobre un programa, pero que no est\'a envuelto en su ejecuci\'on. Los Pragmas no afectan directamente la operaci\'on del m\'etodo que anotan. Los Pragmas tienen variados usos, como ser:
+Un \emphind{pragma} es una anotaci\'on que espec\'ifica informaci\'on espec\'ifica sobre un programa, pero que no est\'a envuelto en su ejecuci\'on. Los Pragmas no afectan directamente la operaci\'on del m\'etodo que anotan. Los Pragmas tienen variados usos, como ser:
 
 \begin{itemize}
 \item Informaci\'on del compilador: Los \indmain{pragmas} pueden ser usados para hacer que un m\'etodo llame a una funci\'on primitiva. Esta funci\'on tiene que estar definida por la m\'aquina virtual o ser un pluggin externo.
