@@ -1,4 +1,4 @@
-Consideraciones para generar el .pdf
+Consideraciones para generar el .pdf 
 ========
 Para agregar un nuevo revisor, ir al archivo common.tex, línea 158 y agregar el nombre y marca identificatoria del revisor
 ========
