@@ -40,14 +40,17 @@ end
 class Chapter
   attr_reader :name, :title, :code
   # ----------------------------------------------------------
-  def initialize name
+  def initialize(name)
+    puts name
     @name = name
     @title = "<unknown>"
     @code = ""
     file_name = name + "/" + name + ".tex"
     file = File.open file_name
+    puts file
     while !(file.eof?)
       line = file.readline
+      line.force_encoding("UTF-8")
       case
       # grab chapter title
       when line =~ /\\chapter\{([^}]*)\}/
