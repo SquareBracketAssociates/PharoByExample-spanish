@@ -15,3 +15,7 @@ package-cache
 *.command
 .project
 *.gz
+*.tex~
+*.backup
+*.pdf
+
