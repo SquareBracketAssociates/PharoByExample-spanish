@@ -18,7 +18,7 @@
 % Lulu:
 %   Definimos el estilo del documento
 	\documentclass[spanish,a4paper,10pt,twoside]{book}
-%   Utilizamos el paquete para utilizar español
+%   Utilizamos el paquete para utilizar espaÃ±ol
     \usepackage[spanish]{babel}
 	\usepackage[
 		papersize={6.13in,9.21in},
@@ -296,7 +296,7 @@ En \figref{buildWorldMenuVersions} podemos ver dos versiones del m\'etodo \ct{bu
 El panel superior muestra una l\'inea para cada versi\'on del m\'etodo, en el que figuran las iniciales del programador que las escribi\'o, la fecha y hora en que se guard\'o, los nombres de la clase y el m\'etodo, y el protocolo en el que se ha definido.  La actual versi\'on (activa) est\'a en la parte superior de la lista; independiente de la versi\'on seleccionada se muestra en la parte inferior del panel.
 % Si el checkbox \menu{diffs} esta seleccionado, como lo es en \figref{mouseUpVersions}, la pantalla tambi\'en muestra las diferencias entre la versi\'on seleccionada y el inmediatamente anterior.
 Tambi\'en se proporcionan botones para mostrar las diferencias entre el m\'etodo seleccionado y la versi\'on actual, y para volver a la versi\'on seleccionada.
-% El checkbox \menu{prettyDiffs} es \'util si ha habido cambios en el diseño: este imprime muy bonito ambas versiones antes de la diferenciaci\'on, de modo que las diferencias que se observan excluyen los cambios del formato.
+% El checkbox \menu{prettyDiffs} es \'util si ha habido cambios en el diseÃ±o: este imprime muy bonito ambas versiones antes de la diferenciaci\'on, de modo que las diferencias que se observan excluyen los cambios del formato.
 
 La existencia de las \ind{versiones del navegador} significa que nunca tendr\'as
 que preocuparte de preservar el c\'odigo que piensas que tal ves ya no sea
@@ -337,7 +337,7 @@ El segundo panel muestra los paquetes que implementan los m\'etodos de la clase 
 %El bot\'on \button{hierarchy} abre un \ind{navegador de jerarqu\'ia} en la actual clase; este
 %navegador puede tambi\'en ser abierto utilizando el \'item del men\'u \menu{browse hierarchy} en el panel de clases.
 %El navegador de la jerarqu\'ia es similar al navegador, pero en vez de mostrar las categor\'ias y las clases en cada categor\'ia, muestra una \'unica lista de clases, indentada para representar la jerarqu\'ia.
-%La categor\'ia de la seleccionada clase es mostrada en un peque–o panel de comentarios en la parte superior del navegador.
+%La categor\'ia de la seleccionada clase es mostrada en un pequeÂ–o panel de comentarios en la parte superior del navegador.
 El navegador jer\'arquico \figref{hierarchyBrowser}, revela que la superclase directa de \clsind{ImageMorph} es \clsind{Morph}.
 \index{browser!hierarchy button}
 
@@ -1093,7 +1093,7 @@ Al igual como ocurre con el navegador, el navegador de mensajes de nombres tiene
 
 Cuando estas trabajando en \pharo, cualquier cambio que hagas a los m\'etodos y
 clases son almacenados en un Change Set \ct{change set}. Esto incluye crear
-nuevas clases, renombrar clases, cambiar categor\'ias, agregar métodos a clases
+nuevas clases, renombrar clases, cambiar categor\'ias, agregar mÃ©todos a clases
 ya existentes\,---\,todo aquello que sea significativo. De cualquier modo, los
 \emph{doits} arbitrarios no son inclu\'idos, entonces si, por ejemplo, creas una
 nueva variable global asignandola en un workspace, la creaci\'on de la variable
@@ -1119,10 +1119,10 @@ sorter es abierto.
 
 Otros change sets pueden ser seleccionados en el panel superior izquierdo; el
 menu \actclick{ing} te permite configurar a un change set distinto como activo,
-o crear un nuevo change set. El siguiente panel lista todas las clases afectadas por el change set seleccionado (con sus categorías). Al seleccionar una de esas clases se muestra los nombres de aquellos m\'etodos
+o crear un nuevo change set. El siguiente panel lista todas las clases afectadas por el change set seleccionado (con sus categorÃ­as). Al seleccionar una de esas clases se muestra los nombres de aquellos m\'etodos
 que estan tambi\'en incluidos en el change set (\emph{no} todos los m\'etodos en
 la clase) en el panel central izquierdo, y seleccionando el nombre de un
-m\'etodo se muestra la definici\'on del método en el panel inferior. Adviertase
+m\'etodo se muestra la definici\'on del mÃ©todo en el panel inferior. Adviertase
 que el change sorter \emph{no} muestra si la creaci\'on de la clase misma es
 parte del change set, aunque esta informaci\'on es alamacenada en la estructura
 de objetos que es usada para representar el change set.
@@ -1165,10 +1165,10 @@ La principal desventaja de los change set, comparados con los paquetes de
 al que se le ha hecho un file out es un conjunto de \emph{acciones} que cambian
 cualquier imagen en la que sea cargado. Cargar exitosamente un change set
 requiere que la imagen est\'e en u estado apropiado. Por ejemplo, el change set
-podr\'ia contener una acción para agregar un m\'etodo a una clase; eso s\'olo
+podr\'ia contener una acciÃ³n para agregar un m\'etodo a una clase; eso s\'olo
 puede ser logrado si dicha clase ya est\'a definida en la imagen. En forma
 similar, el change set podr\'ia renombrar o re-categorizar una clase, lo cual
-obviamente solo funcionar\'a si la clase está presente en la imagen; los
+obviamente solo funcionar\'a si la clase estÃ¡ presente en la imagen; los
 m\'etodos podr\'ian usar variables de instancia que fueron declaradas cuando se
 realizo el file out, pero que no existen en la imagen a la cual son importadas.El problema
 es que los change sets no describen expl\'icitamente las condiciones bajo las
@@ -1217,11 +1217,11 @@ barra de t\'itulos muestra la direcci\'on hacia este directorio.El panel m\'as
 largo a la izquierda puede ser usado para navegar el sistema de archivos de modo
 convencional.Cuando un directorio es seleccionado,los archivos que contiene
 (pero no los directorios) son mostrados a la derecha. Esta lista de archivos
-puede ser filtrada ingresando un patrón estilo Unix en el pequeño recuadro en la
+puede ser filtrada ingresando un patrÃ³n estilo Unix en el pequeÃ±o recuadro en la
 esquina superior izquierda de la ventana.Inicialmente, este patr\'on es \ct{*},
 el cual coincide con todos los nombres de archivo, pero puedes tipear una
 cadena de caracteres ahi y hacer accept it, cambiando el patr\'on. (N\'otese que
-un \ct{*} es impl\'icitamente añadido adelante y concatenado al patr\'on que
+un \ct{*} es impl\'icitamente aÃ±adido adelante y concatenado al patr\'on que
 tipeaste.) El criterio de ordenamiento de los archivos puede ser cambiado
 usando los botones \button{name}, \button{date} y \button{size}. El resto de
 los botones depende del nombre del archivo seleccionado en el navegador. En
@@ -1229,7 +1229,7 @@ los botones depende del nombre del archivo seleccionado en el navegador. En
  tanto el navegador asume que es un change set, y provee botones para instalarlo
  \button{install}(el cual lo \textit{importa} a un nuevo change set
  cuyo nombre se deriva del nombre del archivo), para navegar por los cambios
- \button{changes} en el archivo, para examinar el código \button{code} en el
+ \button{changes} en el archivo, para examinar el cÃ³digo \button{code} en el
  archivo, y para importar \button{filein} el c\'odigo al change set
  \emph{actual}. Podr\'ias pensar que el bot\'on \button{conflicts} te
  mostrar\'ia cosas sobre aquellos cambios en el change que generaron conflictos
@@ -1253,7 +1253,7 @@ presencia de avances de l\'inea).
 
 Debido a que la elecci\'on de botones a mostrar depende del \emph{nombre} del
 archivo, y no de su contenido, algunas veces el bot\'on que quieres no
-estar\'a en la pantalla. De todos moodos, el conjunto completo de opciones está
+estar\'a en la pantalla. De todos moodos, el conjunto completo de opciones estÃ¡
 siempre disponible desde el menu \actclick \menu{more \ldots},asi que puedes
 resolver este problema f\'acilmente.
 
@@ -1262,7 +1262,7 @@ sets; abre un navegad del archivo del change set; un ejemplo se muestra en la
 \figref{fileContentsBrowser}. El navegador de contenidos de archivos es
 similar al navegador excepto que no muestra categorias,solo clases, protocolos
 y m\'etodos. Para clase, el navegador te dir\'a si la la clase ya existe en el
-sistema y si está definida en el archivo (pero \emph{no} si las definiciones son
+sistema y si estÃ¡ definida en el archivo (pero \emph{no} si las definiciones son
 id\'enticas). Mostrar\'a los m\'etodos en cada clase, y (como se muestra en
 \figref{fileContentsBrowser}) te mostrar\'a las diferencias entre la versi\'on
 actual y la versi\'on en el archivo. Los items del menu contextual en cada uno
@@ -1275,14 +1275,14 @@ la correspondiente clase, protocolo, o m\'etodo.
 \seclabel{cantLoseCode} % (fold)
 
 Es bastante posible romper \pharo: al ser un sistema experimental, \pharo te
-permite cambiar todo, ¡incluyendo cosas que son vitales para hacer que \pharo funcione!
+permite cambiar todo, Â¡incluyendo cosas que son vitales para hacer que \pharo funcione!
 
 \dothis{Para romper \pharo maliciosamente, intenta \ct{Object become: nil}.}
 
 La buena noticia es que nunca necesitas perder ning\'un trabajo, a\'un si lo
 rompes y vuelves a la \'ultima versi\'on guardada de tu imagen, que puede ser de
 hace horas. Esto es porque todo el c\'odigo que ejecutaste es guardado en el
-archivo \emph{.changes}. ¡Todo! Esto incluye las l\'ineas que evaluas en el
+archivo \emph{.changes}. Â¡Todo! Esto incluye las l\'ineas que evaluas en el
 workspace, asi como el c\'odigo que agregas a una clase mientras programas.
 
 \index{changes}
@@ -1292,12 +1292,12 @@ necesidad de leer esto hasta que lo necesites.De cualquier modo, cuando lo
 necesites, lo encontrar\'as aqu\'i esper\'andote.
 
 En el peor caso, puedes usar un editor de texto en el archivo \emph{.changes},
-pero como tiene varios megabytes de tamaño, eso puede ser lento y no es
+pero como tiene varios megabytes de tamaÃ±o, eso puede ser lento y no es
 recomendado. \pharo ofrece mejores formas.
 
 %---------------------------------------------------------
 \subsection{C\'omo recuperar tu c\'odigo}
-Reinicia \pharo desde la captura más reciente, y selecciona
+Reinicia \pharo desde la captura mÃ¡s reciente, y selecciona
 \menu{World\go{}Tools \ldots \go{}Recover lost changes}.
 =======
 \section{En Smalltalk, no puedes perder c\'odigo}
@@ -1337,36 +1337,6 @@ Reinicie \pharo desde el m\'as reciente snapshot, y seleccione \menu{World\go{}T
 
 % If you execute \ct{ChangeList browseRecentLog}, you will be given
 
-<<<<<<< HEAD
-Esto dar\'a la oportunidad de decidir cu\'an atr\'as en el tiempo deseas
-navegar.Normalmente, basta con navegar por los cambios tan atr\'as como est\'e
-la \'ultima captura. (Puedes obtener el mismo efecto editando \ct{ChangeList
-browseRecent: 2000} de manera que el n\'umero \ct{2000} se convierta en otra
-cosa, usando prueba y error.)
-
-Una vez que tienes un navegador con los \emph{cambios recientes}, mostrando,
-digamos, cambios tan antiguos como tu \'ultima captura, tendr\'as la lista de
-todo lo que hayas hecho a \pharo durante ese tiempo. Puedes borrar elementos
-de esa lista mediante \actclick{ing}. Cuando est\'es satisfecho, puedes importar
-lo que es resta, incorporando as\'i los cambios a tu nueva imagen. Es una
-buena idea empezar un nuevo change set, usando el navegador de change set
-ordinario, antes de hacer la importaci\'on,de modo que todo tu c\'odigo
-recuperado estar\'a en un nuevo change set. Luego puedes exportar este change
-set.
-
-¿Una cosa \'util de hacer en el navegador de \emph{cambios recientes} es
- \menu{remove doIts}. Usualmente, no querr\'as importar (y de este modo
- re-ejecutar) doIts. De todos modos, hay una excepci\'on. La creaci\'on de una
- clase se muestra como un \menu{doIt}.
-\emph{Antes de que puedas importar los m\'etodos para un clase,la clase debe
-existir.} Entonces, si has creado nuevas clases,  \emph{primero} importa
-de los doIts de crecaci\'on de clases, luego \menu{remove doIts} e importa
-de los m\'etodos.
-\lr{Tal vez mecionar que los renombramientos de clases no se archivan y arruinan
-completamente el mecanismo del change set (p. 174)} 
-
-======= 
-
 Esto te dar\'a la oportunidad para decidir cu\'anto tiempo atr\'as en la historia deseas examinar. Normalmente, basta con examinar los cambios hasta el \'ultimo snapshot. (Puedes conseguir el mismo efecto mediante la edici\'on de \ct{ChangeList browseRecent: 2000} por lo que el n\'umero \ct{2000} se vuelve algo m\'as, mediante prueba y error.)
 
 Uno tiene un navegador \emph{recent changes}, mostrando, digamos, cambios nuevos
@@ -1382,7 +1352,6 @@ Creando una clase aparece como un \menu{doIt}.
 \emph{Antes que puedas ingresar en un archivo los m\'etodos de una clase, la clase debe existir.}
 Por lo tanto, si haz creado cuaquiera nueva clase, \emph{primero} ingresa en el archivo la creaci\'on de la clase doIts, luego \menu{remove doIts} e ingresa al archivo los m\'etodos.
 \lr{Tal vez mencionar ese renombre de clase no se registra y agrava enteramente el mecanismo del changes set. (p. 174)}
->>>>>>> fae0903abd73a5cbb6c5ec65ac2467de50003530
 
 Cuando termino con la recuperaci\'on, me gusta sacar del archivo mi nuevo changes set, salir de \pharo sin guardar la imagen, reiniciar, y asegurarse que los nuevos archivos con el changes set vuelvan de manera limpia.
 % section cantLoseCode (end)

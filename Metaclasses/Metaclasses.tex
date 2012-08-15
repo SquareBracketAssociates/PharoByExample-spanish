@@ -74,7 +74,7 @@ Recordemos las reglas del modelo de objetos que exploramos en \charef{model}.
 
 Tal y como mencionamos en la introducci\'on a este cap\'{\i}tulo, una consecuencia de la \ref{rule:everything} es que \emph{las clases tambi\'en son objetos}, de modo que la \ref{rule:instance} nos dice que las clases deben ser tambi\'en instancias de otras clases. Llamaremos \emph{metaclase} a la clase de una clase.
 \seclabel{metaclassIntro}
-Una \indmain{metaclase} se crea autom\'aticamente cuando se crea una clase. La mayor\'{\i}a de las veces no hace falta preocuparse de las metaclases. Sin embargo, cada vez que se usa el navegador para explorar el ``\subind{browser}{lado de clase}'' de una clase, es conveniente recordar que en realidad se está explorando una clase diferente. Una clase y su metaclase son dos clases distintas, aunque la primera sea una instancia de la segunda.
+Una \indmain{metaclase} se crea autom\'aticamente cuando se crea una clase. La mayor\'{\i}a de las veces no hace falta preocuparse de las metaclases. Sin embargo, cada vez que se usa el navegador para explorar el ``\subind{browser}{lado de clase}'' de una clase, es conveniente recordar que en realidad se estÃ¡ explorando una clase diferente. Una clase y su metaclase son dos clases distintas, aunque la primera sea una instancia de la segunda.
 
 Para poder explicar las clases y las metaclases adecuadamente, necesitamos extender las reglas del \charef{model} con las siguientes reglas adicionales.
 
@@ -196,7 +196,7 @@ La \figref{translucentmetaclasses} muestra que cada clase es instancia de su met
 \end{figure}
 \end{center}
 
-El hecho de que las clases sean también objetos nos facilita la obtención de informaci\'on de dichas clases mediante el env\'{\i}o de mensajes. Veamos:
+El hecho de que las clases sean tambiÃ©n objetos nos facilita la obtenciÃ³n de informaci\'on de dichas clases mediante el env\'{\i}o de mensajes. Veamos:
 
 \begin{code}{@TEST}
 Color subclasses                           --> {TranslucentColor}
@@ -244,7 +244,7 @@ TranslucentColor class superclass superclass --> Object class
 \paragraph{Uniformidad entre Clases y Objetos.}
 Es interesante tomarse un momento para ver las cosas con cierta perspectiva: No hay ninguna diferencia entre enviar un mensaje a un objeto y a una clase. En ambos casos la b\'usqueda del m\'etodo correspondiente empieza en la clase del receptor, y posteriormente sigue la cadena de herencia.
 
-Así pues, los mensajes enviados a clases deben seguir la cadena de herencia de las metaclases. Consideremos, por ejemplo, el m\'etodo \mthind{Color class}{blue}, que est\'a implementado en el \subind{browser}{lado de clase} de \ct{Color}. Si enviamos el mensaje \ct{blue} a \ct{TranslucentColor}, el m\'etodo correspondiente ser\'a buscado de la misma manera que cualquier otro mensaje. La b\'usqueda empieza en \ct{TranslucentColor class}, y prosigue siguiendo la jerarqu\'{\i}a hasta que dicho m\'etodo es encontrado en \ct{Color class} (ver la \figref{metaclasslookup}).
+AsÃ­ pues, los mensajes enviados a clases deben seguir la cadena de herencia de las metaclases. Consideremos, por ejemplo, el m\'etodo \mthind{Color class}{blue}, que est\'a implementado en el \subind{browser}{lado de clase} de \ct{Color}. Si enviamos el mensaje \ct{blue} a \ct{TranslucentColor}, el m\'etodo correspondiente ser\'a buscado de la misma manera que cualquier otro mensaje. La b\'usqueda empieza en \ct{TranslucentColor class}, y prosigue siguiendo la jerarqu\'{\i}a hasta que dicho m\'etodo es encontrado en \ct{Color class} (ver la \figref{metaclasslookup}).
 
 \begin{code}{@TEST}
 TranslucentColor blue --> Color blue
@@ -376,7 +376,7 @@ La respuesta es sencilla: Es una metaclase, de modo que debe ser una instancia d
 
 La figura muestra como todas las metaclases son instancias de \ct{Metaclass}, incluso la metaclase de \ct{Metaclass}. Si comparamos las figuras \ref{fig:metaclassclass} y \ref{fig:metaclassclassclass} veremos como la \subind{metaclass}{jerarqu\'{\i}a} de metaclases perfectamente refleja la estructura de la jerarqu\'{\i}a de clases, ascendiendo hasta \ct{Object class}.
 
-Los siguientes ejemplos muestran como podemos obtener información de la jerarqu\'{\i}a de clases para demostrar que la \figref{metaclassclassclass} es correcta (de hecho, veremos que hemos contado una peque\~na mentira\,---\,\ct{Object class superclass -->} \clsind{ProtoObject class}, no \ct{Class}. En \pharo debemos subir una superclase más para llegar a \ct{Class}.)
+Los siguientes ejemplos muestran como podemos obtener informaciÃ³n de la jerarqu\'{\i}a de clases para demostrar que la \figref{metaclassclassclass} es correcta (de hecho, veremos que hemos contado una peque\~na mentira\,---\,\ct{Object class superclass -->} \clsind{ProtoObject class}, no \ct{Class}. En \pharo debemos subir una superclase mÃ¡s para llegar a \ct{Class}.)
 
 \begin{example}{La jerarqu\'{\i}a de clases}{@TEST}
 TranslucentColor superclass --> Color
