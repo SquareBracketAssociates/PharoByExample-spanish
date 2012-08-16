@@ -19,3 +19,5 @@ Palabras que NO traduciremos
 - Toolkit, en el contexto de Morphic
 - Wrapper
 - Workspace
+
+- block closures
