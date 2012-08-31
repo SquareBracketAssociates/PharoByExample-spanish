@@ -11,6 +11,7 @@
 % 2007-08-14 - Stef corrections
 % 2007-09-06 - Lukas review
 % 2009-08-12 - Oscar rewrite for Pharo
+% 2012-08-31 - NicoPaez tranlated it to Spanish
 
 %=================================================================
 \ifx\wholebook\relax\else
@@ -44,16 +45,16 @@
 %=================================================================
 \section*{¿Qué es \pharo?}
 
-\pharo es una implementación completa, moderna y de código abierto, del lenguaje y ambiente de programación \st. \pharo es un derivado de \squeak\cite{Inga97a}, una reimplementación del clásico sistema \st-80. Mientras que \squeak fue desarrollado principalmente como una plataforma para desarrollo experimental de software educacional, \pharo se esfuerza en ofrecer una plataforma limpia y de código abierto para desarrollo profesional de software y una plataforma robusta y estable para investigación y desarrollo en lenguajes y ambientes dinámicos. \pharo sirve como la implementación de referencia para el framework de desarrollo web Seaside.
+\pharo es una implementación completa, moderna y de código abierto, del lenguaje y ambiente de programación \st. \pharo es un derivado de \squeak\cite{Inga97a}, una reimplementación del clásico sistema \st-80. Mientras que \squeak fue desarrollado principalmente como una plataforma para desarrollo experimental de software educacional, \pharo se esfuerza en ofrecer una plataforma limpia y de código abierto para desarrollo profesional de software y una plataforma robusta y estable para investigación y desarrollo en lenguajes y ambientes dinámicos. \pharo sirve como la implementación de referencia para el framework Seaside de desarrollo web.
 
-\pharo resuelve algunos temas de licenciamiento de \squeak. A diferencia de versiones anteriores de \squeak, el núcleo de \pharo contiene solo código que ha sido contribuido bajo licencia MIT. EL proyecto \pharo comenzó en Marzo de 2008 como una bifurcación de \squeak 3.9, y la primera versión beta 1.0 fue liberada el 31 de Julio de 2009.
+\pharo resuelve algunos temas de licenciamiento de \squeak. A diferencia de versiones anteriores de \squeak, el núcleo de \pharo contiene sólo código que ha sido contribuido bajo licencia MIT. El proyecto \pharo comenzó en Marzo de 2008 como una bifurcación de \squeak 3.9, y la primera versión beta 1.0 fue liberada el 31 de Julio de 2009.
 
 
 Aunque \pharo remueve muchos paquetes de \squeak, también incluye numerosas características que son opcionales en \squeak. Por ejemplo, las fuentes true type estan incluidas en \pharo. \pharo también incluye soporte para block closures. Las interfaces de usuario han sido simplificadas y revisadas.
 
-\pharo es altamanento portable --- incluso su máquina virtual está escrita enteramente en \st, haciendo fácil su depuración, análisis y cambio. \pharo es el vehículo para un ámplio rango de proyectos innovadores desde aplicaciones multimedia y plataformas educacionales hasta ambientes comerciales de desarrollo web. 
+\pharo es altamente portable --- incluso su máquina virtual está escrita enteramente en \st, haciendo fácil su depuración, análisis y cambio. \pharo es el vehículo para un ámplio rango de proyectos innovadores desde aplicaciones multimedia y plataformas educacionales hasta ambientes comerciales de desarrollo web. 
 
-Hay un aspecto importante detrás de \pharo: \pharo no debe ser sólo una copia del pasado sino verdaderamente \emph{reinventar} Smalltalk. Enfoque Big-bang raramente triunfan. \pharo favorecerá  cambios evolutivos e incrementales. Queremos ser capaces de experimentar con características o bibliotecas nuevas importantes. Evolución significa que \pharo acepta equivocaciones y no es su objetivo ser la solución perfecta en un sólo paso grande\,---\,incluso aunque nos encantaria. \pharo favorecerá cambios incrementales pequeños pero una multitud de ellos. El éxito de \pharo depende de las contribuciones de su comunidad.
+Hay un aspecto importante detrás de \pharo: \pharo no debe ser sólo una copia del pasado sino verdaderamente \emph{reinventar} Smalltalk. Los enfoques Big-bang raramente triunfan, por eso \pharo favorecerá  cambios evolutivos e incrementales. Queremos ser capaces de experimentar con características o bibliotecas nuevas importantes. Evolución significa que \pharo acepta equivocaciones y no es su objetivo ser la solución perfecta en un sólo paso grande\,---\,incluso aunque nos encantaria. \pharo favorecerá cambios incrementales pequeños pero una multitud de ellos. El éxito de \pharo depende de las contribuciones de su comunidad.
 % The \pharo community will pay attention to your submissions to improve the system.
 
 %=================================================================
@@ -134,22 +135,23 @@ En caso que quieras jugar en \pharo con estos fragmentos de código, puedes desc
 
 La segunda convención que usamos es mostrar el ícono \dothisicon{} para indicar cuando hay algo para que hagas:
 
-\dothis{Go ahead and read the next chapter!}
+\dothis{¡Adelante y lee el siguiente capítulo!}
 
 %=================================================================
-\section*{Acknowledgments}
+\section*{Agradecimientos}
 
-We would first like to thank the original developers of \squeak for making this amazing \st development environment available as an open source project.
+En primer lugar queremos agradecer a los desarrolladores originales de \squeak por hacer disponible como proyecto de código abierto este asombroso entorno de desarrollo \st.
 
 % We would like to thank various people who have contributed to this book.
 % In particular, we thank
-We would also like to thank Hilaire Fernandes and Serge Stinckwich who allowed us to translate parts of their columns on \st, and Damien Cassou for contributing the chapter on streams.
+También queremos agradecer a Hilaire Fernandes y Serge Stinckwich quienes nos permitieron traducir parte de columnas en \st, y a Damien Cassou por contribuir el capítulo de streams.
 
-We especially thank Alexandre Bergel, Orla Greevy, Fabrizio Perin, Lukas Renggli, Jorge Ressia and Erwann Wernli for their detailed reviews.
+Queremos agradecer especialmente a Alexandre Bergel, Orla Greevy, Fabrizio Perin, Lukas Renggli, Jorge Ressia y Erwann Wernli por sus detalladas revisiones.
 
-We thank the University of Bern, Switzerland, for graciously supporting this open-source project and for hosting the web site of this book.
+Agradecemos a la Universidad de Berna, Suiza, por gentilmente apoyar este proyecto de código abierto y por albergar el sitio web de este libro.
 
-We also thank the Squeak community for their enthusiastic support of this book project, and for informing us of the errors found in the first edition of this book.
+También queremos agradecer a la comunidad de Squeak por su apoyo al proyecto de este libro, y por informarnos de los errores encontrados en la primera edición de este libro.
+
 
 %=============================================================
 \ifx\wholebook\relax\else
