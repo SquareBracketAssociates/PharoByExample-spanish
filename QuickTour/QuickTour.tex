@@ -46,20 +46,20 @@
 	\raisebox{-0.8ex}[0pt][0pt]{%
 		\includegraphics[width=1em]{cloverleafKey}}}
 %=================================================================
-\chapter{Un paseo r\'apido por \pharo}
+\chapter{Un paseo rápido por \pharo}
 \chalabel{quick}
 
-En este cap\'itulo te daremos un paseo de alto nivel por \pharo para ayudarte a sentirte c\'omodo con el ambiente.
-Habr\'a muchas oportunidades para probar cosas, por lo que ser\'ia una buena idea que tengas una computadora a mano mientras lees este cap\'itulo.
+En este capítulo te daremos un paseo de alto nivel por \pharo para ayudarte a sentirte cómodo con el ambiente.
+Habrá muchas oportunidades para probar cosas, por lo que sería una buena idea que tengas una computadora a mano mientras lees este capítulo.
 
-Usaremos el \'icono: \dothisicon{} para marcar lugares en el texto donde deber\'ias probar algo en \pharo.
-En particular, ejecutar\'as \pharo, aprender\'as acerca de las diferentes formas de interactuar con el sistema, y descubrir\'as algunas de las herramientas b\'asicas.
-Aprender\'as tambi\'en c\'omo definir un nuevo m\'etodo, crear un objeto y enviarle mensajes.
+Usaremos el ícono: \dothisicon{} para marcar lugares en el texto donde deberías probar algo en \pharo.
+En particular, ejecutarás \pharo, aprenderás acerca de las diferentes formas de interactuar con el sistema, y descubrirás algunas de las herramientas básicas.
+Aprenderás también cómo definir un nuevo método, crear un objeto y enviarle mensajes.
 
 %=================================================================
 \section{Primeros pasos}
 
-\pharo est\'a disponible de forma gratuita para \ind{descargar} en \pharoweb.
+\pharo está disponible de forma gratuita para \ind{descargar} en \pharoweb.
 Hay tres partes que necesitas descargar, que consisten en cuatro archivos (ver \figref{download}).
 
 \begin{figure}[htb]
@@ -69,21 +69,21 @@ Hay tres partes que necesitas descargar, que consisten en cuatro archivos (ver \
 
 \begin{enumerate}
 
-  \item La \emphind{m\'aquina virtual} (VM) es la \'unica parte del sistema que es diferente para cada sistema operativo y procesador. Hay disponibles m\'aquinas virtuales precompiladas para la mayor parte de los ambientes. En la \figref{download} vemos la m\'aquina virtual para la plataforma seleccionada, su nombre es \textit{Pharo.exe}.
+  \item La \emphind{máquina virtual} (VM) es la única parte del sistema que es diferente para cada sistema operativo y procesador. Hay disponibles máquinas virtuales precompiladas para la mayor parte de los ambientes. En la \figref{download} vemos la máquina virtual para la plataforma seleccionada, su nombre es \textit{Pharo.exe}.
 
-  \item El archivo \emphind{sources} contiene el c\'odigo fuente de todas las partes de \pharo que no cambian muy frecuentemente. En la \figref{download} su nombre es \emph{SqueakV39.sources}.\footnote{\pharo est\'a derivado de \squeak 3.9, y actualmente comparte la m\'aquina virtual con \squeak.}
+  \item El archivo \emphind{sources} contiene el código fuente de todas las partes de \pharo que no cambian muy frecuentemente. En la \figref{download} su nombre es \emph{SqueakV39.sources}.\footnote{\pharo está derivado de \squeak 3.9, y actualmente comparte la máquina virtual con \squeak.}
 
-  \item La \emph{\ind{imagen} de sistema} actual es un snapshot de un sistema \pharo corriendo, congelado en el tiempo. Consiste de dos archivos: un archivo  \emph{.}\emphind{image}, que contiene el estado de todos los objetos en el sistema (incluidos clases y m\'etodos, dado que son objetos tambi\'en), y un archivo \emph{.}\emphind{changes}, que contiene un log de todos los cambios en el c\'odigo fuente del sistema.
+  \item La \emph{\ind{imagen} de sistema} actual es un snapshot de un sistema \pharo corriendo, congelado en el tiempo. Consiste de dos archivos: un archivo  \emph{.}\emphind{image}, que contiene el estado de todos los objetos en el sistema (incluidos clases y métodos, dado que son objetos también), y un archivo \emph{.}\emphind{changes}, que contiene un log de todos los cambios en el código fuente del sistema.
 En la \figref{download}, sus nombres son \emph{pharo.image} y \emph{pharo.changes}.
 \end{enumerate}
 
 \dothis{Descarga e instala \pharo en tu computadora.}
-Te recomendamos que uses la imagen provista en la p\'agina \pharo by Example.\footnote{\pbe}
+Te recomendamos que uses la imagen provista en la página \pharo by Example.\footnote{\pbe}
 \index{download}
 \seclabel{sbeImage}
 
-La mayor parte del material introductorio de este libro funciona con cualquier versi\'on por lo que si ya tienes una versi\'on de \pharo, puedes continuar us\'andola.
-Sin embargo, si notas diferencias entre la apariencia o el comportamiento de tu sistema y el descripto aqu\'i, no te preocupes.
+La mayor parte del material introductorio de este libro funciona con cualquier versión por lo que si ya tienes una versión de \pharo, puedes continuar usándola.
+Sin embargo, si notas diferencias entre la apariencia o el comportamiento de tu sistema y el descripto aquí, no te preocupes.
 % On the other hand, if you are about to download \pharo for the first time, you may as well grab the \emph{\pharo by Example} image.
 
 Al trabajar en \pharo, el archivo de im\'agen y el archivo de cambios se modifican por lo que necesitas asegurarte que ambos pueden ser escritos.
