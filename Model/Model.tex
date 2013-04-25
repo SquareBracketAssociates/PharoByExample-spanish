@@ -247,7 +247,8 @@ Esto es lo t\'ipico, aunque ocasionalmente encontrar\'as m\'etodos de clase usad
 Es conveniente poner los m\'etodos de utilidad \subind{browser}{del lado de clase} porque pueden ser ejecutados sin tener que crear ning\'un objeto primero.
 De hecho, la mayor\'ia de ellos tendr\'an un comentario cuyo objetivo es hacer m\'as f\'acil su ejecuci\'on.
 
-\dothis{Navegue el m\'etodo  \ct{Color class>>>showColorCube}, doble clic justo adentro de las comillas del comentario \ct{"Color showColorCube"} y tipee \short{d}.}
+%strange the following does not compile
+%\dothis{Navegue el m\'etodo  \ct{Color class>>>showColorCube}, doble clic justo adentro de las comillas del comentario \ct{"Color showColorCube"} y tipee \short{d}.}
 
 Ver\'as el efecto de ejecutar este m\'etodo. (Seleccione \menu{World \go \ind{restore display}~(r)} para deshacer los cambios.)
 
@@ -447,20 +448,20 @@ Una clase es considerada abstracta si al menos uno de sus m\'etodos es abstracto
 En realidad, nada te previene de crear una instancia de una clase abstracta: todo va a andar bien hasta que un m\'etodo abstracto sea invocado. 
 
 \subsubsection{Ejemplo: la clase \ct{Magnitude}.}
-
-
+%
+%
 \clsind{Magnitude} es una clase abstracta que nos ayuda a definir objetos que pueden ser comparados con otros. Las subclases de \ct{Magnitude} deber\'ian implementar los m\'etodos \ct{<}, \ct{=} and \ct{hash}. Usando esos mensajes \ct{Magnitude} define otros m\'etodos como \ct{>}, \ct{>=}, \ct{<=}, \ct{max:}, \ct{min:} \ct{between:and:} y otros para comparar grafos de objetos.  El m\'etodo  \mthind{Magnitude}{<}  es abstracto y definido como se muestra en  \mthref{MagnitudeLessThan}.
-
+%
 \begin{method}[MagnitudeLessThan]{\ct{Magnitude>>><}}
 Magnitude>>>< aMagnitude 
 	"Answer whether the receiver is less than the argument."
 	^self subclassResponsibility
 \end{method}
-
+%
 \noindent
 Por el contrario, el m\'etodo \mthind{Magnitude}{>=} es concreto; est\'a definido en t\'erminos de \ct{<}:
-
-
+%
+%
 \begin{method}[Magnitude>=]{\ct{Magnitude>>>>=}}
 >= aMagnitude 
 	"Answer whether the receiver is greater than or equal to the argument."
@@ -470,8 +471,8 @@ Por el contrario, el m\'etodo \mthind{Magnitude}{>=} es concreto; est\'a definid
 Lo mismo sucede con los otros m\'etodos de comparaci\'on.
 
 \clsind{Character} es una subclase de \ct{Magnitude}; sobreescribe el m\'etodo \mthind{Object}{subclassResponsibility} de \ct{<} con su propia versi\'on de \ct{<} (mirar \mthref{CharacterLessThan}).  \ct{Character} tambi\'en define los m\'etodos \ct{=} y \ct{hash}; hereda de \ct{Magnitude} los m\'etodos \ct{>=}, \ct{<=}, \ct{~=} entre otros.
-
-
+%
+%
 \begin{method}[CharacterLessThan]{\ct{Character>>><}}
 Character>>>< aCharacter 
 	"Answer true if the receiver's value < aCharacter's value."
@@ -766,7 +767,7 @@ anEllipse constructorString --> '((EllipseMorph newBounds: (0@0 corner: 50@40) c
 \end{code}
 El valor de retorno es una cadena de caracteres que puede ser evaluada para recrear el morph.
 
-?`C\'omo es obtenido exactamente este resultado a trav\'es de una combinación de env\'io de mensajes a \self y a \super ?
+?`C\'omo es obtenido exactamente este resultado a trav\'es de una combinacion de env\'io de mensajes a \self y a \super ?
 Primero, \ct{anEllipse constructorString} provocara que el m\'etodo \ct{constructorString} sea encontrado en la clase \ct{Morph},
 como se muestra en \figref{constructorStringLookup}.
 
@@ -979,7 +980,7 @@ La presencia de variables de clase hace surgir la pregunta: ?`C\'omo las inicial
 A\'un m\'as, impone el costo del env\'io del accessor y la prueba de inicializaci\'on.
 Tambi\'en podr\'ia decirse que desestima la idea de usar una variable de clase, ya que de hecho esta ya no es mas compartida.
 
-\begin{method}[colorclasscolornames]{Color class>>colorNames}
+\begin{method}[colorclasscolornames]{Color class>>>colorNames}
 Color class>>>colorNames	
 	ColorNames ifNil: [self initializeNames].
 	^ ColorNames

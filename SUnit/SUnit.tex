@@ -147,7 +147,7 @@ Ahora puedes comenzar a arreglar el bug: la prueba te dir\'a cu\'ando has termin
 
 %=================================================================
 %\section{What makes a good test?}
-\section{Qu\'e hace a una buena prueba?}
+\section{¿Qu\'e hace a una buena prueba?}
 
 Escribir buenas pruebas es una habilidad que puede ser aprendida facilmente con pr\'actica.
 Veamos las propiedades que las pruebas deber\'ian tener para obtener el m\'aximo beneficio: 
@@ -195,20 +195,6 @@ nos ayuda a saber cu\'ando hemos terminado, y nos ayuda a visualizar la funciona
 de una clase y a dise\~nar su interfaz.
 
 M\'as a\'un, el desarrollo basado en escribir las pruebas primero nos da el \'animo para ir r\'apido, porque no tenemos miedo de estar olvid\'andonos algo importante.
-
-
-% \on{I cannot understand this without some explanation!}
-
-%Writing tests is not difficult in itself. What is more difficult is choosing what to test.
-%The pragmatic programmers\footnote{\url{www.pragmaticprogrammer.com}} offer the right-BICEP principle. It stands for: 
-%\begin{itemize}
-%\item Right -- Are the results right?
-%\item B -- Are all the boundary conditions correct?
-%\item I -- Can you check inverse relationships?
-%\item C -- Can you cross-check results using other means?
-%\item E -- Can you force error conditions to happen?
-%\item P -- Are performance characteristics within bounds?
-%\end{itemize}
 
 
 % Now let's write our first test, and show you the benefits of using \SUnit.
@@ -428,7 +414,7 @@ las pruebas erroneas causan que la barra se ponga roja, y son listadas en la ven
 \section{El libro de recetas de \SUnit }
 
 Esta secci\'on te dar\'a mas detalles sobre c\'omo usar \SUnit.  Si has usado
-otro framework para hacer pruebas como \Junit\footnote{\url{http://junit.org}},
+otro framework para hacer pruebas como Junit\footnote{\url{http://junit.org}},
 gran parte de todo esto te resultar\'a familiar, desde ya que todos estos frameworks tienen
 sus raices en \SUnit.
 Usualmente usar\'as la GUI de \SUnit para correr las pruebas, pero 
@@ -444,7 +430,7 @@ Primero, \mthind{Testcase}{assert:description:} y \mthind{TestCase}{deny:descrip
 argumento que es un mensaje en una cadena que puede ser usada para describir el motivo de la falla,
 si es que no es obvia desde la prueba misma.
 
-Estos m\'etodos estan definidos en~\secret{descriptionStrings}.
+Estos m\'etodos estan definidos en~\secref{descriptionStrings}.
 
 Luego, \sunit provee dos m\'etodos adicionales, \mthind{TestCase}{should:raise:} y \mthind{TestCase}{shouldnt:raise:}
 para probar la propagaci\'on de una excepci\'on. 
@@ -470,8 +456,7 @@ sus desarrolladores no tomaron en consideraci\'on los aspectos que son dependien
 del dialecto. El m\'etodo de clase \cmind{TestResult class}{error} responde a la clase
 de error del sistema en una forma que es independiente del dialecto.
 
-Puedes aprovechar esto: si quieres escribir pruebas que funcionar\'an en cualquier dialecto de \st, en vez de
-\mthref{ESTtestIllegal} podr\'ias escribir:
+Puedes aprovechar esto: si quieres escribir pruebas que funcionar\'an en cualquier dialecto de \st, en vez de \mthref{ESTtestIllegal} podr\'ias escribir:
 
 \needlines{4}
 \begin{method}[portabletestillegal]{Portable error handling}
@@ -511,9 +496,9 @@ ExampleSetTest suite run --> 5 run, 5 passed, 0 failed, 0 errors
 \end{code}
 
 %---------------------------------------------------------
-\subsection{\¿ Debo heredar de TestCase?}
+\subsection{¿Debo heredar de TestCase?}
 
-En \JUnit{} puedes construir un \clsind{TestSuite} desde cualquier clase arbitraria
+En JUnit{} puedes construir un \clsind{TestSuite} desde cualquier clase arbitraria
 que contenga m\'etodos \ct{test*}. En \st puedes hacer lo mismo pero tendr\'as
 que crear un juego a mano y tu clase deber\'a implementar todos los m\'etodos esenciales de 
  \ct{TestCase} como por ejemplo, \ct{assert:}.
@@ -603,7 +588,7 @@ En esos casos, tendr\'ia sentido preparar la base de datos y abrir una conex\'io
 de c\'odigo, antes de que cualquier prueba comienze a correr.
 
 
-\¿D\'onde deber\'iamos preservar estos recursos, as\'i pueden ser compartidos por un set de pruebas?
+D\'onde deber\'iamos preservar estos recursos, as\'i pueden ser compartidos por un set de pruebas?
 Las variables de instancia de una subclase de \ct{TestCase} en particular no nos sirven, dado que una instancia
 existe s\'olo lo que dura una prueba.
 
