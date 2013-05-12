@@ -526,14 +526,14 @@ Cuando los caracteres \lct{[}, \lct{]}, \lct{(} y \lct{)} rodean algunas palabra
 El siguiente trozo de código no requiere paréntesis porque el envío de mensaje \ct{x isNil} es unario, por lo tanto es enviado antes que el mensaje keyword \ct{ifTrue:}.
 \begin{code}{}
 (x isNil)
-   ifTrue:[...]
+   ifTrue: [...]
 \end{code}
 
 El siguiente trozo de código requiere paréntesis porque los mensajes \ct{includes:} y \ct{ifTrue:} son ambos mensajes keyword.
 \begin{code}{}
 ord := OrderedCollection new.
 (ord includes: $a)
-   ifTrue:[...]
+   ifTrue: [...]
 \end{code}
 \noindent
 Sin los paréntesis el mensaje desconocido \ct{includes:ifTrue:} sería enviado a la colección!

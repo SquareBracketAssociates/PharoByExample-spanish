@@ -575,11 +575,9 @@ MCHttpRepository
 	\figlabel{SqueakSource:PBE}
 \end{figure}
 \noindent
-<<<<<<< HEAD
-Entonces clic en \button{Open} para abrir el navegador de repositorios en este directorio.  Dever\'ias ver algo como \figref{SqueakSource:PBE}.  A la izquierda hay una lista de todos los paquetes en el repositorio; si seleccionas uno, y luego el panel de la derecha se mostrar\'an todas las versiones del paquete seleccionado en este repositorio.
-=======
+
 Entonces haga clic en \button{Open} para abrir el navegador de repositorios en este directorio.  Deber\'ias ver algo como \figref{SqueakSource:PBE}.  A la izquierda hay una lista de todos los paquetes en el repositorio; si seleccionas uno, en el panel de la derecha se mostrar\'an todas las versiones del paquete seleccionado en este repositorio.
->>>>>>> fae0903abd73a5cbb6c5ec65ac2467de50003530
+
 
 Si haz seleccionado una de las versiones, puedes usar el bot\'on \button{Browse} (sin cargarlo en tu imagen), bot\'on \button{Load} , o buscar con el bot\'on \button{Changes} que se har\'an a tu imagen por la carga de la versi\'on seleccionada. Puedes tambi\'en hacer un \button{Copy} de la versi\'on del paquete, que luego puedes escribir en otro repositorio.
 
@@ -996,7 +994,7 @@ As\'i, por ejemplo, podr\'iamos editar el m\'etodo \ct{suffix} para leer de la s
 \needspace{11ex}
 \begin{method}[suffix]{Insertando un \ct{halt} en el m\'etodo \ct{suffix}.}
 suffix
-	"se supone que soy un nombre de archivo, y respondo mi sufijo, la parte despu\'es del \'ultimo punto"
+	"se supone que soy un nombre de archivo, y respondo mi sufijo, la parte despues del ultimo punto"
 	| dot dotPosition |
 	dot := FileDirectory dot first.
 	dotPosition := (self size to: 1 by: -1) detect: [ :i | (self at: i) = dot ].
@@ -1235,8 +1233,8 @@ los botones depende del nombre del archivo seleccionado en el navegador. En
  mostrar\'ia cosas sobre aquellos cambios en el change que generaron conflictos
  con el c\'odigo existente en la imagen, pero no lo hace.
  
-\ab{Does anyone know what it does do?  I've never found it useful.}
-\on{I tried it and found that it complained about linefeeds.}
+%\ab{Does anyone know what it does do?  I've never found it useful.}
+%\on{I tried it and found that it complained about linefeeds.}
 En cambio solo chequea potenciales problemas en el archivo que podr\'ian
 indicar que \'este no puede ser cargado correctamente (como la
 presencia de avances de l\'inea).
@@ -1270,36 +1268,7 @@ de los cuatro paneles te permir\'an tambi\'en importar el change set entero, o
 la correspondiente clase, protocolo, o m\'etodo.
 
 %=========================================================
-<<<<<<< HEAD
-\section{En Smalltalk, no puedes perder c\'odigo}
-\seclabel{cantLoseCode} % (fold)
 
-Es bastante posible romper \pharo: al ser un sistema experimental, \pharo te
-permite cambiar todo, ¡incluyendo cosas que son vitales para hacer que \pharo funcione!
-
-\dothis{Para romper \pharo maliciosamente, intenta \ct{Object become: nil}.}
-
-La buena noticia es que nunca necesitas perder ning\'un trabajo, a\'un si lo
-rompes y vuelves a la \'ultima versi\'on guardada de tu imagen, que puede ser de
-hace horas. Esto es porque todo el c\'odigo que ejecutaste es guardado en el
-archivo \emph{.changes}. ¡Todo! Esto incluye las l\'ineas que evaluas en el
-workspace, asi como el c\'odigo que agregas a una clase mientras programas.
-
-\index{changes}
-
-Entonces, aqui est\'an las instrucciones de como recuperar tu c\'odigo. No hay
-necesidad de leer esto hasta que lo necesites.De cualquier modo, cuando lo
-necesites, lo encontrar\'as aqu\'i esper\'andote.
-
-En el peor caso, puedes usar un editor de texto en el archivo \emph{.changes},
-pero como tiene varios megabytes de tamaño, eso puede ser lento y no es
-recomendado. \pharo ofrece mejores formas.
-
-%---------------------------------------------------------
-\subsection{C\'omo recuperar tu c\'odigo}
-Reinicia \pharo desde la captura más reciente, y selecciona
-\menu{World\go{}Tools \ldots \go{}Recover lost changes}.
-=======
 \section{En Smalltalk, no puedes perder c\'odigo}
 \seclabel{cantLoseCode} % (fold)
 
@@ -1323,7 +1292,7 @@ En el peor caso, puedes usar un editor de texto en el archivo \emph{.changes}, p
 %---------------------------------------------------------
 \subsection{C\'omo obtener el c\'odigo de vuelta}
 Reinicie \pharo desde el m\'as reciente snapshot, y seleccione \menu{World\go{}Tools \ldots \go{}Recover lost changes}.
->>>>>>> fae0903abd73a5cbb6c5ec65ac2467de50003530
+
 %This will open a workspace full of useful expressions. The first three,
 
 %\begin{code}{}
@@ -1351,7 +1320,7 @@ Sin embargo, hay una excepci\'on.
 Creando una clase aparece como un \menu{doIt}.
 \emph{Antes que puedas ingresar en un archivo los m\'etodos de una clase, la clase debe existir.}
 Por lo tanto, si haz creado cuaquiera nueva clase, \emph{primero} ingresa en el archivo la creaci\'on de la clase doIts, luego \menu{remove doIts} e ingresa al archivo los m\'etodos.
-\lr{Tal vez mencionar ese renombre de clase no se registra y agrava enteramente el mecanismo del changes set. (p. 174)}
+
 
 Cuando termino con la recuperaci\'on, me gusta sacar del archivo mi nuevo changes set, salir de \pharo sin guardar la imagen, reiniciar, y asegurarse que los nuevos archivos con el changes set vuelvan de manera limpia.
 % section cantLoseCode (end)

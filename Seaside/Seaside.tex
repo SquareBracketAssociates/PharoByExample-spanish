@@ -42,8 +42,6 @@
 \chapter{Seaside en Ejemplos}
 \chalabel{seaside}
 
-\luq{Otras opción posible para el título podría ser: 'Seaside con Ejemplos'}
-
 %=================================================================
 
 \ind{Seaside} es un marco de trabajo para crear aplicaciones web en Smalltalk. Fue desarrollado originalmente por Avi Bryant \index{Bryant, Avi} en 2002; una vez dominado, Seaside hace las aplicaciones web tan fáciles de escribir como las aplicaciones de escritorio.
@@ -72,7 +70,7 @@ Esto significa que el botón ``volver atrás'' del navegador funciona correctame
 Segundo, gestiona el estado en tu lugar.
 Como el desarrollador, puedes escoger habilitar el seguimiento del estado, para que la navegación ``hacia atrás'' en el tiempo desahaga los efectos laterales.
 Si no, puedes usar el soporte de transacciones incluído en Seaside para evitar que los usuarios deshagan los efectos laterales permanentes cuando usen el botón volver atrás.
-No tienes que codificar la información de estado en la URL\,---\,esto también es gestionado automáticamente por ti
+No tienes que codificar la información de estado en la URL\,---\,esto también es gestionado automáticamente por ti.
 
 Tercero, las páginas web son construídas a partir de componentes anidados, cada uno de los cuales soporta su propio control de flujo independiente.
 No hay plantillas XHTML\,---\,sino que se genera XHTML válido programadamente, usando un sencillo protocolo Smalltalk.
@@ -248,7 +246,7 @@ Si eliminas la aplicación ``config'', puedes recuperarla evaluando
 
 %\ab{This section was too long\,---\,18 pages.  It also contained several self-references (``see section 1.3''). So I broke into smaller sections, by promoting some of the subsections and subsubsections.}
 
-Como hemos mencionado en la sección anterior, las aplicaciones Seaside se construyen con \emph{\subind{Seaside}{componentes}}.
+Como hemos mencionado en la sección anterior, las aplicaciones Seaside se \subind{Seaside}{componentes} construyen con \emph{componentes}.
 Vamos a estudiar detenidamente cómo funciona Seaside implementando el componente \emph{Hello World}.
 
 Todo componente Seaside debe heredar directa o indirectamente de \clsind{WAComponent}, como muestra la figura \figref{WACounter}.
@@ -343,7 +341,7 @@ Cuando el estado de un objeto \mbox{\ct{WACounter}} es reemplazado por un estado
 
 \section{Generando XHTML}
 
-El propósito de una aplicación web es crear o ``presentar'' páginas web.  Como mencionamos en \secref{components}, cada componente Seaside es responsable de presentarse a sí mismo.  
+El propósito de una aplicación web es crear o ``presentar'' páginas web.  Como mencionamos en \secref{componentes}, cada componente Seaside es responsable de presentarse a sí mismo.  
 Así pues, vamos a comenzar nuestra exploración de la presentación viendo cómo el componente contador se presenta a sí mismo.
 
 \subsection{Presentando el Contador}
@@ -416,7 +414,7 @@ En la figura \figref{RenderingDemo} podemo ver la salida de muchos de los pincel
 El componente raíz \ct{SeasideDemo} simplemente presenta sus subcomponentes, que son instancias de \ct{SeasideHtmlDemo}, \ct{SeasideFormDemo}, \ct{SeasideEditCallDemo} y \ct{SeasideDialogDemo}, como se muestra en \mthref{renderdemo}.
 
 \needspace{7ex}
-\begin{code}[renderdemo]{\lct{SeasideDemo>>renderContentOn:}}
+\begin{method}[renderdemo]{\lct{SeasideDemo>>renderContentOn:}}
 SeasideDemo>>>renderContentOn: html
 	html heading: 'Rendering Demo'.
 	html heading
@@ -426,7 +424,7 @@ SeasideDemo>>>renderContentOn: html
 		class: 'subcomponent';
 		with: htmlDemo.
 	"render the remaining components ..."
-\end{code}
+\end{method}
 
 \noindent
 Recuerda que un componente raíz debe siempre declarar sus hijos o Seaside rechazará presentarlos.
@@ -435,8 +433,7 @@ SeasideDemo>>>children
 	^ { htmlDemo . formDemo . editDemo . dialogDemo }
 \end{code}
 
-Ten en cuenta que hay dos formas distintas de instanciar el pincel \ct{heading}.
-La primera forma es establecer el texto directamente enviando el mensaje \ct{heading:}.
+Ten en cuenta que hay dos formas distintas de instanciar el pincel \ct{heading}. La primera forma es establecer el texto directamente enviando el mensaje \ct{heading:}.
 La segunda forma es instanciar el pincel enviando \ct{heading} y entonces enviar una cascada de mensajes al pincel para establecer sus propiedades y presentarlo.
 
 Muchos de los pinceles disponibles pueden usarse de estas dos formas.
